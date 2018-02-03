@@ -1,10 +1,10 @@
-[![返回目录](https://parg.co/UCb)](https://parg.co/UCH)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 [🔆 中文版本](./JavaScript-CheatSheet.md) | [☀️ English Version](./JavaScript-CheatSheet.en.md)
 
 # 现代 JavaScript 语法速览与实战清单
 
-本文是对于现代 JavaScript 的语法速览与实战清单，从属于 [Awesome CheatSheet](https://parg.co/UCH) ，它是对某项技术/领域的语法速览与实践备忘清单集锦，包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://parg.co/bwI)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
+本文是对于现代 JavaScript 的语法速览与实战清单，从属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) ，它是对某项技术/领域的语法速览与实践备忘清单集锦，包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://parg.co/bwI)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
 
 本清单参考了 [30 seconds of code](https://github.com/Chalarangelo/30-seconds-of-code)，[JavaScript hacks for ES6 hipsters](https://parg.co/Uuy), [The Definitive JavaScript Handbook](https://parg.co/UZS), [Modern JavaScript Cheatsheet](https://github.com/mbeaudru/modern-js-cheatsheet) 等。更多 JavaScript 相关学习资料参考 [Awesome JavaScript Reference](https://parg.co/UHR) 与[现代 JavaScript 开发：语法基础与工程实践](https://parg.co/bxN)。
 

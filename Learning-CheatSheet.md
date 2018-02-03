@@ -1,7 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://parg.co/UCH) 
- 
- 
-
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 # 程序员的学习进阶之途
 
@@ -124,29 +121,29 @@
 
 Java
 
-* [A Little Java, A Few Patterns\**](//link.zhihu.com/?target=https%3A//mitpress.mit.edu/books/little-java-few-patterns) - 为什么 Java101 会讲 Expression Problem 跟 Church Numeral 啊。。。这画风有什么地方不对。。。Dan Friedman 出品必属精品
+* [A Little Java, A Few Patterns\*\*](//link.zhihu.com/?target=https%3A//mitpress.mit.edu/books/little-java-few-patterns) - 为什么 Java101 会讲 Expression Problem 跟 Church Numeral 啊。。。这画风有什么地方不对。。。Dan Friedman 出品必属精品
 
 C++
 
-* [From Mathematics to Generic Programming\**](//link.zhihu.com/?target=http%3A//www.fm2gp.com/) - 就是字面意思，慢慢的讲如何实现数学算法，然后引入抽象代数，代码也随之抽象化起来。另：一股 Haskell 的味道扑面而来
+* [From Mathematics to Generic Programming\*\*](//link.zhihu.com/?target=http%3A//www.fm2gp.com/) - 就是字面意思，慢慢的讲如何实现数学算法，然后引入抽象代数，代码也随之抽象化起来。另：一股 Haskell 的味道扑面而来
 
 Haskell - 讲真，那本书都行 - 学 Haskell 无论什么书都会花大幅篇章讲抽象讲 Typeclass，反而是避免 Overgeneralization 需要慢慢去试坑。。。
 
 OCaml
 
-* [Real World OCaml\**](//link.zhihu.com/?target=https%3A//realworldocaml.org/v1/en/html/index.html) - 谈起抽象化，不可能不知道 ML 系的 Module。
+* [Real World OCaml\*\*](//link.zhihu.com/?target=https%3A//realworldocaml.org/v1/en/html/index.html) - 谈起抽象化，不可能不知道 ML 系的 Module。
 
 Lisp
 
-* [The Art of the Metaobject Protocol\**](//link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/The_Art_of_the_Metaobject_Protocol) - Meta Circular Evaluator 爽不？想不想接着爽下去？这本书能让你再爽 300 页。具体的说，跟 Meta Circular Evaluator 有点相似的，MetaObject Protocol 讲的是如何在实现一个语言的时候，把实现的内部机制通过 Object 反射到该语言里面，于是整个语言就变得可扩展的。
+* [The Art of the Metaobject Protocol\*\*](//link.zhihu.com/?target=https%3A//en.wikipedia.org/wiki/The_Art_of_the_Metaobject_Protocol) - Meta Circular Evaluator 爽不？想不想接着爽下去？这本书能让你再爽 300 页。具体的说，跟 Meta Circular Evaluator 有点相似的，MetaObject Protocol 讲的是如何在实现一个语言的时候，把实现的内部机制通过 Object 反射到该语言里面，于是整个语言就变得可扩展的。
 
 Lisp
 
-* [Paradigms of Artificial Intelligence Programming\**](//link.zhihu.com/?target=http%3A//norvig.com/paip.html) - 教你用宏，S 表达式，高阶函数，老式（eliza style ） NLP 接口写 AI
+* [Paradigms of Artificial Intelligence Programming\*\*](//link.zhihu.com/?target=http%3A//norvig.com/paip.html) - 教你用宏，S 表达式，高阶函数，老式（eliza style ） NLP 接口写 AI
 
 Lisp
 
-* [Symbolic Computing contents\**](//link.zhihu.com/?target=https%3A//people.eecs.berkeley.edu/%7Ebh/v1-toc2.html) - 扩展板的 SICP，该有的都有了（宏，高阶函数，Abstract Data Type ），不该有的（划掉）也有，比如 classical AI，海龟画图，PL Design 。。。什么鬼，作为一本 101 书这比 Little Java 还离谱啊（当然这本书比 Little Java 厚的多，Java 也远远没 Logo 有花样）
+* [Symbolic Computing contents\*\*](//link.zhihu.com/?target=https%3A//people.eecs.berkeley.edu/%7Ebh/v1-toc2.html) - 扩展板的 SICP，该有的都有了（宏，高阶函数，Abstract Data Type ），不该有的（划掉）也有，比如 classical AI，海龟画图，PL Design 。。。什么鬼，作为一本 101 书这比 Little Java 还离谱啊（当然这本书比 Little Java 厚的多，Java 也远远没 Logo 有花样）
 
 ## 技术管理
 
