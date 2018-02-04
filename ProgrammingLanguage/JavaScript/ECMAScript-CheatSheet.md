@@ -2,9 +2,9 @@
 
 # ECMAScript 各版本特性概述
 
-> [ECMAScript 2017（ES8 ）特性概述](https://zhuanlan.zhihu.com/p/27844393) 整理自 [ES8 was Released and here are its Main New Features](https://parg.co/b10)，归纳于笔者的[现代 JavaScript 开发：语法基础与实践技巧](https://parg.co/b1c)系列文章中；也欢迎关注[前端每周清单系列](https://parg.co/bh1)获得一手资讯。
+> [ECMAScript 2017（ES8 ）特性概述](https://zhuanlan.zhihu.com/p/27844393) 整理自 [ES8 was Released and here are its Main New Features](https://parg.co/b10)，归纳于笔者的[现代 JavaScript 开发：语法基础与实践技巧](https://parg.co/b1c)系列文章中；也欢迎关注[前端每周清单系列](https://parg.co/bh1)获得一手资讯。更完善的 JavaScript JavaScript 语法速览与实战清单请参考 [JavaScript-CheatSheet](./JavaScript-CheatSheet.md)
 
-# ECMAScript 2017 （ ES8）Features
+# ECMAScript 2017(ES8) Features
 
 ECMAScript 2017 或 ES8 与 2017 年六月底由 TC39 正式发布，可以在[这里](https://www.ecma-international.org/ecma-262/8.0/index.html)浏览完整的版本；而 ES8 中代表性的特征包括了字符串填充、对象值遍历、对象的属性描述符获取、 函数参数列表与调用中的尾部逗号、异步函数、共享内存与原子操作等。
 
@@ -42,42 +42,40 @@ Object.values(obj);
 
 首个参数 `obj` 即为需要遍历的目标对象，它可以为某个对象或者数组（数组可以看做键为下标的对象）：
 
-```
-const obj = { x: 'xxx', y: 1 };
+```js
+const obj = { x: "xxx", y: 1 };
 Object.values(obj); // ['xxx', 1]
 
-
-const obj = ['e', 's', '8']; // same as { 0: 'e', 1: 's', 2: '8' };
+const obj = ["e", "s", "8"]; // same as { 0: 'e', 1: 's', 2: '8' };
 Object.values(obj); // ['e', 's', '8']
-
 
 // when we use numeric keys, the values returned in a numerical
 // order according to the keys
-const obj = { 10: 'xxx', 1: 'yyy', 3: 'zzz' };
+const obj = { 10: "xxx", 1: "yyy", 3: "zzz" };
 Object.values(obj); // ['yyy', 'zzz', 'xxx']
-Object.values('es8'); // ['e', 's', '8']
+Object.values("es8"); // ['e', 's', '8']
 ```
 
 而 `Object.entries` 方法则会将某个对象的可枚举属性与值按照二维数组的方式返回，数组中顺序与 `Object.values` 保持一致，该函数的声明与使用为：
 
-```
-const obj = { x: 'xxx', y: 1 };
+```js
+const obj = { x: "xxx", y: 1 };
 Object.entries(obj); // [['x', 'xxx'], ['y', 1]]
 
-
-const obj = ['e', 's', '8'];
+const obj = ["e", "s", "8"];
 Object.entries(obj); // [['0', 'e'], ['1', 's'], ['2', '8']]
 
-
-const obj = { 10: 'xxx', 1: 'yyy', 3: 'zzz' };
+const obj = { 10: "xxx", 1: "yyy", 3: "zzz" };
 Object.entries(obj); // [['1', 'yyy'], ['3', 'zzz'], ['10': 'xxx']]
-Object.entries('es8'); // [['0', 'e'], ['1', 's'], ['2', '8']]
+Object.entries("es8"); // [['0', 'e'], ['1', 's'], ['2', '8']]
 ```
 
-### 对象的属性描述符获取 `getOwnPropertyDescriptors` 函数会返回指定对象的某个指定属性的描述符；该属性必须是对象自己定义而不是继承自原型链，函数的声明为：
+### 对象的属性描述符获取
 
-```
-Object.getOwnPropertyDescriptor(obj, prop)
+`getOwnPropertyDescriptors` 函数会返回指定对象的某个指定属性的描述符；该属性必须是对象自己定义而不是继承自原型链，函数的声明为：
+
+```js
+Object.getOwnPropertyDescriptor(obj, prop);
 ```
 
 `obj` 即为源对象，而 `prop` 即为需要查看的属性名；结果中包含的键可能有 configurable、enumerable 、 writable、get 、 set 以及 value。
@@ -97,42 +95,39 @@ Object.getOwnPropertyDescriptor(obj, 'es8');
 
 该特性允许我们在定义或者调用函数时添加尾部逗号而不报错：
 
-```
-function es8(var1, var2, var3,) {
-  // ...
-
+```js
+function es8(var1, var2, var3) {
+  // ...
 }
-es8(10, 20, 30,);
+es8(10, 20, 30);
 ```
 
 ### 异步函数
 
 ES8 中允许使用 async/await 语法来定义与执行异步函数，async 关键字会返回某个 AsyncFunction 对象；在内部实现中虽然异步函数与迭代器的实现原理类似，但是其并不会被转化为迭代器函数：
 
-```
+```js
 function fetchTextByPromise() {
-  return new Promise(resolve => {
-    setTimeout(() => {
-      resolve("es8");
-    }, 2000);
-  });
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve("es8");
+    }, 2000);
+  });
 }
 async function sayHello() {
-  const externalFetchedText = await fetchTextByPromise();
-  console.log(`Hello, ${externalFetchedText}`); // Hello, es8
+  const externalFetchedText = await fetchTextByPromise();
+  console.log(`Hello, ${externalFetchedText}`); // Hello, es8
 }
 sayHello();
-
 
 console.log(1);
 sayHello();
 console.log(2);
 
-
 // 调用结果
-1 // immediately
-2 // immediately
-Hello, es8 // after 2 seconds
+1; // immediately
+2; // immediately
+Hello, es8; // after 2 seconds
 ```
 
 ### 共享内存与原子操作
@@ -142,3 +137,5 @@ Hello, es8 // after 2 seconds
 * add /sub - 增加或者减去某个位置的某个值
 * and / or /xor - 进行位操作
 * load - 获取值
+
+# ECMAScript 2018(ES9) Features

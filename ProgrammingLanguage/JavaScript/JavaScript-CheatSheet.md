@@ -153,9 +153,23 @@ const flattenDepth = (arr, depth = 1) =>
 
 ## Definition: 函数定义
 
-### 参数
+基础的函数定义分为了函数表达式(Function Expression)与函数声明(Function Declaration)，函数表达式并不会被提升到作用域首部，而函数声明则会被提升：
 
-ES6 中引入了所谓的默认参数 :
+```js
+// Function Expression
+var sum = function(a, b) {
+  return a + b;
+};
+
+// Function Declaration
+function sum(a, b) {
+  return a + b;
+}
+```
+
+## 参数
+
+ES6 中引入了所谓的默认参数:
 
 ```js
 // 传统的默认参数编写方式
