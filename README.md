@@ -2,7 +2,7 @@
 
 [中文版本](./README.md) | [English Version](./README.en.md)
 
-# [Awesome CheatSheet: 语法速览, 实践备忘，从零到一，上手即用](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+# [Awesome CheatSheet: 语法速览, 实践备忘，从零到一，上手即用 🚀](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 `Copyright © 王下邀月熊`
 
@@ -19,6 +19,8 @@
 # 前言
 
 ## 参考
+
+* [2018-Awesome Cheatsheets](https://github.com/LeCoupa/awesome-cheatsheets): Useful cheatsheets with everything you should know in one single-file. 🚀
 
 ## 版权
 

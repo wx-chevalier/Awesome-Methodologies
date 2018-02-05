@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Awesome CheatSheet: Overview of syntax and features, collection of code snippets, go from zero to hero at fly
+# Awesome CheatSheet: Overview of syntax and features, collection of code snippets in single file, go from zero to hero at fly🚀
 
 `Copyright © Chevalier`
 
