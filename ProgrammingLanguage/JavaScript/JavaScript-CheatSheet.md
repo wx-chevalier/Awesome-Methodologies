@@ -12,6 +12,21 @@
 
 # 表达式与控制流
 
+## 操作符
+
+扩展操作符(Spread Syntax)，即 ...，其允许某个将某个 Iterable 对象扩展到当前位置：
+
+```js
+var mid = [3, 4];
+var arr = [1, 2, ...mid, 5, 6]; // [1, 2, 3, 4, 5, 6]
+
+var arr = [2, 4, 8, 6, 0];
+var max = Math.max(...arr); // 8
+
+var str = "hello";
+var chars = [...str]; // ["h", "e", "l", "l", "o"]
+```
+
 # 基本数据类型
 
 JavaScript 内置了 7 种基础数据类型：null, undefined,

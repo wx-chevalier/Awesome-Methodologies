@@ -34,6 +34,220 @@ docker pull image_name
 docker commit -m “commit message” -a “author”  container_name username/image_name:tag
 ```
 
+# 容器
+
+```sh
+# 设置重启策略
+# Off, On-failure, Unless-stopped, Always
+$ docker run -dit — restart unless-stopped [CONTAINER]
+```
+
+## Volume: 数据卷
+
+容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。数
+
+据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
+
+* 数据卷可以在容器之间共享和重用
+* 对数据卷的修改会立马生效
+* 对数据卷的更新，不会影响镜像
+* 卷会一直存在，直到没有容器使用
+
+* 数据卷的使用，类似于 Linux 下对目录或文件进行 mount。
+
+For example,
+
+```sh
+# the following creates a tmpfs volume called foo with a size of 100 megabyte and uid of 1000.
+docker volume create --driver local \
+    --opt type=tmpfs \
+    --opt device=tmpfs \
+    --opt o=size=100m,uid=1000 \
+    foo
+```
+
+nother example that uses nfs to mount the /path/to/dir in rw mode from 192.168.1.1:
+
+```sh
+docker volume create --driver local \
+    --opt type=nfs \
+    --opt o=addr=192.168.1.1,rw \
+    --opt device=:/path/to/dir \
+    foo
+```
+
+```sh
+docker run -d \
+  -it \
+  --name devtest \
+  -v myvol2:/app \
+  nginx:latest
+```
+
+```json
+"Mounts": [
+    {
+        "Type": "volume",
+        "Name": "myvol2",
+        "Source": "/var/lib/docker/volumes/myvol2/_data",
+        "Destination": "/app",
+        "Driver": "local",
+        "Mode": "",
+        "RW": true,
+        "Propagation": ""
+    }
+],
+```
+
+```sh
+docker system prune -a
+```
+
+Docker `-v` 标记也可以指定挂载一个本地主机的目录 / 文件到容器中去：
+
+```sh
+# 挂载目录
+$ sudo docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py
+
+# 挂载文件
+$ sudo docker run --rm -it -v ~/.bash_history:/.bash_history ubuntu /bin/bash
+
+# Docker 挂载数据卷的默认权限是读写，用户也可以通过 `:ro` 指定为只读。
+$ sudo docker run -d -P --name web -v /src/webapp:/opt/webapp:ro
+training/webapp python app.py
+```
+
+注意：Dockerfile 中不支持这种用法，这是因为 Dockerfile 是为了移植和分享用的。然而，不同操作系统的路径格式不一样，所以目前还不能支持。
+
+```yaml
+VOLUME /data
+```
+
+## Network: 网络
+
+# Orchestration: 编排
+
+## Docker Compose
+
+Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成。
+
+```yaml
+zookeeper:
+  image: wurstmeister/zookeeper
+  ports:
+    - "49181:2181"
+    - "22"
+nimbus:
+  image: wurstmeister/storm-nimbus
+  ports:
+    - "49773:3773"
+    - "49772:3772"
+    - "49627:6627"
+    - "22"
+  links:
+    - zookeeper:zk
+supervisor:
+  image: wurstmeister/storm-supervisor
+  ports:
+    - "8000"
+    - "22"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+ui:
+  image: wurstmeister/storm-ui
+  ports:
+    - "49080:8080"
+    - "22"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+```
+
+在上面的 yaml 文件中，我们可以看到 compose 文件的基本结构。首先是定义一个服务名，下面是 yaml 服务中的一些选项条目：
+
+​ `image`: 镜像的 ID
+
+​ `build`: 直接从 pwd 的 Dockerfile 来 build，而非通过 image 选项来 pull
+
+​ `links`：连接到那些容器。每个占一行，格式为 SERVICE[:ALIAS], 例如 – db[:database]
+
+​ `external_links`：连接到该 compose.yaml 文件之外的容器中，比如是提供共享或者通用服务的容器服务。格式同 links
+
+​ `command`：替换默认的 command 命令
+
+​ `ports`: 导出端口。格式可以是：
+
+```
+ports:
+-"3000"
+    -"8000:8000"
+    -"127.0.0.1:8001:8001"
+```
+
+​ `expose`：导出端口，但不映射到宿主机的端口上。它仅对 links 的容器开放。格式直接指定端口号即可。
+
+​ `volumes`：加载路径作为卷，可以指定只读模式：
+
+```
+volumes:-/var/lib/mysql
+ - cache/:/tmp/cache
+ -~/configs:/etc/configs/:ro
+```
+
+​ `volumes_from`：加载其他容器或者服务的所有卷
+
+```
+environment:- RACK_ENV=development
+  - SESSION_SECRET
+```
+
+​ `env_file`：从一个文件中导入环境变量，文件的格式为 RACK_ENV=development
+
+​ `extends`: 扩展另一个服务，可以覆盖其中的一些选项。一个 sample 如下：
+
+```
+common.yml
+webapp:
+  build:./webapp
+  environment:- DEBUG=false- SEND_EMAILS=false
+development.yml
+web:extends:
+    file: common.yml
+    service: webapp
+  ports:-"8000:8000"
+  links:- db
+  environment:- DEBUG=true
+db:
+  image: postgres
+```
+
+​ `net`：容器的网络模式，可以为 ”bridge”, “none”, “container:[name or id]”, “host” 中的一个。
+
+​ `dns`：可以设置一个或多个自定义的 DNS 地址。
+
+​ `dns_search`: 可以设置一个或多个 DNS 的扫描域。
+
+其他的`working_dir, entrypoint, user, hostname, domainname, mem_limit, privileged, restart, stdin_open, tty, cpu_shares`，和 `docker run`命令是一样的，这些命令都是单行的命令。例如：
+
+```
+cpu_shares:73
+working_dir:/code
+entrypoint: /code/entrypoint.sh
+user: postgresql
+hostname: foo
+domainname: foo.com
+mem_limit:1000000000
+privileged:true
+restart: always
+stdin_open:true
+tty:true
+```
+
+## Docker Swarm
+
+## Docker Stack
+
 ## Dockfile
 
 Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。例如：
@@ -283,211 +497,3 @@ docker exec -ti container_name command.sh
 # 查看某个容器的输出日志
 docker logs -ft container_name
 ```
-
-# 容器
-
-## Volume: 数据卷
-
-容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。数
-
-据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
-
-* 数据卷可以在容器之间共享和重用
-* 对数据卷的修改会立马生效
-* 对数据卷的更新，不会影响镜像
-* 卷会一直存在，直到没有容器使用
-
-* 数据卷的使用，类似于 Linux 下对目录或文件进行 mount。
-
-For example,
-
-```sh
-# the following creates a tmpfs volume called foo with a size of 100 megabyte and uid of 1000.
-docker volume create --driver local \
-    --opt type=tmpfs \
-    --opt device=tmpfs \
-    --opt o=size=100m,uid=1000 \
-    foo
-```
-
-nother example that uses nfs to mount the /path/to/dir in rw mode from 192.168.1.1:
-
-```sh
-docker volume create --driver local \
-    --opt type=nfs \
-    --opt o=addr=192.168.1.1,rw \
-    --opt device=:/path/to/dir \
-    foo
-```
-
-```sh
-docker run -d \
-  -it \
-  --name devtest \
-  -v myvol2:/app \
-  nginx:latest
-```
-
-```json
-"Mounts": [
-    {
-        "Type": "volume",
-        "Name": "myvol2",
-        "Source": "/var/lib/docker/volumes/myvol2/_data",
-        "Destination": "/app",
-        "Driver": "local",
-        "Mode": "",
-        "RW": true,
-        "Propagation": ""
-    }
-],
-```
-
-```sh
-docker system prune -a
-```
-
-Docker `-v` 标记也可以指定挂载一个本地主机的目录 / 文件到容器中去：
-
-```sh
-# 挂载目录
-$ sudo docker run -d -P --name web -v /src/webapp:/opt/webapp training/webapp python app.py
-
-# 挂载文件
-$ sudo docker run --rm -it -v ~/.bash_history:/.bash_history ubuntu /bin/bash
-
-# Docker 挂载数据卷的默认权限是读写，用户也可以通过 `:ro` 指定为只读。
-$ sudo docker run -d -P --name web -v /src/webapp:/opt/webapp:ro
-training/webapp python app.py
-```
-
-注意：Dockerfile 中不支持这种用法，这是因为 Dockerfile 是为了移植和分享用的。然而，不同操作系统的路径格式不一样，所以目前还不能支持。
-
-```yaml
-VOLUME /data
-```
-
-## Network: 网络
-
-# Orchestration: 编排
-
-## Docker Compose
-
-Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成。
-
-```yaml
-zookeeper:
-  image: wurstmeister/zookeeper
-  ports:
-    - "49181:2181"
-    - "22"
-nimbus:
-  image: wurstmeister/storm-nimbus
-  ports:
-    - "49773:3773"
-    - "49772:3772"
-    - "49627:6627"
-    - "22"
-  links:
-    - zookeeper:zk
-supervisor:
-  image: wurstmeister/storm-supervisor
-  ports:
-    - "8000"
-    - "22"
-  links:
-    - nimbus:nimbus
-    - zookeeper:zk
-ui:
-  image: wurstmeister/storm-ui
-  ports:
-    - "49080:8080"
-    - "22"
-  links:
-    - nimbus:nimbus
-    - zookeeper:zk
-```
-
-在上面的 yaml 文件中，我们可以看到 compose 文件的基本结构。首先是定义一个服务名，下面是 yaml 服务中的一些选项条目：
-
-​ `image`: 镜像的 ID
-
-​ `build`: 直接从 pwd 的 Dockerfile 来 build，而非通过 image 选项来 pull
-
-​ `links`：连接到那些容器。每个占一行，格式为 SERVICE[:ALIAS], 例如 – db[:database]
-
-​ `external_links`：连接到该 compose.yaml 文件之外的容器中，比如是提供共享或者通用服务的容器服务。格式同 links
-
-​ `command`：替换默认的 command 命令
-
-​ `ports`: 导出端口。格式可以是：
-
-```
-ports:
--"3000"
-    -"8000:8000"
-    -"127.0.0.1:8001:8001"
-```
-
-​ `expose`：导出端口，但不映射到宿主机的端口上。它仅对 links 的容器开放。格式直接指定端口号即可。
-
-​ `volumes`：加载路径作为卷，可以指定只读模式：
-
-```
-volumes:-/var/lib/mysql
- - cache/:/tmp/cache
- -~/configs:/etc/configs/:ro
-```
-
-​ `volumes_from`：加载其他容器或者服务的所有卷
-
-```
-environment:- RACK_ENV=development
-  - SESSION_SECRET
-```
-
-​ `env_file`：从一个文件中导入环境变量，文件的格式为 RACK_ENV=development
-
-​ `extends`: 扩展另一个服务，可以覆盖其中的一些选项。一个 sample 如下：
-
-```
-common.yml
-webapp:
-  build:./webapp
-  environment:- DEBUG=false- SEND_EMAILS=false
-development.yml
-web:extends:
-    file: common.yml
-    service: webapp
-  ports:-"8000:8000"
-  links:- db
-  environment:- DEBUG=true
-db:
-  image: postgres
-```
-
-​ `net`：容器的网络模式，可以为 ”bridge”, “none”, “container:[name or id]”, “host” 中的一个。
-
-​ `dns`：可以设置一个或多个自定义的 DNS 地址。
-
-​ `dns_search`: 可以设置一个或多个 DNS 的扫描域。
-
-其他的`working_dir, entrypoint, user, hostname, domainname, mem_limit, privileged, restart, stdin_open, tty, cpu_shares`，和 `docker run`命令是一样的，这些命令都是单行的命令。例如：
-
-```
-cpu_shares:73
-working_dir:/code
-entrypoint: /code/entrypoint.sh
-user: postgresql
-hostname: foo
-domainname: foo.com
-mem_limit:1000000000
-privileged:true
-restart: always
-stdin_open:true
-tty:true
-```
-
-## Docker Swarm
-
-## Docker Stack
