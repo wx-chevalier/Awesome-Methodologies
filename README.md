@@ -2,7 +2,7 @@
 
 [中文版本](./README.md) | [English Version](./README.en.md)
 
-# [Awesome CheatSheet: 语法速览, 实践备忘，从零到一，上手即用 🚀](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+# [Awesome CheatSheet: 语法速览，实践备忘，从零到一，上手即用 🚀](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 `Copyright © 王下邀月熊`
 
@@ -11,8 +11,6 @@
 * {Something}-CheatSheet.md: 对于 {Something} 的语法以及特性速览。
 
 * {Something}-Snippets-CheatSheet.md: 有用的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
-
-* {Something}-Interview-CheatSheet.md: 对于 {Something} 的学习路径与心得分享，帮助初学者快速入门。
 
 * {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
 
