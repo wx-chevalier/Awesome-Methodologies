@@ -1,4 +1,10 @@
-# Go CheatSheet
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
+# Go 语法速览与实践清单
+
+# 表达式与控制流
+
+## 变量声明与赋值
 
 ```go
 // 声明三个变量，皆为 bool 类型
@@ -17,3 +23,13 @@ var (
 // 短声明变量
 c, python, java := true, false, "no!"
 ```
+
+# 数据结构
+
+## 基本数据类型
+
+# 流程与函数
+
+# 并发编程
+
+# Web 编程

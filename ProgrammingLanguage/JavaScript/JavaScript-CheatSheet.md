@@ -23,7 +23,7 @@ var arr = [1, 2, ...mid, 5, 6]; // [1, 2, 3, 4, 5, 6]
 var arr = [2, 4, 8, 6, 0];
 var max = Math.max(...arr); // 8
 
-var str = "hello";
+var str = 'hello';
 var chars = [...str]; // ["h", "e", "l", "l", "o"]
 ```
 
@@ -34,10 +34,10 @@ JavaScript 内置了 7 种基础数据类型：null, undefined,
 ```js
 typeof 0; // number
 typeof true; // boolean
-typeof "Hello"; // string
+typeof 'Hello'; // string
 typeof Math; // object
 typeof null; // object  !!
-typeof Symbol("Hi"); // symbol (New ES6)
+typeof Symbol('Hi'); // symbol (New ES6)
 ```
 
 ## 类型判断与变量比较
@@ -69,22 +69,22 @@ NaN == NaN
 const regexLiteral = /cat/;
 
 // Regular Expression Constructor
-const regexConstructor = new RegExp("cat");
+const regexConstructor = new RegExp('cat');
 ```
 
 正则表达式可以用来判断元素存在性，用于字符串替换等：
 
 ```js
-const str1 = "the cat says meow";
+const str1 = 'the cat says meow';
 const hasCat = /cat/;
 hasCat.test(str1);
 // true
 
 function removeCc(str) {
-  return str.replace(/([A-Z])/g, " $1");
+  return str.replace(/([A-Z])/g, ' $1');
 }
-removeCc("camelCase"); // 'camel Case'
-removeCc("helloWorldItIsMe"); // 'hello World It Is Me'
+removeCc('camelCase'); // 'camel Case'
+removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
 ```
 
 * Symbols
@@ -189,18 +189,18 @@ ES6 中引入了所谓的默认参数:
 ```js
 // 传统的默认参数编写方式
 function filterEvil(array, evil) {
-  evil = evil || "darth vader";
+  evil = evil || 'darth vader';
   return array.filter(item => item !== evil);
 }
 
 // ES6 默认参数
-function filterEvil(array, evil = "darth vader") {
+function filterEvil(array, evil = 'darth vader') {
   return array.filter(item => item !== evil);
 }
 
 // 默认参数可以用来进行必要参数检测
 const isRequired = () => {
-  throw new Error("param is required");
+  throw new Error('param is required');
 };
 
 function filterEvil(array, evil = isRequired()) {
@@ -213,8 +213,8 @@ function filterEvil(array, evil = isRequired()) {
 可以使用 apply 来连接两个数组：
 
 ```js
-let countries = ["Moldova", "Ukraine"];
-let otherCountries = ["USA", "Japan"];
+let countries = ['Moldova', 'Ukraine'];
+let otherCountries = ['USA', 'Japan'];
 countries.push.apply(countries, otherCountries);
 console.log(countries); // => ['Moldova', 'Ukraine', 'USA', 'Japan']
 ```
@@ -308,13 +308,13 @@ import foo, * as bar, {baz as xyz} from "foo";
 
 ```js
 try {
-  let hello = prompt("Type hello");
-  if (hello !== "hello") {
+  let hello = prompt('Type hello');
+  if (hello !== 'hello') {
     throw new Error("Oops, you didn't type hello");
   }
 } catch (e) {
   alert(e.message);
 } finally {
-  alert("thanks for playing!");
+  alert('thanks for playing!');
 }
 ```

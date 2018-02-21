@@ -3,12 +3,12 @@
 参考了 [Let's Learn TypeScript](https://parg.co/Uik)
 
 ```ts
-import * as React from "react";
-import formatPrice from "../utils/formatPrice";
+import * as React from 'react';
+import formatPrice from '../utils/formatPrice';
 
 export interface IPriceProps {
   num: number;
-  symbol: "$" | "€" | "£";
+  symbol: '$' | '€' | '£';
 }
 
 const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
