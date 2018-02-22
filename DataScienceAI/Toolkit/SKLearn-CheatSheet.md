@@ -1,7 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet) 
- 
- 
-> [Scikit-Learn 备忘录](https://zhuanlan.zhihu.com/p/24770526)整理自[Scikit_Learn_Cheat_Sheet_Python](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Scikit_Learn_Cheat_Sheet_Python.pdf)，归属于笔者的[程序猿的数据科学与机器学习实战手册](https://github.com/wxyyxc1992/DataScience-And-MachineLearning-Handbook-For-Coders)，前置阅读 [Python 语法速览与机器学习开发环境搭建](https://zhuanlan.zhihu.com/p/24536868)。
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 # Scikit-Learn
 
@@ -9,7 +6,7 @@ Scikit-learn 是开源的 Python 机器学习库，提供了数据预处理、�
 
 ## Basic Example:基本用例
 
-```
+```py
 >>> from sklearn import neighbors, datasets, preprocessing
 >>> from sklearn.cross_validation import train_test_split
 >>> from sklearn.metrics import accuracy_score
@@ -29,7 +26,7 @@ Scikit-learn 是开源的 Python 机器学习库，提供了数据预处理、�
 
 我们一般使用 NumPy 中的数组或者 Pandas 中的 DataFrame 等数据结构来存放数据：
 
-```
+```py
 >>> import numpy as np
 >>> X = np.random.random((10,5))
 >>> y = np.array(['M','M','F','F','M','F','M','M','F','F','F'])
@@ -38,7 +35,7 @@ Scikit-learn 是开源的 Python 机器学习库，提供了数据预处理、�
 
 NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
-```
+```py
 >>> from sklearn.cross_validation import train_test_split
 >>> X_train, X_test, y_train, y_test = train_test_split(X,
  y, random_state=0)
@@ -52,14 +49,14 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
 * Linear Regression
 
-```
+```py
 >>> from sklearn.linear_model import LinearRegression
 >>> lr = LinearRegression(normalize=True)
 ```
 
 * Support Vector Machines
 
-```
+```py
 >>> from sklearn.svm import SVC
 >>> svc = SVC(kernel='linear')
 ```
