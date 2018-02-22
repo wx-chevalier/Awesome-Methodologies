@@ -4,7 +4,7 @@
 
 `Copyright © Chevalier`
 
-* {Something}-CheatSheet.md: Overview of syntax, features and practical tips for {Something}
+* {Something}-CheatSheet.md: Overview of syntax, features, practical tips, and tech stack for {Something}
 
 * {Something}-Snippets-CheatSheet.en: Curated collection of useful {Something} snippets that you can understand at once and apply for work.
 

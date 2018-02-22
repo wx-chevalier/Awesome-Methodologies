@@ -8,7 +8,7 @@
 
 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 是对某项技术/领域的语法速览与实践备忘清单集锦，包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://parg.co/bwI)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
 
-* {Something}-CheatSheet.md: 对于 {Something} 的语法以及特性速览。
+* {Something}-CheatSheet.md: 对于 {Something} 的语法特性，实践技巧，技术栈进行速览与盘点。
 
 * {Something}-Snippets-CheatSheet.md: 有用的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
 
@@ -44,9 +44,9 @@
 
 * [ECMAScript CheatSheet](./ProgrammingLanguage/JavaScript/ECMAScript-CheatSheet.md): ECMAScript 各版本特性概述
 
-- [JavaScript FunctionalProgramming CheatSheet](./ProgrammingLanguage/JavaScript/Syntax/JavaScript-FunctionalProgramming-CheatSheet.md): Functional Programming Jargon: 函数式编程术语解释
+* [JavaScript FunctionalProgramming CheatSheet](./ProgrammingLanguage/JavaScript/Syntax/JavaScript-FunctionalProgramming-CheatSheet.md): Functional Programming Jargon: 函数式编程术语解释
 
-- [JavaScript Snippets CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-Snippets-CheatSheet.md): JavaScript 代码片
+* [JavaScript Snippets CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-Snippets-CheatSheet.md): JavaScript 代码片
 
 ### Python
 

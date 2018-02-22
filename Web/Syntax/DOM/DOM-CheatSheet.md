@@ -5,7 +5,7 @@ const bodyRect = document.body.getBoundingClientRect(),
   elemRect = element.getBoundingClientRect(),
   offset = elemRect.top - bodyRect.top;
 
-console.log("Element is " + offset + " vertical pixels from <body>");
+console.log('Element is ' + offset + ' vertical pixels from <body>');
 ```
 
 ```js
@@ -29,14 +29,14 @@ var sheet = document.styleSheets[0];
 In many cases, it may just be best to create a new STYLE element for your dynamic rules.  This is quite easy:*/
 var sheet = (function() {
   // Create the <style> tag
-  var style = document.createElement("style");
+  var style = document.createElement('style');
 
   // Add a media (and/or media query) here if you'd like!
   // style.setAttribute("media", "screen")
   // style.setAttribute("media", "@media only screen and (max-width : 1024px)")
 
   // WebKit hack :(
-  style.appendChild(document.createTextNode(""));
+  style.appendChild(document.createTextNode(''));
 
   // Add the <style> element to the page
   document.head.appendChild(style);
@@ -46,28 +46,28 @@ var sheet = (function() {
 
 /* Adding Rules
 CSSStyleSheet objects have an addRule method which allows you to register CSS rules within the stylesheet.  The addRule method accepts three arguments:  the selector, the second the CSS code for the rule, and the third is the zero-based integer index representing the style position (in relation to styles of the same selector): */
-sheet.addRule("#myList li", "float: left; background: red !important;", 1);
+sheet.addRule('#myList li', 'float: left; background: red !important;', 1);
 
 /* Inserting Rules
 Stylesheets also have an insertRule method which isn't available in earlier IE's.  The insertRule combines the first two arguments of addRule: */
-sheet.insertRule("header { float: left; opacity: 0.8; }", 1);
+sheet.insertRule('header { float: left; opacity: 0.8; }', 1);
 
 /* Safely Applying Rules
 Since browser support for insertRule isn't as global, it's best to create a wrapping function to do the rule application.  Here's a quick and dirty method: */
 function addCSSRule(sheet, selector, rules, index) {
   if (sheet.insertRule) {
-    sheet.insertRule(selector + "{" + rules + "}", index);
+    sheet.insertRule(selector + '{' + rules + '}', index);
   } else {
     sheet.addRule(selector, rules, index);
   }
 }
 
 // Use it!
-addCSSRule(document.styleSheets[0], "header", "float: left");
+addCSSRule(document.styleSheets[0], 'header', 'float: left');
 
 /* Inserting Rules for Media Queries
 Media query-specific rules can be added in one of two ways. The first way is through the standard insertRule method: */
 sheet.insertRule(
-  "@media only screen and (max-width : 1140px) { header { display: none; } }"
+  '@media only screen and (max-width : 1140px) { header { display: none; } }'
 );
 ```
