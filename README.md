@@ -10,7 +10,7 @@
 
 * {Something}-CheatSheet.md: 对于 {Something} 的语法特性，实践技巧，技术栈进行速览与盘点。
 
-* {Something}-Snippets-CheatSheet.md: 有用的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
+* {Something}-Snippets-CheatSheet.md: 有用的/令人吃惊的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
 
 * {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
 
