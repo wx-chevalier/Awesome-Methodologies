@@ -104,7 +104,7 @@ public class Main {
 
 ####  按单词的字符串反转:
 
-```
+```java
 public class Main {
 
 public static void main(String[] args) {

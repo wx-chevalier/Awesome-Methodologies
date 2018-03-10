@@ -1126,3 +1126,434 @@ git branch -m master  # Rename the current branch to master
 git push -f origin master  # Force push master branch to github
 git gc --aggressive --prune=all     # remove the old files
 ```
+
+### Clone from GIT and develop
+
+```
+git clone https://github.com/wahengchang/testgit
+```
+
+```
+git fetch origin
+```
+
+```
+git add .
+```
+
+```
+git commit -m “edited by 2”
+```
+
+```
+git push origin
+```
+
+### Pull from remote
+
+```
+git pull origin branch1
+```
+
+```
+//To see change on remote
+```
+
+```
+//Check if it is out of data
+```
+
+```
+git remote show origin
+```
+
+The last push information
+
+```
+git show-branch *feature1
+```
+
+```
+add and switch to New Branch
+```
+
+```
+git branch feature1
+```
+
+```
+git checkout feature1
+```
+
+### Branch Merge to Master
+
+```
+git checkout master
+```
+
+```
+git merge feature1
+```
+
+```
+git push origin master
+```
+
+### Switch branch
+
+```
+git branch
+```
+
+```
+git branch -v
+```
+
+```
+git branch feature1
+```
+
+```
+git checkout feature1
+```
+
+### List committed files
+
+```
+git show — name-only
+```
+
+### To see change on local unPush commit
+
+```
+git log origin/feature1..HEAD
+```
+
+```
+git diff origin/feature1..HEAD
+```
+
+```
+git diff — name-only
+```
+
+### Cancel unPush commit ( multi cancel, keep changes)
+
+```
+git reset
+```
+
+```
+//or
+```
+
+```
+git reset filename
+```
+
+```
+//or
+```
+
+```
+git log origin/feature1..HEAD
+```
+
+### Confirm to remove (local delete, remotely existed)
+
+```
+git rm fileName
+```
+
+```
+//Revert push
+```
+
+```
+git revert origin
+```
+
+### Undo push , Unpush
+
+```
+git reset — hard HEAD@{1}
+```
+
+```
+git push -f origin
+```
+
+### Deploy from local branch->remote branch
+
+```
+git push origin dev:master
+```
+
+### Go back to certain commit from different branch
+
+```
+git cherry-pick cb7dfbcfa988a11f0ba1ea9b37a9ec32ce02a674
+```
+
+### Go back to certain commit
+
+```
+git reset cb7dfbcfa988a11f0ba1ea9b37a9ec32ce02a674
+```
+
+### Stash all file, and pop
+
+```
+git stash
+```
+
+```
+git stash pop
+```
+
+### You have not concluded your merge (MERGE_HEAD exists).
+
+```
+git merge — abort
+```
+
+```
+git reset — merge
+```
+
+```
+git add .
+```
+
+```
+git commit -m “”
+```
+
+```
+git push origin
+```
+
+```
+//conflict
+```
+
+```
+git add .
+```
+
+```
+git commit -m “merge”
+```
+
+```
+git push origin
+```
+
+### Sync local branch
+
+remove no-use branch
+
+```
+git remote prune origin
+```
+
+#### Rewrite History
+
+```
+git rebase -i HEAD~4
+```
+
+\# change “pick” to “r”
+
+![img](https://cdn-images-1.medium.com/max/1600/0*ADGgEpRZXp5KxXU3.png)
+
+\#change the old logs to new logs
+
+![img](https://cdn-images-1.medium.com/max/1600/0*VfkqJlZGBqj8iS0S.png)
+
+### Pull(checkout) PR to local
+
+```
+git checkout -b xxx prBranchName
+git pull git@gsomething:someone/repo-name
+```
+
+After Fix conflict
+
+```
+git checkout originBranchName
+git merge --no-ff prBranchName
+git push origin originBranchName
+```
+
+对于新手而言，在日常工作中还是尽量使用界面工具，避免意外操作。[SourceTree]()、[GitHub Desktop]()
+
+# Configuration: 配置
+
+```sh
+# 配置 HTTP 代理
+git config --global http.proxy http://127.0.0.1:1080
+
+git config --global https.proxy https://127.0.0.1:1080
+
+# 配置 Socks 代理
+git config --global http.proxy 'socks5://127.0.0.1:1080'
+
+git config --global https.proxy 'socks5://127.0.0.1:1080'
+
+# 取消代理
+git config --global --unset http.proxy
+
+git config --global --unset https.proxy
+
+git config --global http.sslVerify false
+```
+
+## Repository: 仓库
+
+## Alias: 命令别名
+
+```s
+gitalias['alias.cp']='cherry-pick'
+gitalias['alias.st']='status -sb'
+gitalias['alias.cl']='clone'
+gitalias['alias.ci']='commit'
+gitalias['alias.co']='checkout'
+gitalias['alias.br']='branch'
+gitalias['alias.dc']='diff --cached'
+gitalias['alias.lg']="log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all"
+gitalias['alias.last']='log -1 --stat'
+gitalias['alias.unstage']='reset HEAD --'
+```
+
+# 状态
+
+## 版本与版本树
+
+```sh
+# 命令行中查看版本树
+$ git log --pretty=oneline --graph --decorate --all
+
+# 内置的可视化界面查看版本树
+$ gitk --all
+
+# 根据提交人过滤 Commit 信息
+$ git log --author="username" --pretty=format:"%h - %an, %ar : %s"
+```
+
+## Commit History: 查看提交历史
+
+* 提交历史文件
+
+```sh
+# 管道命令，可用于脚本
+$ git diff-tree --no-commit-id --name-only -r bd61ad98
+
+# 查看某次提交中修改的文件
+$ git show --pretty="" --name-only bd61ad98
+```
+
+# Local Commit: 本地提交
+
+## 提交撤销与合并
+
+首先查看本地的 Commit 历史：
+
+```sh
+$ git log --pretty=oneline
+
+a931ac7c808e2471b22b5bd20f0cad046b1c5d0d c
+b76d157d507e819d7511132bdb5a80dd421d854f b
+df239176e1a2ffac927d8b496ea00d5488481db5 a
+```
+
+运行 Git Rebase:
+
+```sh
+# 使用 Git Rebase，对最后两个提交进行操作
+git rebase --interactive HEAD~2
+```
+
+```s
+pick b76d157 b
+squash a931ac7 c //change pick to squash
+
+# Rebase df23917..a931ac7 onto df23917
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+# However, if you remove everything, the rebase will be aborted.
+#
+```
+
+and save-quitting your editor, you’ll get another editor whose contents are
+
+```s
+# This is a combination of 2 commits.
+# The first commit's message is:
+
+b
+
+# This is the 2nd commit message:
+
+c
+```
+
+done
+
+```s
+$ git log --pretty=oneline
+18fd73d3ce748f2a58d1b566c03dd9dafe0b6b4f b and c
+df239176e1a2ffac927d8b496ea00d5488481db5 a
+```
+
+## Stash: 暂存
+
+git stash -- The command saves your local modifications away and reverts the working directory to match the HEAD commit. It allows you to store your uncommited modifications into a buffer area called stash, and deletes it from the branch you are working on. You may later retreive them by applying the stash.
+
+# Branch: 分支与合并
+
+Git 中的分支实际上只是 Commit 指针。
+
+## Operation: 操作
+
+```sh
+# 创建某个分支
+git branch BRANCH_NAME
+
+# 创建并且切换到某个分支
+git checkout -b BRANCH_NAME
+```
+
+## Merge
+
+## Cherry Pick
+
+git cherry-pick 可以选择某一个分支中的一个或几个 commit(s) 来进行操作，譬如我们存在多个稳定开发版本，在不能完全合并分支的情况下又想把某些功能合入到某个分支，那就可以利用 cherry-pick 对已经存在的 commit 进行再次提交。注意，当执行完 cherry-pick 以后，将会生成一个新的提交；这个新的提交的哈希值和原来的不同，但标识名一样。
+
+```sh
+# 选择某个其他分支的 commit 合并到当前分支
+$ git cherry-pick <commit id>
+
+# 如果出现冲突，则类似于 Rebase 进行解决
+# 手动查看冲突文件
+$ git status
+
+# 设置文件已经解决冲突
+$ git add ...
+
+# 设置 cherry-pick 继续执行
+$ git cherry-pick --continue
+$ git cherry-pick --quit
+$ git cherry-pick --abort
+```
+
+## Rebase
+
+顾名思义，Rebase（变基）有移花接木之效果，能将特性分支移接到主分支之上，常用于优化提交历史，或者修改本地的提交信息（见上文）。
