@@ -1,8 +1,18 @@
-﻿> [面试算法实践与国外大厂习题指南](https://zhuanlan.zhihu.com/p/25719965) 翻译自 [Kevin Naughton Jr.](https://github.com/kdn251) 维护的仓库 [interviews](http://6me.us/TJOi)，包含了在线练习、算法概述与大厂习题实战等内容。笔者发现正好和之前翻译的 [Java 语法清单](https://zhuanlan.zhihu.com/p/25578170) 以及 [Java 进阶面试问题列表](https://zhuanlan.zhihu.com/p/24910702) 构成面试准备的一些资料合集，从属于笔者的 [Java 入门与实践](http://6me.us/2py)系列。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/1/2/1--hRBr9wXEoFe_3TuTpuDVA.jpeg)
+﻿[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 # 面试算法实践与国外大厂习题指南
+
+| Algorithm                                                                                                                               | Preprocessing time   | Matching time[[1\]](https://en.wikipedia.org/wiki/String_searching_algorithm#endnote_Asymptotic_times) |
+| --------------------------------------------------------------------------------------------------------------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------ |
+| Naïve string search algorithm                                                                                                           | 0 (no preprocessing) | Θ(nm)                                                                                                  |
+| [Rabin–Karp string search algorithm](https://en.wikipedia.org/wiki/Rabin%E2%80%93Karp_string_search_algorithm)                          | Θ(m)                 | average Θ(n + m),worst Θ((n−m)m)                                                                       |
+| [Finite-state automaton](https://en.wikipedia.org/wiki/Finite-state_machine) based search                                               | Θ(mk)                | Θ(n)                                                                                                   |
+| [Knuth–Morris–Pratt algorithm](https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm)                              | Θ(m)                 | Θ(n)                                                                                                   |
+| [Boyer–Moore string search algorithm](https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string_search_algorithm)                        | Θ(m + k)             | best Ω(n/m),worst O(mn)                                                                                |
+| [Bitap algorithm](https://en.wikipedia.org/wiki/Bitap_algorithm) (_shift-or_, _shift-and_, _Baeza–Yates–Gonnet_)                        | Θ(m + k)             | O(mn)                                                                                                  |
+| [Two-way string-matching algorithm](https://en.wikipedia.org/w/index.php?title=Two-way_string-matching_algorithm&action=edit&redlink=1) | Θ(m)                 | O(n+m)                                                                                                 |
+| BNDM (Backward Non-Deterministic Dawg Matching)                                                                                         | O(m)                 | O(n)                                                                                                   |
+| BOM (Backward Oracle Matching)                                                                                                          | O(m)                 | O(n)                                                                                                   |
 
 ## 在线练习
 
