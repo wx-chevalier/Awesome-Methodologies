@@ -25,7 +25,13 @@ public final static class VolatileLong
 }
 ```
 
-多线程
+注释前后程序的执行时间可能有数倍差距，一条缓存行有64字节, 而Java程序的对象头固定占8字节(32位系统)或12字节(64位系统默认开启压缩, 不开压缩为16字节)。我们只需要填6个无用的长整型补上`6*8=48`字节, 让不同的VolatileLong对象处于不同的缓存行, 就可以避免伪共享了(64位系统超过缓存行的64字节也无所谓,只要保证不同线程不要操作同一缓存行就可以). 这个办法叫做补齐(Padding).某些Java编译器会将没有使用到的补齐数据, 即示例代码中的6个长整型在编译时优化掉, 可以在程序中加入一些代码防止被编译优化。
+
+```java
+public static long preventFromOptimization(VolatileLong v) {
+	return v.p1 + v.p2 + v.p3 + v.p4 + v.p5 + v.p6;
+}
+```
 
 # Concurrent Primitive: 并发单元
 
