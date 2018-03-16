@@ -146,3 +146,5 @@ $ tar -rf archive.tar file3.txt
 # 展示 curl 的进度
 $ curl --progress-bar -T "${SOME_LARGE_FILE}" "${UPLOAD_URL}" | tee /dev/null
 ```
+
+[fkill](https://github.com/sindresorhus/fkill)
