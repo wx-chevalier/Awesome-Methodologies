@@ -6,7 +6,7 @@
 
 `Copyright © 王下邀月熊`
 
-[Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 是 [Awesome KnowledgeMap](https://github.com/wxyyxc1992/Awesome-KnowledgeMap) 系列的重要组成，是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://github.com/wxyyxc1992/Awesome-KnowledgeMap/tree/master/MindMap)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
+[Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 是 [Awesome-Coder](https://github.com/wxyyxc1992/Awesome-Coder) 系列的重要组成，是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://github.com/wxyyxc1992/Awesome-Coder/tree/master/MindMap)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
 
 * {Something}-CheatSheet.md: 对于 {Something} 的语法特性，实践技巧，技术栈进行速览与盘点。
 
