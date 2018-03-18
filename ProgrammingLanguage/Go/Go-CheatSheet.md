@@ -6,6 +6,25 @@
 
 环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名（文件夹名）一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件（夹）。
 
+```go
+package main
+
+import "github.com/astaxie/beego"
+
+func main() {
+	beego.Run()
+}
+```
+
+Go 并没有相对路径引入，而是以文件夹为单位定义模块，譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。外部引用该模块是需要使用工作区间或者 vendor 相对目录，其目录索引情况如下：
+
+```sh
+cannot find package "sub/math" in any of:
+    ${PROJECTROOT}/vendor/sub/math (vendor tree)
+    /usr/local/Cellar/go/1.10/libexec/src/sub/math (from $GOROOT)
+    ${GOPATH}/src/sub/math (from $GOPATH)
+```
+
 # 表达式与控制流
 
 ## 变量声明与赋值

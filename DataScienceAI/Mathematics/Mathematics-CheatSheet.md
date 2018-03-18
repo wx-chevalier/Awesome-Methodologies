@@ -1,15 +1,12 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet) 
- 
- 
-
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 # 微积分
 
 ### 两边夹定理
 
-当$x \in U(x_0,r)$时，有$g(x) \le f(x) \le h(x)$成立，并且如果$\lim_{x->x_0}g(x)=A$ $\lim_{x->x_0}g(x)=A$，那么有：
+当$x \in U(x*0,r)$时，有$g(x) \le f(x) \le h(x)$成立，并且如果$\lim*{x->x*0}g(x)=A$ $\lim*{x->x_0}g(x)=A$，那么有：
 
-​                                                  $\lim_{x->x_0}f(x)=A$
+​ $\lim\_{x->x_0}f(x)=A$
 
 ### 极限存在定理
 
@@ -21,11 +18,11 @@
 
 ![](http://d.hiphotos.baidu.com/baike/c0%3Dbaike92%2C5%2C5%2C92%2C30/sign=51054ce208d162d991e36a4e70b6c289/e61190ef76c6a7ef9d16aa00fffaaf51f3de66e7.jpg)
 
-### Taylor公式 - Maclaurin公式
+### Taylor 公式 - Maclaurin 公式
 
 $f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \cdots + \\ \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_n(x)$
 
-而Maclaurin公式就是当$x_0 = 0$的时候的Taylor公式
+而 Maclaurin 公式就是当$x_0 = 0$的时候的 Taylor 公式
 
 $f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \cdots + \frac{f^{(n)}(0)}{n!}x^n + o(x^n)$
 
@@ -51,17 +48,15 @@ $f(\theta x + (1 - \theta)y) \le \theta f(x) + (1 - \theta)f(y)$
 
 凸函数在高等数学中有时候被称为凹函数，但是在机器学习中统一称为凸函数。一元二阶可微的函数在区间上是凸的，当且仅当它的二阶导数是非负的。
 
-
-
 # 概率论
 
-对于概率的认知：$P(x) \in [0,1]$，需要注意的是，$P=0$并不意味着某件事情一定不会发生。譬如桌子上的任意一定相对于整个桌面的概率就是零，但是硬币落到该点还是可能发生的。所以对概率的定义时，如果$x$为离散/连续变量，则$P(x=x_{0})$表示$x_0$发生的概率/概率密度。
+对于概率的认知：$P(x) \in [0,1]$，需要注意的是，$P=0$并不意味着某件事情一定不会发生。譬如桌子上的任意一定相对于整个桌面的概率就是零，但是硬币落到该点还是可能发生的。所以对概率的定义时，如果$x$为离散/连续变量，则$P(x=x\_{0})$表示$x_0$发生的概率/概率密度。
 
 累积分布函数：$\phi(x) = P(x \le x_0 )$
 
-- $\phi(x)$一定为单调递增函数
-- $min(\phi(x)) = 0$，$max(\phi(x))$ = 1
-- 将值域为$[0,1]$的某函数$y=f(x)$看成y事件的累积概率，若$y$可导，则称$f'(x)$为某个概率的概率密度函数
+* $\phi(x)$一定为单调递增函数
+* $min(\phi(x)) = 0$，$max(\phi(x))$ = 1
+* 将值域为$[0,1]$的某函数$y=f(x)$看成 y 事件的累积概率，若$y$可导，则称$f'(x)$为某个概率的概率密度函数
 
 ### 古典概型
 
@@ -69,51 +64,47 @@ $f(\theta x + (1 - \theta)y) \le \theta f(x) + (1 - \theta)f(y)$
 
 ## 概率公式
 
-- 条件概率
+* 条件概率
 
 $P(A|B) = \frac{P(AB)}{P(B)}$
 
-- 全概率公式
+* 全概率公式
 
 $P(A) = \sum_iP(A|B_i)P(B_i)$
 
-- 贝叶斯公式
+* 贝叶斯公式
 
 $P(B_i|A) = \frac{P(AB_i)}{P(A)} = \frac{P(A|B_i)P(B_i)}{\sum_jP(A|B_j)P(B_j)}$
 
 ![](http://7xlgth.com1.z0.glb.clouddn.com/EE3A5CDB-7286-4DC8-A8D4-3C97CE96CCE1.png)
 
-上述公式中的$P(B_i)$即为没有数据支持下，事件$B(i)$的发生概率，也就是先验概率。而$P(B_i|A)$即在数据集合A的情况下，可能是属于事件$B_i$的概率，也就是后验概率。而$P(A|B_i)$即给定某参数的概率分布，也就是似然函数。
+上述公式中的$P(B_i)$即为没有数据支持下，事件$B(i)$的发生概率，也就是先验概率。而$P(B_i|A)$即在数据集合 A 的情况下，可能是属于事件$B_i$的概率，也就是后验概率。而$P(A|B_i)$即给定某参数的概率分布，也就是似然函数。
 
 ## 参数估计
 
 给定某系统的若干样本，求该系统的参数。
 
-- 矩估计/MLE/MaxEnt/EM
+* 矩估计/MLE/MaxEnt/EM
 
 频率学派：假定参数是某个/某些未知的定值，求这些参数如何取值，能够使得某目标函数取极大/极小。
 
-- 贝叶斯模型
+* 贝叶斯模型
 
 贝叶斯学派：假定参数本身是变化的，服从某个分布。求在这个分布约束下使得某目标函数极大/极小。
 
-
-
 ## 常见分布
 
-### 两点分布(0-1分布)
+### 两点分布(0-1 分布)
 
 已知随机变量$X$的分布律为：
 
-| $X$  | 1    | 0     |
-| ---- | ---- | ----- |
-| $p$  | $p$  | $1-p$ |
+| $X$ | 1   | 0     |
+| --- | --- | ----- |
+| $p$ | $p$ | $1-p$ |
 
-则有 $E(X) = 1 * p + 0 * q = p$
+则有 $E(X) = 1 _ p + 0 _ q = p$
 
 $D(X) = E(X^2) - [E(X)]^2 = pq$
-
-
 
 # 数理统计与参数估计
 
@@ -121,7 +112,7 @@ $D(X) = E(X^2) - [E(X)]^2 = pq$
 
 $E(X)=\sum_i{x_i}{p_i}$
 
-连续型：$E(X)=\sum_{-\infty}^{\infty}xf(x)dx$
+连续型：$E(X)=\sum\_{-\infty}^{\infty}xf(x)dx$
 
 概率运算中无条件成立的是：
 
@@ -147,7 +138,7 @@ $Var(kX)=k^2Var(X)$
 
 ### 协方差
 
-$Cov(X,Y)=E\{[X-E(X)][Y-E(Y)]\}$
+$Cov(X,Y)=E\{[X-E(X)][y-e(y)]\}$
 
 性质
 
@@ -193,13 +184,13 @@ $\gamma_1=E[\lgroup\frac{X-\mu}{\sigma}\rgroup^3]=\frac{E[(X-\mu)^3]}{(E[(X-\mu)
 
 ### 峰度
 
-峰度是概率密度在均指处峰值高低的特征，通常定义四阶中心矩除以方差的平方减3。
+峰度是概率密度在均指处峰值高低的特征，通常定义四阶中心矩除以方差的平方减 3。
 
 $$
-\gamma_2=\frac{\kappa_4}{\kappa_2^2}=\frac{\mu_4}{\sigma^4}-3=\frac{\frac{1}{n}\sum_{i=1}^n(x_i-\bar  x)^4}{(\frac{1}{n}\sum_{i=1}^n(x_i-\bar x)^2)^2}-3
+\gamma*2=\frac{\kappa_4}{\kappa_2^2}=\frac{\mu_4}{\sigma^4}-3=\frac{\frac{1}{n}\sum*{i=1}^n(x*i-\bar x)^4}{(\frac{1}{n}\sum*{i=1}^n(x_i-\bar x)^2)^2}-3
 $$
 
-注意，减3是为了使得高斯分布的峰度为0。
+注意，减 3 是为了使得高斯分布的峰度为 0。
 
 ### 切比雪夫不等式
 
@@ -213,33 +204,33 @@ $P\{|X-\mu|\geq\varepsilon\}\le\frac{\sigma^2}{\varepsilon^2}$
 
 假设随机变量$X_1,X_2,\dots X_n \dots$互相独立，并且具有相同的期望$\mu$和方差$\sigma^2$。作前$n$个随机变量的平均：
 
-$Y_n=\frac{1}{n}\sum_{i=1}^{n}X_i$
+$Y*n=\frac{1}{n}\sum*{i=1}^{n}X_i$
 
 ，则对于任意整数$\varepsilon$，存在有：
 
-$lim_{n \to \infty}P\{|Y_n-\mu|<\varepsilon\}=1$
+$lim\_{n \to \infty}P\{|Y_n-\mu|<\varepsilon\}=1$
 
-一次试验中事件A发生的概率为$p$，重复$n$次独立实验中，事件$A$发生了$n_A$次，则$p$、$n$、$n_A$的关系满足，对于任意整数$\varepsilon$则
+一次试验中事件 A 发生的概率为$p$，重复$n$次独立实验中，事件$A$发生了$n_A$次，则$p$、$n$、$n_A$的关系满足，对于任意整数$\varepsilon$则
 
-$lim_{n \to \infty}P\{|\frac{n_A}{n}-p|<\varepsilon\}=1$
+$lim\_{n \to \infty}P\{|\frac{n_A}{n}-p|<\varepsilon\}=1$
 
 ### 中心极限定理
 
 假设随机变量$X_1,X_2,\dots X_n \dots$互相独立，并且具有相同的期望$\mu$和方差$\sigma^2$。则随机变量：
 
-$Y_n=\frac{\sum_{i=1}^{n}X_i-n\mu}{\sqrt{n}\sigma}$
+$Y*n=\frac{\sum*{i=1}^{n}X_i-n\mu}{\sqrt{n}\sigma}$
 
-的分布收敛到标准正态分布，也就是说，$\sum_{i=1}^{n}X_i$收敛到正态分布$N(n\mu,n\sigma^2)$
+的分布收敛到标准正态分布，也就是说，$\sum\_{i=1}^{n}X_i$收敛到正态分布$N(n\mu,n\sigma^2)$
 
 ### 样本的统计量
 
 设$X_1,X_2,\dots X_n \dots$为一组样本，则样本均值：
 
-$\bar{X}=\frac{1}{n}\sum_{i=1}^{n}X_i$
+$\bar{X}=\frac{1}{n}\sum\_{i=1}^{n}X_i$
 
 样本方差：
 
-$S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar{X})^2$
+$S^2=\frac{1}{n-1}\sum\_{i=1}^{n}(X_i-\bar{X})^2$
 
 样本方差的分母使用$n-1$而非$n$，是为了无偏。
 
@@ -250,9 +241,9 @@ $S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar{X})^2$
 设总体的均值为$\mu$，方差为$\sigma^2$，其中$\mu$与$\sigma$未知，则有原点距表达式：
 
 $$
-\left\{ 
+\left\{
 \begin{array}{c}
-E(X)=\mu \\ 
+E(X)=\mu \\
 E(X^2)=Var(X)+[E(X)]^2=\sigma^2+\mu^2
 \end{array}
 \right.
@@ -261,10 +252,10 @@ $$
 根据该总体的一组样本，求得原点距：
 
 $$
-\left\{ 
+\left\{
 \begin{array}{c}
-\hat{\mu} = \bar{X} \\ 
-\hat{\sigma}^2 = \frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})^2 
+\hat{\mu} = \bar{X} \\
+\hat{\sigma}^2 = \frac{1}{n}\sum\_{i=1}^{n}(X_i-\bar{X})^2
 \end{array}
 \right.
 $$
@@ -277,11 +268,11 @@ $maxP(A_i|D) \to maxP(D|A_i)$
 
 假设总体分布为$f(x,\theta)$,$X_1,X_2,\dots X_n \dots$为独立同分布，于是，它们的联合密度函数为：
 
-$L(x_1,x_2,\dots,x_n;\theta_1,\theta_2,\dots,\theta_k)=\prod_{i=1}{n}f(x_i;\theta_1,\theta_2,\dots,\theta_k)$
+$L(x*1,x_2,\dots,x_n;\theta_1,\theta_2,\dots,\theta_k)=\prod*{i=1}{n}f(x_i;\theta_1,\theta_2,\dots,\theta_k)$
 
 这里$\theta$是一个未知量，即$L(x,\theta)$是关于$\theta$的函数，即似然函数。而求取$\theta$值的过程，就是所谓的极大似然估计。
 
-$logL(\theta_1,\theta_2,\dots,\theta_k)=\sum_{i=1}^{n}f(x_i;\theta_1,\theta_2,\dots,\theta_k)$
+$logL(\theta*1,\theta_2,\dots,\theta_k)=\sum*{i=1}^{n}f(x_i;\theta_1,\theta_2,\dots,\theta_k)$
 
 $\frac{\partial L(\theta)}{\partial \theta_i}=0,i=1,2,\dots,k$
 
@@ -319,8 +310,8 @@ $$
 一般来说，样本均值和方差都是总体的无偏估计。假设总体均值为$\mu$，方差为$\sigma^2$，$X_1,X_2,\dots X_n \dots$为来自该总体的样本，即：
 
 $$
-\bar X=\frac{1}{n}\sum_{i=1}^nX_i \\
-S^2=\frac{1}{n-1}\sum_{i=1}^{n}(X_i-\bar X^2) \\
+\bar X=\frac{1}{n}\sum*{i=1}^nX_i \\
+S^2=\frac{1}{n-1}\sum*{i=1}^{n}(X_i-\bar X^2) \\
 E(\bar X)=\mu \\
 $$
 
@@ -330,19 +321,18 @@ $$
 
 $$
 E(\bar X^2)=Var(\bar X) + [E(\bar X)]^2=\frac{\sigma^2}{n}+\mu^2 \\
-E(X_i^2)=Var(X_i)+[E(X_i)]^2=\sigma^2 + \mu^2 \\
-E(S^2)=\frac{1}{n-1}[E(\sum_{i=1}^{n}X_i^2)-nE(\bar X^2)]= \\
+E(X*i^2)=Var(X_i)+[E(X_i)]^2=\sigma^2 + \mu^2 \\
+E(S^2)=\frac{1}{n-1}[E(\sum*{i=1}^{n}X_i^2)-nE(\bar X^2)]= \\
 \frac{1}{n-1}[(n\sigma^2 + n\mu^2)-n(\frac{\sigma^2}{n} + \mu^2)] \\
 = \sigma^2
 $$
-
 
 # 线性代数
 
 方阵的行列式定义如下：
 
-- $1$阶方阵的行列式为该元素本身
-- $n$阶方阵的行列式等于它的任一行或者列的各元素与其对应的代数余子式乘积之和。
+* $1$阶方阵的行列式为该元素本身
+* $n$阶方阵的行列式等于它的任一行或者列的各元素与其对应的代数余子式乘积之和。
 
 ## 矩阵
 
@@ -355,13 +345,13 @@ $$
 任何一个矩阵模型，即转移概率模型都会达到一种平稳分布的状态，即
 
 $$
-lim_{n \to \infty}P_{ij}^{n}=\pi(j) \\
-lim_{n \to \infty}P^n = 
+lim*{n \to \infty}P*{ij}^{n}=\pi(j) \\
+lim\_{n \to \infty}P^n =
 \begin{bmatrix}  
-\pi(1) &  \pi(2)  & \dots & \pi(n)\\ 
-    \pi(1) &  \pi(2)  & \dots & \pi(n)\\ 
-    \vdots & \vdots & \ddots & \vdots
- \end{bmatrix}  \quad
+\pi(1) & \pi(2) & \dots & \pi(n)\\
+\pi(1) & \pi(2) & \dots & \pi(n)\\
+\vdots & \vdots & \ddots & \vdots
+\end{bmatrix} \quad
 $$
 
 线性方程$xP=x$的非负且唯一解即是$\pi$。
@@ -370,21 +360,21 @@ $$
 
 $A$为$m*s$阶的矩阵，$B$为$s*n$阶的矩阵，那么，$C=A*B$是$m*n$阶的矩阵，其中：
 
-$c_{ij}=\sum_{k=1}^sa_{ik}b_{kj}$
+$c*{ij}=\sum*{k=1}^sa*{ik}b*{kj}$
 
-$A$为$m*s$阶的矩阵，$B$为$s*1$的列向量，则$Ax$为$m*1$的列向量，则$Ax$为$m*1$的列向量，记$\vec {y} = A* \vec x$。由于$n$维列向量和$n$维空间的点一一对应，上式实际给出了从$n$维空间的点到$m$维空间点的线性变换。
+$A$为$m*s$阶的矩阵，$B$为$s*1$的列向量，则$Ax$为$m*1$的列向量，则$Ax$为$m*1$的列向量，记$\vec {y} = A\* \vec x$。由于$n$维列向量和$n$维空间的点一一对应，上式实际给出了从$n$维空间的点到$m$维空间点的线性变换。
 
 ### 矩阵的秩
 
-在$m*n$矩阵$A$中，任取$k$行$k$列，不改变这$k^2$个元素在$A$中的次序，得到$k$阶方阵，称为矩阵$A$的$k$阶子式。显然，$m*n$矩阵$A$的$k$阶子式有$C_m^kC_n^k$个。假设在矩阵$A$中有一个不等于0的$r$阶子式$D$，并且所有$r+1$阶子式（如果存在的话）全部等于0，那么$D$称为矩阵$A$的最高阶非零子式，$r$称为矩阵$A$的秩，记作$R(A)=r$。
+在$m*n$矩阵$A$中，任取$k$行$k$列，不改变这$k^2$个元素在$A$中的次序，得到$k$阶方阵，称为矩阵$A$的$k$阶子式。显然，$m*n$矩阵$A$的$k$阶子式有$C_m^kC_n^k$个。假设在矩阵$A$中有一个不等于 0 的$r$阶子式$D$，并且所有$r+1$阶子式（如果存在的话）全部等于 0，那么$D$称为矩阵$A$的最高阶非零子式，$r$称为矩阵$A$的秩，记作$R(A)=r$。
 
 $$
-\left\{ 
+\left\{
 \begin{array}{c}
-a_{11}x_1+a_{12}x_2+ \dots + +a_{1n}x_n=b_1\\ 
-a_{11}x_1+a_{12}x_2+ \dots + +a_{1n}x_n=b_1\\ 
+a*{11}x_1+a*{12}x*2+ \dots + +a*{1n}x*n=b_1\\
+a*{11}x*1+a*{12}x*2+ \dots + +a*{1n}x*n=b_1\\
 \dots \\
-a_{11}x_1+a_{12}x_2+ \dots + +a_{1n}x_n=b_1\\ 
+a*{11}x*1+a*{12}x*2+ \dots + +a*{1n}x_n=b_1\\
 \end{array}
 \right.
 \to Ax=b
@@ -392,9 +382,8 @@ $$
 
 对于$n$元线性方程组$Ax=b$：
 
-- 无解的充要条件是$R(A)<R(A,b)$
-- 有唯一解的充要条件是$R(A)=R(A,b)=n$
-
+* 无解的充要条件是$R(A)<R(A,b)$
+* 有唯一解的充要条件是$R(A)=R(A,b)=n$
 
 - 有无限多解的充要条件是$R(A)=R(A,b)<n$
 
@@ -405,12 +394,12 @@ $$
 向量$b$能由向量组$A:a_1,a_2,\dots,a_m$线性表示的充要条件是矩阵$A=(a_1,a_2,\dots,a_m)$的秩等于矩阵$B=(a_1,a_2,\dots,a_m,b)$的秩。设有两个向量组$A:a_1,a_2,\dots,a_m$以及$B:b_1,b_2,\dots,b_n$，若$B$组的向量都能由向量组$A$线性表示，则称向量组$B$能由向量组$A$线性表示。若向量组$A$与向量组$B$能够相互线性表示，则称两个向量组等价。如果两个向量组等价，则存在矩阵$K$:系数
 
 $$
-(b_1 b_2 \dots b_n) = (a_1 a_2 \dots a_n) 
+(b*1 b_2 \dots b_n) = (a_1 a_2 \dots a_n)
 \begin{bmatrix}  
-k_{11} &  k_{12}  & \dots & k_{1n}\\ 
-   k_{21} &  k_{22}  & \dots & k_{2n}\\ 
-    \vdots & \vdots & \ddots & \vdots
- \end{bmatrix}  \quad
+k*{11} & k*{12} & \dots & k*{1n}\\
+k*{21} & k*{22} & \dots & k\_{2n}\\
+\vdots & \vdots & \ddots & \vdots
+\end{bmatrix} \quad
 $$
 
 向量组$B$能由向量组$A$线性表示的充要条件是矩阵$A=(a_1,a_2,\dots,a_m)$的秩等于矩阵$(A,B)=(a_1,a_2,\dots,a_m,b_1,b_2,\dots,b_n)$的秩，即：$R(A)=R(A,B)$。
@@ -423,10 +412,10 @@ $$
 
 ### 特征值与特征向量
 
-$A$是$n$阶矩阵，如果存在数$\lambda$和$n$维非0列向量$x$满足$Ax=\lambda x$，那么，数$\lambda$称为$A$的特征值，$x$称为$A$的对应于特征值$\lambda$的特征向量。假设$n$阶矩阵$A=(a_{ij})$的特征值为$\lambda_1,\lambda_2,\dots,\lambda_n$，则
+$A$是$n$阶矩阵，如果存在数$\lambda$和$n$维非 0 列向量$x$满足$Ax=\lambda x$，那么，数$\lambda$称为$A$的特征值，$x$称为$A$的对应于特征值$\lambda$的特征向量。假设$n$阶矩阵$A=(a\_{ij})$的特征值为$\lambda_1,\lambda_2,\dots,\lambda_n$，则
 
 $$
-\lambda_1+\lambda_2+,\dots,+\lambda_n=a_{11}+a_{22}+\dots+a_{nn} \\
+\lambda*1+\lambda_2+,\dots,+\lambda_n=a*{11}+a*{22}+\dots+a*{nn} \\
 \lambda_1 \lambda_2 \dots \lambda_n = |A|
 $$
 

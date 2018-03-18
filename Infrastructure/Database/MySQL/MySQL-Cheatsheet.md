@@ -1,8 +1,8 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# MySQL
+# MySQL CheatSheet
 
-```
+```sql
 SELECT
   TABLE_NAME, table_rows, data_length, index_length,
   round(((data_length + index_length) / 1024 / 1024),2) 'Size in MB'
@@ -13,9 +13,8 @@ ORDER BY data_length DESC;
 
 # 权限管理
 
-```
+```sql
 SELECT User FROM mysql.user;
-
 
 SET PASSWORD FOR 'root'@'localhost' = PASSWORD('MyNewPass');
 ```
@@ -158,3 +157,6 @@ COMMIT;
 
 ## SQL Injection
 
+# Optimization: 性能调优
+
+# Store Engine: 存储引擎
