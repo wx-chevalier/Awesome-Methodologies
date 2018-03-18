@@ -1,143 +1,225 @@
-# 目录
+# Table of Contents
 
-* [Learning CheatSheet](./Learning-CheatSheet.md): 程序员的学习进阶之途，本文介绍了笔者自身学习工作中总结的阅读、写作、编程、视野提升与课程学习方面的资料以及经验分享。
+* [Learning-CheatSheet](./Learning-CheatSheet.md): 程序员的学习进阶之途
 
-## ProgrammingLanguage: 编程语言
+# DataScienceAI
 
-### Java
+## Application
 
-* [Java CheatSheet](./ProgrammingLanguage/Java/Java-CheatSheet.md): Java 语法速览与实践清单
+* [CommunityDetection-CheatSheet](./DataScienceAI/Application/CommunityDetection-CheatSheet.md): 社团发现
 
-### JavaScript
+- [Personas-CheatSheet](./DataScienceAI/Application/Personas-CheatSheet.md): 用户画像
 
-* [JavaScript CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-CheatSheet.md): JavaScript 语法速览与实战清单
+## DeepLearning
 
-* [ECMAScript CheatSheet](./ProgrammingLanguage/JavaScript/ECMAScript-CheatSheet.md): ECMAScript 各版本特性概述
+* [DeepLearning-Application-CheatSheet](./DataScienceAI/DeepLearning/DeepLearning-Application-CheatSheet.md): [图片增强](https://github.com/alexjc/neural-enhance)
 
-* [JavaScript FunctionalProgramming CheatSheet](./ProgrammingLanguage/JavaScript/Syntax/JavaScript-FunctionalProgramming-CheatSheet.md): Functional Programming Jargon: 函数式编程术语解释
+- [DeepLearning-CheatSheet](./DataScienceAI/DeepLearning/DeepLearning-CheatSheet.md): Gradient ∇ (微分算符)：梯度
 
-* [JavaScript Snippets CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-Snippets-CheatSheet.md): JavaScript 代码片
+## MachineLearning
 
-### Python
+* [FeatureEngineering-CheatSheet](./DataScienceAI/MachineLearning/FeatureEngineering-CheatSheet.md): Introduction
 
-* [Python CheatSheet](./ProgrammingLanguage/Python/Python-CheatSheet.md): Python 语法速览与实战清单
+- [MachineLearning-CheatSheet](./DataScienceAI/MachineLearning/MachineLearning-CheatSheet.md): 机器学习概念速览
 
-### Go
+## Mathematics
 
-* [Go CheatSheet](./ProgrammingLanguage/Go/Go-CheatSheet.md): Go 语法速览与实践清单
+* [Mathematics-CheatSheet](./DataScienceAI/Mathematics/Mathematics-CheatSheet.md): 微积分
 
-### Rust
+## Toolkit
 
-* [Rust CheatSheet](./ProgrammingLanguage/Rust/Rust-CheatSheet.md): Rust 语法速览、实践技巧与开源工具清单
+* [SKLearn-CheatSheet](./DataScienceAI/Toolkit/SKLearn-CheatSheet.md): Scikit-Learn
 
-## Software Engineering: 软件工程
+- [Tensorflow-CheatSheet](./DataScienceAI/Toolkit/Tensorflow-CheatSheet.md):
 
-* [Write CheatSheet](./SoftwareEngineering/Write-CheatSheet.md): 技术文章的写作之道
+# IndustrialApplication
 
-### Design Pattern: 设计模式
+## IoT
 
-* [TypeScript Design Pattern CheatSheet](./SoftwareEngineering/DesignPattern/TypeScript-DesignPattern-CheatSheet.md): TypeScript 设计模式实践清单
+* [3DPrinting-CheatSheet](./IndustrialApplication/IoT/3DPrinting-CheatSheet.md): Technology
 
-### AlgoDS: 数据架构与算法
+## Media
 
-### Collaborative Development: 协同开发
+* [Live-CheatSheet](./IndustrialApplication/Media/Live-CheatSheet.md): 实时音视频技术
 
-* [Git CheatSheet](./SoftwareEngineering/CollaborativeDevelopment/Git/Git-Cheatsheet.md): Git 命令速览与备忘清单
+# InfoSecurity
 
-* [Git Workflow CheatSheet](./SoftwareEngineering/CollaborativeDevelopment/Git/Git-Workflow-CheatSheet.md): Git 提交信息
+* [InfoSecurity-CheatSheet](./InfoSecurity/InfoSecurity-CheatSheet.md):
 
-* [VSCode CheatSheet](./SoftwareEngineering/CollaborativeDevelopment/Tool/VSCode-Cheatsheet.md): VSCode 使用清单与实践教程
+## WebSecurity
 
-## Web
+* [WebSecurity-CheatSheet](./InfoSecurity/WebSecurity/WebSecurity-CheatSheet.md): Web 安全实践清单
 
-* [Web-Learning-Path](./Web/Web-Learning-Path.md):
+# Infrastructure
 
-### EPractices
+## Database
 
-* [Web-Performance CheatSheet](./Web/EPractices/Web-Performance-CheatSheet.md): Web 性能优化清单
+* [Database-CheatSheet](./Infrastructure/Database/Database-CheatSheet.md): 数据库技术清单盘点
 
-### Framework
+- [SQL-CheatSheet](./Infrastructure/Database/SQL-CheatSheet.md): SQL CheatSheet
 
-* [Vue.js CheatSheet](./Web/Framework/Vue.js/Vue.js-CheatSheet.md): Vuex
+### MySQL
 
-### Syntax
+* [MySQL-Cheatsheet](./Infrastructure/Database/MySQL/MySQL-Cheatsheet.md): MySQL CheatSheet
 
-* [DOM Snippets CheatSheet](./Web/Syntax/DOM/DOM-Snippets-CheatSheet.md): DOM Snippets CheatSheet
+### NoSQL
 
-## Server Side Application: 服务端应用
+* [ElasticSearch-CheatSheet](./Infrastructure/Database/NoSQL/ElasticSearch-CheatSheet.md): ElasticSearch 清单
 
-* [Server Side Application CheatSheet](./ServerSideApplication/ServerSideApplication-CheatSheet.md): 中间件
+- [NoSQL-Database-CheatSheet](./Infrastructure/Database/NoSQL/NoSQL-Database-CheatSheet.md): NoSQL 数据库清单
 
-### DevOps
+## DistributedSystem
 
-* [Flume CheatSheet](./ServerSideApplication/DevOps/LogAggregation/Flume-CheatSheet.md): Source
+* [Blockchain-CheatSheet](./Infrastructure/DistributedSystem/Blockchain-CheatSheet.md):
 
-* [Log Aggregation CheatSheet](./ServerSideApplication/DevOps/LogAggregation/LogAggregation-CheatSheet.md): 日志聚合工具对比清单
+- [DistributedSystem-CheatSheet](./Infrastructure/DistributedSystem/DistributedSystem-CheatSheet.md): 分布式系统概述与理论基础
 
-* [Linux Reinforce Reference](./ServerSideApplication/DevOps/Security/Linux-Reinforce-Reference.md): Linux 安全加固手册
+## OS
 
-### Web Framework
+### Linux
 
-* [Node.js CheatSheet](./ServerSideApplication/WebFramework/Node.js/Node.js-CheatSheet.md): Node.js 语法基础、实践技巧与开源框架清单
+* [CentOS-CheatSheet](./Infrastructure/OS/Linux/CentOS-CheatSheet.md): CentOS 配置手册
 
-## Infrastructure: 基础架构
+- [Linux-Basic-Commands-CheatSheet](./Infrastructure/OS/Linux/Linux-Basic-Commands-CheatSheet.md): Linux DevOps 中常用命令
 
-### OS: 操作系统
+* [Linux-DevOps-Commands-CheatSheet](./Infrastructure/OS/Linux/Linux-DevOps-Commands-CheatSheet.md):
 
-* [CentOS CheatSheet](./Infrastructure/OS/Linux/CentOS-CheatSheet.md): ip link show # 显示网络接口信息
+- [Linux-Quick-Commands-CheatSheet](./Infrastructure/OS/Linux/Linux-Quick-Commands-CheatSheet.md):
 
-* [Linux-Commands CheatSheet](./Infrastructure/OS/Linux/Linux-Commands-CheatSheet.md): Linux DevOps 中常用命令
+## Virtualization
 
-### Database
+* [Docker-Cheatsheet](./Infrastructure/Virtualization/Docker-Cheatsheet.md): Docker
 
-* [Database CheatSheet](./Infrastructure/Database/Database-CheatSheet.md): 数据库技术清单盘点
+- [Xen-CheatSheet](./Infrastructure/Virtualization/Xen-CheatSheet.md): Create: 虚拟机创建
 
-* [NoSQL Database CheatSheet](./Infrastructure/Storage/NoSQL/NoSQL-Database-CheatSheet.md): NoSQL 数据库清单
+# ProgrammingLanguage
 
-* [SQL CheatSheet](./Infrastructure/Storage/RDB/SQL-Cheatsheet.md):
+## Go
 
-* [MySQL CheatSheet](./Infrastructure/Storage/RDB/MySQL/MySQL-Cheatsheet.md): MySQL
+* [Go-CheatSheet](./ProgrammingLanguage/Go/Go-CheatSheet.md): Go 语法速览与实践清单
 
-* [ElasticSearch CheatSheet](./Infrastructure/Storage/SearchEngine/ElasticSearch/ElasticSearch-CheatSheet.md): ElasticSearch 清单
+## Java
 
-### Virtualization: 虚拟化
+* [JVM-CheatSheet](./ProgrammingLanguage/Java/JVM-CheatSheet.md): JVM CheatSheet
 
-* [Docker CheatSheet](./Infrastructure/Virtualization/Container/Docker/Docker-Cheatsheet.md): Docker
+- [Java-CheatSheet](./ProgrammingLanguage/Java/Java-CheatSheet.md): 文件路径
 
-* [Xen CheatSheet](./Infrastructure/Virtualization/VM/Xen/Xen-CheatSheet.md): Xen 配置手册
+* [Java-ConcurrentProgramming-CheatSheet](./ProgrammingLanguage/Java/Java-ConcurrentProgramming-CheatSheet.md): Java 并发编程概览
 
-## DataScienceAI
+- [Java-StyleGuide-CheatSheet](./ProgrammingLanguage/Java/Java-StyleGuide-CheatSheet.md): Java 样式指南
 
-### DeepLearning
+## JavaScript
 
-* [DeepLearning-Application CheatSheet](./DataScienceAI/DeepLearning/DeepLearning-Application-CheatSheet.md): [图片增强](https://github.com/alexjc/neural-enhance)
+* [ECMAScript-CheatSheet](./ProgrammingLanguage/JavaScript/ECMAScript-CheatSheet.md): ECMAScript 各版本特性概述
 
-* [DeepLearning CheatSheet](./DataScienceAI/DeepLearning/DeepLearning-CheatSheet.md): Gradient ∇ (微分算符)：梯度
+- [JavaScript-CheatSheet-en](./ProgrammingLanguage/JavaScript/JavaScript-CheatSheet-en.md): Modern JavaScript Syntax and Practices CheatSheet
 
-### MachineLearning
+* [JavaScript-CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-CheatSheet.md): 现代 JavaScript 语法速览与实战清单
 
-* [MachineLearning CheatSheet](./DataScienceAI/MachineLearning/MachineLearning-CheatSheet.md): 机器学习概念速览
+- [JavaScript-FunctionalProgramming-CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-FunctionalProgramming-CheatSheet.md): Functional Programming Jargon: 函数式编程术语解释
 
-### Mathematics
+* [JavaScript-Snippets-CheatSheet](./ProgrammingLanguage/JavaScript/JavaScript-Snippets-CheatSheet.md): JavaScript 代码片
 
-* [Mathematics CheatSheet](./DataScienceAI/Mathematics/Mathematics-CheatSheet.md): 微积分
+- [TypeScript-CheatSheet](./ProgrammingLanguage/JavaScript/TypeScript-CheatSheet.md): TypeScript 语法实践速览
 
-### Toolkit
+## Python
 
-* [SKLearn CheatSheet](./DataScienceAI/Toolkit/SKLearn-CheatSheet.md): Scikit-Learn
+* [Python-CheatSheet.en](./ProgrammingLanguage/Python/Python-CheatSheet.en.md): Python CheatSheet: Syntax Overview & Practices
 
-## InfoSecurity: 信息安全与渗透测试
+- [Python-CheatSheet](./ProgrammingLanguage/Python/Python-CheatSheet.md): Python 语法速览与实战清单
 
-* [InfoSecurity CheatSheet](./InfoSecurity/InfoSecurity-CheatSheet.md): 信息安全实践清单
+## Ruby
 
-### OSSecurity: 系统安全
+* [Ruby-CheatSheet](./ProgrammingLanguage/Ruby/Ruby-CheatSheet.md): Ruby CheatSheet
 
-### WebSecurity: Web 安全
+## Rust
 
-* [WebSecurity CheatSheet](./InfoSecurity/WebSecurity/WebSecurity-CheatSheet.md): Web 安全实践清单
+* [Rust-CheatSheet](./ProgrammingLanguage/Rust/Rust-CheatSheet.md): Rust 语法速览、实践技巧与开源工具清单
 
-## IndustrialApplication: 行业应用
+## Swift
 
-### IoT: 物联网
+* [Swift-CheatSheet](./ProgrammingLanguage/Swift/Swift-CheatSheet.md): Swift CheatSheet
 
-* [3DPrinting CheatSheet](./IndustrialApplication/IoT/Hardware/3DPrinting/3DPrinting-CheatSheet.md): Technology
+# ServerSideApplication
+
+* [ServerSideApplication-CheatSheet](./ServerSideApplication/ServerSideApplication-CheatSheet.md): 中间件
+
+## DevOps
+
+### LogAggregation
+
+* [Flume-CheatSheet](./ServerSideApplication/DevOps/LogAggregation/Flume-CheatSheet.md): Source
+
+- [LogAggregation-CheatSheet](./ServerSideApplication/DevOps/LogAggregation/LogAggregation-CheatSheet.md): 日志聚合工具对比清单
+
+### Security
+
+* [Linux-Reinforce-Reference](./ServerSideApplication/DevOps/Security/Linux-Reinforce-Reference.md): Linux 安全加固手册
+
+## MicroService
+
+* [Cache-CheatSheet](./ServerSideApplication/MicroService/Cache-CheatSheet.md): Web 架构缓存概览：从 CPU 到浏览器
+
+- [MicroService-CheatSheet](./ServerSideApplication/MicroService/MicroService-CheatSheet.md): 微服务理念、架构与实践速览
+
+## WebFramework
+
+### Node
+
+* [Node-CheatSheet](./ServerSideApplication/WebFramework/Node/Node-CheatSheet.md): Node.js 语法基础、实践技巧与开源框架清单
+
+- [Node-OpenSource-CheatSheet](./ServerSideApplication/WebFramework/Node/Node-OpenSource-CheatSheet.md): [querystring:可以用作通用解析器的模块](https://nodejs.org/api/querystring.html#querystring_querystring_parse_str_sep_eq_options)
+
+# SoftwareEngineering
+
+* [Write-CheatSheet](./SoftwareEngineering/Write-CheatSheet.md): 技术文章的写作之道
+
+## AlgoDS
+
+* [AlgoDS-CheatSheet](./SoftwareEngineering/AlgoDS/AlgoDS-CheatSheet.md): 面试算法实践与国外大厂习题指南
+
+## CollaborativeDevelopment
+
+* [Git-Cheatsheet](./SoftwareEngineering/CollaborativeDevelopment/Git-Cheatsheet.md): Git 命令速览与备忘清单
+
+- [Git-Workflow-CheatSheet](./SoftwareEngineering/CollaborativeDevelopment/Git-Workflow-CheatSheet.md): Git 提交信息
+
+* [VSCode-Cheatsheet](./SoftwareEngineering/CollaborativeDevelopment/VSCode-Cheatsheet.md): VSCode 使用清单与实践教程
+
+## DesignPattern
+
+* [TypeScript-DesignPattern-CheatSheet](./SoftwareEngineering/DesignPattern/TypeScript-DesignPattern-CheatSheet.md):
+
+# Web
+
+* [My-Frontend-Backend-Interview](./Web/My-Frontend-Backend-Interview.md): 编程基础
+
+- [Web-CheatSheet](./Web/Web-CheatSheet.md): Web 应用运行机制盘点
+
+## DevPractices
+
+* [Web-Builder-CheatSheet](./Web/DevPractices/Web-Builder-CheatSheet.md): Web 构建与打包工具盘点
+
+### .gitkeep
+
+## Framework
+
+* [React-CheatSheet](./Web/Framework/React-CheatSheet.md):
+
+- [Vue-CheatSheet](./Web/Framework/Vue-CheatSheet.md): Vuex
+
+* [jQuery-CheatSheet](./Web/Framework/jQuery-CheatSheet.md): jQuery CheatSheet
+
+## Production
+
+* [Web-Performance-CheatSheet.en](./Web/Production/Web-Performance-CheatSheet.en.md): Web Performance CheatSheet
+
+- [Web-Performance-CheatSheet](./Web/Production/Web-Performance-CheatSheet.md): Web 性能优化清单
+
+## Syntax
+
+* [CSS-CheatSheet](./Web/Syntax/CSS-CheatSheet.md): Syntax
+
+- [DOM-CheatSheet](./Web/Syntax/DOM-CheatSheet.md): DOM 语法速览与实践清单
+
+* [DOM-Snippets-CheatSheet](./Web/Syntax/DOM-Snippets-CheatSheet.md): DOM Snippets CheatSheet

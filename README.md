@@ -14,7 +14,51 @@
 
 * {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
 
-完整的文章目录查看 [Table of Contents](./toc.md)。
+完整的文章目录查看 [Table of Contents](./toc.md)，或者通过下面链接快速索引：
+
+* [DataScienceAI](./toc.md#datascienceai)
+  * [Application](./toc.md#application)
+  * [DeepLearning](./toc.md#deeplearning)
+  * [MachineLearning](./toc.md#machinelearning)
+  * [Mathematics](./toc.md#mathematics)
+  * [Toolkit](./toc.md#toolkit)
+* [IndustrialApplication](./toc.md#industrialapplication)
+  * [IoT](./toc.md#iot)
+  * [Media](./toc.md#media)
+* [InfoSecurity](./toc.md#infosecurity)
+  * [WebSecurity](./toc.md#websecurity)
+* [Infrastructure](./toc.md#infrastructure)
+  * [Database](./toc.md#database)
+    * [MySQL](./toc.md#mysql)
+    * [NoSQL](./toc.md#nosql)
+  * [DistributedSystem](./toc.md#distributedsystem)
+  * [OS](./toc.md#os)
+    * [Linux](./toc.md#linux)
+  * [Virtualization](./toc.md#virtualization)
+* [ProgrammingLanguage](./toc.md#programminglanguage)
+  * [Go](./toc.md#go)
+  * [Java](./toc.md#java)
+  * [JavaScript](./toc.md#javascript)
+  * [Python](./toc.md#python)
+  * [Ruby](./toc.md#ruby)
+  * [Rust](./toc.md#rust)
+  * [Swift](./toc.md#swift)
+* [ServerSideApplication](./toc.md#serversideapplication)
+  * [DevOps](./toc.md#devops)
+    * [LogAggregation](./toc.md#logaggregation)
+    * [Security](./toc.md#security)
+  * [MicroService](./toc.md#microservice)
+  * [WebFramework](./toc.md#webframework)
+    * [Node](./toc.md#node)
+* [SoftwareEngineering](./toc.md#softwareengineering)
+  * [AlgoDS](./toc.md#algods)
+  * [CollaborativeDevelopment](./toc.md#collaborativedevelopment)
+  * [DesignPattern](./toc.md#designpattern)
+* [Web](./toc.md#web)
+  * [DevPractices](./toc.md#devpractices)
+  * [Framework](./toc.md#framework)
+  * [Production](./toc.md#production)
+  * [Syntax](./toc.md#syntax)
 
 # 前言
 
