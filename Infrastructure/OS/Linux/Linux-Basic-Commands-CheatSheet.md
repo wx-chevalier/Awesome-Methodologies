@@ -2,6 +2,8 @@
 
 # Linux DevOps 中常用命令
 
+更多关于 Linux DevOps, 安全加固与优化，亦或是更简洁版的命令清单可以查看 [Awesome CheatSheet--Linux](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/toc.md#linux)
+
 ## 文件目录
 
 * 当前目录：.

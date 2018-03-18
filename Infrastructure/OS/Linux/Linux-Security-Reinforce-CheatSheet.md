@@ -1,7 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet) 
- 
- 
-# Linux 安全加固手册
+# Linux 安全加固与优化清单
 
 ```sh
 #!/bin/sh
