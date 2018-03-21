@@ -51,3 +51,6 @@
 
 - [ ] GraphQL CheatSheet
   - [ ] [Top 5 Reasons to Use GraphQL](https://blog.graph.cool/top-5-reasons-to-use-graphql-b60cfa683511)
+  
+- [ ] SQL CheatSheet
+  - [ ] [Intro to SQL: Querying and managing data](https://www.khanacademy.org/computing/computer-programming/sql/)
