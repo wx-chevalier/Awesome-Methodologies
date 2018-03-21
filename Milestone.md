@@ -45,3 +45,6 @@
   
 - [ ] OperatingSystem-CheatSheet
   - [ ] https://parg.co/UVV
+
+- [ ] Web Animation CheatSheet
+  - [ ] https://parg.co/Ux9
