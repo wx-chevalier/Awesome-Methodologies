@@ -48,3 +48,6 @@
 
 - [ ] Web Animation CheatSheet
   - [ ] https://parg.co/Ux9
+
+- [ ] GraphQL CheatSheet
+  - [ ] [Top 5 Reasons to Use GraphQL](https://blog.graph.cool/top-5-reasons-to-use-graphql-b60cfa683511)
