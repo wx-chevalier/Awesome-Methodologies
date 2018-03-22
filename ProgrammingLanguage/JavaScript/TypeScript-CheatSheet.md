@@ -19,3 +19,12 @@ const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
   </div>
 );
 ```
+
+```ts
+// 使用 const 能够有效减少编译之后的代码量，参考 https://parg.co/UxX
+export const enum Colors {
+  RED,
+  BLUE,
+  GREEN
+}
+```

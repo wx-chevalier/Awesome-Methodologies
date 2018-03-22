@@ -53,6 +53,54 @@ c, python, java := true, false, "no!"
 
 # 流程与函数
 
+## 接口
+
+Go 允许我们通过定义接口的方式来实现多态性，惯用的思路是先定义接口，再定义实现，最后定义使用的方法：
+
+```go
+package animals 
+
+type Animal interface {
+	Speaks() string
+}
+
+// implementation of Animal
+type Dog struct{}
+func (a Dog) Speaks() string { return "woof" }
+
+/****/
+
+package circus
+
+import "animals"
+
+func Perform(a animal.Animal) { return a.Speaks() }
+```
+
+Go 也为我们提供了另一种接口的实现方案，我们可以不在具体的实现处定义接口，而是在需要用到该接口的地方，该模式为：
+
+```go
+func funcName(a INTERFACETYPE) CONCRETETYPE 
+```
+
+定义接口：
+
+```go
+package animals
+
+type Dog struct{}
+func (a Dog) Speaks() string { return "woof" }
+
+/****/
+package circus
+
+type Speaker interface {
+	Speaks() string
+}
+
+func Perform(a Speaker) { return a.Speaks() }
+```
+
 # 并发编程
 
 # Web 编程
