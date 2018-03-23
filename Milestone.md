@@ -2,6 +2,9 @@
 
 # Milestone 0.2
 
+- [ ] Kafka CheatSheet
+  - [ ] 整合[这里](https://medium.freecodecamp.org/what-makes-apache-kafka-so-fast-a8d4f94ab145)提到的 Kafka 的优点。
+
 # Milestone 0.1
 
 - [ ] CSS CheatSheet
