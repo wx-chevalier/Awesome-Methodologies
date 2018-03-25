@@ -11,67 +11,12 @@ console.log('Element is ' + offset + ' vertical pixels from <body>');
 ```
 
 ```js
-// Add Rules to Stylesheets with JavaScript
-// http://davidwalsh.name/add-rules-stylesheets
-
-/* Getting the Stylesheet
-Which stylesheet you add the rules to is up to you.  If you have a specific stylesheet in mind, you can add an ID to the LINK or STYLE element within your page HTML and get the CSSStyleSheet object by referencing the element's sheet property.  The stylesheets can be found in the document.styleSheets object:*/
-
+// 获取 StyleSheet 对象
 var sheets = document.styleSheets; // returns an Array-like StyleSheetList
-
-/*
-Returns:  
-StyleSheetList {0: CSSStyleSheet, 1: CSSStyleSheet, 2: CSSStyleSheet, 3: CSSStyleSheet, 4: CSSStyleSheet, 5: CSSStyleSheet, 6: CSSStyleSheet, 7: CSSStyleSheet, 8: CSSStyleSheet, 9: CSSStyleSheet, 10: CSSStyleSheet, 11: CSSStyleSheet, 12: CSSStyleSheet, 13: CSSStyleSheet, 14: CSSStyleSheet, 15: CSSStyleSheet, length: 16, item: function}
-*/
-
-// Grab the first sheet, regardless of media
 var sheet = document.styleSheets[0];
 
-/* Creating a New Stylesheet
-In many cases, it may just be best to create a new STYLE element for your dynamic rules.  This is quite easy:*/
-var sheet = (function() {
-  // Create the <style> tag
-  var style = document.createElement('style');
-
-  // Add a media (and/or media query) here if you'd like!
-  // style.setAttribute("media", "screen")
-  // style.setAttribute("media", "@media only screen and (max-width : 1024px)")
-
-  // WebKit hack :(
-  style.appendChild(document.createTextNode(''));
-
-  // Add the <style> element to the page
-  document.head.appendChild(style);
-
-  return style.sheet;
-})();
-
-/* Adding Rules
-CSSStyleSheet objects have an addRule method which allows you to register CSS rules within the stylesheet.  The addRule method accepts three arguments:  the selector, the second the CSS code for the rule, and the third is the zero-based integer index representing the style position (in relation to styles of the same selector): */
-sheet.addRule('#myList li', 'float: left; background: red !important;', 1);
-
-/* Inserting Rules
-Stylesheets also have an insertRule method which isn't available in earlier IE's.  The insertRule combines the first two arguments of addRule: */
+// 添加样式规则
 sheet.insertRule('header { float: left; opacity: 0.8; }', 1);
-
-/* Safely Applying Rules
-Since browser support for insertRule isn't as global, it's best to create a wrapping function to do the rule application.  Here's a quick and dirty method: */
-function addCSSRule(sheet, selector, rules, index) {
-  if (sheet.insertRule) {
-    sheet.insertRule(selector + '{' + rules + '}', index);
-  } else {
-    sheet.addRule(selector, rules, index);
-  }
-}
-
-// Use it!
-addCSSRule(document.styleSheets[0], 'header', 'float: left');
-
-/* Inserting Rules for Media Queries
-Media query-specific rules can be added in one of two ways. The first way is through the standard insertRule method: */
-sheet.insertRule(
-  '@media only screen and (max-width : 1140px) { header { display: none; } }'
-);
 ```
 
 # 网络通信
@@ -212,3 +157,20 @@ fetch(url).then(function(response) {
 
 ### CORS
 
+发起 Fetch 请求后获得的响应体中会包含 `response.type` 属性，其有 basic， cors 以及 opaque 三种类型，用于标识响应结果的来源以及处理方式。当我们发起同域请求时，结果类型会被标识为 `basic`，并且不会对响应的读取有任何限制。当发起的是跨域请求，并且响应头中包含了 [CORS](http://enable-cors.org/) 相关设置，那么响应类型会被标识为 cors。cors 与 basic 还是非常相似的，除了 cors 响应限制了仅可以读取 `Cache-Control`, `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, 以及 `Pragma` 这些响应头字段。最后，opaque 则是针对那些进行跨域访问但是并未返回 CORS 头的请求；标识为该类型的响应并不可以读取其中内容，也无法判断其是否请求成功。
+
+针对响应类型的不同，我们也可以在请求体中预设不同的请求模式，以加以过滤：
+
+* same-origin: 仅针对同域请求有效，拒绝其他域的请求。
+
+* cors: 允许针对同域或者其他访问正确的 CORS 头的请求。
+
+* cors-with-forced-preflight: 每次请求前都会进行预检。
+
+* no-cors: 针对那些未返回 CORS 头的域发起请求，并且返回 opaque 类型的响应，并不常用。
+
+参照上文，
+
+```js
+fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
+```
