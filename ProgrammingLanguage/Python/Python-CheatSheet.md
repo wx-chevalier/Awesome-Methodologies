@@ -4,7 +4,7 @@
 
 # Python 语法速览与实战清单
 
-本文是对于 [现代 Python 开发：语法基础与工程实践](https://parg.co/Urh)的总结，更多 Python 相关资料参考 [Python 学习与实践资料索引](https://parg.co/Ur4)；本文参考了 [Python Crash Course - Cheat Sheets](https://parg.co/UrA)，[pysheeet](https://parg.co/Urd) 等。本文仅包含笔者在日常工作中经常使用的，并且认为较为关键的知识点与语法，如果想要进一步学习 Python 相关内容或者对于机器学习与数据挖掘方向感兴趣，可以参考[程序猿的数据科学与机器学习实战手册](https://parg.co/Ur0)。
+本文是对于 [现代 Python 开发：语法基础与工程实践](https://parg.co/Urh)的总结，更多 Python 相关资料参考 [Python  Learning & Practices Links](https://parg.co/Ur4)；本文参考了 [Python Crash Course - Cheat Sheets](https://parg.co/UrA)，[pysheeet](https://parg.co/Urd) 等。本文仅包含笔者在日常工作中经常使用的，并且认为较为关键的知识点与语法，如果想要进一步学习 Python 相关内容或者对于机器学习与数据挖掘方向感兴趣，可以参考[程序猿的数据科学与机器学习实战手册](https://parg.co/Ur0)。
 
 # 基础语法
 
