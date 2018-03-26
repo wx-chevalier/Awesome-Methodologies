@@ -1,8 +1,65 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Java 并发编程概览
+# Java 并发编程概览：内存模型，并发单元，并发控制与异步模式
+
+参考[并发编程导论]()中的介绍，并发编程主要会考虑并发单元、并发控制与异步模式等方面；本文即是着眼于 Java，具体地讨论 Java 中并发编程相关的知识要点。Java 是典型的共享内存的并发模型，线程之间的通信往往是隐式进行。
+
+本文参考了许多经典的文章描述/示例，统一声明在了 [Java Concurrent Programming Links](https://parg.co/UDS)。
 
 # Java Memory Model: Java 内存模型
+
+Java 内存模型与 [JVM 体系结构](./JVM-CheatSheet.md) 不尽相同，Java 内存模型着眼于描述 Java 中的线程是如何与内存进行交互，以及单线程中代码执行的顺序等，并提供了一系列基础的并发语义原则。最早的 Java 内存模型于 1995 年提出，致力于解决不同处理器/操作系统中线程交互/同步的问题。
+
+## Abstract Memory Model: 抽象内存模型
+
+![](http://tutorials.jenkov.com/images/java-concurrency/java-memory-model-5.png)
+
+```java
+public class MySharedObject {
+
+    //static variable pointing to instance of MySharedObject
+
+    public static final MySharedObject sharedInstance =
+        new MySharedObject();
+
+
+    //member variables pointing to two objects on the heap
+
+    public Integer object2 = new Integer(22);
+    public Integer object4 = new Integer(44);
+
+    public long member1 = 12345;
+    public long member1 = 67890;
+}
+```
+
+```java
+public class MyRunnable implements Runnable() {
+
+    public void run() {
+        methodOne();
+    }
+
+    public void methodOne() {
+        int localVariable1 = 45;
+
+        MySharedObject localVariable2 =
+            MySharedObject.sharedInstance;
+
+        //... do more with local variables.
+
+        methodTwo();
+    }
+
+    public void methodTwo() {
+        Integer localVariable1 = new Integer(99);
+
+        //... do more with local variable.
+    }
+}
+```
+
+![](http://tutorials.jenkov.com/images/java-concurrency/java-memory-model-3.png)
 
 ## Cache Line & False Sharing: 缓存行与伪共享
 
@@ -12,12 +69,14 @@
 
 参考 [Java 内存布局]()可知，所有对象都有两个字长的对象头。第一个字是由 24 位哈希码和 8 位标志位（如锁的状态或作为锁对象）组成的 Mark Word。第二个字是对象所属类的引用。如果是数组对象还需要一个额外的字来存储数组的长度。每个对象的起始地址都对齐于 8 字节以提高性能。因此当封装对象的时候为了高效率，对象字段声明的顺序会被重排序成下列基于字节大小的顺序：
 
+```
 doubles (8) 和 longs (8)
 ints (4) 和 floats (4)
 shorts (2) 和 chars (2)
 booleans (1) 和 bytes (1)
 references (4/8)
 <子类字段重复上述顺序>
+```
 
 ```java
 public final static class VolatileLong
