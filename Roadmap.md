@@ -41,7 +41,7 @@
 
 * [ ] Go CheatSheet
 
-  * [ ] https://parg.co/Uyy
+  * [x] [Learning Go](https://parg.co/Uyy)
 
 * [ ] DistributedSystem CheatSheet
 
