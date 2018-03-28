@@ -42,6 +42,8 @@
 * [ ] Go CheatSheet
 
   * [x] [Learning Go](https://parg.co/Uyy)
+  * [ ] [Go By Example](https://gobyexample.com/)
+  * [ ] [A Tour of Go](https://tour.golang.org/methods/14)
 
 * [ ] DistributedSystem CheatSheet
 

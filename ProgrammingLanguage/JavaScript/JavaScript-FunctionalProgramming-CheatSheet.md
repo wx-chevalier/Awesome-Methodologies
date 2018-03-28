@@ -1,5 +1,67 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+# JavaScript 函数式编程术语解释与实践技巧
+
+# 不可变对象操作
+
+## Immer
+
+Immer 是 MobX 作者开源的 JavaScript 中不可变对象操作库，不同于 ImmutableJS，其基于 Proxy 提供了更为直观易用的操作方式。
+
+```js
+import produce from 'immer';
+
+const baseState = [
+  {
+    todo: 'Learn typescript',
+    done: true
+  },
+  {
+    todo: 'Try immer',
+    done: false
+  }
+];
+
+const nextState = produce(baseState, draftState => {
+  draftState.push({ todo: 'Tweet about it' });
+  draftState[1].done = true;
+});
+```
+
+immer 同样可以简化 Reducer 的写法：
+
+```js
+import produce from 'immer';
+
+const byId = produce(
+  (draft, action) => {
+    switch (action.type) {
+      case RECEIVE_PRODUCTS:
+        action.products.forEach(product => {
+          draft[product.id] = product;
+        });
+        return;
+    }
+  },
+  // 传入默认初始状态
+  {
+    1: { id: 1, name: 'product-1' }
+  }
+);
+```
+
+或者直接在 React setState 中使用：
+
+```js
+onBirthDayClick2 = () => {
+  this.setState(
+    produce(draft => {
+      draft.user.age += 1;
+    })
+  );
+};
+```
+
 # Functional Programming Jargon: 函数式编程术语解释
 
 > 本文的主要目的即是希望能够有一种通俗易懂的方式来阐述函数式编程中常见的理论术语概念
