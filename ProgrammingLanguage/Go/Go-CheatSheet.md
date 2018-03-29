@@ -1,8 +1,10 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+![group](https://user-images.githubusercontent.com/5803001/38078769-e6b9ecea-336f-11e8-89c8-b40880b3428c.jpg)
+
 # Go 语法速览与实践清单
 
-Go CheatSheet 是对于 Go 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。 本文参考了许多优秀的文章与代码示范，统一声明在了 [Go Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Go/Go-Links.md)；如果希望深入了解某方面的内容，可以继续阅读 [Go 开发：语法基础与工程实践](https://github.com/wxyyxc1992/ProgrammingLanguage-Series/blob/master/Go/README.md)，或者前往 [coding-snippets/go](https://github.com/wxyyxc1992/coding-snippets/) 查看使用 Go 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
+[Go CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/ProgrammingLanguage/Go/Go-CheatSheet.md) 是对于 Go 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。 本文参考了许多优秀的文章与代码示范，统一声明在了 [Go Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Go/Go-Links.md)；如果希望深入了解某方面的内容，可以继续阅读 [Go 开发：语法基础与工程实践](https://github.com/wxyyxc1992/ProgrammingLanguage-Series/blob/master/Go/README.md)，或者前往 [coding-snippets/go](https://github.com/wxyyxc1992/coding-snippets/) 查看使用 Go 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
 
 # 环境配置与语法基础
 
@@ -38,7 +40,17 @@ func main() {
 }
 ```
 
-Go 并没有相对路径引入，而是以文件夹为单位定义模块，譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。外部引用该模块是需要使用工作区间或者 vendor 相对目录，其目录索引情况如下：
+Go 并没有相对路径引入，而是以文件夹为单位定义模块，譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。
+
+```py
+import (
+        mongo "mywebapp/libs/mongodb/db" // 对引入的模块重命名
+        _ "mywebapp/libs/mysql/db" // 使用空白下划线表示仅调用其初始化函数
+
+)
+```
+
+外部引用该模块是需要使用工作区间或者 vendor 相对目录，其目录索引情况如下：
 
 ```sh
 cannot find package "sub/math" in any of:
@@ -74,6 +86,20 @@ c, python, java := true, false, "no!"
 
 // 声明常量
 const constant = "This is a constant"
+```
+
+在 Go 中，如果我们需要比较两个复杂对象的相似性，可以使用 reflect.DeepEqual 方法：
+
+```go
+m1 := map[string]int{
+    "a":1,
+    "b":2,
+}
+m2 := map[string]int{
+    "a":1,
+    "b":2,
+}
+fmt.Println(reflect.DeepEqual(m1, m2))
 ```
 
 ## 条件判断
@@ -121,6 +147,16 @@ default:
 // 类似于 if，可以在条件之前添加自定义语句
 switch os := runtime.GOOS; os {
 case "darwin": ...
+}
+
+// 使用 switch 语句进行类型判断：
+switch v := anything.(type) {
+  case string:
+    fmt.Println(v)
+  case int32, int64:
+    ...
+  default:
+    fmt.Println("unknown")
 }
 ```
 
@@ -244,6 +280,25 @@ func Filter(s []int, fn func(int) bool) []int {
 }
 ```
 
+虽然 Go 不是函数式语言，但是也可以用其实现柯里函数（Currying Function）:
+
+```go
+func add(x, y int) int {
+    return x+ y
+}
+
+func adder(x int) (func(int) int) {
+    return func(y int) int {
+        return add(x, y)
+    }
+}
+
+func main() {
+	add3 := adder(3)
+	fmt.Println(add3(4))    // 7
+}
+```
+
 Go 支持多个返回值：
 
 ```go
@@ -293,6 +348,19 @@ func outer() (func() int, int) {
 }
 ```
 
+## 函数执行
+
+Go 中提供了 defer 关键字，允许将某个语句的执行推迟到函数返回语句之前：
+
+```go
+func read(...) (...) {
+  f, err := os.Open(file)
+  ...
+  defer f.Close()
+  ...
+  return .. // f will be closed
+```
+
 ## 异常处理
 
 Go 语言中并不存在 try-catch 等异常处理的关键字，对于那些可能返回异常的函数，只需要在函数返回值中添加额外的 Error 类型的返回值：
@@ -306,16 +374,26 @@ type error interface {
 某个可能返回异常的函数调用方式如下：
 
 ```go
-func doStuff() (int, error) {
-}
+import (
+    "fmt"
+    "errors"
+)
 
 func main() {
-    result, err := doStuff()
+    result, err:= Divide(2,0)
+
     if err != nil {
-        // handle error
-    } else {
-        // all is good, use result
+            fmt.Println(err)
+    }else {
+            fmt.Println(result)
     }
+}
+
+func Divide(value1 int,value2 int)(int, error) {
+    if(value2 == 0){
+        return 0, errors.New("value2 mustn't be zero")
+    }
+    return value1/value2  , nil
 }
 ```
 
@@ -332,7 +410,20 @@ if err != nil {
 
 ## 类型绑定与初始化
 
+Go 中的 type 关键字能够对某个类型进行重命名：
+
 ```go
+// IntSlice 并不等价于 []int，但是可以利用类型转换进行转换
+type IntSlice []int
+a := IntSlice{1, 2}
+```
+
+可以使用 T(v) 或者 obj.(T) 进行类型转换，obj.(T) 仅针对 interface{} 类型起作用：
+
+```go
+t := obj.(T) // if obj is not T, error
+t, ok := obj.(T) // if obj is not T, ok = false
+
 // 类型转换与判断
 str, ok := val.(string);
 ```
@@ -505,11 +596,12 @@ s = t
 var m map[string]int
 m = make(map[string]int)
 m["key"] = 42
-fmt.Println(m["key"])
 
+// 删除某个键
 delete(m, "key")
 
-elem, ok := m["key"] // test if key "key" is present and retrieve it, if so
+// 测试该键对应的值是否存在
+elem, has_value := m["key"]
 
 // map literal
 var m = map[string]Vertex{
@@ -518,14 +610,18 @@ var m = map[string]Vertex{
 }
 ```
 
-# 结构体与接口
+# Struct & Interface: 结构体与接口
+
+## Struct: 结构体
 
 Go 语言中并不存在类的概念，只有结构体，结构体可以看做属性的集合，同时可以为其定义方法。
 
 ```go
 // 声明结构体
 type Vertex struct {
+    // 结构体的属性，同样遵循大写导出，小写私有的原则
     X, Y int
+    z bool
 }
 
 // 也可以声明隐式结构体
@@ -566,6 +662,10 @@ func (v *Vertex) add(n float64) {
 }
 ```
 
+```go
+var p *Person = new(Person) // pointer of type Person
+```
+
 ## Pointer: 指针
 
 ```go
@@ -599,6 +699,42 @@ type Foo struct {}
 func (foo Foo) Awesomize() string {
     return "Awesome!"
 }
+```
+
+```go
+type Shape interface {
+   area() float64
+}
+
+func getArea(shape Shape) float64 {
+   return shape.area()
+}
+
+type Circle struct {
+   x,y,radius float64
+}
+
+type Rectangle struct {
+   width, height float64
+}
+
+func(circle Circle) area() float64 {
+   return math.Pi * circle.radius * circle.radius
+}
+
+func(rect Rectangle) area() float64 {
+   return rect.width * rect.height
+}
+
+func main() {
+   circle := Circle{x:0,y:0,radius:5}
+   rectangle := Rectangle {width:10, height:5}
+
+   fmt.Printf("Circle area: %f\n",getArea(circle))
+   fmt.Printf("Rectangle area: %f\n",getArea(rectangle))
+}
+//Circle area: 78.539816
+//Rectangle area: 50.000000
 ```
 
 惯用的思路是先定义接口，再定义实现，最后定义使用的方法：
@@ -851,7 +987,86 @@ func main() {
 
 ## Beego
 
-# 开发实践
+利用 Beego 官方推荐的 [bee](https://beego.me/docs/install/bee.md) 命令行工具，我们可以快速创建 Beego 项目，其目录组织方式如下：
+
+```go
+quickstart
+├── conf
+│   └── app.conf
+├── controllers
+│   └── default.go
+├── main.go
+├── models
+├── routers
+│   └── router.go
+├── static
+│   ├── css
+│   ├── img
+│   └── js
+├── tests
+│   └── default_test.go
+└── views
+    └── index.tpl
+```
+
+在 main.go 文件中，我们可以启动 Beego 实例，并且调用路由的初始化配置文件：
+
+```go
+package main
+
+import (
+        _ "quickstart/routers"
+        "github.com/astaxie/beego"
+)
+
+func main() {
+        beego.Run()
+}
+```
+
+而在路由的初始化函数中，我们会声明各个路由与控制器之间的映射关系：
+
+```go
+package routers
+
+import (
+        "quickstart/controllers"
+        "github.com/astaxie/beego"
+)
+
+func init() {
+        beego.Router("/", &controllers.MainController{})
+}
+```
+
+也可以手动指定 Beego 项目中的静态资源映射：
+
+```go
+beego.SetStaticPath("/down1", "download1")
+beego.SetStaticPath("/down2", "download2")
+```
+
+在具体的控制器中，可以设置返回数据，或者关联的模板名：
+
+```go
+package controllers
+
+import (
+        "github.com/astaxie/beego"
+)
+
+type MainController struct {
+        beego.Controller
+}
+
+func (this *MainController) Get() {
+        this.Data["Website"] = "beego.me"
+        this.Data["Email"] = "astaxie@gmail.com"
+        this.TplNames = "index.tpl" // version 1.6 use this.TplName = "index.tpl"
+}
+```
+
+# DevPractics: 开发实践
 
 ## 文件读写
 
