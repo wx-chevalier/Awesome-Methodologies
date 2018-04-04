@@ -1376,3 +1376,58 @@ try:
 finally:
     connection.close()
 ```
+
+# 并发编程
+
+concurrent.futures 是标准库的一部分，自 3.2 版本之后引入；对于老版本则需要手动引入 futures 依赖库。我们可以使用 ProcessPoolExecutor 来处理 CPU 密集型任务，使用 ThreadPoolExecutor 来处理网络操作或者 IO 操作。ProcessPoolExecutor 内部使用了 multiprocessing 模块，其不会受到 GIL（Global Intercept Lock）的干扰。
+
+```py
+from concurrent.futures import ThreadPoolExecutor
+import time
+
+import requests
+
+def fetch(a):
+    url = 'http://httpbin.org/get?a={0}'.format(a)
+    r = requests.get(url)
+    result = r.json()['args']
+    return result
+
+start = time.time()
+
+# if max_workers is None or not given, it will default to the number of processors, multiplied by 5
+with ThreadPoolExecutor(max_workers=None) as executor:
+    for result in executor.map(fetch, range(30)):
+        print('response: {0}'.format(result))
+
+print('time: {0}'.format(time.time() - start))
+```
+
+executor.submit() 则可以返回 Future 对象，所谓的 Future 即是包含了某个异步执行函数，并且会在未来执行完毕或者抛出异常的对象。而 as_completed 函数与上文使用的 map 函数的区别在于，map 会按照传入迭代器的顺序返回结果，而 as_completed 则会返回首页执行完毕的 Future 对象：
+
+```py
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+import requests
+
+def fetch(url, timeout):
+    r = requests.get(url, timeout=timeout)
+    data = r.json()['args']
+    return data
+
+with ThreadPoolExecutor(max_workers=10) as executor:
+    futures = {}
+    for i in range(42):
+        url = 'https://httpbin.org/get?i={0}'.format(i)
+        future = executor.submit(fetch, url, 60)
+        futures[future] = url
+
+    for future in as_completed(futures):
+        url = futures[future]
+        try:
+            data = future.result()
+        except Exception as exc:
+            print(exc)
+        else:
+            print('fetch {0}, get {1}'.format(url, data))
+```

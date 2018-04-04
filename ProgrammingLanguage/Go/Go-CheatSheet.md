@@ -445,6 +445,8 @@ float32 float64
 
 ### 字符串
 
+Go 中支持以反引号定义多行字符串：
+
 ```go
 // 多行字符串声明
 hellomsg := `
@@ -453,7 +455,7 @@ hellomsg := `
 `
 ```
 
-格式化字符串：
+fmt 的输出模块为我们提供了方便的格式化字符串输出功能：
 
 ```go
 fmt.Println("Hello, 你好, नमस्ते, Привет, ᎣᏏᏲ") // basic print, plus newline
@@ -462,7 +464,12 @@ fmt.Println( "My point:", p, "x coord=", p.X ) // print structs, ints, etc
 s := fmt.Sprintln( "My point:", p, "x coord=", p.X ) // print to string variable
 
 fmt.Printf("%d hex:%x bin:%b fp:%f sci:%e",17,17,17,17.0,17.0) // c-ish format
-s2 := fmt.Sprintf( "%d %f", 17, 17.0 ) // formatted print to string variable
+
+// Sprintf 能够仅进行字符串格式化，返回格式化后的字符串，而非输出到控制台
+s2 := fmt.Sprintf( "%d %f", 17, 17.0 )
+
+// 将其输出到错误流中
+fmt.Fprintf(os.Stderr, "an %s\n", "error")
 ```
 
 ## 序列类型
