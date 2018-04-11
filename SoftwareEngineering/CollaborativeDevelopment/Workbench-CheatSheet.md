@@ -47,3 +47,5 @@ Google Chrome 与 Firefox 都是主流的浏览器平台，Firefox 自 Quantum �
 # 命令行工具
 
 * [localtunnel](https://github.com/localtunnel/localtunnel): localtunnel 提供了内网穿透的能力，能够将本地端口映射到公网域名，其不需要任何 DNS 辅助。localtunnel 方便了我们向公网中的用户展示本地开发环境的效果（虽然网络很不流畅），也可用于 Git Hook 等需要 API 回调服务的情况。
+
+* [Structured text tools](https://github.com/dbohdan/structured-text-tools): 一系列结构化文本操作的工具集合，包括了 DSV，XML，HTML，JSON，YAML 等等。

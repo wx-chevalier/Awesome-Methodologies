@@ -1,3 +1,5 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 * cd {directory}：转换当前目录
 * ls -lha：列出目录文件（详细信息）
 * vim or nano ：命令行编辑器

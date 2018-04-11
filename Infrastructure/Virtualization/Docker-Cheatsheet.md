@@ -6,6 +6,8 @@
 
 参考了 [Docker Cheat Sheet](https://parg.co/Upp)
 
+[https://registry.docker-cn.com](https://registry.docker-cn.com)
+
 # 镜像
 
 ## 镜像管理

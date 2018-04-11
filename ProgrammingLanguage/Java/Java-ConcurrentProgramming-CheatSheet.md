@@ -97,3 +97,487 @@ public static long preventFromOptimization(VolatileLong v) {
 # Concurrent Primitive: 并发单元
 
 # Concurrency Control: 并发控制
+
+[TOC]
+
+# Introduction
+
+## Reference
+
+### Books & Tutorials
+
+* [Java 并发编程的艺术-By 方腾飞]()
+* [Java 并发编程实战](http://book.51cto.com/art/201203/323171.htm)
+* [Java 多线程编程核心技术]()
+
+# Concurrence(并发之线程)
+
+> * [Java 并发的四种风味：Thread、Executor、ForkJoin 和 Actor](http://www.open-open.com/lib/view/open1421202894171.html)
+> * [java8-concurrency-tutorial](http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/)
+> * [java-concurrency](http://tutorials.jenkov.com/java-concurrency/index.html)
+> * [java-util-concurrent](http://tutorials.jenkov.com/java-util-concurrent/index.html)
+
+## Threads & Runnables
+
+> 并发是同一时间应对（dealing with）多件事情的能力；并行是同一时间动手做（doing）多件事情的能力。
+
+所有的现代操作系统都通过进程和线程来支持并发。进程是通常彼此独立运行的程序的实例，比如，如果你启动了一个 Java 程序，操作系统产生一个新的进程，与其他程序一起并行执行。在这些进程的内部，我们使用线程并发执行代码，因此，我们可以最大限度的利用 CPU 可用的核心(core)。 Java 从 JDK1.0 开始执行线程。在开始一个新的线程之前，你必须指定由这个线程执行的代码，通常称为 task。这可以通过实现 Runnable——一个定义了一个无返回值无参数的 run()方法的函数接口，如下面的代码所示：
+
+```java
+Runnable task = () -> {
+    String threadName = Thread.currentThread().getName();
+    System.out.println("Hello " + threadName);
+};
+
+task.run();
+
+Thread thread = new Thread(task);
+thread.start();
+
+System.out.println("Done!");
+```
+
+因为 Runnable 是一个函数接口，所以我们利用 lambda 表达式将当前的线程名打印到控制台。首先，在开始一个线程前我们在主线程中直接运行 runnable。 控制台输出的结果可能像下面这样：
+
+```
+Hello main
+Hello Thread-0
+Done!
+```
+
+或者这样：
+
+```
+Hello main
+Done!
+Hello Thread-0
+```
+
+## Executors
+
+并发 API 引入了 ExecutorService 作为一个在程序中直接使用 Thread 的高层次的替换方案。Executos 支持运行异步任务，通常管理一个线程池，这样一来我们就不需要手动去创建新的线程。在不断地处理任务的过程中，线程池内部线程将会得到复用，因此，在我们可以使用一个 executor service 来运行和我们想在我们整个程序中执行的一样多的并发任务。 下面是使用 executors 的第一个代码示例：
+
+```java
+ExecutorService executor = Executors.newSingleThreadExecutor();
+executor.submit(() -> {
+	String threadName = Thread.currentThread().getName();
+	System.out.println("Hello " + threadName);
+});
+// => Hello pool-1-thread-1
+```
+
+Executors 类提供了便利的工厂方法来创建不同类型的 executor services。在这个示例中我们使用了一个单线程线程池的 executor。 代码运行的结果类似于上一个示例，但是当运行代码时，你会注意到一个很大的差别：Java 进程从没有停止！Executors 必须显式的停止-否则它们将持续监听新的任务。 ExecutorService 提供了两个方法来达到这个目的——shutdwon()会等待正在执行的任务执行完而 shutdownNow()会终止所有正在执行的任务并立即关闭 execuotr。
+
+```java
+try {
+    System.out.println("attempt to shutdown executor");
+    executor.shutdown();
+    executor.awaitTermination(5, TimeUnit.SECONDS);
+    }
+catch (InterruptedException e) {
+    System.err.println("tasks interrupted");
+}
+finally {
+    if (!executor.isTerminated()) {
+        System.err.println("cancel non-finished tasks");
+    }
+    executor.shutdownNow();
+    System.out.println("shutdown finished");
+}
+```
+
+executor 通过等待指定的时间让当前执行的任务终止来“温柔的”关闭 executor。在等待最长 5 分钟的时间后，execuote 最终会通过中断所有的正在执行的任务关闭。
+
+### invokeAll:调用所有的 Callable
+
+Executors 支持通过 invokeAll()一次批量提交多个 callable。这个方法结果一个 callable 的集合，然后返回一个 future 的列表。
+
+```java
+ExecutorService executor = Executors.newWorkStealingPool();
+
+List<Callable<String>> callables = Arrays.asList(
+        () -> "task1",
+        () -> "task2",
+        () -> "task3");
+
+executor.invokeAll(callables)
+    .stream()
+    .map(future -> {
+        try {
+            return future.get();
+        }
+        catch (Exception e) {
+            throw new IllegalStateException(e);
+        }
+    })
+    .forEach(System.out::println);
+```
+
+在这个例子中，我们利用 Java8 中的函数流（stream）来处理 invokeAll()调用返回的所有 future。我们首先将每一个 future 映射到它的返回值，然后将每个值打印到控制台。如果你还不属性 stream，可以阅读我的[Java8 Stream 教程](http://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/)。
+
+### invokeAny
+
+批量提交 callable 的另一种方式就是 invokeAny()，它的工作方式与 invokeAll()稍有不同。在等待 future 对象的过程中，这个方法将会阻塞直到第一个 callable 中止然后返回这一个 callable 的结果。 为了测试这种行为，我们利用这个帮助方法来模拟不同执行时间的 callable。这个方法返回一个 callable，这个 callable 休眠指定 的时间直到返回给定的结果。
+
+```java
+//这个callable方法是用来构造不同的Callable对象
+Callable<String> callable(String result, long sleepSeconds) {
+    return () -> {
+        TimeUnit.SECONDS.sleep(sleepSeconds);
+        return result;
+    };
+}
+```
+
+我们利用这个方法创建一组 callable，这些 callable 拥有不同的执行时间，从 1 分钟到 3 分钟。通过 invokeAny()将这些 callable 提交给一个 executor，返回最快的 callable 的字符串结果-在这个例子中为任务 2：
+
+```
+ExecutorService executor = Executors.newWorkStealingPool();
+
+List<Callable<String>> callables = Arrays.asList(
+callable("task1", 2),
+callable("task2", 1),
+callable("task3", 3));
+
+String result = executor.invokeAny(callables);
+System.out.println(result);
+
+// => task2
+```
+
+### Scheduled Executors
+
+为了持续的多次执行常见的任务，我们可以利用调度线程池 ScheduledExecutorService 支持任务调度，持续执行或者延迟一段时间后执行。 下面的实例，调度一个任务在延迟 3 分钟后执行：
+
+```java
+ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+
+Runnable task = () -> System.out.println("Scheduling: " + System.nanoTime());
+ScheduledFuture<?> future = executor.schedule(task, 3, TimeUnit.SECONDS);
+
+TimeUnit.MILLISECONDS.sleep(1337);
+
+long remainingDelay = future.getDelay(TimeUnit.MILLISECONDS);
+System.out.printf("Remaining Delay: %sms", remainingDelay);
+```
+
+调度一个任务将会产生一个专门的 future 类型——ScheduleFuture，它除了提供了 Future 的所有方法之外，他还提供了 getDelay()方法来获得剩余的延迟。在延迟消逝后，任务将会并发执行。 为了调度任务持续的执行，executors 提供了两个方法 scheduleAtFixedRate()和 scheduleWithFixedDelay()。第一个方法用来以固定频率来执行一个任务，比如，下面这个示例中，每分钟一次：
+
+```java
+ScheduledExecutorService executor =     Executors.newScheduledThreadPool(1);
+
+Runnable task = () -> System.out.println("Scheduling: " + System.nanoTime());
+
+int initialDelay = 0;
+int period = 1;
+executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
+```
+
+另外，这个方法还接收一个初始化延迟，用来指定这个任务首次被执行等待的时长。 请记住：scheduleAtFixedRate()并不考虑任务的实际用时。所以，如果你指定了一个 period 为 1 分钟而任务需要执行 2 分钟，那么线程池为了性能会更快的执行。在这种情况下，你应该考虑使用 scheduleWithFixedDelay()。这个方法的工作方式与上我们上面描述的类似。不同之处在于等待时间 period 的应用是在一次任务的结束和下一个任务的开始之间。例如：
+
+## Concurrence Test
+
+> * [concurrency-torture-testing-your-code-within-the-java-memory-model](http://zeroturnaround.com/rebellabs/concurrency-torture-testing-your-code-within-the-java-memory-model/)
+
+# 线程安全
+
+## Atomic Variables(原子性与原子变量)
+
+## 锁与同步
+
+## 可见性
+
+Java 中的 volatile 关键字主要即是保证了变量的可见性，而不是原子性，譬如[Java](http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&app_id=0&c=news&cf=1001&ch=0&di=128&fv=19&is_app=0&jk=9220db91f2f6efed&k=java&k0=java&kdi0=0&luki=5&mcpm=0&n=10&p=baidu&q=65035100_cpr&rb=0&rs=1&seller_id=1&sid=edeff6f291db2092&ssp2=1&stid=0&t=tpclicked3_hc&td=1836545&tu=u1836545&u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D481580%2Ehtml&urlid=0)语言规范描述：
+
+> 每一个变量都有一个主内存。为了保证最佳性能，JVM 允许线程从主内存拷贝一份私有拷贝，然后在线程读取变量的时候从主内存里面读，退出的时候，将修改的值同步到主内存。
+
+形象而言，对于变量 t。A 线程对 t 变量修改的值，对 B 线程是可见的。但是 A 获取到 t 的值加 1 之后，突然挂起了，B 获取到的值还是最新的值，volatile 能保证 B 能获取到的 t 是最新的值，因为 A 的 t+1 并没有写到主内存里面去。这个[逻辑](http://cpro.baidu.com/cpro/ui/uijs.php?adclass=0&app_id=0&c=news&cf=1001&ch=0&di=128&fv=19&is_app=0&jk=9220db91f2f6efed&k=%C2%DF%BC%AD&k0=%C2%DF%BC%AD&kdi0=0&luki=2&mcpm=0&n=10&p=baidu&q=65035100_cpr&rb=0&rs=1&seller_id=1&sid=edeff6f291db2092&ssp2=1&stid=0&t=tpclicked3_hc&td=1836545&tu=u1836545&u=http%3A%2F%2Fwww%2Ebubuko%2Ecom%2Finfodetail%2D481580%2Ehtml&urlid=0)是没有问题的。
+
+在实际的编程中，要注意，除非是在保证仅有一个线程处于写，而其他线程处于读的状态下的时候，才可以使用 volatile 来保证可见性，而不需要使用原子变量或者锁来保证原子性。
+
+```java
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.atomic.AtomicInteger;
+
+public class Counter {
+
+	public static AtomicInteger count = new AtomicInteger();//原子操作
+	public static CountDownLatch latch= new CountDownLatch(1000);//线程协作处理
+	public static volatile int countNum = 0;//volatile    只能保证可见性，不能保证原子性
+	public static int synNum = 0;//同步处理计算
+
+	public static void inc() {
+
+		try {
+			Thread.sleep(1);
+		} catch (InterruptedException e) {
+		}
+		countNum++;
+		int c = count.addAndGet(1);
+		add();
+		System.out.println(Thread.currentThread().getName() + "------>" + c);
+	}
+
+	public static synchronized void add(){
+		synNum++;
+	}
+
+	public static void main(String[] args) {
+
+		//同时启动1000个线程，去进行i++计算，看看实际结果
+
+		for (int i = 0; i < 1000; i++) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					Counter.inc();
+					latch.countDown();
+				}
+			},"thread" + i).start();
+		}
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(Thread.currentThread().getName());
+
+		System.out.println("运行结果:Counter.count=" + count.get() + ",,," + countNum + ",,," + synNum);
+	}
+}
+```
+
+# 线程通信
+
+# Built-in ThreadSafe DataStructure(内置的线程安全模型)
+
+## ConcurrentMap
+
+## Sync Utils:同步辅助
+
+### **CountDownLatch**
+
+一个同步辅助类，在完成一组正在其他线程中执行的操作之前，它允许一个或多个线程一直等待。用给定的计数 初始化 CountDownLatch。由于调用了 countDown() 方法，所以在当前计数到达零之前，await 方法会一直受阻塞。之后，会释放所有等待的线程，await 的所有后续调用都将立即返回。这种现象只出现一次——计数无法被重置。  一个线程(或者多个)， 等待另外 N 个线程完成某个事情之后才能执行。在一些应用场合中，需要等待某个条件达到要求后才能做后面的事情；同时当线程都完成后也会触发事件，以便进行后面的操作。 这个时候就可以使用 CountDownLatch。CountDownLatch 最重要的方法是 countDown()和 await()，前者主要是倒数一次，后者是等待倒数到 0，如果没有到达 0，就只有阻塞等待了。
+
+```java
+public void countDown()
+```
+
+递减锁存器的计数，如果计数到达零，则释放所有等待的线程。如果当前计数大于零，则将计数减少。如果新的计数为零，出于线程调度目的，将重新启用所有的等待线程。如果当前计数等于零，则不发生任何操作。
+
+```java
+public boolean await(long timeout,
+                     TimeUnit unit)
+              throws InterruptedException
+```
+
+使当前线程在锁存器倒计数至零之前一直等待，除非线程被中断或超出了指定的等待时间。如果当前计数为零，则此方法立刻返回 true 值。如果当前计数大于零，则出于线程调度目的，将禁用当前线程，且在发生以下三种情况之一前，该线程将一直处于休眠状态：
+
+* 由于调用 countDown() 方法，计数到达零；或者
+
+- 其他某个线程中断当前线程；或者
+
+* 已超出指定的等待时间。
+
+如果计数到达零，则该方法返回 true 值。如果当前线程在进入此方法时已经设置了该线程的中断状态；或者在等待时被中断，则抛出 InterruptedException，并且清除当前线程的已中断状态。如果超出了指定的等待时间，则返回值为 false。如果该时间小于等于零，则此方法根本不会等待。
+
+```java
+public class CountDownLatchTest {
+
+    // 模拟了100米赛跑，10名选手已经准备就绪，只等裁判一声令下。当所有人都到达终点时，比赛结束。
+    public static void main(String[] args) throws InterruptedException {
+
+        // 开始的倒数锁
+        final CountDownLatch begin = new CountDownLatch(1);  
+
+        // 结束的倒数锁
+        final CountDownLatch end = new CountDownLatch(10);  
+
+        // 十名选手
+        final ExecutorService exec = Executors.newFixedThreadPool(10);  
+
+        for (int index = 0; index < 10; index++) {
+            final int NO = index + 1;  
+            Runnable run = new Runnable() {
+                public void run() {  
+                    try {  
+                        // 如果当前计数为零，则此方法立即返回。
+                        // 等待
+                        begin.await();  
+                        Thread.sleep((long) (Math.random() * 10000));  
+                        System.out.println("No." + NO + " arrived");  
+                    } catch (InterruptedException e) {  
+                    } finally {  
+                        // 每个选手到达终点时，end就减一
+                        end.countDown();
+                    }  
+                }  
+            };  
+            exec.submit(run);
+        }  
+        System.out.println("Game Start");  
+        // begin减一，开始游戏
+        begin.countDown();  
+        // 等待end变为0，即所有选手到达终点
+        end.await();  
+        System.out.println("Game Over");  
+        exec.shutdown();  
+    }
+}
+```
+
+结果如下：
+
+```
+Game Start
+No.9 arrived
+No.6 arrived
+No.8 arrived
+No.7 arrived
+No.10 arrived
+No.1 arrived
+No.5 arrived
+No.4 arrived
+No.2 arrived
+No.3 arrived
+Game Over
+```
+
+# Concurrence-Asynchronous(并发之异步)
+
+## Callables&Futures
+
+Executors 本身提供了一种对于多线程的封装，而 Executor 还支持另一种类型的任务——Callable。Callables 也是类似于 runnables 的函数接口，不同之处在于，Callable 返回一个值。 Callable 接口本身是一个 Lambda 表达式（函数式接口）：
+
+```java
+Callable<Integer> task = () -> {
+    try {
+        TimeUnit.SECONDS.sleep(1);
+        return 123;
+    }
+    catch (InterruptedException e)
+        throw new IllegalStateException("task interrupted", e);
+    }
+};
+```
+
+Callbale 也可以像 runnbales 一样提交给 executor services。但是 callables 的结果怎么办？因为 submit()不会等待任务完成，executor service 不能直接返回 callable 的结果。不过，executor 可以返回一个 Future 类型的结果，它可以用来在稍后某个时间取出实际的结果。
+
+```java
+ExecutorService executor = Executors.newFixedThreadPool(1);
+Future<Integer> future = executor.submit(task);
+
+System.out.println("future done? " + future.isDone());
+
+Integer result = future.get();
+
+System.out.println("future done? " + future.isDone());
+System.out.print("result: " + result);
+```
+
+在调用 get()方法时，当前线程会阻塞等待，直到 callable 在返回实际的结果 123 之前执行完成。现在 future 执行完毕，我们可以在控制台看到如下的结果：
+
+```
+future done? false
+future done? true
+result: 123
+```
+
+Future 与底层的 executor service 紧密的结合在一起。记住，如果你关闭 executor，所有的未中止的 future 都会抛出异常。
+
+```
+executor.shutdownNow();
+future.get();
+```
+
+你可能注意到我们这次创建 executor 的方式与上一个例子稍有不同。我们使用 newFixedThreadPool(1)来创建一个单线程线程池的 execuot service。 这等同于使用 newSingleThreadExecutor，不过使用第二种方式我们可以稍后通过简单的传入一个比 1 大的值来增加线程池的大小。
+
+### Timeouts
+
+任何 future.get()调用都会阻塞，然后等待直到 callable 中止。在最糟糕的情况下，一个 callable 持续运行——因此使你的程序将没有响应。我们可以简单的传入一个时长来避免这种情况。
+
+```java
+ExecutorService executor = Executors.newFixedThreadPool(1);
+
+Future<Integer> future = executor.submit(() -> {
+    try {
+        TimeUnit.SECONDS.sleep(2);
+        return 123;
+    }
+    catch (InterruptedException e) {
+        throw new IllegalStateException("task interrupted", e);
+    }
+});
+
+future.get(1, TimeUnit.SECONDS);
+```
+
+运行上面的代码将会产生一个 TimeoutException：
+
+```
+Exception in thread "main" java.util.concurrent.TimeoutException
+    at java.util.concurrent.FutureTask.get(FutureTask.java:205)
+```
+
+## Promise
+
+# [RxJava](https://github.com/ReactiveX/RxJava)-Reactive Programming(响应式编程)
+
+> * [grokking-rxjava](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)
+> * [深入浅出 RxJava](http://blog.csdn.net/lzyzsd/article/details/41833541)
+> * [RxJava Essentials CN](http://rxjava.yuxingxin.com/chapter1/chapter1.html)
+> * [RxJava's repeatWhen and retryWhen, explained](http://blog.danlew.net/2016/01/25/rxjavas-repeatwhen-and-retrywhen-explained/)
+
+## Quick Start
+
+笔者在 J2EE 领域还是倾向于使用 Maven，直接在 pom 文件中添加如下依赖即可：
+
+```xml
+<dependency>
+    <groupId>io.reactivex</groupId>
+    <artifactId>rxjava</artifactId>
+    <version>1.0.10</version>
+</dependency>
+```
+
+添加了 Pom 依赖项之后，即可以引入 Observable 以及 Subscribe 对象：
+
+```java
+import rx.Observable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class RxUsingJava8 {
+
+    public static void main(String args[]) {
+
+        /*
+         * Example using single-value lambdas (Func1)
+         */
+        Observable.from(1, 2, 3, 4, 5)
+                .filter((v) -> {
+                    return v < 4;
+                })
+                .subscribe((value) -> {
+                    System.out.println("Value: " + value);
+                });
+
+        /*
+         * Example with 'reduce' that takes a lambda with 2 arguments (Func2)
+         */
+        Observable.from(1, 2, 3, 4, 5)
+                .reduce((seed, value) -> {
+                    // sum all values from the sequence
+                    return seed + value;
+                })
+                .map((v) -> {
+                    return "DecoratedValue: " + v;
+                })
+                .subscribe((value) -> {
+                    System.out.println(value);
+                });
+
+    }
+}
+```

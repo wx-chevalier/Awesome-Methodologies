@@ -2,6 +2,8 @@
 
 # 机器学习概念速览
 
+对于某给定的任务 T，在合理的性能度量方案 P 的前提下，某计算机程序可以自主学习任务 T 的经验 E；随着提供合适、优质、大量的经验 E，该程序对于任务 T 的性能逐步提高。即随着任务的不断执行，经验的累积会带来计算机性能的提升。
+
 ![](http://blogs.sas.com/content/subconsciousmusings/files/2017/04/machine-learning-cheet-sheet.png)
 
 ![](http://api.ning.com/files/4*70048ZsE4d4vAJg-aTE95xugJ5lTBq5r9WVsZ54EvqkwPajzn6AeprtzImBldqq*dbze8ZGDtuyoeewh4MamSwpz8EHC5Q/Capture.PNG)
@@ -31,10 +33,7 @@
 
 # 模型评估与正则化
 
-机器学习的算法或者模型的分类有很多种，其中有一种分法把模型分为 Discriminative Modeling （判别模型）和 Generative Modeling （生成模型）两种。为了写起来方便我们以下简称 DM 和 GM 。在一个基本的机器学习问题中，我们通常有输入 $x \in X$和输出 $y \in Y$两个部分，简单地来说，DM 关注于 $x$和 $y$的关系，或者说在给定某个 $x$的情况下所对应的 $y$应该满足的规律或分布，即评估对象是最大化条件概率$p(y|x)$并直接对其建模；而 GM 则试图描述 $x$和 $y$的联合分布，即模型评估对象是最大化联合概率$p(x,y)$并对其建模。
-其实两者的评估目标都是要得到最终的类别标签$Y$， 而$Y=argmax p(y|x)$，不同的是判别式模型直接通过解在满足训练样本分布下的最优化问题得到模型参数，主要用到拉格朗日乘算法、梯度下降法，常见的判别式模型如最大熵模型、CRF、LR、SVM 等；
-而生成式模型先经过贝叶斯转换成$Y = argmax p(y|x) = argmax p(x|y)\*p(y)$，然后分别学习$p(y)$和$p(x|y)$的概率分布，主要通过极大似然估计的方法学习参数，如 NGram、HMM、Naive Bayes。
-比较而言，判别式模型会更加灵活，而生成式模型一般需要将特征加入马尔科夫链。但是判别式模型需要有指导训练，而生成式模型可以无指导训练。
+机器学习的算法或者模型的分类有很多种，其中有一种分法把模型分为 Discriminative Modeling （判别模型）和 Generative Modeling （生成模型）两种。为了写起来方便我们以下简称 DM 和 GM 。在一个基本的机器学习问题中，我们通常有输入 $x \in X$和输出 $y \in Y$两个部分，简单地来说，DM 关注于 $x$和 $y$的关系，或者说在给定某个 $x$的情况下所对应的 $y$应该满足的规律或分布，即评估对象是最大化条件概率$p(y|x)$并直接对其建模；而 GM 则试图描述 $x$和 $y$的联合分布，即模型评估对象是最大化联合概率$p(x,y)$并对其建模。其实两者的评估目标都是要得到最终的类别标签$Y$， 而$Y=argmax p(y|x)$，不同的是判别式模型直接通过解在满足训练样本分布下的最优化问题得到模型参数，主要用到拉格朗日乘算法、梯度下降法，常见的判别式模型如最大熵模型、CRF、LR、SVM 等；而生成式模型先经过贝叶斯转换成$Y = argmax p(y|x) = argmax p(x|y)\*p(y)$，然后分别学习$p(y)$和$p(x|y)$的概率分布，主要通过极大似然估计的方法学习参数，如 NGram、HMM、Naive Bayes。比较而言，判别式模型会更加灵活，而生成式模型一般需要将特征加入马尔科夫链。但是判别式模型需要有指导训练，而生成式模型可以无指导训练。
 
 给定某系统的若干样本，求取该系统的参数，主要分为频率学派与贝叶斯学派。
 
@@ -92,3 +91,166 @@ $$
 & h*{\theta}(x) = \sum\_{i=0}^n \theta_i x_i = \theta^Tx
 \end{align*}
 $$
+
+# Algorithms: 算法
+
+算法基本上从功能或者形式上来分类。比如，基于树的算法，神经网络算法。这是一个很有用的分类方式，但并不完美。因为有许多算法可以轻易地被分到两类中去，比如说 Learning Vector Quantization 就同时是神经网络类的算法和基于实例的方法。正如机器学习算法本身没有完美的模型一样，算法的分类方法也没有完美的。
+
+### Grouped By Learning Style(根据学习风格分类)
+
+#### Supervised Learning
+
+输入数据被称为训练数据，并且有已知的结果或被标记。比如说一封邮件是否是垃圾邮件，或者说一段时间内的股价。模型做出预测，如果错了就会被修正，这个过程一直持续到对于训练数据它能够达到一定的正确标准。问题例子包括分类和回归问题，算法例子包括逻辑回归和反向神经网络。
+
+![](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Supervised-Learning-Algorithms.png)
+
+有监督学习的通俗例子可以以人类认知月亮的过程为例，小时候会认为黑夜里天空中明亮的圆盘状物体为月亮，后来随着时间的推移，发现圆盘状这个特点并非一个决定性因素。
+
+#### [Unsupervised Learning](https://github.com/okulbilisim/awesome-datascience/blob/master/Algorithms.md#unsupervised-learning)
+
+输入数据没有被标记，也没有确定的结果。模型对数据的结构和数值进行归纳。问题例子包括 Association rule learning 和聚类问题，算法例子包括 Apriori 算法和 K-均值算法。
+
+![](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Unsupervised-Learning-Algorithms.png)
+
+#### Semi-Supervised Learning
+
+![](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Semi-supervised-Learning-Algorithms.png)
+
+输入数据是被标记的和不被标记的数据的混合，有一些预测问题但是模型也必须学习数据的结构和组成。问题例子包括分类和回归问题，算法例子基本上是无监督学习算法的延伸。
+
+### Grouped By Similarity(根据算法相似度分类)
+
+#### Regression Algorithms
+
+![Regression Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Regression-Algorithms.png)
+
+Regression is concerned with modelling the relationship between variables that is iteratively refined using a measure of error in the predictions made by the model.
+
+Regression methods are a workhorse of statistics and have been cooped into statistical machine learning. This may be confusing because we can use regression to refer to the class of problem and the class of algorithm. Really, regression is a process.
+
+The most popular regression algorithms are:
+
+* Ordinary Least Squares Regression (OLSR)
+* Linear Regression
+* Logistic Regression
+* Stepwise Regression
+* Multivariate Adaptive Regression Splines (MARS)
+* Locally Estimated Scatterplot Smoothing (LOESS)
+
+#### Instance-based Algorithms
+
+![Instance-based Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Instance-based-Algorithms.png)Instance based learning model a decision problem with instances or examples of training data that are deemed important or required to the model.
+
+Such methods typically build up a database of example data and compare new data to the database using a similarity measure in order to find the best match and make a prediction. For this reason, instance-based methods are also called winner-take-all methods and memory-based learning. Focus is put on representation of the stored instances and similarity measures used between instances.
+
+The most popular instance-based algorithms are:
+
+* k-Nearest Neighbour (kNN)
+* Learning Vector Quantization (LVQ)
+* Self-Organizing Map (SOM)
+* Locally Weighted Learning (LWL)
+
+#### Regularization Algorithms
+
+![Regularization Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Regularization-Algorithms.png)
+
+An extension made to another method (typically regression methods) that penalizes models based on their complexity, favoring simpler models that are also better at generalizing.
+
+I have listed regularization algorithms separately here because they are popular, powerful and generally simple modifications made to other methods.
+
+The most popular regularization algorithms are:
+
+* Ridge Regression
+* Least Absolute Shrinkage and Selection Operator (LASSO)
+* Elastic Net
+* Least-Angle Regression (LARS)
+
+#### Decision Tree Algorithms
+
+![Decision Tree Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Decision-Tree-Algorithms.png)Decision tree methods construct a model of decisions made based on actual values of attributes in the data.
+
+Decisions fork in tree structures until a prediction decision is made for a given record. Decision trees are trained on data for classification and regression problems. Decision trees are often fast and accurate and a big favorite in machine learning.
+
+The most popular decision tree algorithms are:
+
+* Classification and Regression Tree (CART)
+* Iterative Dichotomiser 3 (ID3)
+* C4.5 and C5.0 (different versions of a powerful approach)
+* Chi-squared Automatic Interaction Detection (CHAID)
+* Decision Stump
+* M5
+* Conditional Decision Trees
+
+#### Bayesian Algorithms
+
+![Bayesian Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Bayesian-Algorithms.png)Bayesian methods are those that are explicitly apply Bayes’ Theorem for problems such as classification and regression.
+
+The most popular Bayesian algorithms are:
+
+* Naive Bayes
+* Gaussian Naive Bayes
+* Multinomial Naive Bayes
+* Averaged One-Dependence Estimators (AODE)
+* Bayesian Belief Network (BBN)
+* Bayesian Network (BN)
+
+#### Clustering Algorithms
+
+![Clustering Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Clustering-Algorithms.png)Clustering, like regression describes the class of problem and the class of methods.
+
+Clustering methods are typically organized by the modelling approaches such as centroid-based and hierarchal. All methods are concerned with using the inherent structures in the data to best organize the data into groups of maximum commonality.
+
+The most popular clustering algorithms are:
+
+* k-Means
+* k-Medians
+* Expectation Maximisation (EM)
+* Hierarchical Clustering
+
+#### Artificial Neural Network Algorithms
+
+![Artificial Neural Network Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Artificial-Neural-Network-Algorithms.png)
+
+Artificial Neural Networks are models that are inspired by the structure and/or function of biological neural networks.
+
+They are a class of pattern matching that are commonly used for regression and classification problems but are really an enormous subfield comprised of hundreds of algorithms and variations for all manner of problem types.
+
+Note that I have separated out Deep Learning from neural networks because of the massive growth and popularity in the field. Here we are concerned with the more classical methods.
+
+The most popular artificial neural network algorithms are:
+
+* Perceptron
+* Back-Propagation
+* Hopfield Network
+* Radial Basis Function Network (RBFN)
+
+#### Deep Learning Algorithms
+
+![Deep Learning Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Deep-Learning-Algorithms.png)Deep Learning methods are a modern update to Artificial Neural Networks that exploit abundant cheap computation.
+
+They are concerned with building much larger and more complex neural networks, and as commented above, many methods are concerned with semi-supervised learning problems where large datasets contain very little labelled data.
+
+The most popular deep learning algorithms are:
+
+* Deep Boltzmann Machine (DBM)
+* Deep Belief Networks (DBN)
+* Convolutional Neural Network (CNN)
+* Stacked Auto-Encoders
+
+#### Support Vector Machines
+
+#### Ensemble Algorithms
+
+![Ensemble Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Ensemble-Algorithms.png)
+
+Ensemble methods are models composed of multiple weaker models that are independently trained and whose predictions are combined in some way to make the overall prediction.
+
+Much effort is put into what types of weak learners to combine and the ways in which to combine them. This is a very powerful class of techniques and as such is very popular.
+
+* Boosting
+* Bootstrapped Aggregation (Bagging)
+* AdaBoost
+* Stacked Generalization (blending)
+* Gradient Boosting Machines (GBM)
+* Gradient Boosted Regression Trees (GBRT)
+* Random Forest

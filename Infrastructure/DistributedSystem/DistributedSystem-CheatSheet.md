@@ -44,8 +44,6 @@ AP (availability + partition tolerance)，这样的系统关心可用性和分�
 
 ## 流计算
 
-[TOC]
-
 # Introduction
 
 # 分布式事务
