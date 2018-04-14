@@ -1,8 +1,20 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# SQL CheatSheet
+# SQL 语法速览与备忘清单
 
-### 存在性更像
+SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是负责与 ANSI（美国国家标准学会）维护的数据库交互的标准。作为关系数据库的标准语言，它已被众多商用 DBMS 产品所采用，使得它已成为关系数据库领域中一个主流语言，不仅包含数据查询功能，还包括插入、删除、更新和数据定义功能。最为重要的 SQL92 版本的详细标准可以查看[这里](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)，或者在 [Wiki](https://en.wikipedia.org/wiki/SQL) 上查看 SQL 标准的变化。
+
+T-SQL 是 SQL 语言的一种版本，且只能在 SQL SERVER 上使用。它是 ANSI SQL 的加强版语言、提供了标准的 SQL 命令。另外，T-SQL 还对 SQL 做了许多补允，提供了数据库脚本语言，即类似 C、Basic 和 Pascal 的基本功能，如变量说明、流控制语言、功能函数等。
+
+PL-SQL（Procedural Language-SQL）是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具（如 SQL\*Plus、Developer/2000 等）访问服务器的操作语言。它有标准 SQL 所没有的特征：变量（包括预先定义的和自定义的）；控制结构（如 IF-THEN-ELSE 等流控制语句）；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
+
+# DML 数据库管理
+
+# DQL 数据查询
+
+# DDL 数据定义
+
+### 存在性更新
 
 Mysql 处理某个唯一索引时存在则更新，不存在则插入的情况应该是很常见的，网上也有很多类似的文章，我今天就讲讲当这个唯一的索引是多列唯一索引时可能会遇到的问题和方法。
 

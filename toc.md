@@ -30,7 +30,7 @@
 
 * [SKLearn-CheatSheet](./DataScienceAI/Toolkit/SKLearn-CheatSheet.md): Scikit-Learn
 
-- [Tensorflow-CheatSheet](./DataScienceAI/Toolkit/Tensorflow-CheatSheet.md):
+- [ TensorFlow-CheatSheet](./DataScienceAI/Toolkit/ TensorFlow-CheatSheet.md):
 
 # IndustrialApplication
 
