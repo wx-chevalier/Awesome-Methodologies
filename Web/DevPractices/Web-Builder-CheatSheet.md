@@ -16,6 +16,41 @@ npm install -g parcel-bundler
 
 # Rollup + Microbundle
 
+```js
+import { rollup } from 'rollup';
+import babel from 'rollup-plugin-babel';
+
+rollup({
+  entry: 'main.js',
+  plugins: [
+    babel({
+      exclude: 'node_modules/**'
+    })
+  ]
+}).then(...)
+```
+
+```js
+import typescript from 'rollup-plugin-typescript';
+
+export default {
+  entry: './main.ts',
+
+  plugins: [typescript()]
+};
+```
+
+[Microbundle](https://github.com/developit/microbundle) 则是 Developit 基于 Rollup 封装的零配置的轻量级打包工具，其目前已经内建支持 TypeScript 与 Flow，不需要额外的配置；笔者在 [x-fetch](https://github.com/wxyyxc1992/js-swissgear/tree/master/x-fetch) 项目的打包中也使用了该工具。
+
+```json
+{
+  "scripts": {
+    "build": "microbundle",
+    "dev": "microbundle watch"
+  }
+}
+```
+
 # Webpack
 
 # Backpack
