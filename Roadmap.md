@@ -96,3 +96,6 @@
 
 * [ ] Java ConcurrentProgramming CheatSheet
   * [ ] Java 内存模型 [Java Memory Model](http://tutorials.jenkov.com/java-concurrency/java-memory-model.html), [深入理解 Java 内存模型](http://www.infoq.com/cn/articles/java-memory-model-1)
+  
+* [ ] Redux CheatSheet
+  * [ ] https://medium.com/netscape/advanced-redux-action-types-d5a71ed44e16
