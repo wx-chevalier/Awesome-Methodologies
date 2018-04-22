@@ -36,57 +36,6 @@ BETWEEN '2011-06-07'
 AND '2011-06-07 23:59:59'
 ```
 
-# Oracle
-
-## Query
-
-* 获取前 N 行
-
-```
-SELECT val
-FROM   rownum_order_test
-ORDER BY val DESC
-FETCH FIRST 5 ROWS ONLY;
-```
-
-* 获取前 N 行，如果第 N 行有多个相同值，则全部返回
-
-```
-SELECT val
-FROM   rownum_order_test
-ORDER BY val DESC
-FETCH FIRST 5 ROWS WITH TIES;
-```
-
-* 获取前 `x%` 行：
-
-```
-SELECT val
-FROM   rownum_order_test
-ORDER BY val
-FETCH FIRST 20 PERCENT ROWS ONLY;
-```
-
-* 根据偏移量查询，适用于需要分页的情况：
-
-```
-SELECT val
-FROM   rownum_order_test
-ORDER BY val
-OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY;
-```
-
-* 综合使用偏移量与百分比查询：
-
-```
-SELECT val
-FROM   rownum_order_test
-ORDER BY val
-OFFSET 4 ROWS FETCH NEXT 20 PERCENT ROWS ONLY;
-```
-
-![](https://cdn-images-1.medium.com/max/800/0*AhVo_3sCq-ft64ki.jpg)
-
 # MySQL 命令速览与实践清单
 
 MySQL is a full-featured open-source relational database management system (RDBMS) that was originally built by MySQL AB and currently owned by Oracle Corporation. It stores data in tables that are grouped into a database, uses Structured Query Language (SQL) to access data and such commands as ‘SELECT’, ‘UPDATE’, ‘INSERT’ and ‘DELETE’ to manage it. Related information can be stored in different tables, but the usage of JOIN operation allows you to correlate it, perform queries across various tables and minimize the chance of data duplication.
@@ -158,5 +107,59 @@ COMMIT;
 ## SQL Injection
 
 # Optimization: 性能调优
+
+ CPU 过载 –- 慢查询， OPTIMZE TABLE
+ 内存使用问题 –- 内存相关参数配置不合理
+ 磁盘 I/O -- Buffer pool 命中率；慢查询； redo, undo, data 分开存放
+ 网络问题 – 非专有网络，网络路由
+ 表及查询语句问题
+
+ DBT2
+– http://osdldbt.sourceforge.net/
+– http://samurai-mysql.blogspot.com/2009/03/settingup-dbt-2.html
+ mysqlslap MySQL 5.1 +
+– http://dev.mysql.com/doc/refman/5.1/en/mysqlslap.html
+ SysBench
+– http://sysbench.sourceforge.net/
+ supersmack
+– http://vegan.net/tony/supersmack/
+ mybench
+– http://jeremy.zawodny.com/mysql/mybench/
+
+ innodb_buffer_pool_size
+一般设置为机器内存的 50%左右（实践经验）
+ innodb_buffer_pool_instances
+5.6 及 5.7，可设置为 8-16 个
+ innodb_log_file_size
+一般设置为 25% 的 buffer pool size 大小
+ innodb_flush_log_at_trx_commit
+要求高可靠性，设置为 1。不要求高可靠性，可设置为 0 或 2.
+ sync_binlog
+binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
+ innodb_flush_method
+Linux 下设置为 O_DIRECT
+
+ innodb_thread_concurrency
+(Cores \* 2) + (# Disks)
+ skip_name_resolve
+使用直接 IP 方式，避免 DNS 解析
+ innodb_io_capacity， innodb_io_capacity_max
+需要根据你的磁盘的 IOPS 处理能力进行相应设置。
+innodb_io_capacity~= IOPS
+ query_cache_type
+是否使用 Query Cache，对于读/写， 80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
+ tmp_table_size/ max_heap_table_size
+通过查看状态变量 Created_tmp_disk_tables 及 Created_tmp_tables，决定是否合适
+
+常用定位问题的方法
+ 分析状态变量
+ MySQL Slow query log
+ EXPLAIN 命令查看执行计划
+ profiling 查看执行过耗时
+ show full processlist
+ show engine innodb status
+ 查看 innodb 系统表
+
+主要的查询性能问题：全表扫描 临时表 排序 FileSort
 
 # Store Engine: 存储引擎
