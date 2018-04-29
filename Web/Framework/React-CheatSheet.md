@@ -8,64 +8,69 @@
 
 ## 组件定义
 
+PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.object, PropTypes.string, PropTypes.symbol, 对于 React 可渲染的类型还包括 PropTypes.node 与 PropTypes.element
+
 ```js
 import PropTypes from 'prop-types';
 
 MyComponent.propTypes = {
-  // You can declare that a prop is a specific JS type. By default, these
-  // are all optional.
-  optionalArray: PropTypes.array,
-  optionalBool: PropTypes.bool,
-  optionalFunc: PropTypes.func,
-  optionalNumber: PropTypes.number,
-  optionalObject: PropTypes.object,
-  optionalString: PropTypes.string,
-  optionalSymbol: PropTypes.symbol,
+  // 指定类实例
+  optionalMessage: PropTypes.instanceOf(Message),
 
-  // Anything that can be rendered: numbers, strings, elements or an array
-  // (or fragment) containing these types.
-  optionalNode: PropTypes.node,
+  // 枚举类型
+  optionalEnum: PropTypes.oneOf(['News', 'Photos']),
 
-  // A React element.
-  optionalElement: PropTypes.element,
-
-  // You can also declare that a prop is an instance of a class. This uses
-  // JS's instanceof operator.
-  optionalMessage: PropTypes.instanceOf(Message),
-
-  // You can ensure that your prop is limited to specific values by treating
-  // it as an enum.
-  optionalEnum: PropTypes.oneOf(['News', 'Photos']),
-
-  // An object that could be one of many types
-  optionalUnion: PropTypes.oneOfType([
+  // 可能为多种类型
+  optionalUnion: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.instanceOf(Message)
   ]),
 
-  // An array of a certain type
-  optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
+  // 包含指定类型的数组
+  optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
 
-  // An object with property values of a certain type
+  // 包含指定值类型的对象
   optionalObjectOf: PropTypes.objectOf(PropTypes.number),
 
-  // An object taking on a particular shape
+  // 某个具体形状的对象
   optionalObjectWithShape: PropTypes.shape({
     color: PropTypes.string,
     fontSize: PropTypes.number
   }),
 
-  // You can chain any of the above with `isRequired` to make sure a warning
-  // is shown if the prop isn't provided.
-  requiredFunc: PropTypes.func.isRequired,
-
-  // A value of any data type
-  requiredAny: PropTypes.any.isRequired
-
   // ...
 };
 ```
+
+React 16 中为我们提供了 Portals，方便地将元素渲染到非当前组件树层级的节点：
+
+```js
+render() {
+  // React 并不会创建新的 div，而是将其渲染到指定的 DOM 节点中
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode
+  );
+}
+```
+
+## JSX 
+
+目前组件支持返回数组元素，我们也可以使用 React.Fragment 来返回多个子元素而不添加额外的 DOM 元素：
+
+```js
+render() {
+  return (
+    <React.Fragment>
+      <ChildA />
+      <ChildB />
+      <ChildC />
+    </React.Fragment>
+  );
+}
+```
+
 
 ## 生命周期
 
