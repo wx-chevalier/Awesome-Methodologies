@@ -1,20 +1,24 @@
 # 易错单词
 
+[]()，同时也参考了 [50 most commonly mispronounced words](https://ielts.com.au/50-commonly-mispronounced-words/) 以及 []() 等文章，不过更多的是着眼于笔者自身易忘易错的。
+
 * A
 
   * abbreviation [əbriːvɪ'eɪʃ(ə)n]
-
   * access ['ækses]
 
 * B
 
 * C
 
+  * calendar ['kæləndɚ]
+
 * D
 
 * E
 
   * encode [ɪn'kod]
+  * explanation [eksplə'neɪʃ(ə)n]
 
 * F
 
@@ -26,9 +30,15 @@
 
 * I
 
+  * image ['imidʒ]
+  * imagination [ɪ,mædʒɪ'neɪʃ(ə)n]
+
 * J
 
 * K
+
+  * kilometer [kɪˈlɒmɪtə]
+  * kilogram [ˈkɪləɡræm]
 
 * L
 
@@ -56,6 +66,8 @@
 
 * T
 
+  * tutorial [tu'tɔrɪəl]
+
 * U
 
 * V
@@ -70,6 +82,7 @@
 
 * Z
 
+app
 schema
 scheme
 evaluate
@@ -83,9 +96,8 @@ promise
 resume
 suspend
 isomorphic
-tutorial
-python
-kilometer [kɪˈlɒmɪtə]
+height
+width
 
 # 简称缩写
 
