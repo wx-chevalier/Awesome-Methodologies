@@ -46,6 +46,7 @@
 
   * [ ] 参考 https://parg.co/U5q
   * [ ] 收录 React Router 的语法速览
+  * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
 
 * [ ] ECMAScript CheatSheet 2018
 
