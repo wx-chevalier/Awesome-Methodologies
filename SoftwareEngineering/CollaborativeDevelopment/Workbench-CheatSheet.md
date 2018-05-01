@@ -34,6 +34,15 @@ VSCode 是笔者主要的开发工具之一，其快速的响应、便捷的操�
 
 * REST Client: REST Client 提供了非常方便的 REST 访问功能，能够从
 
+Palcode
+
+
+Clipboard History
+
+Keeps a history of your copied and cut items and let's you re-paste them if needed.
+
+CSS classes intellisense
+
 ## 浏览器
 
 Google Chrome 与 Firefox 都是主流的浏览器平台，Firefox 自 Quantum 版本发布之后，其性能也得到了大幅度的优化。此处主要对常用的 Chrome 插件进行盘点，或可参考 [Web 调试技术](https://github.com/wxyyxc1992/Web-Series/blob/master/%E5%B7%A5%E7%A8%8B%E5%AE%9E%E8%B7%B5/README.md)系列文章。
