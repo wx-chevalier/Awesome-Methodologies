@@ -1,10 +1,10 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# React 语法速览与实践清单
+# 2018 React 语法纵览与实践清单
 
-# Principles: 设计理念
+# Principles | 设计理念
 
-# Component: 组件基础
+# Component | 组件基础
 
 ## 组件定义
 
