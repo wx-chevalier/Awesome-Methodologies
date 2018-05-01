@@ -19,6 +19,24 @@ var sheet = document.styleSheets[0];
 sheet.insertRule('header { float: left; opacity: 0.8; }', 1);
 ```
 
+# 界面事件
+
+```js
+function ready(callback) {
+  ...
+  var state = document.readyState;
+  if (state === 'complete' || state === 'interactive') {
+    return setTimeout(callback, 0);
+  }
+
+  document.addEventListener('DOMContentLoaded', function onLoad() {
+    callback();
+  });
+}
+```
+
+The DOM of the referenced element is not part of the DOM of the referencing HTML page. It has isolated style sheets.
+
 # 网络通信
 
 ## XMLHTTPRequest

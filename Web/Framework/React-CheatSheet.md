@@ -14,30 +14,25 @@ PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.obj
 import PropTypes from 'prop-types';
 
 MyComponent.propTypes = {
-  // 指定类实例
-  optionalMessage: PropTypes.instanceOf(Message),
+  // 指定类实例
+  optionalMessage: PropTypes.instanceOf(Message), // 枚举类型
 
-  // 枚举类型
-  optionalEnum: PropTypes.oneOf(['News', 'Photos']),
+  optionalEnum: PropTypes.oneOf(['News', 'Photos']), // 可能为多种类型
 
-  // 可能为多种类型
-  optionalUnion: PropTypes.oneOfType([
+  optionalUnion: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.instanceOf(Message)
-  ]),
+  ]), // 包含指定类型的数组
 
-  // 包含指定类型的数组
-  optionalArrayOf: PropTypes.arrayOf(PropTypes.number),
+  optionalArrayOf: PropTypes.arrayOf(PropTypes.number), // 包含指定值类型的对象
 
-  // 包含指定值类型的对象
-  optionalObjectOf: PropTypes.objectOf(PropTypes.number),
+  optionalObjectOf: PropTypes.objectOf(PropTypes.number), // 某个具体形状的对象
 
-  // 某个具体形状的对象
   optionalObjectWithShape: PropTypes.shape({
     color: PropTypes.string,
     fontSize: PropTypes.number
-  }),
+  })
 
   // ...
 };
@@ -55,7 +50,7 @@ render() {
 }
 ```
 
-## JSX 
+## JSX
 
 目前组件支持返回数组元素，我们也可以使用 React.Fragment 来返回多个子元素而不添加额外的 DOM 元素：
 
@@ -70,7 +65,6 @@ render() {
   );
 }
 ```
-
 
 ## 生命周期
 
@@ -119,7 +113,24 @@ return (
 
 ### CSS-in-JS
 
-# Component Dataflow: 组件数据流
+# Component Dataflow | 组件数据流
+
+# React Router
+
+```js
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    fakeAuth.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to={{
+          pathname: '/login',
+          state: { from: props.location }
+        }} />
+  )} />
+)
+
+<PrivateRoute path='/protected' component={Protected} />
+```
 
 # 编程模式
 

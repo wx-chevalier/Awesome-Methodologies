@@ -1557,3 +1557,12 @@ $ git cherry-pick --abort
 ## Rebase
 
 顾名思义，Rebase（变基）有移花接木之效果，能将特性分支移接到主分支之上，常用于优化提交历史，或者修改本地的提交信息（见上文）。
+
+```sh
+$ git rm [file]    # Deletes the file from working directory
+# It also stages the deletion
+$ git rm --cached [file] # Removes the file from version control
+# It preserves the file locally
+$ git mv [file-original] [file-renamed]
+# Changes the filename and prepares it for commit
+```
