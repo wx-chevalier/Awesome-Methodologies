@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Docker
+# Docker CheatSheet | Docker 配置与实践清单
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
@@ -8,7 +8,15 @@
 
 [https://registry.docker-cn.com](https://registry.docker-cn.com)
 
-# 镜像
+docker 容器 =cgroup+namespace+secomp+capability+selinux
+
+# 镜像与容器
+
+```sh
+$ docker build -t username/image_name:tag_name .
+
+$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+```
 
 ## 镜像管理
 
@@ -36,6 +44,12 @@ docker pull image_name
 docker commit -m “commit message” -a “author”  container_name username/image_name:tag
 ```
 
+```sh
+docker build -t username/image_name:tag_name .
+
+docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+```
+
 # 容器
 
 ```sh
@@ -44,7 +58,22 @@ docker commit -m “commit message” -a “author”  container_name username
 $ docker run -dit — restart unless-stopped [CONTAINER]
 ```
 
-## Volume: 数据卷
+```sh
+Remove all containers using the rabbitmq image:
+docker rm $(docker ps -a | grep rabbitmq | awk '{print $1}')
+
+Or by time created:
+docker rm $(docker ps -a | grep "46 hours ago")
+
+# 列举未使用的
+docker images --filter "dangling=true"
+
+docker ps --filter "name=nostalgic"
+```
+
+# 资源配置
+
+## Volume | 数据卷
 
 容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。数
 
@@ -125,130 +154,19 @@ training/webapp python app.py
 VOLUME /data
 ```
 
-## Network: 网络
+## Network | 网络
 
-# Orchestration: 编排
+## 空间分析与清理
 
-## Docker Compose
+```sh
+# 设置日志文件最大尺寸
+dockerd ... --log-opt max-size=10m --log-opt max-file=3
 
-Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成。
-
-```yaml
-zookeeper:
-  image: wurstmeister/zookeeper
-  ports:
-    - "49181:2181"
-    - "22"
-nimbus:
-  image: wurstmeister/storm-nimbus
-  ports:
-    - "49773:3773"
-    - "49772:3772"
-    - "49627:6627"
-    - "22"
-  links:
-    - zookeeper:zk
-supervisor:
-  image: wurstmeister/storm-supervisor
-  ports:
-    - "8000"
-    - "22"
-  links:
-    - nimbus:nimbus
-    - zookeeper:zk
-ui:
-  image: wurstmeister/storm-ui
-  ports:
-    - "49080:8080"
-    - "22"
-  links:
-    - nimbus:nimbus
-    - zookeeper:zk
+# 清空当前日志文件
+truncate -s 0 /var/lib/docker/containers/*/*-json.log
 ```
 
-在上面的 yaml 文件中，我们可以看到 compose 文件的基本结构。首先是定义一个服务名，下面是 yaml 服务中的一些选项条目：
-
-​ `image`: 镜像的 ID
-
-​ `build`: 直接从 pwd 的 Dockerfile 来 build，而非通过 image 选项来 pull
-
-​ `links`：连接到那些容器。每个占一行，格式为 SERVICE[:ALIAS], 例如 – db[:database]
-
-​ `external_links`：连接到该 compose.yaml 文件之外的容器中，比如是提供共享或者通用服务的容器服务。格式同 links
-
-​ `command`：替换默认的 command 命令
-
-​ `ports`: 导出端口。格式可以是：
-
-```
-ports:
--"3000"
-    -"8000:8000"
-    -"127.0.0.1:8001:8001"
-```
-
-​ `expose`：导出端口，但不映射到宿主机的端口上。它仅对 links 的容器开放。格式直接指定端口号即可。
-
-​ `volumes`：加载路径作为卷，可以指定只读模式：
-
-```
-volumes:-/var/lib/mysql
- - cache/:/tmp/cache
- -~/configs:/etc/configs/:ro
-```
-
-​ `volumes_from`：加载其他容器或者服务的所有卷
-
-```
-environment:- RACK_ENV=development
-  - SESSION_SECRET
-```
-
-​ `env_file`：从一个文件中导入环境变量，文件的格式为 RACK_ENV=development
-
-​ `extends`: 扩展另一个服务，可以覆盖其中的一些选项。一个 sample 如下：
-
-```
-common.yml
-webapp:
-  build:./webapp
-  environment:- DEBUG=false- SEND_EMAILS=false
-development.yml
-web:extends:
-    file: common.yml
-    service: webapp
-  ports:-"8000:8000"
-  links:- db
-  environment:- DEBUG=true
-db:
-  image: postgres
-```
-
-​ `net`：容器的网络模式，可以为 ”bridge”, “none”, “container:[name or id]”, “host” 中的一个。
-
-​ `dns`：可以设置一个或多个自定义的 DNS 地址。
-
-​ `dns_search`: 可以设置一个或多个 DNS 的扫描域。
-
-其他的`working_dir, entrypoint, user, hostname, domainname, mem_limit, privileged, restart, stdin_open, tty, cpu_shares`，和 `docker run`命令是一样的，这些命令都是单行的命令。例如：
-
-```
-cpu_shares:73
-working_dir:/code
-entrypoint: /code/entrypoint.sh
-user: postgresql
-hostname: foo
-domainname: foo.com
-mem_limit:1000000000
-privileged:true
-restart: always
-stdin_open:true
-tty:true
-```
-
-## Docker Swarm
-
-## Docker Stack
+# 定义与编排
 
 ## Dockfile
 
@@ -445,6 +363,123 @@ EXPOSE 28017
 
 指令的一般格式为 `INSTRUCTION arguments`，指令包括 `FROM`、`MAINTAINER`、`RUN` 等。
 
+## Docker Compose
+
+Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成。
+
+```yaml
+zookeeper:
+  image: wurstmeister/zookeeper
+  ports:
+    - "49181:2181"
+    - "22"
+nimbus:
+  image: wurstmeister/storm-nimbus
+  ports:
+    - "49773:3773"
+    - "49772:3772"
+    - "49627:6627"
+    - "22"
+  links:
+    - zookeeper:zk
+supervisor:
+  image: wurstmeister/storm-supervisor
+  ports:
+    - "8000"
+    - "22"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+ui:
+  image: wurstmeister/storm-ui
+  ports:
+    - "49080:8080"
+    - "22"
+  links:
+    - nimbus:nimbus
+    - zookeeper:zk
+```
+
+在上面的 yaml 文件中，我们可以看到 compose 文件的基本结构。首先是定义一个服务名，下面是 yaml 服务中的一些选项条目：
+
+​ `image`: 镜像的 ID
+
+​ `build`: 直接从 pwd 的 Dockerfile 来 build，而非通过 image 选项来 pull
+
+​ `links`：连接到那些容器。每个占一行，格式为 SERVICE[:ALIAS], 例如 – db[:database]
+
+​ `external_links`：连接到该 compose.yaml 文件之外的容器中，比如是提供共享或者通用服务的容器服务。格式同 links
+
+​ `command`：替换默认的 command 命令
+
+​ `ports`: 导出端口。格式可以是：
+
+```
+ports:
+-"3000"
+    -"8000:8000"
+    -"127.0.0.1:8001:8001"
+```
+
+​ `expose`：导出端口，但不映射到宿主机的端口上。它仅对 links 的容器开放。格式直接指定端口号即可。
+
+​ `volumes`：加载路径作为卷，可以指定只读模式：
+
+```
+volumes:-/var/lib/mysql
+ - cache/:/tmp/cache
+ -~/configs:/etc/configs/:ro
+```
+
+​ `volumes_from`：加载其他容器或者服务的所有卷
+
+```
+environment:- RACK_ENV=development
+  - SESSION_SECRET
+```
+
+​ `env_file`：从一个文件中导入环境变量，文件的格式为 RACK_ENV=development
+
+​ `extends`: 扩展另一个服务，可以覆盖其中的一些选项。一个 sample 如下：
+
+```
+common.yml
+webapp:
+  build:./webapp
+  environment:- DEBUG=false- SEND_EMAILS=false
+development.yml
+web:extends:
+    file: common.yml
+    service: webapp
+  ports:-"8000:8000"
+  links:- db
+  environment:- DEBUG=true
+db:
+  image: postgres
+```
+
+​ `net`：容器的网络模式，可以为 ”bridge”, “none”, “container:[name or id]”, “host” 中的一个。
+
+​ `dns`：可以设置一个或多个自定义的 DNS 地址。
+
+​ `dns_search`: 可以设置一个或多个 DNS 的扫描域。
+
+其他的`working_dir, entrypoint, user, hostname, domainname, mem_limit, privileged, restart, stdin_open, tty, cpu_shares`，和 `docker run`命令是一样的，这些命令都是单行的命令。例如：
+
+```
+cpu_shares:73
+working_dir:/code
+entrypoint: /code/entrypoint.sh
+user: postgresql
+hostname: foo
+domainname: foo.com
+mem_limit:1000000000
+privileged:true
+restart: always
+stdin_open:true
+tty:true
+```
+
 ### 创建镜像
 
 编写完成 Dockerfile 之后，可以通过 `docker build` 命令来创建镜像。
@@ -499,3 +534,5 @@ docker exec -ti container_name command.sh
 # 查看某个容器的输出日志
 docker logs -ft container_name
 ```
+
+# Swarm

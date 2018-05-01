@@ -36,6 +36,8 @@
 
   * [ ] 参考 [How I filter and grep Docker containers, images, and volumes, and how you can too](https://parg.co/Uxy)
 
+  * [ ] https://zhuanlan.zhihu.com/p/31820191
+
 * [ ] Web Performance CheatSheet
 
   * [ ] 发布到博客
@@ -46,6 +48,7 @@
 
   * [ ] 参考 https://parg.co/U5q
   * [ ] 收录 React Router 的语法速览
+  * [ ] React renderProp https://parg.co/U5E
   * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
 
 * [ ] ECMAScript CheatSheet 2018
@@ -97,7 +100,13 @@
 * [ ] HTTP CheatSheet
 
 * [ ] Java ConcurrentProgramming CheatSheet
+
   * [ ] Java 内存模型 [Java Memory Model](http://tutorials.jenkov.com/java-concurrency/java-memory-model.html), [深入理解 Java 内存模型](http://www.infoq.com/cn/articles/java-memory-model-1)
-  
+
 * [ ] Redux CheatSheet
+
   * [ ] https://medium.com/netscape/advanced-redux-action-types-d5a71ed44e16
+  * [ ] 完成 Redux 中间件部分介绍
+
+* [ ] Web Builder CheatSheet
+  * [ ] Webpack 4 https://parg.co/UgK

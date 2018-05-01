@@ -6,6 +6,19 @@ Rust CheatSheet 是对于 Rust 学习/实践过程中的语法与技巧进行盘
 
 # 语法基础
 
+```rs
+fn main() {
+    print!("Hello, world!");
+}
+```
+
+print: It is the name of a macro defined in the Rust standard library.
+!: It specifies that the preceding name indicates a macro. Without such a symbol, print would instead indicate a function. There is no such function in the Rust standard library, and so you would get a compilation error. A macro is a thing similar to a function - it’s some Rust code to which a name is associated. By using this name, you ask to insert such code in this point.
+
+```sh
+rustc $\* --color always 2>&1 | more
+```
+
 # 表达式与控制流
 
 ```rs
@@ -16,6 +29,20 @@ let v = vec![0; 10]; // A vector of ten zeroes.
 let v = vec![1, 2, 3, 4, 5];
 
 println!("The third element of v is {}", v[2]);
+```
+
+```rs
+fn main() {
+    println!("{}", "These
+are
+three lines");
+}
+
+fn main() {
+println!("{}", "These\n\
+    are\n\
+    three lines");
+}
 ```
 
 # 基本数据类型

@@ -6,11 +6,11 @@
 
 本文参考了许多经典的文章描述/示例，统一声明在了 [Java Concurrent Programming Links](https://parg.co/UDS)。
 
-# Java Memory Model: Java 内存模型
+# Java Memory Model | Java 内存模型
 
 Java 内存模型与 [JVM 体系结构](./JVM-CheatSheet.md) 不尽相同，Java 内存模型着眼于描述 Java 中的线程是如何与内存进行交互，以及单线程中代码执行的顺序等，并提供了一系列基础的并发语义原则；最早的 Java 内存模型于 1995 年提出，致力于解决不同处理器/操作系统中线程交互/同步的问题。
 
-## Abstract Memory Model: 抽象内存模型
+## Abstract Memory Model | 抽象内存模型
 
 ![](http://tutorials.jenkov.com/images/java-concurrency/java-memory-model-5.png)
 
@@ -61,7 +61,7 @@ public class MyRunnable implements Runnable() {
 
 ![](http://tutorials.jenkov.com/images/java-concurrency/java-memory-model-3.png)
 
-## Cache Line & False Sharing: 缓存行与伪共享
+## Cache Line & False Sharing | 缓存行与伪共享
 
 缓存系统中是以缓存行（cache line）为单位存储的。缓存行是 2 的整数幂个连续字节，一般为 32-256 个字节。最常见的缓存行大小是 64 个字节。当多线程修改互相独立的变量时，如果这些变量共享同一个缓存行，就会无意中影响彼此的性能，这就是伪共享。图 1 说明了伪共享的问题。在核心 1 上运行的线程想更新变量 X，同时核心 2 上的线程想要更新变量 Y。不幸的是，这两个变量在同一个缓存行中。每个线程都要去竞争缓存行的所有权来更新变量。如果核心 1 获得了所有权，缓存子系统将会使核心 2 中对应的缓存行失效。当核心 2 获得了所有权然后执行更新操作，核心 1 就要使自己对应的缓存行失效。这会来来回回的经过 L3 缓存，大大影响了性能。如果互相竞争的核心位于不同的插槽，就要额外横跨插槽连接，问题可能更加严重。
 
