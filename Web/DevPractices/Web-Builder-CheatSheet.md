@@ -51,6 +51,11 @@ export default {
 }
 ```
 
+index.js is the CommonJS module. This is module type used by Node and it looks like const myModule = require('my-module')
+index.m.js is the ECMAScript Module, as defined in ES6, it looks like import MyModule from 'my-module'
+index.umd.js is the UMD module
+index.d.ts is TypeScript type declaration file
+
 # Webpack
 
 # Backpack
