@@ -8,6 +8,17 @@
 
 ## 组件定义
 
+  constructor(props) { 
+    super();
+    console.log(this.props); // undefined
+    console.log(props); // defined
+  }
+
+  constructor(props) { 
+    super(props);
+    console.log(this.props); // props will get logged.
+  }
+
 PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.object, PropTypes.string, PropTypes.symbol, 对于 React 可渲染的类型还包括 PropTypes.node 与 PropTypes.element
 
 ```js
