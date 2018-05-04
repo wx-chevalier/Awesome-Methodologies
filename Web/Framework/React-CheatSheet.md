@@ -77,6 +77,45 @@ render() {
 }
 ```
 
+## 组件与 DOM
+
+class VideoPlayer extends React.Component {
+ constructor() {
+    super();
+    this.state = {
+      isPlaying: false,
+    }
+    this.handleVideoClick = this.handleVideoClick.bind(this);
+  }
+  
+  handleVideoClick() {
+    if (this.state.isPlaying) {
+      this.video.pause();
+    }
+    else {
+      this.video.play();
+    }
+    this.setState({ isPlaying: !this.state.isPlaying });
+  }
+  
+  render() {
+    return (
+      <div>
+        <video
+          ref={video => this.video = video}
+          onClick={this.handleVideoClick}
+        >
+         <source
+            src="some.url"
+            type="video/ogg"
+         />
+        </video>
+      </div>
+    )
+  }
+}
+
+
 ## 生命周期
 
 ![dz-97vzw4aabczj](https://user-images.githubusercontent.com/5803001/38792131-18812574-417e-11e8-97e5-d523160fdd34.jpg)
