@@ -50,6 +50,7 @@
   * [ ] 收录 React Router 的语法速览
   * [ ] React renderProp https://parg.co/U5E
   * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
+  * [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
 
 * [ ] ECMAScript CheatSheet 2018
 
