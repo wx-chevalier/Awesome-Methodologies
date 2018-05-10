@@ -143,7 +143,7 @@ WHERE `val1` = 'abcd' AND `val2` = 0 AND `val3` = 'xyz';
 | 未提交读 / Read Uncommitted | 可能              | 可能                             | 可能                | 无事务         |
 | 提交读 / Read Committed     | 不可能            | 可能                             | 可能                | 事务保护       |
 | 可重复读 / Repeatable Read  | 不可能            | 不可能                           | 可能                | 行锁，顺序写   |
-| 串行化 / Serializable       | 不可能            | 不可能                           | 不可能              | 行锁，顺序读写 |
+| 串行化 / Serializable       | 不可能            | 不可能                           | 不可能              | 表锁，顺序读写 |
 
 不同级别的现象描述如下：
 

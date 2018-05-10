@@ -2,7 +2,7 @@
 
 ![group](https://user-images.githubusercontent.com/5803001/38078769-e6b9ecea-336f-11e8-89c8-b40880b3428c.jpg)
 
-# Go 语法速览与实践清单
+# Go CheatSheet | Go 语法速览与实践清单
 
 [Go CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/ProgrammingLanguage/Go/Go-CheatSheet.md) 是对于 Go 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。 本文参考了许多优秀的文章与代码示范，统一声明在了 [Go Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Go/Go-Links.md)；如果希望深入了解某方面的内容，可以继续阅读 [Go 开发：语法基础与工程实践](https://github.com/wxyyxc1992/ProgrammingLanguage-Series/blob/master/Go/README.md)，或者前往 [coding-snippets/go](https://github.com/wxyyxc1992/coding-snippets/) 查看使用 Go 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
 
@@ -30,17 +30,9 @@ func main() {
 }
 ```
 
-也可以使用 Beego 实现简单的 HTTP 服务器：
-
-```go
-package main
-import "github.com/astaxie/beego"
-func main() {
-	beego.Run()
-}
-```
-
 Go 并没有相对路径引入，而是以文件夹为单位定义模块，譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。
+
+在其他文件中，可以使用 import 关键字来引入模块：
 
 ```py
 import (
@@ -228,7 +220,7 @@ for range time.Tick(time.Second) {
 }
 ```
 
-# Function: 函数
+# Function | 函数
 
 ## 定义，参数与返回值
 
@@ -323,7 +315,7 @@ func returnMulti2() (n int, s string) {
 var x, str = returnMulti2()
 ```
 
-## 闭包: Closure
+## 闭包 | Closure
 
 Go 同样支持词法作用域与变量保留，因此我们可以使用闭包来访问函数定义处外层的变量：
 
@@ -553,7 +545,7 @@ s = s[2:4]
 s = s[:cap(s)]
 ```
 
-需要注意的是， 切片操作并不会真实地复制 Slice 中值，只是会创建新的指向原数组的指针，这就保证了切片操作和操作数组下标有着相同的高效率。不过如果我们修改 Slice 中的值，那么其会  真实修改底层数组中的值，也就会体现到原有的数组中：
+需要注意的是，切片操作并不会真实地复制 Slice 中值，只是会创建新的指向原数组的指针，这就保证了切片操作和操作数组下标有着相同的高效率。不过如果我们修改 Slice 中的值，那么其会真实修改底层数组中的值，也就会体现到原有的数组中：
 
 ```go
 d := []byte{'r', 'o', 'a', 'd'}
@@ -617,9 +609,9 @@ var m = map[string]Vertex{
 }
 ```
 
-# Struct & Interface: 结构体与接口
+# Struct & Interface | 结构体与接口
 
-## Struct: 结构体
+## Struct | 结构体
 
 Go 语言中并不存在类的概念，只有结构体，结构体可以看做属性的集合，同时可以为其定义方法。
 
@@ -673,7 +665,7 @@ func (v *Vertex) add(n float64) {
 var p *Person = new(Person) // pointer of type Person
 ```
 
-## Pointer: 指针
+## Pointer | 指针
 
 ```go
 // p 是 Vertex 类型
@@ -689,7 +681,7 @@ r := &Vertex{1, 2}
 var s *Vertex = new(Vertex)
 ```
 
-## Interface: 接口
+## Interface | 接口
 
 Go 允许我们通过定义接口的方式来实现多态性：
 
@@ -817,6 +809,10 @@ server.Log(...)
 // 内嵌结构体的名词即是类型名
 var logger *log.Logger = server.Logger
 ```
+
+## Reflection & Generics | 反射与泛型
+
+Go 中并没有泛型，
 
 # 并发编程
 
@@ -1073,7 +1069,7 @@ func (this *MainController) Get() {
 }
 ```
 
-# DevPractics: 开发实践
+# DevPractics | 开发实践
 
 ## 文件读写
 

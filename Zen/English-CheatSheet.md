@@ -19,14 +19,17 @@
   * app [æp](http://dict.youdao.com/dictvoice?audio=app&type=1)
   * archive ['ɑrkaɪv](http://dict.youdao.com/dictvoice?audio=archive&type=1)
   * ASCII ['æski](http://dict.youdao.com/dictvoice?audio=ASCII&type=1)，注意 k 变音
+  * assign [ə'saɪn](http://dict.youdao.com/dictvoice?audio=assign&type=1)
   * avatar ['ævətɑr](http://dict.youdao.com/dictvoice?audio=avatar&type=1)
 
 - B
 
+  * babel ['beibəl](http://dict.youdao.com/dictvoice?audio=babel&type=1)
   * bind [baɪnd](http://dict.youdao.com/dictvoice?audio=bind&type=1)
 
 - C
 
+  * carousel [,kærə'sel; -'zel](http://dict.youdao.com/dictvoice?audio=carousel)
   * cache [kæʃ](http://dict.youdao.com/dictvoice?audio=cache)， caching ['kætʃiŋ](http://dict.youdao.com/dictvoice?audio=caching)
   * calendar ['kæləndɚ](http://dict.youdao.com/dictvoice?audio=calendar&type=1)
   * chaos ['keɪɒs](http://dict.youdao.com/dictvoice?audio=chaos&type=1)

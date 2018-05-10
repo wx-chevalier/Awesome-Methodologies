@@ -149,3 +149,5 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 ```
 
 ## 异常处理
+
+# TypeScript
