@@ -1,4 +1,6 @@
-# Redux CheatSheet
+# Redux CheatSheet | Redux 设计理念与实践技巧
+
+Redux 是受 Flux 启发的，类似于 Event Sourcing 的事件驱动型框架。
 
 # 基础组件
 

@@ -184,6 +184,7 @@
 
   * PHP, Hypertext Preprocessor
   * PIN, Personal Identification Number
+  * PNG, Portable Network Graphic
 
 * Q
 
