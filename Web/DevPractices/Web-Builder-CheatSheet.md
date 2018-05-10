@@ -53,6 +53,11 @@ export default {
 }
 ```
 
+index.js is the CommonJS module. This is module type used by Node and it looks like const myModule = require('my-module')
+index.m.js is the ECMAScript Module, as defined in ES6, it looks like import MyModule from 'my-module'
+index.umd.js is the UMD module
+index.d.ts is TypeScript type declaration file
+
 # Webpack
 
 作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。[fe-boilerplate/react-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack)

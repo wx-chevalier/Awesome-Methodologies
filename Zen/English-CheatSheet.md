@@ -120,6 +120,8 @@
 
   * tutorial [tu'tɔrɪəl](http://dict.youdao.com/dictvoice?audio=tutorial)
 
+  * throttle
+
 - U
 
 - V

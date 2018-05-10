@@ -111,3 +111,6 @@
 
 * [ ] Web Builder CheatSheet
   * [ ] Webpack 4 https://parg.co/UgK
+
+* [ ] Kubernetes CheatSheet
+  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860

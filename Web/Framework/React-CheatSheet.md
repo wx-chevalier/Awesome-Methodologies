@@ -8,6 +8,17 @@
 
 ## 组件定义
 
+  constructor(props) { 
+    super();
+    console.log(this.props); // undefined
+    console.log(props); // defined
+  }
+
+  constructor(props) { 
+    super(props);
+    console.log(this.props); // props will get logged.
+  }
+
 PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.object, PropTypes.string, PropTypes.symbol, 对于 React 可渲染的类型还包括 PropTypes.node 与 PropTypes.element
 
 ```js
@@ -65,6 +76,45 @@ render() {
   );
 }
 ```
+
+## 组件与 DOM
+
+class VideoPlayer extends React.Component {
+ constructor() {
+    super();
+    this.state = {
+      isPlaying: false,
+    }
+    this.handleVideoClick = this.handleVideoClick.bind(this);
+  }
+  
+  handleVideoClick() {
+    if (this.state.isPlaying) {
+      this.video.pause();
+    }
+    else {
+      this.video.play();
+    }
+    this.setState({ isPlaying: !this.state.isPlaying });
+  }
+  
+  render() {
+    return (
+      <div>
+        <video
+          ref={video => this.video = video}
+          onClick={this.handleVideoClick}
+        >
+         <source
+            src="some.url"
+            type="video/ogg"
+         />
+        </video>
+      </div>
+    )
+  }
+}
+
 
 ## 生命周期
 
