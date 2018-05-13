@@ -1,24 +1,10 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# TypeScript 语法实践速览
+# TypeScript CheatSheet | TypeScript 语法基础与 React 实践清单
 
 参考了 [Let's Learn TypeScript](https://parg.co/Uik), [TypeScript Cheat Sheet](https://github.com/frontdevops/typescript-cheat-sheet)
 
-```ts
-import * as React from 'react';
-import formatPrice from '../utils/formatPrice';
-
-export interface IPriceProps {
-  num: number;
-  symbol: '$' | '€' | '£';
-}
-
-const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
-  <div>
-    <h3>{formatPrice(num, symbol)}</h3>
-  </div>
-);
-```
+[DefinitelyTyped](http://definitelytyped.org/guides.html) 为我们提供了高质量的、便捷的 TypeScript 类型声明支持，
 
 ```ts
 // 使用 const 能够有效减少编译之后的代码量，参考 https://parg.co/UxX
@@ -34,10 +20,6 @@ export const enum Colors {
 ## Reference
 
 * [TypeScript Deep Dive](https://basarat.gitbooks.io/typescript/content/index.html)
-
-## Type Definition
-
-### [DefinitelyTyped](http://definitelytyped.org/guides.html)
 
 # DataStructure(数据类型)
 
@@ -400,3 +382,23 @@ TypeScript 支持 getter / setter 的拦截访问一个对象的成员。这�
 | 12345678910 | class Point {    x: number;    y: number;} interface Point3d extends Point {    z: number;} var point3d: Point3d = {x: 1, y: 2, z: 3}; |
 | ----------- | -------------------------------------------------------------------------------------------------------------------------------------- |
 |             |                                                                                                                                        |
+
+# React
+
+React 的 TypeScript 类型声明[types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
+
+```ts
+import * as React from 'react';
+import formatPrice from '../utils/formatPrice';
+
+export interface IPriceProps {
+  num: number;
+  symbol: '$' | '€' | '£';
+}
+
+const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
+  <div>
+    <h3>{formatPrice(num, symbol)}</h3>
+  </div>
+);
+```

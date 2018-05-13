@@ -50,7 +50,7 @@
   * [ ] 收录 React Router 的语法速览
   * [ ] React renderProp https://parg.co/U5E
   * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
-  * [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
+         \* [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
 
 * [ ] ECMAScript CheatSheet 2018
 
@@ -110,7 +110,12 @@
   * [ ] 完成 Redux 中间件部分介绍
 
 * [ ] Web Builder CheatSheet
+
   * [ ] Webpack 4 https://parg.co/UgK
 
 * [ ] Kubernetes CheatSheet
-  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
+
+  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
+
+* [ ] MobX CheatSheet
+  * [ ]https://semaphoreci.com/community/tutorials/how-to-test-react-and-mobx-with-jest

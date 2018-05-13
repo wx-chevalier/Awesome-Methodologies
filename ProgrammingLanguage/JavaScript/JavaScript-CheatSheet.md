@@ -58,9 +58,9 @@ NaN == NaN
 [] == ![]
 ```
 
-## Regex: 正则表达式
+## Regex | 正则表达式
 
-对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数 :
+对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数:
 
 ```js
 // Regular Expression Literal
@@ -68,6 +68,15 @@ const regexLiteral = /cat/;
 
 // Regular Expression Constructor
 const regexConstructor = new RegExp('cat');
+```
+
+```js
+RegExp.prototype.exec(str); // 提取出第一匹配项，否则返回 null
+RegExp.prototype.test(str); // 判断是否存在匹配项
+String.prototype.search(regex); // 搜索固定模式的字符串地址
+String.prototype.match(regex); // /g 不存在时，类似于 exec；否则返回所有匹配的数组
+String.prototype.split(separator, limit); // 执行切割操作
+String.prototype.replace(search, replacement); // 执行替换操作
 ```
 
 正则表达式可以用来判断元素存在性，用于字符串替换等：
@@ -85,9 +94,50 @@ removeCc('camelCase'); // 'camel Case'
 removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
 ```
 
+`/g` 标识标识全局匹配。`/y` 标识（Sticky 模式）表示匹配必须从 `re.lastIndex`，即上一次匹配的末尾处开始，该行为类似于 `^` 标识，不过不强制从首部开始。
+
+```js
+const str = '#foo#';
+const regex = /foo/y;
+
+regex.lastIndex = 1;
+regex.test(str); // true
+regex.lastIndex = 5;
+regex.test(str); // false (lastIndex is taken into account with sticky flag)
+regex.lastIndex; // 0 (reset after match failure)
+```
+
+Sticky 模式常用于语句令牌化这种需要严格指定匹配位置的地方：
+
+```js
+function tokenize(TOKEN_REGEX, str) {
+  let result = [];
+  let match;
+  while ((match = TOKEN_REGEX.exec(str))) {
+    result.push(match[1]);
+  }
+  return result;
+}
+
+const TOKEN_GY = /\s*(\+|[0-9]+)\s*/gy;
+const TOKEN_G = /\s*(\+|[0-9]+)\s*/g;
+```
+
+```sh
+> tokenize(TOKEN_GY, '3 + 4')
+[ '3', '+', '4' ]
+> tokenize(TOKEN_G, '3 + 4')
+[ '3', '+', '4' ]
+
+> tokenize(TOKEN_GY, '3x + 4')
+[ '3' ]
+> tokenize(TOKEN_G, '3x + 4')
+[ '3', '+', '4' ]
+```
+
 # 集合类型
 
-## Array: 数组
+## Array | 数组
 
 ```js
 const uniqueArray = arr => [...new Set(arr)];
@@ -201,7 +251,7 @@ new (require('vm').Script)('console.log(11)‘).runInThisContext();
 
 # 其他
 
-## ES6 Module: 模块
+## ES6 Module | 模块
 
 ES2015 Modules 中主要的关键字就是 `import` 与 `export`，前者负责导入模块而后者负责导出模块。完整的导出语法如下所示：
 

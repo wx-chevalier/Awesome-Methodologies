@@ -4,7 +4,7 @@ GraphQL 是由 Facebook 开源的查询语言，它并不是一个面向图数�
 
 ![default](https://user-images.githubusercontent.com/5803001/39741543-ef8d4c50-52cc-11e8-9d16-c3f71329290a.jpg)
 
-如上图所示，GraphQL 的特性在于单一端口与前端优先，遵循 [BFF](https://www.thoughtworks.com/radar/techniques/bff-backend-for-frontends) 的理念。首先 GraphQL 能够将多源异构的后端接口合并为单一端点（EndPoint），避免了客户端繁多的接口管理操作；其次，GraphQL 通过声明式的请求方式与强类型控制，允许请求方（即客户端）而非响应方（即服务器端）决定查询的结果格式，可以自由组合来满足需求，并且能够返回可预测的结果类型，省去了客户端很多的异常情况处理操作，提升了产品整体的健壮性。
+如上图所示，GraphQL 的特性在于单一端口与前端优先，遵循 [BFF](https://www.thoughtworks.com/radar/techniques/bff-backend-for-frontends) 的理念。GraphQL 为我们提供了声明式（Declarative）、分层可组合的（Hiearchial）、强类型控制（Static Type）的接口声明与交互方式，允许请求方（即客户端）而非响应方（即服务器端）决定查询的结果格式，从而返回可预测（Predictable）的结果类型，省去了客户端很多的异常情况处理与向后兼容的操作（Backwards Compatible），提升了产品整体的健壮性。并且 GraphQL 能够将多源异构的后端接口合并为单一端点（EndPoint），避免了客户端繁多的接口管理操作。
 
 ![](https://cdn-images-1.medium.com/max/1600/1*CzVPl58sR5he8UEGpYg2Zw.png)
 
@@ -35,6 +35,29 @@ graphql(schema, '{ hello }', root).then(response => {
 
 # Schema 定义
 
+## Mutation
+
+GraphQL 为我们提供了 Mutation 类型，以进行数据操作。
+
+## Fragments
+
+Fragments 类似于组件，帮助我们解决代码中请求内容的重复问题，即可将某个元数据声明复用到不同的查询或者修改中。
+
+```json
+recentPost {
+	title
+	description
+	author {
+		...authorInfo
+	}
+}
+
+fragment authorInfo as Author {
+	id
+	name
+}
+```
+
 # 服务端开发
 
 [Prisma](https://github.com/graphcool/prisma) 是非常不错的全栈架构，开发者只需要定义好数据结构，Prisma 即能够为我们自动构建包含数据库（Docker）的 GraphQL API，Prisma 也为我们提供了便捷的云化部署方案，较为适合个人项目。
@@ -48,7 +71,7 @@ graphql(schema, '{ hello }', root).then(response => {
     - ducks
 ```
 
-# 客户端使用
+# 客户端集成
 
 目前最为著名的 Apollo 客户端框架当属 [Apollo Client](https://github.com/apollographql/apollo-client)，其也可以很方便地与 React、Angular、Vue 等常见的前端框架集成使用。
 

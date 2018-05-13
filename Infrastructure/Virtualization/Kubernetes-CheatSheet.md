@@ -15,7 +15,10 @@ kubectl: 集群管理工具
 鉴于 gcr 域名的不可用，我们需要利用 [ss-privoxy](https://hub.docker.com/r/bluebu/shadowsocks-privoxy/) 等工具搭建 Docker 源代理，也可以参考[这里](https://www.jianshu.com/p/13f4b23824d8)手动配置客户端：
 
 ```sh
+# 启动代理服务器
 $ docker run -i -t -e SERVER_ADDR=ss.server.ip -e SERVER_PORT=port -e PASSWORD=123456 bluebu/shadowsocks-privoxy
+
+# 在 Docker 配置文件中进行配置
 ```
 
 ## 命令行配置
