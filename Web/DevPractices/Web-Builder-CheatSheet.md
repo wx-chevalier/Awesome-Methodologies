@@ -4,6 +4,8 @@
 
 Webpack 是非常优秀的构建与打包工具，但是其提供了基础且复杂的功能支持，使得并不适用于全部的场景。
 
+![webpack](https://user-images.githubusercontent.com/5803001/39966649-02e751a6-56e2-11e8-8af1-bbbd47aa7dbb.png)
+
 笔者在本文中列举讨论的仅是日常工作中会使用的工具，更多的 [Browserify](https://github.com/browserify/browserify)、[Fusebox](https://github.com/fuse-box/fuse-box) 等等构建工具查看 [Web 构建与打包工具资料索引](https://parg.co/Uss)。
 
 Grunt、Glup 属于 Task Runner，即任务执行器； 实际上，npm package.json 中定义的脚本也可以看做 Task Runner，而 Rollup，Parcel 以及 Webpack 则是属于 Bundler，即打包工具。

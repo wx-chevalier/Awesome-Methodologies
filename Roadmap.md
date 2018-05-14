@@ -87,6 +87,7 @@
 
 * [ ] GraphQL CheatSheet
 
+  * [ ] https://parg.co/Ylq
   * [ ] [Top 5 Reasons to Use GraphQL](https://blog.graph.cool/top-5-reasons-to-use-graphql-b60cfa683511)
 
 * [ ] SQL CheatSheet
@@ -118,4 +119,4 @@
   * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
 * [ ] MobX CheatSheet
-  * [ ]https://semaphoreci.com/community/tutorials/how-to-test-react-and-mobx-with-jest
+  * [ ] https://semaphoreci.com/community/tutorials/how-to-test-react-and-mobx-with-jest
