@@ -142,7 +142,7 @@ fetch(url).then(function(response) {
 .text()
 ```
 
-相较于 XHR，fetch 优势即在于能够访问到底层的数据流，并且添加自定义的操作以进行局部响应（避免接受全部内容），或者在 ServiceWorker 中进行流转化：
+相较于 XHR，fetch 优势即在于能够访问到底层的数据流，并且添加自定义的操作以进行局部响应(避免接受全部内容)，或者在 ServiceWorker 中进行流转化：
 
 ```js
 self.addEventListener('fetch', function(event) {

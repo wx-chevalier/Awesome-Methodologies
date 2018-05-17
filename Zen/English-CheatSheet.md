@@ -20,6 +20,7 @@
   * archive ['ɑrkaɪv](http://dict.youdao.com/dictvoice?audio=archive&type=1)
   * ASCII ['æski](http://dict.youdao.com/dictvoice?audio=ASCII&type=1)，注意 k 变音
   * assign [ə'saɪn](http://dict.youdao.com/dictvoice?audio=assign&type=1)
+  * asset ['æset](http://dict.youdao.com/dictvoice?audio=asset&type=1)
   * avatar ['ævətɑr](http://dict.youdao.com/dictvoice?audio=avatar&type=1)
 
 - B
@@ -45,6 +46,7 @@
   * encode [ɪn'kod](http://dict.youdao.com/dictvoice?audio=encode)
   * explanation [eksplə'neɪʃ(ə)n](http://dict.youdao.com/dictvoice?audio=explanation)
   * evaluate [ɪ'væljʊ'et](http://dict.youdao.com/dictvoice?audio=evaluate&type=1)
+  * eval [ɪ'væl](http://dict.youdao.com/dictvoice?audio=eval&type=1)
 
 - F
 
@@ -112,6 +114,7 @@
 
 - S
 
+  * saga ['sɑːgə](http://dict.youdao.com/dictvoice?audio=saga)
   * schema ['skimə](http://dict.youdao.com/dictvoice?audio=schema)
   * scheme [skiːm](http://dict.youdao.com/dictvoice?audio=scheme)
   * suite [swiːt](http://dict.youdao.com/dictvoice?audio=suite&type=1)

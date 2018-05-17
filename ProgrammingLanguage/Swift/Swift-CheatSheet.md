@@ -85,9 +85,9 @@ import Foundation
 
 ### Objective-C 类引用 Swift 文件
 
-（1）在 Building Settings -> Packaging -> Defining 中选定 Module Name；
+(1)在 Building Settings -> Packaging -> Defining 中选定 Module Name；
 
-（2）在 OJC 的头文件中引入：`#import "{ModuleName}-swift.h"`
+(2)在 OJC 的头文件中引入：`#import "{ModuleName}-swift.h"`
 
 ```swift
 SwiftFunc* obj = [[SwiftFunc alloc] init];
@@ -96,7 +96,7 @@ SwiftFunc* obj = [[SwiftFunc alloc] init];
 
 有时候会发现 Xcode 无法自动生成\*-Swift.h 文件，可以参考[StackOverflow][9]上的这篇文章。该文章总结下来，我们需要进行以下两大步检测：
 
-（1）检测你的 Xcode 的配置
+(1)检测你的 Xcode 的配置
 
 ```
 Product Module Name : myproject
@@ -110,11 +110,11 @@ Install Objective-C Compatibility Header : YES
 sObjective-C Bridging Header : $(SRCROOT)/Sources/SwiftBridging.h
 ```
 
-（2）检查你的 Swift 类是否正规
+(2)检查你的 Swift 类是否正规
 
 要保证你的 Swfit 类中已经使用@objc 关键字声明了一个继承自 NSObject 的类。Xcode 不会为存在任何编译错误的类进行编译操作。
 
-（3）忽略 Xcode 的报错，先编译一下
+(3)忽略 Xcode 的报错，先编译一下
 
 ## Reference
 
@@ -219,7 +219,7 @@ countUp // = 5
 
 ## 函数定义
 
-当你定义一个函数时，你可以选择性地定义一个或多个名称，类型值作为函数的输入（称为形参），或者定义一个函数结束后返回值的类型（称之为返回型）。每一个函数都有一个函数名，用来描述了函数执行的任务。要使用一个函数时，可使用它的名称进行“调用”，并通过它的输入值（称为实参--argument）来匹配函数的参数类型。**一个函数的实参（arguments）必须始终和函数形参（parameter）顺序一致**。
+当你定义一个函数时，你可以选择性地定义一个或多个名称，类型值作为函数的输入(称为形参)，或者定义一个函数结束后返回值的类型(称之为返回型)。每一个函数都有一个函数名，用来描述了函数执行的任务。要使用一个函数时，可使用它的名称进行“调用”，并通过它的输入值(称为实参--argument)来匹配函数的参数类型。**一个函数的实参(arguments)必须始终和函数形参(parameter)顺序一致**。
 
 ```swift
 func sayHello(personName: String) -> String {
@@ -235,7 +235,7 @@ println(sayHello("Brian"))
 
 ### 函数返回值
 
-由于 Swift 中存在元组类型（tuples），所以 Swift 允许有多个返回值或者直接无返回值。
+由于 Swift 中存在元组类型(tuples)，所以 Swift 允许有多个返回值或者直接无返回值。
 
 #### 无返回值函数
 
@@ -324,7 +324,7 @@ numbersFunc(2, 3) // = 5
     }
 ```
 
-然而，这些参数名的仅能在函数本身的主体内使用，不能在调用函数时使用。这种形参类型名称被称之为本地形参名（local parameter name），因为它们只能在函数的主体中使用。有时当你调用一个函数将每个形参进行命名是非常有用的，以表明你把每个实参传递给函数的目的。如果你希望使用你函数的人在调用函数时提供形参名称，那除了本地形参名外，你还要为每个形参定义一个外部形参名称。你写一个外部形参名称在它所支持的本地形参名称之前,之间用一个空格来分隔:
+然而，这些参数名的仅能在函数本身的主体内使用，不能在调用函数时使用。这种形参类型名称被称之为本地形参名(local parameter name)，因为它们只能在函数的主体中使用。有时当你调用一个函数将每个形参进行命名是非常有用的，以表明你把每个实参传递给函数的目的。如果你希望使用你函数的人在调用函数时提供形参名称，那除了本地形参名外，你还要为每个形参定义一个外部形参名称。你写一个外部形参名称在它所支持的本地形参名称之前,之间用一个空格来分隔:
 
 ```swift
 func someFunction(externalParameterName localParameterName: Int) {
@@ -342,7 +342,7 @@ func someFunction(externalParameterName localParameterName: Int) {
 
 #### 外部参数名称速记
 
-如果你想为一个函数提供一个外部形参名，然而本地形参名已经使用了一个合适的名称了，那你就不需要两次书写该形参的名称。相反，你可以写一次名字，并用一个 hash 符号（＃）作为名称的前缀。这就告诉 Swift 使用名称相同的本地行参名称和外部形参名称。这个例子定义了一个名为 containsCharacter 的函数,通过在本地形参名前添加 hash 符号(#)来定义外部形参名称。
+如果你想为一个函数提供一个外部形参名，然而本地形参名已经使用了一个合适的名称了，那你就不需要两次书写该形参的名称。相反，你可以写一次名字，并用一个 hash 符号(＃)作为名称的前缀。这就告诉 Swift 使用名称相同的本地行参名称和外部形参名称。这个例子定义了一个名为 containsCharacter 的函数,通过在本地形参名前添加 hash 符号(#)来定义外部形参名称。
 
 ```swift
 func containsCharacter(#string: String, #characterToFind: Character) -> Bool {
@@ -391,7 +391,7 @@ func join(string s1: String, toString s2: String,
 ```
 
 ```
-但是，如果函数调用时没有为joiner提供值，就会使用单个空格（" "）的默认值：
+但是，如果函数调用时没有为joiner提供值，就会使用单个空格(" ")的默认值：
 ```
 
 ```swift
@@ -402,7 +402,7 @@ func join(string s1: String, toString s2: String,
 ### 不定形参
 
 ```
-一个可变形参可接受零个或多个指定类型的值。当函数被调用时，你可以使用可变形参来指定--形参可以用来传递任意数量的输入值。可通过在形参的类型名后边插入三个点符号（...）来编写可变形参。传递至可变形参的值在函数主体内是以适当类型的数组存在的。例如,一个可变参数的名称为numbers和类型为Double...在函数体内就作为名为numbers类型为Double[]的常量数组。
+一个可变形参可接受零个或多个指定类型的值。当函数被调用时，你可以使用可变形参来指定--形参可以用来传递任意数量的输入值。可通过在形参的类型名后边插入三个点符号(...)来编写可变形参。传递至可变形参的值在函数主体内是以适当类型的数组存在的。例如,一个可变参数的名称为numbers和类型为Double...在函数体内就作为名为numbers类型为Double[]的常量数组。
 ```
 
 > 注意：函数最多可以有一个可变形参，而且它必须出现在参数列表的最后，以避免使用多个形参调用函数引发歧义。如果你的函数有一个或多个带有默认值的形参，并且还有可变形参，请将可变形参放在所有默认形参之后，也就是的列表的最末尾。
@@ -811,7 +811,7 @@ extension Int : Blinking {
 
 # 变量与常量
 
-常量和变量把一个名字（比如 maximumNumberOfLoginAttempts 或者 welcomeMessage）和一个指定类型的值（比如数字 10 或者字符串"Hello"）关联起来。常量的值一旦设定就不能改变，而变量的值可以随意更改。常量和变量必须在使用前声明，用 let 来声明常量，用 var 来声明变量。下面的例子展示了如何用常量和变量来记录用户尝试登录的次数：
+常量和变量把一个名字(比如 maximumNumberOfLoginAttempts 或者 welcomeMessage)和一个指定类型的值(比如数字 10 或者字符串"Hello")关联起来。常量的值一旦设定就不能改变，而变量的值可以随意更改。常量和变量必须在使用前声明，用 let 来声明常量，用 var 来声明变量。下面的例子展示了如何用常量和变量来记录用户尝试登录的次数：
 
 ```swift
 //基本使用
@@ -837,7 +837,7 @@ let anExplicitInteger :Int = 2
 var x = 0.0, y = 0.0, z = 0.0
 ```
 
-常量与变量名不能包含数学符号，箭头，保留的（或者非法的）Unicode 码位，连线与制表符。也不能以数字开头，但是可以在常量与变量名的其他地方包含数字。一旦你将常量或者变量声明为确定的类型，你就不能使用相同的名字再次进行声明，或者改变其存储的值的类型。同时，你也不能将常量与变量进行互转。
+常量与变量名不能包含数学符号，箭头，保留的(或者非法的)Unicode 码位，连线与制表符。也不能以数字开头，但是可以在常量与变量名的其他地方包含数字。一旦你将常量或者变量声明为确定的类型，你就不能使用相同的名字再次进行声明，或者改变其存储的值的类型。同时，你也不能将常量与变量进行互转。
 
 ### 类型标注
 
@@ -850,7 +850,7 @@ var x = 0.0, y = 0.0, z = 0.0
 ```
 Swift 是一个类型安全(type safe )的语言。类型安全的语言可以让你清楚地知道代码要处理的值的类型。如果你的代码需要一个String，你绝对不可能不小心传进去一个Int。由于 Swift 是类型安全的，所以它会在编译你的代码时进行类型检查(type checks)，并把不匹配的类型标记为错误。这可以让你在开发的时候尽早发现并修复错误。当你要处理不同类型的值时，类型检查可以帮你避免错误。然而，这并不是说你每次声明常量和变量的时候都需要显式指定类型。如果你没有显式指定类型，Swift 会使用类型推测(type inference)来选择合适的类型。有了类型推测，编译器可以在编译代码的时候自动推测出表达式的类型。原理很简单，只要检查你赋的值即可。
 
-因为有类型推测，和 C 或者 Objective-C 比起来 Swift 很少需要声明类型。常量和变量虽然需要明确类型，但是大部分工作并不需要你自己来完成。当你声明常量或者变量并赋初值的时候类型推测非常有用。当你在声明常量或者变量的时候赋给它们一个字面量(literal value 或 literal)即可触发类型推测。（字面量就是会直接出现在你代码中的值，比如42和3.14159。）
+因为有类型推测，和 C 或者 Objective-C 比起来 Swift 很少需要声明类型。常量和变量虽然需要明确类型，但是大部分工作并不需要你自己来完成。当你声明常量或者变量并赋初值的时候类型推测非常有用。当你在声明常量或者变量的时候赋给它们一个字面量(literal value 或 literal)即可触发类型推测。(字面量就是会直接出现在你代码中的值，比如42和3.14159。)
 ```
 
 ### 别名
@@ -891,7 +891,7 @@ let hashValue = stringValue.hashValue
 ```
 
 ```
-Optional其实是个`enum`，里面有`None`和`Some`两种类型。其实所谓的nil就是`Optional.None`, 非nil就是`Optional.Some`, 然后会通过`Some(T)`包装（wrap）原始值，这也是为什么在使用Optional的时候要拆包（从enum里取出来原始值）的原因, 也是PlayGround会把Optional值显示为类似`{Some "hello world"}`的原因，这里是enum Optional的定义：
+Optional其实是个`enum`，里面有`None`和`Some`两种类型。其实所谓的nil就是`Optional.None`, 非nil就是`Optional.Some`, 然后会通过`Some(T)`包装(wrap)原始值，这也是为什么在使用Optional的时候要拆包(从enum里取出来原始值)的原因, 也是PlayGround会把Optional值显示为类似`{Some "hello world"}`的原因，这里是enum Optional的定义：
 ```
 
 ```swift
@@ -969,7 +969,7 @@ myLabel!.frame = CGRectMake(0, 0, 10, 10)
 
 ## 数值类型
 
-整数就是没有小数部分的数字，比如 42 和-23。整数可以是有符号（正、负、零）或者无符号（正、零）。Swift 提供了 8，16，32 和 64 位的有符号和无符号整数类型。这些整数类型和 C 语言的命名方式很像，比如 8 位无符号整数类型是 UInt8，32 位有符号整数类型是 Int32。就像 Swift 的其他类型一样，整数类型采用大写命名法。
+整数就是没有小数部分的数字，比如 42 和-23。整数可以是有符号(正、负、零)或者无符号(正、零)。Swift 提供了 8，16，32 和 64 位的有符号和无符号整数类型。这些整数类型和 C 语言的命名方式很像，比如 8 位无符号整数类型是 UInt8，32 位有符号整数类型是 Int32。就像 Swift 的其他类型一样，整数类型采用大写命名法。
 
 * **整数范围**
 
@@ -1247,7 +1247,7 @@ println(someDate)
 
 ### 字符串插值
 
-Swift 用字符串插值（string interpolation）的方式把常量名或者变量名当做占位符加入到长字符串中，Swift 会用当前常量或变量的值替换这些占位符。将常量或变量名放入圆括号中，并在开括号前使用反斜杠将其转义：
+Swift 用字符串插值(string interpolation)的方式把常量名或者变量名当做占位符加入到长字符串中，Swift 会用当前常量或变量的值替换这些占位符。将常量或变量名放入圆括号中，并在开括号前使用反斜杠将其转义：
 
 ```swift
 println("The current value of friendlyWelcome is \(friendlyWelcome)")
@@ -1297,7 +1297,7 @@ myArray.insert(5, atIndex: 0)
 
 ## 元组(Tuples)
 
-元组（tuples）把多个值组合成一个复合值。元组内的值可以使任意类型，并不要求是相同类型。下面这个例子中，(404, "Not Found")是一个描述 HTTP 状态码（HTTP status code）的元组。HTTP 状态码是当你请求网页的时候 web 服务器返回的一个特殊值。如果你请求的网页不存在就会返回一个 404 Not Found 状态码。
+元组(tuples)把多个值组合成一个复合值。元组内的值可以使任意类型，并不要求是相同类型。下面这个例子中，(404, "Not Found")是一个描述 HTTP 状态码(HTTP status code)的元组。HTTP 状态码是当你请求网页的时候 web 服务器返回的一个特殊值。如果你请求的网页不存在就会返回一个 404 Not Found 状态码。
 
 ```swift
 let http404Error = (404, "Not Found")
@@ -1306,7 +1306,7 @@ let http404Error = (404, "Not Found")
 
 (404, "Not Found")元组把一个 Int 值和一个 String 值组合起来表示 HTTP 状态码的两个部分：一个数字和一个人类可读的描述。这个元组可以被描述为“一个类型为(Int, String)的元组”。你可以把任意顺序的类型组合成一个元组，这个元组可以包含所有类型。只要你想，你可以创建一个类型为(Int, Int, Int)或者(String, Bool)或者其他任何你想要的组合的元组。
 
-你可以将一个元组的内容分解（decompose）成单独的常量和变量，然后你就可以正常使用它们了：
+你可以将一个元组的内容分解(decompose)成单独的常量和变量，然后你就可以正常使用它们了：
 
 ```
 let (statusCode, statusMessage) = http404Error
@@ -1316,7 +1316,7 @@ println("The status message is \(statusMessage)")
 // 输出 "The status message is Not Found"
 ```
 
-如果你只需要一部分元组值，分解的时候可以把要忽略的部分用下划线（\_）标记：
+如果你只需要一部分元组值，分解的时候可以把要忽略的部分用下划线(\_)标记：
 
 ```swift
 let (justTheStatusCode, _) = http404Error

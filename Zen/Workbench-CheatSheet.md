@@ -1,8 +1,6 @@
-# 工作套装盘点：我的 2018 macOS 开发环境
+# 工作套装盘点：我的 2018 macOS  开发环境
 
 工欲善其事，必先利其器；本文受 [My Linux Development Environment of 2018](https://dev.to/brpaz/my-linux-development-environment-of-2018-ch7) 的启发，对笔者目前开发中常用的一些工具进行了盘点与介绍。
-
-# 开发环境
 
 # 开发工具
 
@@ -36,7 +34,6 @@ VSCode 是笔者主要的开发工具之一，其快速的响应、便捷的操�
 
 Palcode
 
-
 Clipboard History
 
 Keeps a history of your copied and cut items and let's you re-paste them if needed.
@@ -49,12 +46,24 @@ Google Chrome 与 Firefox 都是主流的浏览器平台，Firefox 自 Quantum �
 
 # 协同工作
 
-## Git
+## 内容管理
+
+使用[有道]()存放私有笔记，或者文档；使用 [Github]() 来存放几乎所有的技术笔记，使用 VSCode 作为 MarkDown 编辑器
+
+使用 [Pocket]() ，使用 [Google Docs]()，使用 [ProcessOn]() 来绘制常见的图表，笔者的 [MindMap-知识图谱]()系列即是使用 ProcessOn 进行绘制。
+
+[Awesome CS Collections]() 中查看笔者的阅读清单，[]() 了解笔者的笔记系统。
+
+[]()
+
+## 代码管理
 
 # 系统辅助
 
 # 命令行工具
 
-* [localtunnel](https://github.com/localtunnel/localtunnel): localtunnel 提供了内网穿透的能力，能够将本地端口映射到公网域名，其不需要任何 DNS 辅助。localtunnel 方便了我们向公网中的用户展示本地开发环境的效果（虽然网络很不流畅），也可用于 Git Hook 等需要 API 回调服务的情况。
+[iTerm](https://www.iterm2.com/) 与 [Hyper](https://hyper.is/) 都是非常不错的 Shell 应用，为我们提供了强大的选项、快捷键等功能支持。我们还需要配置 [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) 这样富含插件的框架，提供了语法提示、补全、高亮等特性。
+
+* [localtunnel](https://github.com/localtunnel/localtunnel): localtunnel 提供了内网穿透的能力，能够将本地端口映射到公网域名，其不需要任何 DNS 辅助。localtunnel 方便了我们向公网中的用户展示本地开发环境的效果(虽然网络很不流畅)，也可用于 Git Hook 等需要 API 回调服务的情况。
 
 * [Structured text tools](https://github.com/dbohdan/structured-text-tools): 一系列结构化文本操作的工具集合，包括了 DSV，XML，HTML，JSON，YAML 等等。

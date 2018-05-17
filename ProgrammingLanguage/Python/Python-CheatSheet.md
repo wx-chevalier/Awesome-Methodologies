@@ -104,7 +104,7 @@ pp.pprint(tup)
 
 ## 模块
 
-Python 中的模块(Module)即是 Python 源码文件，其可以导出类、函数与全局变量；当我们从某个模块导入变量时，函数名往往就是命名空间(Namespace)。而 Python 中的包（Package ）则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包 :
+Python 中的模块(Module)即是 Python 源码文件，其可以导出类、函数与全局变量；当我们从某个模块导入变量时，函数名往往就是命名空间(Namespace)。而 Python 中的包(Package )则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包 :
 
 ```py
 # 文件目录
@@ -260,7 +260,7 @@ for i in range(len(a)):
 
 # 基本数据类型
 
-可以使用内建函数进行强制类型转换（Casting ） :
+可以使用内建函数进行强制类型转换(Casting ) :
 
 ```py
 int(str)
@@ -519,7 +519,7 @@ for idx, animal in enumerate(animals):
 # Prints "#1: cat", "#2: dog", "#3: monkey", each on its own line
 ```
 
-Python 也支持切片（Slices ） :
+Python 也支持切片(Slices ) :
 
 ```py
 nums = range(5)    # range is a built-in function that creates a list of integers
@@ -581,7 +581,7 @@ print(less_than_zero)
 
 ```py
 d = {'cat': 'cute', 'dog': 'furry'}  # 创建新的字典
-print d['cat']       # 字典不支持点（Dot）运算符取值
+print d['cat']       # 字典不支持点(Dot)运算符取值
 ```
 
 如果需要合并两个或者多个字典类型：
@@ -1379,7 +1379,7 @@ finally:
 
 # 并发编程
 
-concurrent.futures 是标准库的一部分，自 3.2 版本之后引入；对于老版本则需要手动引入 futures 依赖库。我们可以使用 ProcessPoolExecutor 来处理 CPU 密集型任务，使用 ThreadPoolExecutor 来处理网络操作或者 IO 操作。ProcessPoolExecutor 内部使用了 multiprocessing 模块，其不会受到 GIL（Global Intercept Lock）的干扰。
+concurrent.futures 是标准库的一部分，自 3.2 版本之后引入；对于老版本则需要手动引入 futures 依赖库。我们可以使用 ProcessPoolExecutor 来处理 CPU 密集型任务，使用 ThreadPoolExecutor 来处理网络操作或者 IO 操作。ProcessPoolExecutor 内部使用了 multiprocessing 模块，其不会受到 GIL(Global Intercept Lock)的干扰。
 
 ```py
 from concurrent.futures import ThreadPoolExecutor

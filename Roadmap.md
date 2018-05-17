@@ -47,10 +47,11 @@
 * [ ] React CheatSheet
 
   * [ ] 参考 https://parg.co/U5q
+  * [ ] [redux-without-profanity-components](https://tonyhb.gitbooks.io/redux-without-profanity/content/components.html) 中关于组件分类
   * [ ] 收录 React Router 的语法速览
   * [ ] React renderProp https://parg.co/U5E
   * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
-         \* [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
+  * [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
 
 * [ ] ECMAScript CheatSheet 2018
 
@@ -119,4 +120,8 @@
   * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
 * [ ] MobX CheatSheet
-  * [ ] https://semaphoreci.com/community/tutorials/how-to-test-react-and-mobx-with-jest
+
+  * [ ] https://semaphoreci.com/community/tutorials/how-to-`test`-react-and-mobx-with-jest
+
+* [ ] Web Test CheatSheet
+  * [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)

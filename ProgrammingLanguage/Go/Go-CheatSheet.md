@@ -10,7 +10,7 @@
 
 可以前往[这里](https://golang.org/dl/)下载 Go SDK 安装包，或者使用 brew 等包管理器安装。go 命令依赖于 $GOPATH 环境变量进行代码组织，多项目情况下也可以使用 ln 进行目录映射以方便进行项目管理。GOPATH 允许设置多个目录，每个目录都会包含三个子目录：src 用于存放源代码，pkg 用于存放编译后生成的文件，bin 用于存放编译后生成的可执行文件。
 
-环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名（文件夹名）一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件（夹）。
+环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名(文件夹名)一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件(夹)。
 
 我们可以使用 `dep ensure -add github.com/pkg/errors` 添加依赖，运行之后，其会在 toml 文件中添加如下锁：
 
@@ -272,7 +272,7 @@ func Filter(s []int, fn func(int) bool) []int {
 }
 ```
 
-虽然 Go 不是函数式语言，但是也可以用其实现柯里函数（Currying Function）:
+虽然 Go 不是函数式语言，但是也可以用其实现柯里函数(Currying Function):
 
 ```go
 func add(x, y int) int {
@@ -508,7 +508,7 @@ len(arr) // 3
 cap(arr) // 3
 ```
 
-不同于 C/C++ 中的指针（Pointer）或者 Java 中的对象引用（Object Reference），Go 中的 Array 只是值（Value）。这也就意味着，当进行数组拷贝，或者函数调用中的参数传值时，会复制所有的元素副本，而非仅仅传递指针或者引用。显而易见，这种复制的代价会较为昂贵。
+不同于 C/C++ 中的指针(Pointer)或者 Java 中的对象引用(Object Reference)，Go 中的 Array 只是值(Value)。这也就意味着，当进行数组拷贝，或者函数调用中的参数传值时，会复制所有的元素副本，而非仅仅传递指针或者引用。显而易见，这种复制的代价会较为昂贵。
 
 ### Slice
 
@@ -530,7 +530,7 @@ array[2:]
 array[2:3]
 ```
 
-不同于 Array，Slice 可以看做更为灵活的引用类型（Reference Type），它并不真实地存放数组值，而是包含数组指针（ptr），len，cap 三个属性的结构体。换言之，Slice 可以看做对于数组中某个段的描述，包含了指向数组的指针，段长度，以及段的最大潜在长度，其结构如下图所示：
+不同于 Array，Slice 可以看做更为灵活的引用类型(Reference Type)，它并不真实地存放数组值，而是包含数组指针(ptr)，len，cap 三个属性的结构体。换言之，Slice 可以看做对于数组中某个段的描述，包含了指向数组的指针，段长度，以及段的最大潜在长度，其结构如下图所示：
 
 ![group 2](https://user-images.githubusercontent.com/5803001/38005668-3f06477e-3274-11e8-85d2-fa78b75f411b.png)
 
@@ -784,7 +784,7 @@ func Perform(a Speaker) { return a.Speaks() }
 
 ## Embedding
 
-Go 语言中并没有子类继承这样的概念，而是通过嵌入（Embedding）的方式来实现类或者接口的组合。
+Go 语言中并没有子类继承这样的概念，而是通过嵌入(Embedding)的方式来实现类或者接口的组合。
 
 ```go
 // ReadWriter 的实现需要同时满足 Reader 与 Writer
@@ -838,7 +838,7 @@ func main() {
 
 ## Channels
 
-信道（Channel）是带有类型的管道，可以用于在不同的 Goroutine 之间传递消息，其基础操作如下：
+信道(Channel)是带有类型的管道，可以用于在不同的 Goroutine 之间传递消息，其基础操作如下：
 
 ```go
 // 创建类型为 int 的信道
@@ -878,7 +878,7 @@ go sum(s[len(s)/2:], c)
 x, y := <-c, <-c // 从 c 中接收
 ```
 
-如上创建的是无缓冲型信道（Non-buffered Channels），其是阻塞型信道；当没有值时读取方会持续阻塞，而写入方则是在无读取时阻塞。我们可以创建缓冲型信道（Buffered Channel），其读取方在信道被写满前都不会被阻塞：
+如上创建的是无缓冲型信道(Non-buffered Channels)，其是阻塞型信道；当没有值时读取方会持续阻塞，而写入方则是在无读取时阻塞。我们可以创建缓冲型信道(Buffered Channel)，其读取方在信道被写满前都不会被阻塞：
 
 ```go
 ch := make(chan int, 100)

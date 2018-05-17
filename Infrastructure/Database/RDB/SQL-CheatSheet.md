@@ -2,11 +2,11 @@
 
 # SQL 语法速览与备忘清单
 
-SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是负责与 ANSI（美国国家标准学会）维护的数据库交互的标准。作为关系数据库的标准语言，它已被众多商用 DBMS 产品所采用，使得它已成为关系数据库领域中一个主流语言，不仅包含数据查询功能，还包括插入、删除、更新和数据定义功能。最为重要的 SQL92 版本的详细标准可以查看[这里](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)，或者在 [Wiki](https://en.wikipedia.org/wiki/SQL) 上查看 SQL 标准的变化。
+SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是负责与 ANSI(美国国家标准学会)维护的数据库交互的标准。作为关系数据库的标准语言，它已被众多商用 DBMS 产品所采用，使得它已成为关系数据库领域中一个主流语言，不仅包含数据查询功能，还包括插入、删除、更新和数据定义功能。最为重要的 SQL92 版本的详细标准可以查看[这里](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)，或者在 [Wiki](https://en.wikipedia.org/wiki/SQL) 上查看 SQL 标准的变化。
 
 T-SQL 是 SQL 语言的一种版本，且只能在 SQL SERVER 上使用。它是 ANSI SQL 的加强版语言、提供了标准的 SQL 命令。另外，T-SQL 还对 SQL 做了许多补允，提供了数据库脚本语言，即类似 C、Basic 和 Pascal 的基本功能，如变量说明、流控制语言、功能函数等。
 
-PL-SQL（Procedural Language-SQL）是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具（如 SQL\*Plus、Developer/2000 等）访问服务器的操作语言。它有标准 SQL 所没有的特征：变量（包括预先定义的和自定义的）；控制结构（如 IF-THEN-ELSE 等流控制语句）；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
+PL-SQL(Procedural Language-SQL)是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具(如 SQL\*Plus、Developer/2000 等)访问服务器的操作语言。它有标准 SQL 所没有的特征：变量(包括预先定义的和自定义的)；控制结构(如 IF-THEN-ELSE 等流控制语句)；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
 
 # DML 数据库管理
 
@@ -180,7 +180,7 @@ select * from Products, Categories where Products.CategoryID=Categories.Category
 ```
 
 ```
-Inner Join是在做排除操作，任一行在两个表中不匹配，注定将从结果集中除掉。（我想，相当于两个集合中取其两者的交集，这个交集的条件就是on后面的限定）还要注意的是，不仅能对两个表作联结，可以把一个表与其自身进行联结。
+Inner Join是在做排除操作，任一行在两个表中不匹配，注定将从结果集中除掉。(我想，相当于两个集合中取其两者的交集，这个交集的条件就是on后面的限定)还要注意的是，不仅能对两个表作联结，可以把一个表与其自身进行联结。
 ```
 
 ## Outer Join
@@ -226,15 +226,15 @@ Full Join 相当于把Left和Right联结到一起，告诉SQL Server要全部包
 子查询本质上是嵌套进其他SELECT,UPDATE,INSERT,DELETE语句的一个被限制的SELECT语句,在子查询中，只有下面几个子句可以使用：
 ```
 
-1.  SELECT 子句（必须）
-2.  FROM 子句(必选）
+1.  SELECT 子句(必须)
+2.  FROM 子句(必选)
 3.  WHERE 子句(可选)
 4.  GROUP BY(可选)
 5.  HAVING(可选)
 6.  ORDER BY(只有在 TOP 关键字被使用时才可用)
 
 ```
-子查询也可以嵌套在其他子查询中,这个嵌套最多可达32层。子查询也叫内部查询(Inner query)或者内部选择(Inner Select),而包含子查询的查询语句也叫做外部查询（Outter)或者外部选择(Outer Select),子查询的概念可以简单用下图阐述:
+子查询也可以嵌套在其他子查询中,这个嵌套最多可达32层。子查询也叫内部查询(Inner query)或者内部选择(Inner Select),而包含子查询的查询语句也叫做外部查询(Outter)或者外部选择(Outer Select),子查询的概念可以简单用下图阐述:
 ```
 
 ![](http://images.cnblogs.com/cnblogs_com/CareySon/201107/201107181306039322.png)
@@ -254,7 +254,7 @@ ON P.ProductModelID = M.ProductModelID
 ```
 
 ```
-上述子查询语句将ProductModel表中的**子集**M,作为数据源（表）和Product表进行内连接。结果如下:
+上述子查询语句将ProductModel表中的**子集**M,作为数据源(表)和Product表进行内连接。结果如下:
 ```
 
 ![2](http://images.cnblogs.com/cnblogs_com/CareySon/201107/201107181306074258.png)

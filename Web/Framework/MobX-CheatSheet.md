@@ -40,7 +40,7 @@ class MessageStore {
 
 # MobX 的设计理念
 
-# MobX 与 Redux 的对比
+## MobX 与 Redux 的对比
 
 本文的最后，我们也讨论下
 

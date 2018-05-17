@@ -58,6 +58,16 @@ NaN == NaN
 [] == ![]
 ```
 
+## String | 字符串类型
+
+```js
+str.substr(start[, length])
+"abc".substr(1,2) // bc
+
+str.substring(indexStart[, indexEnd])
+"abc".substring(1,2) // b
+```
+
 ## Regex | 正则表达式
 
 对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数:
@@ -94,7 +104,7 @@ removeCc('camelCase'); // 'camel Case'
 removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
 ```
 
-`/g` 标识标识全局匹配。`/y` 标识（Sticky 模式）表示匹配必须从 `re.lastIndex`，即上一次匹配的末尾处开始，该行为类似于 `^` 标识，不过不强制从首部开始。
+`/g` 标识标识全局匹配。`/y` 标识(Sticky 模式)表示匹配必须从 `re.lastIndex`，即上一次匹配的末尾处开始，该行为类似于 `^` 标识，不过不强制从首部开始。
 
 ```js
 const str = '#foo#';
@@ -148,7 +158,21 @@ uniqueArray([1, 2, 2, 3, 4, 4, 5]);
 
 ### Array Like
 
-### Transform: 变换
+```js
+const arrayLike = {
+  0: 'a',
+  1: 'b',
+  length: 2,
+  *[Symbol.iterator]() {
+    yield this[1];
+    yield this[0];
+  }
+};
+
+console.log(Array.from(arrayLike));
+```
+
+### Transform | 变换
 
 `reduce()` 函数能够将某个函数作用于数组中的每个  元素，从而将多个值转换为单个值；其典型的用法为计算数组和值，或者进行数组扁平化：
 
@@ -620,7 +644,7 @@ opt2:
 
 # [Immutable.js](https://facebook.github.io/immutable-js/docs/#/fromJS)
 
-Immutable.js 虽然和 React 同期出现且跟 React 配合很爽，但它可不是 React 工具集里的（它的光芒被掩盖了），它是一个完全独立的库，无论基于什么框架都可以用它。意义在于它弥补了 Javascript 没有不可变数据结构的问题。不可变数据结构是函数式编程中必备的。前端工程师被 OOP 洗脑太久了，组件根本上就是函数用法，FP 的特点更适用于前端开发。
+Immutable.js 虽然和 React 同期出现且跟 React 配合很爽，但它可不是 React 工具集里的(它的光芒被掩盖了)，它是一个完全独立的库，无论基于什么框架都可以用它。意义在于它弥补了 Javascript 没有不可变数据结构的问题。不可变数据结构是函数式编程中必备的。前端工程师被 OOP 洗脑太久了，组件根本上就是函数用法，FP 的特点更适用于前端开发。
 
 Javascript 中对象都是参考类型，也就是`a={a:1}; b=a; b.a=10;`你发现`a.a`也变成 10 了。可变的好处是节省内存或是利用可变性做一些事情，但是，在复杂的开发中它的副作用远比好处大的多。于是才有了浅 copy 和深 copy，就是为了解决这个问题。举个常见例子：
 

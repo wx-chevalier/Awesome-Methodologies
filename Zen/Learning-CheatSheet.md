@@ -26,7 +26,7 @@
 
 * 2011-CSAPP: 深入理解计算机系统 #Book#: 绝对的好书，从程序员的视角深入浅出地介绍了计算机系统底层原理，这里提供笔者搜集的[ 2011- 深入理解计算机系统 2ED- 扫描全版](https://drive.wps.cn/view/l/ded1ba6254884c569ff61d119109ed8c)。
 
-- [2012- 数学之美](https://book.douban.com/subject/10750155/)：名为数学之美，实为信息技术（自然语言处理）中的数学原理（统计语言模型）之美。帮助读者更深刻地理解了大学所学的线性代数、概率论与数理统计和应该学而没学的随机过程、图论、机器学习的应用意义。笔者印象深刻看到了其中讲解 Tf-Idf 与信息论之间的关联，很有启发。
+- [2012- 数学之美](https://book.douban.com/subject/10750155/)：名为数学之美，实为信息技术(自然语言处理)中的数学原理(统计语言模型)之美。帮助读者更深刻地理解了大学所学的线性代数、概率论与数理统计和应该学而没学的随机过程、图论、机器学习的应用意义。笔者印象深刻看到了其中讲解 Tf-Idf 与信息论之间的关联，很有启发。
 
 * [2012-PLAI-Programming Languages: Application and Interpretation](http://cs.brown.edu/courses/cs173/2012/book/index.html)：中文翻译参考[这里](https://zhuanlan.zhihu.com/p/24578121)。
 
@@ -55,7 +55,7 @@
 
 # Sight: 视野
 
-* [TeamStuQ SkillMap](https://github.com/TeamStuQ/skill-map): StuQ 程序员技能图谱是由 StuQ（http://www.stuq.org/）发起的一个技术社区开源项目，志在汇集整理共建泛 IT 技术领域（云计算，大数据，运维，安全，开发语言，智能硬件等）及互联网产品、运营等领域学习技能图谱，帮助程序员梳理知识框架结构，并尝试提供路径指导和精华资源，方便技术人学习成长。
+* [TeamStuQ SkillMap](https://github.com/TeamStuQ/skill-map): StuQ 程序员技能图谱是由 StuQ(http://www.stuq.org/)发起的一个技术社区开源项目，志在汇集整理共建泛 IT 技术领域(云计算，大数据，运维，安全，开发语言，智能硬件等)及互联网产品、运营等领域学习技能图谱，帮助程序员梳理知识框架结构，并尝试提供路径指导和精华资源，方便技术人学习成长。
 
 * [Coding Interview University](https://github.com/jwasham/coding-interview-university): A complete computer science study plan to become a software engineer.
 

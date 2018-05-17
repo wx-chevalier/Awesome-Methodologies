@@ -33,9 +33,9 @@
 
 查看运行级别：runlevel
 
-设置系统默认启动运行级别3（命令行模式）：ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target
+设置系统默认启动运行级别3(命令行模式)：ln -sf /lib/systemd/system/multi-user.target /etc/systemd/system/default.target
 
-设置系统默认启动运行级别5（图形界面模式）：ln -sf/lib/systemd/system/graphical.target/etc/systemd/system/default.target
+设置系统默认启动运行级别5(图形界面模式)：ln -sf/lib/systemd/system/graphical.target/etc/systemd/system/default.target
 
 在线用户：who
 
@@ -171,7 +171,7 @@ startx
 
 需要先配置图形界面信息
 
-需要先配置图形界面信息（old）方法 2：修改/etc/inittab 文件中的
+需要先配置图形界面信息(old)方法 2：修改/etc/inittab 文件中的
 
 ```
 id:3:initdefault ，将3改为5 ，重新启动系统；

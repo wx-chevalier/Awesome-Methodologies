@@ -18,7 +18,7 @@
 
 ![](https://user-gold-cdn.xitu.io/2017/9/7/348add62cb2fed9a49f2797b2926a57a?imageView2/0/w/1280/h/960)
 
-更多的开源协议，我们还可以参考这张图（目前只发现英文版）：
+更多的开源协议，我们还可以参考这张图(目前只发现英文版)：
 
 ![](https://user-gold-cdn.xitu.io/2017/9/7/a0d28eb92796c5a63f18970f1ad601f0?imageView2/0/w/1280/h/960)
 

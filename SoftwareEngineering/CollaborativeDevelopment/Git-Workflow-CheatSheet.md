@@ -5,7 +5,7 @@
 
 规范来自 [Angular's commit convension](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#)，参考 [vue commit convension](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md)
 
-我们暂时先不需严格按照上面两个规范中提到的去写提交信息（commit message ），但是建议先要做到以下几点，大家习惯了写提交信息后再考虑细化我们的这份规范。
+我们暂时先不需严格按照上面两个规范中提到的去写提交信息(commit message )，但是建议先要做到以下几点，大家习惯了写提交信息后再考虑细化我们的这份规范。
 
 基本格式：
 
@@ -19,11 +19,11 @@
 
 * < 脚注 >
 
-注意每一行尽量不要超过 100 个字符（各种 git 预览工具在预览提交信息的时候会截断超过部分，不方便以后浏览提交信息）。
+注意每一行尽量不要超过 100 个字符(各种 git 预览工具在预览提交信息的时候会截断超过部分，不方便以后浏览提交信息)。
 
 **类型**
 
-* feat：特性（feature ）
+* feat：特性(feature )
 
 - fix: bug 修复
 
@@ -73,7 +73,7 @@
 
 * 即该提交完成任务 1。
 
-- 如果使用 Coding.net 管理任务，如下图位置可以找到任务编号（使用其它的平台应该也有类似编号）
+- 如果使用 Coding.net 管理任务，如下图位置可以找到任务编号(使用其它的平台应该也有类似编号)
 
 * ![img](https://images-cdn.shimo.im/QzC5zCcKi9gd7XTr/image.png!thumbnail)
 

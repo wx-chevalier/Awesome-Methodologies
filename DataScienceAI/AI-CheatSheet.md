@@ -1,6 +1,6 @@
 # AI CheatSheet | AI
 
-所谓 AI，即能够感知（Aware/Sense），然后做出决策（Decision），并且对于环境做出反应（Act）。
+所谓 AI，即能够感知(Aware/Sense)，然后做出决策(Decision)，并且对于环境做出反应(Act)。
 
 人工智能发展有三个阶段：计算智能、感知智能和认知智能。
 

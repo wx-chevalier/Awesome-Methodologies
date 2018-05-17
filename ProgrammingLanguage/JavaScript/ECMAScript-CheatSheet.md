@@ -2,7 +2,7 @@
 
 # ECMAScript 各版本特性概述
 
-> [ECMAScript 2017（ES8 ）特性概述](https://zhuanlan.zhihu.com/p/27844393) 整理自 [ES8 was Released and here are its Main New Features](https://parg.co/b10)，归纳于笔者的[现代 JavaScript 开发：语法基础与实践技巧](https://parg.co/b1c)系列文章中；也欢迎关注[前端每周清单系列](https://parg.co/bh1)获得一手资讯。更完善的 JavaScript JavaScript 语法速览与实战清单请参考 [JavaScript-CheatSheet](./JavaScript-CheatSheet.md)
+> [ECMAScript 2017(ES8 )特性概述](https://zhuanlan.zhihu.com/p/27844393) 整理自 [ES8 was Released and here are its Main New Features](https://parg.co/b10)，归纳于笔者的[现代 JavaScript 开发：语法基础与实践技巧](https://parg.co/b1c)系列文章中；也欢迎关注[前端每周清单系列](https://parg.co/bh1)获得一手资讯。更完善的 JavaScript JavaScript 语法速览与实战清单请参考 [JavaScript-CheatSheet](./JavaScript-CheatSheet.md)
 
 # ECMAScript 2017(ES8) Features
 
@@ -40,7 +40,7 @@ str.padEnd(targetLength [, padString])
 Object.values(obj);
 ```
 
-首个参数 `obj` 即为需要遍历的目标对象，它可以为某个对象或者数组（数组可以看做键为下标的对象）：
+首个参数 `obj` 即为需要遍历的目标对象，它可以为某个对象或者数组(数组可以看做键为下标的对象)：
 
 ```js
 const obj = { x: "xxx", y: 1 };

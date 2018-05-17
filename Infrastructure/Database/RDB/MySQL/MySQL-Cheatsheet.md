@@ -127,7 +127,7 @@ COMMIT;
 – http://jeremy.zawodny.com/mysql/mybench/
 
  innodb_buffer_pool_size
-一般设置为机器内存的 50%左右（实践经验）
+一般设置为机器内存的 50%左右(实践经验)
  innodb_buffer_pool_instances
 5.6 及 5.7，可设置为 8-16 个
  innodb_log_file_size

@@ -22,7 +22,7 @@
 
 # Rectified Linear Units or ReLU
 
-Sigmoid 函数的输出间隔为`[0,1]`，而 ReLU 的输出范围为`[0,infinity]`，换言之 Sigmoid 更合适 Logistic 回归而 ReLU 更适合于表示正数。深度学习中 ReLU 并不会受制于所谓的梯度消失问题（Vanishing Gradient Problem）。
+Sigmoid 函数的输出间隔为`[0,1]`，而 ReLU 的输出范围为`[0,infinity]`，换言之 Sigmoid 更合适 Logistic 回归而 ReLU 更适合于表示正数。深度学习中 ReLU 并不会受制于所谓的梯度消失问题(Vanishing Gradient Problem)。
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-QYeGYddNRbrBJjkNxzw9FQ.png)
 

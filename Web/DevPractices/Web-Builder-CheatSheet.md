@@ -16,7 +16,34 @@ Grunt、Glup 属于 Task Runner，即任务执行器； 实际上，npm package.
 npm install -g parcel-bundler
 ```
 
-[iReactPack](https://github.com/wxyyxc1992/iReactPack)
+值得一提的是，Parcel 内建支持 WebAssembly 与 Rust，通过简单的 import 导入，即可以使用 WASM 模块：
+
+```js
+// synchronous import
+import {add} from './add.wasm';
+console.log(add(2, 3));
+
+// asynchronous import
+const {add} = await import('./add.wasm');
+console.log(add(2, 3));
+
+// synchronous import
+import {add} from './add.rs';
+console.log(add(2, 3));
+
+// asynchronous import
+const {add} = await import('./add.rs');
+console.log(add(2, 3));
+```
+
+这里 add.rs 是使用 Rust 编写的简单加法计算函数：
+
+```rs
+#[no_mangle]
+pub fn add(a: i32, b: i32) -> i32 {
+  return a + b
+}
+```
 
 # Rollup + Microbundle
 
@@ -207,26 +234,63 @@ __webpack_require__.r(__webpack_exports__);
 
 ![cc11f7e53c579fff28de1b3ed5b9f53a](https://user-images.githubusercontent.com/5803001/39862950-c8ba51c0-5477-11e8-892c-a2b6ec619e2d.png)
 
-不同于 Webpack 3 中需要依赖 CommonChunksPlugin 进行配置，Webpack 4 为我们提供了开箱即用的代码优化特性。
+不同于 Webpack 3 中需要依赖 CommonChunksPlugin 进行配置，Webpack 4 引入了 [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/#optimization-runtimechunk)，并为我们提供了开箱即用的代码优化特性，Webpack 为根据以下情况自动进行代码分割操作：
+
+* 新的块是在多个模块间共享，或者来自于 node_modules 目录；
+* 新的块在压缩之前的大小应该超过 30KB；
+* 页面所需并发加载的块数量应该小于或者等于 5；
+* 初始页面加载的块数量应该小于或者等于 3；
+
+SplitChunksPlugin 的
 
 ```js
-module.exports = {
-  /* ... */
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all'
+splitChunks: {
+    chunks: "async",
+    minSize: 30000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    automaticNameDelimiter: '~',
+    name: true,
+    cacheGroups: {
+        vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10
+        },
+    default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
         }
-      }
     }
-  }
-};
+}
 ```
 
-我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
+值得一提的是，这里的 chunks 选项有 `initial`, `async` 与 `all` 三个配置，上述配置即是分别针对初始 chunks、按需加载的 chunks 与全部的 chunks 进行优化；如果将 vendors 的 chunks 设置为 `initial`，那么它将忽略通过动态导入的模块包包含的第三方库代码。而 priority 则用于指定某个自定义的 Cache Group 捕获代码的优先级，其默认值为 0。在  [common-chunk-and-vendor-chunk](https://parg.co/YoE) 例子中，我们即针对入口进行优化，提取出入口公共的 vendor 模块与业务模块：
+
+```js
+{
+splitChunks: {
+			cacheGroups: {
+				commons: {
+					chunks: "initial",
+					minChunks: 2,
+					maxInitialRequests: 5, // The default limit is too small to showcase the effect
+					minSize: 0 // This is example is too small to create commons chunks
+				},
+				vendor: {
+					test: /node_modules/,
+					chunks: "initial",
+					name: "vendor",
+					priority: 10,
+					enforce: true
+				}
+			}
+		}
+}
+```
+
+Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被设置为 true 时，即会为每个 Entry 添加仅包含运行时信息的 Chunk； 当该属性值被设置为 single 时，即为所有的 Entry 创建公用的包含运行时的 Chunk。我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
 
 ![c4e91fafb1a08e7733ac2688222eb65a](https://user-images.githubusercontent.com/5803001/39863036-0aaf92d4-5478-11e8-929c-9f07e8dca3b8.png)
 
@@ -252,11 +316,7 @@ webpackJsonp([0], {
 });
 ```
 
-如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码：
-
-```
-
-```
+如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
 更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet]() 或者[现代 Web 开发基础与工程实践/Webpack]() 章节。
 

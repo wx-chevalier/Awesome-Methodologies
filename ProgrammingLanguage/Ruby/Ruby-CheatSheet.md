@@ -25,7 +25,7 @@
 
 ### Instance Variable
 
-# 常用操作（Common APIs）
+# 常用操作(Common APIs)
 
 ## IO
 
@@ -150,7 +150,7 @@ p names.size
 空判断
 
 创建增删
-.1 创建数组的创建方式可以有：（1）赋值创建
+.1 创建数组的创建方式可以有：(1)赋值创建
 names = [] 或者 names = [“I”,”Love”,”Ruby”]
 类初始化拷贝创建
 
@@ -253,7 +253,7 @@ require 希望使用的库名注意，在 require 的引用中可以省略.rb �
 
 Class&Object
 方法类别
-Ruby 在调用方法时可以省略()。类方法（Instance Method）实例方法（Instance Method）异常处理
+Ruby 在调用方法时可以省略()。类方法(Instance Method)实例方法(Instance Method)异常处理
 Common APIs
 IO
 Console
@@ -491,7 +491,7 @@ end
 ```
 
 * it
-  我们用 it()方法定义一个具体的测试用例（在 RSpec 中，称一个测试用例为一个 example）。其后的字符串为该方法的参数，用来描述一个具体的场景，it 方法体就是我们对系统在该场景下的行为的定义。It()方法和 describe()方法衔接起来，可以完整的描述一个系统行为，以上边的最后的一个测试用例为：”People have enough money pay for house should travel ”。
+  我们用 it()方法定义一个具体的测试用例(在 RSpec 中，称一个测试用例为一个 example)。其后的字符串为该方法的参数，用来描述一个具体的场景，it 方法体就是我们对系统在该场景下的行为的定义。It()方法和 describe()方法衔接起来，可以完整的描述一个系统行为，以上边的最后的一个测试用例为：”People have enough money pay for house should travel ”。
 
 ### 修饰器
 
