@@ -72,3 +72,5 @@ In the microservices approach, each service manages and stores its own state. Ea
 * **可用性考虑** - 丢失一个节点能继续工作吗？升级时不会中断服务吗？注册处会成为架构的中心部分，会变成单点故障吗？
 
 ## Service Mesh
+
+# 微服务的红与黑

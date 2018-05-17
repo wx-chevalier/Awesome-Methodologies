@@ -211,7 +211,7 @@ app.listen(4000);
     - ducks
 ```
 
-# 客户端集成
+# 客户端使用
 
 目前最为著名的 Apollo 客户端框架当属 [Apollo Client](https://github.com/apollographql/apollo-client)，其也可以很方便地与 React、Angular、Vue 等常见的前端框架集成使用。
 

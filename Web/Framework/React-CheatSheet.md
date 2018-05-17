@@ -131,41 +131,39 @@ render() {
 
 ## 组件与 DOM
 
+```js
 class VideoPlayer extends React.Component {
-constructor() {
-super();
-this.state = {
-isPlaying: false,
-}
-this.handleVideoClick = this.handleVideoClick.bind(this);
-}
+  constructor() {
+    super();
+    this.state = {
+      isPlaying: false
+    };
+    this.handleVideoClick = this.handleVideoClick.bind(this);
+  }
 
-handleVideoClick() {
-if (this.state.isPlaying) {
-this.video.pause();
-}
-else {
-this.video.play();
-}
-this.setState({ isPlaying: !this.state.isPlaying });
-}
+  handleVideoClick() {
+    if (this.state.isPlaying) {
+      this.video.pause();
+    } else {
+      this.video.play();
+    }
+    this.setState({ isPlaying: !this.state.isPlaying });
+  }
 
-render() {
-return (
-
-<div>
-<video
-ref={video => this.video = video}
-onClick={this.handleVideoClick} >
-<source
-            src="some.url"
-            type="video/ogg"
-         />
-</video>
-</div>
-)
+  render() {
+    return (
+      <div>
+        <video
+          ref={video => (this.video = video)}
+          onClick={this.handleVideoClick}
+        >
+          <source src="some.url" type="video/ogg" />
+        </video>
+      </div>
+    );
+  }
 }
-}
+```
 
 ## 生命周期
 

@@ -51,7 +51,7 @@
   * [ ] 收录 React Router 的语法速览
   * [ ] React renderProp https://parg.co/U5E
   * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
-  * [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
+         \* [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
 
 * [ ] ECMAScript CheatSheet 2018
 
@@ -88,7 +88,6 @@
 
 * [ ] GraphQL CheatSheet
 
-  * [ ] https://parg.co/Ylq
   * [ ] [Top 5 Reasons to Use GraphQL](https://blog.graph.cool/top-5-reasons-to-use-graphql-b60cfa683511)
 
 * [ ] SQL CheatSheet
@@ -116,6 +115,7 @@
   * [ ] Webpack 4 https://parg.co/UgK
 
 * [ ] Kubernetes CheatSheet
+      <<<<<<< HEAD
 
   * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
@@ -124,4 +124,6 @@
   * [ ] https://semaphoreci.com/community/tutorials/how-to-`test`-react-and-mobx-with-jest
 
 * [ ] Web Test CheatSheet
-  * [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
+  * [ ] # [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
+  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
+    > > > > > > > 136aee8587cdebfc06c4ce9826811114d3d752a3
