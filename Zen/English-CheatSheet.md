@@ -150,7 +150,7 @@
 * C
 
   * CSS, Cascading Style Sheet
-  * CSRF： cross site request forgery
+  * CSRF: cross site request forgery
 
 * D
 

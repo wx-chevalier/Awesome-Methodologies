@@ -34,7 +34,7 @@
 
 * [500 Lines or Less: The Architecture of Open Source Applications #Book#](http://aosabook.org/en/index.html): 神书一套，介绍了很多开源软件的架构设计，In these two books, the authors of four dozen open source applications explain how their software is structured, and why. What are each program's major components? How do they interact? And what did their builders learn during their development? In answering these questions, the contributors to these books provide unique insights into how they think.
 
-- [2013-The Little Schemer V4](https://drive.wps.cn/view/l/882c5c0df99841f5858417d5e6ae32c1)： This delightful book leads you through the basic elements of programming in Scheme (a Lisp dialect) via a series of dialogues with well-chosen questions and exercises. 其他兄弟篇：[1989-The Little LISPer](https://www.amazon.com/exec/obidos/ASIN/0023397632/)、[1995-The Seasoned Schemer](https://book.douban.com/subject/1726083/)、[2005-The Reasoned Schemer](https://book.douban.com/subject/1726088/)、[2015-The Little Prover](http://the-little-prover.github.io/)
+- [2013-The Little Schemer V4](https://drive.wps.cn/view/l/882c5c0df99841f5858417d5e6ae32c1): This delightful book leads you through the basic elements of programming in Scheme (a Lisp dialect) via a series of dialogues with well-chosen questions and exercises. 其他兄弟篇：[1989-The Little LISPer](https://www.amazon.com/exec/obidos/ASIN/0023397632/)、[1995-The Seasoned Schemer](https://book.douban.com/subject/1726083/)、[2005-The Reasoned Schemer](https://book.douban.com/subject/1726088/)、[2015-The Little Prover](http://the-little-prover.github.io/)
 
 * [2015-The-Art-Of-Programming-By-July #Book#](http://6me.us/oEiD): 编程之法：面试和算法心得
 

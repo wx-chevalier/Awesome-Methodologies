@@ -483,7 +483,7 @@ $ tar -czf target.tar.fz file1 file2 file3
 
 ## 文件检索
 
-* 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则： ls -lR /home/han|grep js|wc -l 或 ls -l "/home/han"|grep "js"|wc -l
+* 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则: ls -lR /home/han|grep js|wc -l 或 ls -l "/home/han"|grep "js"|wc -l
 
 ### 文件名搜索
 
@@ -534,9 +534,9 @@ avgrq-sz 平均请求扇区的大小
 
 avgqu-sz 是平均请求队列的长度。毫无疑问，队列长度越短越好。
 
-await：  每一个IO请求的处理的平均时间(单位是微秒毫秒)。这里可以理解为IO的响应时间，一般地系统IO响应时间应该低于5ms，如果大于10ms就比较大了
+await:  每一个IO请求的处理的平均时间(单位是微秒毫秒)。这里可以理解为IO的响应时间，一般地系统IO响应时间应该低于5ms，如果大于10ms就比较大了
 
-%util： 在统计时间内所有处理IO时间，除以总共统计时间
+%util: 在统计时间内所有处理IO时间，除以总共统计时间
 ```
 
 # 文件读写

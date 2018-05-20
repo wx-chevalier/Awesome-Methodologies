@@ -28,6 +28,8 @@
 
 * [ ] MySQL CheatSheet
 
+  * [ ] https://mp.weixin.qq.com/s/87BoE2-0mW_3qALyNSpiTw
+
 * [ ] Elastic Search CheatSheet
 
 * [ ] Git CheatSheet
@@ -115,15 +117,21 @@
   * [ ] Webpack 4 https://parg.co/UgK
 
 * [ ] Kubernetes CheatSheet
-      <<<<<<< HEAD
 
-  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
+- [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
-* [ ] MobX CheatSheet
+- [ ] MobX CheatSheet
 
   * [ ] https://semaphoreci.com/community/tutorials/how-to-`test`-react-and-mobx-with-jest
 
-* [ ] Web Test CheatSheet
+- [ ] Web Test CheatSheet
+
   * [ ] # [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
   * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
-    > > > > > > > 136aee8587cdebfc06c4ce9826811114d3d752a3
+
+- [ ] Tensorflow CheatSheet
+
+  * [什么是张量-知乎问答](https://www.zhihu.com/question/20695804/answer/64920043)
+
+- [ ] AI CheatSheet
+  * [ ] https://mp.weixin.qq.com/s/qmm1xyvnHvWhuUvd9lDjfw

@@ -331,7 +331,7 @@ randIter.next(); // Each exectuion gives a random value, expression is evaluated
 [1, 2].concat([3, 4]); // [1, 2, 3, 4]
 ```
 
-恒等值即是空数组： `[]`
+恒等值即是空数组: `[]`
 
 ```js
 [1, 2].concat([]); // [1, 2]
