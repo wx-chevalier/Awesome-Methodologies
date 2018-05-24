@@ -127,6 +127,8 @@
 
 - U
 
+  * util [ju'til](http://dict.youdao.com/dictvoice?audio=util)
+
 - V
 
   * variable ['vɛrɪəbl](http://dict.youdao.com/dictvoice?audio=variable&type=1)

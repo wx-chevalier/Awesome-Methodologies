@@ -7,6 +7,7 @@
   * [ ] 整合[这里](https://medium.freecodecamp.org/what-makes-apache-kafka-so-fast-a8d4f94ab145)提到的 Kafka 的优点。
 
 * [ ] Workbench CheatSheet
+
   * [ ] 发布英文版本
 
 # Milestone 0.1
@@ -112,13 +113,13 @@
   * [ ] https://medium.com/netscape/advanced-redux-action-types-d5a71ed44e16
   * [ ] 完成 Redux 中间件部分介绍
 
-* [ ] Web Builder CheatSheet
+* [x] Web Bundler CheatSheet
 
-  * [ ] Webpack 4 https://parg.co/UgK
+  * [x] Webpack 4 https://parg.co/UgK
 
 * [ ] Kubernetes CheatSheet
 
-- [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
+  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
 - [ ] MobX CheatSheet
 
@@ -126,7 +127,7 @@
 
 - [ ] Web Test CheatSheet
 
-  * [ ] # [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
+  * [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
   * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
 
 - [ ] Tensorflow CheatSheet
@@ -134,4 +135,13 @@
   * [什么是张量-知乎问答](https://www.zhihu.com/question/20695804/answer/64920043)
 
 - [ ] AI CheatSheet
+
   * [ ] https://mp.weixin.qq.com/s/qmm1xyvnHvWhuUvd9lDjfw
+
+- [ ] WebAssembly CheatSheet
+
+  * [ ] [2018-Writing WebAssembly By Hand](http://blog.scottlogic.com/2018/04/26/webassembly-by-hand.html)
+
+- [ ] Java Tuning CheatSheet
+
+  * [ ] https://parg.co/YrZ
