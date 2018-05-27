@@ -54,7 +54,8 @@
   * [ ] 收录 React Router 的语法速览
   * [ ] React renderProp https://parg.co/U5E
   * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
-         \* [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
+  * [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
+  * [ ] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
 
 * [ ] ECMAScript CheatSheet 2018
 
@@ -74,7 +75,9 @@
 
 * [ ] TypeScript-CheatSheet
 
-  * [ ] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
+  * [x] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
+  * [x] [Let's Learn TypeScript](https://parg.co/Uik)
+  * [x] [TypeScript Cheat Sheet](https://github.com/frontdevops/typescript-cheat-sheet)
 
 * [ ] JavaScript CheatSheet
 
@@ -145,3 +148,6 @@
 - [ ] Java Tuning CheatSheet
 
   * [ ] https://parg.co/YrZ
+
+- [ ] PWA CheatSheet
+  * [ ] http://www.cnblogs.com/powertoolsteam/p/ProgressiveWebApps_2.html

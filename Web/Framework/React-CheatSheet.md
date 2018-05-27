@@ -251,7 +251,19 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 ## 异常处理
 
-# TypeScript
+# Ecosystem | React 生态圈
+
+在跨平台开发领域，React Native 是当之无愧的跨平台开发首选。而 [Electron]() 与 [Proton Native]() 也都能为我们提供
+
+Same syntax as React Native
+Works with existing React libraries such as Redux
+Cross platform
+Native components. No more Electron
+Compatible with all normal Node.js packages
+
+Proton Native does the same to desktop that React Native did to mobile. Build cross-platform apps for the desktop, all while never leaving the React eco-system. Popular React packages such as Redux still work.
+
+# React
 
 React 的 TypeScript 类型声明[types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
 
@@ -270,15 +282,3 @@ const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
   </div>
 );
 ```
-
-# Ecosystem | React 生态圈
-
-在跨平台开发领域，React Native 是当之无愧的跨平台开发首选。而 [Electron]() 与 [Proton Native]() 也都能为我们提供
-
-Same syntax as React Native
-Works with existing React libraries such as Redux
-Cross platform
-Native components. No more Electron
-Compatible with all normal Node.js packages
-
-Proton Native does the same to desktop that React Native did to mobile. Build cross-platform apps for the desktop, all while never leaving the React eco-system. Popular React packages such as Redux still work.

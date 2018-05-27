@@ -1,6 +1,15 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Java 样式指南
+# Java StyleGuide CheatSheet | Java 样式指南
+
+当我们敲下每个点号时，都应该考虑：
+
+* 是否会出现空指针？
+* 是否会抛出异常？
+* 是否在热点区域运行？
+* 在哪个线程中执行？
+* 是否存在并发锁间隙？
+* 是否会并发修改不可见？
 
 ```java
 // Bad, doesn't compile
