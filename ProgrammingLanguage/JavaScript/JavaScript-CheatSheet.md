@@ -58,6 +58,25 @@ NaN == NaN
 [] == ![]
 ```
 
+## Number | 数值类型
+
+JavaScript 中并没有区分整型或者浮点类型，而是统一使用 Number 表示。
+
+JavaScript 内置的 Math 对象提供了极大极小的整型值以及多个数值类型的工具函数：
+
+```js
+value = Number.MAX_SAFE_INTEGER / 10; // 900719925474099.1
+value = Number.MAX_SAFE_INTEGER / 10 * -1; // -900719925474099.1
+
+// 向下取整
+let intvalue = Math.floor(floatvalue);
+let intvalue = Math.ceil(floatvalue);
+let intvalue = Math.round(floatvalue);
+
+// `Math.trunc` was added in ECMAScript 6
+let intvalue = Math.trunc(floatvalue);
+```
+
 ## String | 字符串类型
 
 ```js

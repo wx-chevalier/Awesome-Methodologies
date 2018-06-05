@@ -1,3 +1,5 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 题注：[Web Bundler CheatSheet](https://parg.co/YO2) 属于 [Awesome-CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 系列，盘点数个常用的开发打包工具清单。欢迎加入阿里南京前端团队，欢迎关注[阿里南京技术专刊](https://zhuanlan.zhihu.com/ali-nanjing)了解更多讯息。
 
 # Web Bundler CheatSheet | Web 构建与打包工具盘点
@@ -198,10 +200,10 @@ export default {
 }
 ```
 
-* index.js 是 CommonJS 模块，是 Node.js 内置的模块类型，使用类似于 `require('MyModule')` 语法导入
-* index.m.js 是 ECMAScript 模块，使用类似于 `import MyModule from 'my-module'` 语法导入
-* index.umd.js 是 UMD 模块
-* index.d.ts 是 TypeScript 的类型声明文件
+- index.js 是 CommonJS 模块，是 Node.js 内置的模块类型，使用类似于 `require('MyModule')` 语法导入
+- index.m.js 是 ECMAScript 模块，使用类似于 `import MyModule from 'my-module'` 语法导入
+- index.umd.js 是 UMD 模块
+- index.d.ts 是 TypeScript 的类型声明文件
 
 # Webpack
 
@@ -211,7 +213,7 @@ export default {
 
 Webpack 目前也支持零配置运行
 
-```js
+```sh
 $ npm install webpack webpack-cli webpack-dev-server --save-dev
 ```
 
@@ -350,10 +352,10 @@ __webpack_require__.r(__webpack_exports__);
 
 不同于 Webpack 3 中需要依赖 CommonChunksPlugin 进行配置，Webpack 4 引入了 [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/#optimization-runtimechunk)，并为我们提供了开箱即用的代码优化特性，Webpack 会根据以下情况自动进行代码分割操作：
 
-* 新的块是在多个模块间共享，或者来自于 node_modules 目录；
-* 新的块在压缩之前的大小应该超过 30KB；
-* 页面所需并发加载的块数量应该小于或者等于 5；
-* 初始页面加载的块数量应该小于或者等于 3；
+- 新的块是在多个模块间共享，或者来自于 node_modules 目录；
+- 新的块在压缩之前的大小应该超过 30KB；
+- 页面所需并发加载的块数量应该小于或者等于 5；
+- 初始页面加载的块数量应该小于或者等于 3；
 
 SplitChunksPlugin 的默认配置如下：
 

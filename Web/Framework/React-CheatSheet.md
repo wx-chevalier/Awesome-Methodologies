@@ -187,6 +187,8 @@ static getDerivedStateFromProps(nextProps, prevState){
 }
 ```
 
+值得一提的是，Fiber 会自动开启 StrictMode，
+
 ## 组件样式
 
 ### 样式类
