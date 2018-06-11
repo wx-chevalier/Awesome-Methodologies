@@ -4,221 +4,59 @@
 
 SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是负责与 ANSI(美国国家标准学会)维护的数据库交互的标准。作为关系数据库的标准语言，它已被众多商用 DBMS 产品所采用，使得它已成为关系数据库领域中一个主流语言，不仅包含数据查询功能，还包括插入、删除、更新和数据定义功能。最为重要的 SQL92 版本的详细标准可以查看[这里](http://www.contrib.andrew.cmu.edu/~shadow/sql/sql1992.txt)，或者在 [Wiki](https://en.wikipedia.org/wiki/SQL) 上查看 SQL 标准的变化。
 
-T-SQL 是 SQL 语言的一种版本，且只能在 SQL SERVER 上使用。它是 ANSI SQL 的加强版语言、提供了标准的 SQL 命令。另外，T-SQL 还对 SQL 做了许多补允，提供了数据库脚本语言，即类似 C、Basic 和 Pascal 的基本功能，如变量说明、流控制语言、功能函数等。
+- T-SQL 是 SQL 语言的一种版本，且只能在 SQL SERVER 上使用。它是 ANSI SQL 的加强版语言、提供了标准的 SQL 命令。另外，T-SQL 还对 SQL 做了许多补允，提供了数据库脚本语言，即类似 C、Basic 和 Pascal 的基本功能，如变量说明、流控制语言、功能函数等。
 
-PL-SQL(Procedural Language-SQL)是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具(如 SQL\*Plus、Developer/2000 等)访问服务器的操作语言。它有标准 SQL 所没有的特征：变量(包括预先定义的和自定义的)；控制结构(如 IF-THEN-ELSE 等流控制语句)；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
+- PL-SQL(Procedural Language-SQL)是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具(如 SQL\*Plus、Developer/2000 等)访问服务器的操作语言。它有标准 SQL 所没有的特征：变量(包括预先定义的和自定义的)；控制结构(如 IF-THEN-ELSE 等流控制语句)；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
 
-# DML 数据库管理
+# DML | 数据库管理
 
-# DQL 数据查询
+# DQL | 数据查询
 
-# DDL 数据定义
+## Join | 表联接
 
-### 存在性更新
-
-Mysql 处理某个唯一索引时存在则更新，不存在则插入的情况应该是很常见的，网上也有很多类似的文章，我今天就讲讲当这个唯一的索引是多列唯一索引时可能会遇到的问题和方法。
-
-方法一：
-
-使用
-
-INSERT INTO ON ... DUPLICATE KEY UPDATE ...
-
-：
-
-表的创建如下：
-
-```sql
-CREATE TABLE `test_table` (  
-  `id`  int(11) NOT NULL AUTO_INCREMENT ,  
-  `var1`  varchar(100) CHARACTER SET utf8 DEFAULT NULL,  
-  `var2`  tinyint(1) NOT NULL DEFAULT '0',  
-  `var3`  varchar(100) character set utf8 default NULL,  
-  `value1`  int(11) NOT NULL DEFAULT '1',  
-  `value2`  int(11) NULL DEFAULT NULL,  
-  `value3`  int(5) DEFAULT NULL,  
-  PRIMARY KEY (`Id`),  
-  UNIQUE INDEX `index_var` (`var1`, `var2`, `var3`)  
-) ENGINE=MyISAM DEFAULT CHARACTER SET=latin1 AUTO_INCREMENT=1;  
-```
-
-其中该表中 var1、var2 和 var3 完全相同的记录只能有一条，所以建了一个多列唯一索引 index_var，这样一来我们就可以使用 INSERT INTO ON ... DUPLICATE KEY UPDATE ... 来实现插入数据时存在则更新，不存在则插入的功能了，如下：
-
-```sql
-INSERT INTO `test_table`
-(`var1`, `var2`, `var3`, `value1`, `value2`, `value3`) VALUES
-('abcd', 0, 'xyz', 1, 2, 3)
-ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
-`value2` = `value2` + 2 AND `value3` = `value3` + 3;  
-```
-
-该条插入语句的含义是：向 test_table 表中插入，如果不存在 val1 = 'abcd'，val2 = 0, val3 = ‘xyz’的记录，那就插入
-
-val1 = 'abcd'，val2 = 0, val3 = ‘xyz’，value1 = 1, value2 = 2, value3 = 3 的记录，
-
-如果存在，那就更新 value1 的值为 value1+1，更新 value2 的值为 value2+2，更新 value3 的值为 value3+3。
-
-这样，的确是没有问题的，但是，如果表的创建如下：
-
-```sql
-CREATE TABLE `test_table` (  
-  `id`  int(11) NOT NULL AUTO_INCREMENT ,  
-  `var1`  varchar(1024) CHARACTER SET utf8 DEFAULT NULL,  
-  `var2`  tinyint(1) NOT NULL DEFAULT '0',  
-  `var3`  varchar(1024) character set utf8 default NULL,  
-  `value1`  int(11) NOT NULL DEFAULT '1',  
-  `value2`  int(11) NULL DEFAULT NULL,  
-  `value3`  int(5) DEFAULT NULL,  
-  PRIMARY KEY (`Id`),  
-  UNIQUE INDEX `index_var` (`var1`, `var2`, `var3`)  
-) ENGINE=MyISAM DEFAULT CHARACTER SET=latin1 AUTO_INCREMENT=1;  
-```
-
-注意：var1 和 var3 的最大长度由 100 变成了 1024，此时执行该创建语句时会报如下错误：
-
-```
-Specified key was too long; max key length is 1000 bytes  
-```
-
-这是由于 index*var 索引的为 1024 * 3 + 1 + 1024 \_ 3 > 1000 导致的，如果遇到这种情况怎么办？有两种解决办法。
-
-第一，将数据库的 engine 由 MyISAM 换成 InnoDB 就可以了，那么这两个引擎有什么区别呢？
-
-看这里
-
-不过，这样换有一个缺点，就是 InnoDB 的性能没有 MyISAM 的好，那么如果想要不牺牲性能的话，那就只有用第二个方法了，也就是我们这里说的方法二！
-
-方法二：
-
-使用 dual 虚拟表来实现。
-
-使用 dual 虚拟表来实现的话就不需要创建多列唯一索引了，表的创建如下：
-
-```sql
-CREATE TABLE `test_table` (  
-  `id`  int(11) NOT NULL AUTO_INCREMENT ,  
-  `var1`  varchar(1024) CHARACTER SET utf8 DEFAULT NULL,  
-  `var2`  tinyint(1) NOT NULL DEFAULT '0',  
-  `var3`  varchar(1024) character set utf8 default NULL,  
-  `value1`  int(11) NOT NULL DEFAULT '1',  
-  `value2`  int(11) NULL DEFAULT NULL,  
-  `value3`  int(5) DEFAULT NULL,  
-  PRIMARY KEY (`Id`)  
-) ENGINE=MyISAM DEFAULT CHARACTER SET=latin1 AUTO_INCREMENT=1;  
-```
-
-插入语句则是形如：
-
-```sql
-INSERT INTO table  
-(primarykey, field1, field2, ...)  
-SELECT key, value1, value2, ...  
-FROM dual  
-WHERE not exists (select * from table where primarykey = id);  
-```
-
-的语句，此时我们可以用以下语句代替：
-
-```sql
-INSERT INTO `test_table` SELECT 0, 'abcd', 0, 'xyz', 1, 2, 3  
-FROM dual WHERE NOT EXISTS (  
-SELECT * FROM `test_table` WHERE
-`var1` = 'abcd' AND `var2` = 0 AND `var3` = 'xyz');  
-```
-
-此时，如果 val1 = 'abcd'，val2 = 0, val3 = ‘xyz’的记录不存在，那么就会执行该插入语句插入该记录，如果存在，那就需要我们再使用相应的更新语句来更新记录：
-​```sql
-UPDATE `test_table` SET  
-`value1` = `value1` + 1, `value2` = `value2` + 2, `value3` = `value3` + 3  
-WHERE `val1` = 'abcd' AND `val2` = 0 AND `val3` = 'xyz';
-
-```
-
-```
-
-# 事务管理
-
-| 隔离级别                    | 脏读 / Dirty Read | 不可重复读 / Non Repeatable Read | 幻读 / Phantom Read | 锁             |
-| --------------------------- | ----------------- | -------------------------------- | ------------------- | -------------- |
-| 未提交读 / Read Uncommitted | 可能              | 可能                             | 可能                | 无事务         |
-| 提交读 / Read Committed     | 不可能            | 可能                             | 可能                | 事务保护       |
-| 可重复读 / Repeatable Read  | 不可能            | 不可能                           | 可能                | 行锁，顺序写   |
-| 串行化 / Serializable       | 不可能            | 不可能                           | 不可能              | 表锁，顺序读写 |
-
-不同级别的现象描述如下：
-
-* 脏读: 当一个事务读取另一个事务尚未提交的修改时，产生脏读。
-
-* 不可重复读: 同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生不可重复读。
-
-* 幻读: 同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。
-
-# Table：表
-
-## Join：表联接
-
-```
 表联接最常见的即是出现在查询模型中，但是实际的用法绝不会局限在查询模型中。较常见的联接查询包括了以下几种类型：Inner Join  / Outer Join / Full Join / Cross Join 。
-```
 
-## Inner Join
+### Inner Join | 内联查询
 
-```
-Inner Join是最常用的Join类型，基于一个或多个公共字段把记录匹配到一起。Inner Join只返回进行联结字段上匹配的记录。 如：
-```
+Inner Join 是最常用的 Join 类型，基于一个或多个公共字段把记录匹配到一起。Inner Join 只返回进行联结字段上匹配的记录。  如：
 
 ```sql
 select * from Products inner join Categories on Products.categoryID=Categories.CategoryID
 ```
 
-```
-以上语句，只返回物品表中的种类ID与种类表中的ID相匹配的记录数。这样的语句就相当于：
-```
+以上语句，只返回物品表中的种类 ID 与种类表中的 ID 相匹配的记录数。这样的语句就相当于：
 
 ```sql
 select * from Products, Categories where Products.CategoryID=Categories.CategoryID
 ```
 
-```
-Inner Join是在做排除操作，任一行在两个表中不匹配，注定将从结果集中除掉。(我想，相当于两个集合中取其两者的交集，这个交集的条件就是on后面的限定)还要注意的是，不仅能对两个表作联结，可以把一个表与其自身进行联结。
-```
+Inner Join 是在做排除操作，任一行在两个表中不匹配，注定将从结果集中除掉。(我想，相当于两个集合中取其两者的交集，这个交集的条件就是 on 后面的限定)还要注意的是，不仅能对两个表作联结，可以把一个表与其自身进行联结。
 
-## Outer Join
+## Outer Join | 外联接
 
-```
-Outer Join包含了Left Outer Join 与 Right Outer Join. 其实简写可以写成Left Join与Right Join。left join，right join要理解并区分左表和右表的概念，A可以看成左表,B可以看成右表。left join是以左表为准的.,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).B表记录不足的地方均为NULL。 right join和left join的结果刚好相反,这次是以右表(B)为基础的,A表不足的地方用NULL填充。
-```
-
-### Left Outer Join
-
-### Right Outer Join
+Outer Join 包含了 Left Outer Join 与 Right Outer Join. 其实简写可以写成 Left Join 与 Right Join。left join，right join 要理解并区分左表和右表的概念，A 可以看成左表,B 可以看成右表。left join 是以左表为准的.,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).B 表记录不足的地方均为 NULL。 right join 和 left join 的结果刚好相反,这次是以右表(B)为基础的,A 表不足的地方用 NULL 填充。
 
 ## Full Join
 
-```
-Full Join 相当于把Left和Right联结到一起，告诉SQL Server要全部包含左右两侧所有的行，相当于做集合中的并集操作。
-```
+Full Join 相当于把 Left 和 Right 联结到一起，告诉 SQL Server 要全部包含左右两侧所有的行，相当于做集合中的并集操作。
 
 ## Cross Join
 
-```
-与其它的JOIN不同在于，它没有ON操作符，它将JOIN一侧的表中每一条记录与另一侧表中的所有记录联结起来，得到的是两侧表中所有记录的笛卡儿积。
-```
-
-# 查询
+与其它的 JOIN 不同在于，它没有 ON 操作符，它将 JOIN 一侧的表中每一条记录与另一侧表中的所有记录联结起来，得到的是两侧表中所有记录的笛卡儿积。
 
 ## 统计查询
 
 ### 关键字
 
 | =ANY  | 和 IN 等价       |
-| :---- | :--------------- |
+| ----- | ---------------- |
 | <>ALL | 和 NOT IN 等价   |
 | >ANY  | 大于最小的(>MIN) |
 | <ANY  | 小于最大的(<MAX) |
 | >ALL  | 大于最大的(>MAX) |
 | <ALL  | 小于最小的(<MIN) |
 | =ALL  | 下面说           |
+
 
 ## 子查询
 
@@ -265,9 +103,9 @@ ON P.ProductModelID = M.ProductModelID
 
 ### 子查询作为选择条件使用
 
-```
+
 作为选择条件的子查询也是子查询相对最复杂的应用。作为选择条件的子查询是那些只返回**一列(Column)**的子查询，如果作为选择条件使用，即使只返回**单个值**，也可以看作是只有**一行**的**一列.**比如:    在AdventureWorks中：我想取得总共请病假天数大于68小时的员工:
-```
+
 
 ```javascript
 SELECT [FirstName]
@@ -328,5 +166,50 @@ FROM [AdventureWorks].[Production].[Product] P
 部分结果如下：
 
 ![5](http://images.cnblogs.com/cnblogs_com/CareySon/201107/201107181306165951.png)
+
+
+# DDL | 数据定义
+
+## Update | 更新
+
+### 存在性更新
+
+我们经常需要处理某个唯一索引时存在则更新，不存在则插入的情况，其基本形式如下：
+
+```sql
+INSERT INTO ON ... DUPLICATE KEY UPDATE ...
+```
+
+对于多属性索引的更新方式如下：
+
+```sql
+/* 创建语句中添加索引描述 */
+UNIQUE INDEX `index_var` (`var1`, `var2`, `var3`)  
+
+/* 同时更新索引包含的多属性域值 */
+INSERT INTO `test_table`
+(`var1`, `var2`, `var3`, `value1`, `value2`, `value3`) VALUES
+('abcd', 0, 'xyz', 1, 2, 3)
+ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
+`value2` = `value2` + 2 AND `value3` = `value3` + 3;  
+```
+
+
+# 事务管理
+
+| 隔离级别                    | 脏读 / Dirty Read | 不可重复读 / Non Repeatable Read | 幻读 / Phantom Read | 锁             |
+| --------------------------- | ----------------- | -------------------------------- | ------------------- | -------------- |
+| 未提交读 / Read Uncommitted | 可能              | 可能                             | 可能                | 无事务         |
+| 提交读 / Read Committed     | 不可能            | 可能                             | 可能                | 事务保护       |
+| 可重复读 / Repeatable Read  | 不可能            | 不可能                           | 可能                | 行锁，顺序写   |
+| 串行化 / Serializable       | 不可能            | 不可能                           | 不可能              | 表锁，顺序读写 |
+
+不同级别的现象描述如下：
+
+* 脏读: 当一个事务读取另一个事务尚未提交的修改时，产生脏读。
+
+* 不可重复读: 同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生不可重复读。
+
+* 幻读: 同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。
 
 # 存储过程
