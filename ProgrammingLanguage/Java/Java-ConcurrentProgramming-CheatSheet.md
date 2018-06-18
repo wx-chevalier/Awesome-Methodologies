@@ -119,6 +119,13 @@ public static long preventFromOptimization(VolatileLong v) {
 
 ## Threads & Runnables
 
+
+Timer 计时器具备使任务延迟执行以及周期性执行的功能，但是 Timer 天生存在一些缺陷，所以从 JDK 1.5 开始就推荐使用 ScheduledThreadPoolExecutor（ScheduledExecutorService 实现类）作为其替代工具。
+
+首先 Timer 对提交的任务调度是基于绝对时间而不是相对时间的，所以通过其提交的任务对系统时钟的改变是敏感的（譬如提交延迟任务后修改了系统时间会影响其执行）；而 ScheduledThreadExecutor 只支持相对时间，对系统时间不敏感。
+
+接着 Timer 的另一个问题是如果 TimerTask 抛出未检查异常则 Timer 将会产生无法预料的行为，因为 Timer 线程并不捕获异常，所以 TimerTask 抛出的未检查异常会使 Timer 线程终止，所以后续提交的任务得不到执行；而 ScheduledThreadPoolExecutor 不存在此问题。
+
 > 并发是同一时间应对(dealing with)多件事情的能力；并行是同一时间动手做(doing)多件事情的能力。
 
 所有的现代操作系统都通过进程和线程来支持并发。进程是通常彼此独立运行的程序的实例，比如，如果你启动了一个 Java 程序，操作系统产生一个新的进程，与其他程序一起并行执行。在这些进程的内部，我们使用线程并发执行代码，因此，我们可以最大限度的利用 CPU 可用的核心(core)。 Java 从 JDK1.0 开始执行线程。在开始一个新的线程之前，你必须指定由这个线程执行的代码，通常称为 task。这可以通过实现 Runnable——一个定义了一个无返回值无参数的 run()方法的函数接口，如下面的代码所示：
