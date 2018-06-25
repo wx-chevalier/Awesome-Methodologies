@@ -1,14 +1,14 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Node.js CheatSheet | Node.js 语法基础、实践技巧与开源框架清单
+# Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧
 
 Node.js 的包管理，或者说依赖管理使用了语义化版本的规范，版本的发布分为四个不同的层次：使用 1.0.0 表示新发布，使用 1.0.1 这样第三位数字表示错误修复等小版本更新；使用 1.1.0 这样的第二位数字表示新特性等兼容性更新；使用 2.0.0 这样第一位数字表示大版本的更新。相对应地，在 package.json 声明依赖版本时，我们也可以指定不同的兼容范围：
 
-* Patch releases：1.0 或者 1.0.x 或者 ~1.0.4
+- Patch releases：1.0 或者 1.0.x 或者 ~1.0.4
 
-* Minor releases: 1 或者 1.x 或者 ^1.0.4
+- Minor releases: 1 或者 1.x 或者 ^1.0.4
 
-* Major releases: \* 或者 x
+- Major releases: \* 或者 x
 
 # IO
 
@@ -16,10 +16,10 @@ Node.js 的包管理，或者说依赖管理使用了语义化版本的规范，
 
 就像数组或者映射，Stream 也是数据的集合，只不过其代表了不一定正在内存中的数据。Stream 是 Node.js 中的基础概念，类似于 EventEmitter，专注于 IO 管道中事件驱动的数据处理方式。Node.js 的 Stream 分为以下类型：
 
-* Readable Stream: 可读流，数据的产生者，譬如 process.stdin
-* Writable Stream: 可写流，数据的消费者，譬如 process.stdout 或者 process.stderr
-* Duplex Stream: 双向流，即可读也可写
-* Transform Stream: 转化流，数据的转化者
+- Readable Stream: 可读流，数据的产生者，譬如 process.stdin
+- Writable Stream: 可写流，数据的消费者，譬如 process.stdout 或者 process.stderr
+- Duplex Stream: 双向流，即可读也可写
+- Transform Stream: 转化流，数据的转化者
 
 Stream 本身提供了一套接口规范，很多 Node.js 中的内建模块都遵循了该规范，譬如著名的 `fs` 模块，即是使用 Stream 接口来进行文件读写；同样的，每个 HTTP 请求是可读流，而 HTTP 响应则是可写流。
 
@@ -80,9 +80,15 @@ readableStream.on('end', function() {
 
 Readable Stream 还包括如下常用的方法：
 
-* Readable.pause(): 这个方法会暂停流的流动。换句话说就是它不会再触发 data 事件。
-* Readable.resume(): 这个方法和上面的相反，会让暂停流恢复流动。
-* Readable.unpipe(): 这个方法会把目的地移除。如果有参数传入，它会让可读流停止流向某个特定的目的地，否则，它会移除所有目的地。
+- Readable.pause(): 这个方法会暂停流的流动。换句话说就是它不会再触发 data 事件。
+- Readable.resume(): 这个方法和上面的相反，会让暂停流恢复流动。
+- Readable.unpipe(): 这个方法会把目的地移除。如果有参数传入，它会让可读流停止流向某个特定的目的地，否则，它会移除所有目的地。
+
+在日常开发中，我们可以用 [stream-wormhole](https://github.com/node-modules/stream-wormhole) 来模拟消耗可读流：
+
+```js
+sendToWormhole(readStream, true);
+```
 
 ### Writable Stream
 
@@ -111,9 +117,9 @@ process.stdin.pipe(outStream);
 
 Writable Stream 中同样包含一些与 Readable Stream 相关的重要事件：
 
-* error: 在写入或链接发生错误时触发
-* pipe: 当可读流链接到可写流时，这个事件会触发
-* unpipe: 在可读流调用 unpipe 时会触发
+- error: 在写入或链接发生错误时触发
+- pipe: 当可读流链接到可写流时，这个事件会触发
+- unpipe: 在可读流调用 unpipe 时会触发
 
 ### Pipe | 管道
 
@@ -123,6 +129,7 @@ const fs = require('fs');
 const inputFile = fs.createReadStream('REALLY_BIG_FILE.x');
 const outputFile = fs.createWriteStream('REALLY_BIG_FILE_DEST.x');
 
+// 当建立管道时，才发生了流的流动
 inputFile.pipe(outputFile);
 ```
 
@@ -131,8 +138,7 @@ inputFile.pipe(outputFile);
 ```js
 const fs = require('fs');
 const zlib = require('zlib');
-fs
-  .createReadStream('input.txt.gz')
+fs.createReadStream('input.txt.gz')
   .pipe(zlib.createGunzip())
   .pipe(fs.createWriteStream('output.txt'));
 ```
@@ -240,3 +246,80 @@ readFileAsync(filePath, { encoding: 'utf8' })
     console.log('ERROR:', err);
   });
 ```
+
+# HTTP Server
+
+## WebSocket
+
+## Production | 部署
+
+我们也可以将 Node.js 应用部署为 Systemd 服务，首先创建 `/etc/systemd/system/node-sample.service` 文件：
+
+```yaml
+[Unit]
+Description=node-sample - making your environment variables rad
+Documentation=https://example.com
+After=network.target
+
+[Service]
+ExecStart=[node binary] /home/srv-node-sample/[main file]
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=node-sample
+User=srv-node-sample
+Group=srv-node-sample
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+```
+
+然后使用 systemctl 命令启动与控制服务：
+
+```sh
+$ systemctl enable node-sample
+$ systemctl start node-sample
+
+# 查看应用状态
+$ systemctl status node-sample
+
+# 查看日志
+$ journalctl -u node-sample
+```
+
+## Cluster | 集群模式
+
+```js
+const cluster = require('cluster');
+const http = require('http');
+const numCPUs = require('os').cpus().length;
+
+if (cluster.isMaster) {
+  console.log(`Master ${process.pid} is running`);
+
+  // Fork workers.
+  for (let i = 0; i < numCPUs; i++) {
+    cluster.fork();
+  }
+
+  cluster.on('exit', (worker, code, signal) => {
+    console.log(`worker ${worker.process.pid} died`);
+  });
+} else {
+  // Workers can share any TCP connection
+  // In this case it is an HTTP server
+  http
+    .createServer((req, res) => {
+      res.writeHead(200);
+      res.end('hello world\n');
+    })
+    .listen(8000);
+
+  console.log(`Worker ${process.pid} started`);
+}
+```
+
+# Express
+
+# Koa

@@ -9,6 +9,66 @@ Docker 综合运用了 Cgroup
 docker 容器 =cgroup+namespace+secomp+capability+selinux []
 
 
+# 容器
+
+```sh
+# 设置重启策略
+# Off, On-failure, Unless-stopped, Always
+$ docker run -dit — restart unless-stopped [CONTAINER]
+```
+
+```sh
+Remove all containers using the rabbitmq image:
+docker rm $(docker ps -a | grep rabbitmq | awk '{print $1}')
+
+Or by time created:
+docker rm $(docker ps -a | grep "46 hours ago")
+
+# 列举未使用的
+docker images --filter "dangling=true"
+
+docker ps --filter "name=nostalgic"
+```
+
+## 创建与移除
+
+你的 Container 会在你结束命令之后自动退出，使用以下的命令选项可以将容器保持在激活状态：
+
+* `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
+* `-t` 分配一个伪 TTY 控制台
+
+```sh
+# 创建，并且启动某个容器以执行某个命令
+docker run -ti --name container_name image_name command
+
+# 创建，启动容器执行某个命令然后删除该容器
+docker run --rm -ti image_name command
+
+# 创建，启动容器，并且映射卷与端口，同时设置环境变量
+docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS=”-javaagent:/agent.jar” tomcat:8.0.29-jre8
+
+# 关闭所有正在运行的容器
+docker kill $(docker ps -q)
+
+# 移除所有停止的容器
+docker rm $(docker ps -a -q)
+```
+
+## 控制
+
+```sh
+# 启动/停止某个容器
+docker [start|stop] container_name
+```
+
+```sh
+# 在某个容器内执行某条命令
+docker exec -ti container_name command.sh
+
+# 查看某个容器的输出日志
+docker logs -ft container_name
+```
+
 
 # 镜像
 
@@ -67,68 +127,72 @@ ubuntu              14.04               ad892dd21d60        11 days ago         
 docker rmi $(docker images -q -f dangling=true)
 ```
 
-# 容器
+## Registry
+
+Docker 允许我们建立私有的 Registry 来存放于管理镜像，直接运行如下命令即可创建私有 Registry：
 
 ```sh
-# 设置重启策略
-# Off, On-failure, Unless-stopped, Always
-$ docker run -dit — restart unless-stopped [CONTAINER]
+$ docker run -d -p 5000:5000 --restart=always --name registry registry:2
 ```
 
+参考上文描述我们可知，镜像名的前缀即表示该镜像所属的 Registry 地址，因此我们可以通过 tag 方式将某个镜像推送到私有仓库：
+
 ```sh
-Remove all containers using the rabbitmq image:
-docker rm $(docker ps -a | grep rabbitmq | awk '{print $1}')
+# 拉取公共镜像
+$ docker pull ubuntu:16.04
 
-Or by time created:
-docker rm $(docker ps -a | grep "46 hours ago")
+# 为镜像添加 Registry 信息
+$ docker tag ubuntu:16.04 custom-domain:5000/my-ubuntu
 
-# 列举未使用的
-docker images --filter "dangling=true"
+# 将其推送到私有镜像库
+$ docker push custom-domain:5000/my-ubuntu
 
-docker ps --filter "name=nostalgic"
+# 从私有镜像库中拉取镜像
+$ docker pull custom-domain:5000/my-ubuntu
 ```
 
-
-
-## 容器
-
-### 创建与移除
-
-你的 Container 会在你结束命令之后自动退出，使用以下的命令选项可以将容器保持在激活状态：
-
-* `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
-* `-t` 分配一个伪 TTY 控制台
+我们也可以指定镜像库的存放地址：
 
 ```sh
-# 创建，并且启动某个容器以执行某个命令
-docker run -ti --name container_name image_name command
-
-# 创建，启动容器执行某个命令然后删除该容器
-docker run --rm -ti image_name command
-
-# 创建，启动容器，并且映射卷与端口，同时设置环境变量
-docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS=”-javaagent:/agent.jar” tomcat:8.0.29-jre8
-
-# 关闭所有正在运行的容器
-docker kill $(docker ps -q)
-
-# 移除所有停止的容器
-docker rm $(docker ps -a -q)
+-v /mnt/registry:/var/lib/registry
 ```
 
-### 控制
+有时候我们也需要为私有仓库配置权限认证，那么首先需要添加 TLS 支持，并且配置认证文件：
 
 ```sh
-# 启动/停止某个容器
-docker [start|stop] container_name
+$ mkdir auth
+$ docker run \
+  --entrypoint htpasswd \
+  registry:2 -Bbn testuser testpassword > auth/htpasswd
 ```
 
-```sh
-# 在某个容器内执行某条命令
-docker exec -ti container_name command.sh
+然后可以使用 Compose 文件来描述所需要的 TLS 以及 AUTH 参数：
 
-# 查看某个容器的输出日志
-docker logs -ft container_name
+```yml
+registry:
+  restart: always
+  image: registry:2
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+    REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+    REGISTRY_AUTH: htpasswd
+    REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+    REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+  volumes:
+    - /path/data:/var/lib/registry
+    - /path/certs:/certs
+    - /path/auth:/auth
+```
+
+接下来使用 Docker Compose 命令启动服务：
+
+```sh
+$ docker-compose up -d
+
+# 登录到镜像服务器
+$ docker login myregistrydomain.com:5000
 ```
 
 # 资源配置
@@ -226,7 +290,7 @@ dockerd ... --log-opt max-size=10m --log-opt max-file=3
 truncate -s 0 /var/lib/docker/containers/*/*-json.log
 ```
 
-# Dockfile
+# Dockfile 
 
 Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。例如：
 

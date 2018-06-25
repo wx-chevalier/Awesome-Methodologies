@@ -66,7 +66,7 @@ JavaScript 内置的 Math 对象提供了极大极小的整型值以及多个数
 
 ```js
 value = Number.MAX_SAFE_INTEGER / 10; // 900719925474099.1
-value = Number.MAX_SAFE_INTEGER / 10 * -1; // -900719925474099.1
+value = (Number.MAX_SAFE_INTEGER / 10) * -1; // -900719925474099.1
 
 // 向下取整
 let intvalue = Math.floor(floatvalue);
@@ -153,6 +153,29 @@ const TOKEN_G = /\s*(\+|[0-9]+)\s*/g;
 [ '3' ]
 > tokenize(TOKEN_G, '3x + 4')
 [ '3', '+', '4' ]
+```
+
+## DateTime | 时间与日期
+
+如果是轻量级的时间与日期操作，推荐使用 [date-fns](https://github.com/date-fns/date-fns)。
+
+```js
+new Date();
+//Fri Aug 21 2015 15:51:55 GMT+0800 (中国标准时间)
+new Date(1293879600000);
+new Date('2011-01-01T11:00:00');
+new Date('2011/01/01 11:00:00');
+new Date(2011, 0, 1, 11, 0, 0);
+new Date('jan 01 2011,11 11:00:00');
+new Date('Sat Jan 01 2011 11:00:00');
+//Sat Jan 01 2011 11:00:00 GMT+0800 (中国标准时间)
+new Date('sss');
+new Date('2011/01/01T11:00:00');
+new Date('2011-01-01-11:00:00');
+new Date('1293879600000');
+//Invalid Date
+new Date('2011-01-01T11:00:00') - new Date('1992/02/11 12:00:12');
+//596069988000
 ```
 
 # 集合类型
@@ -371,8 +394,8 @@ try {
 
 # Object
 
-> * [Maps,Sets And Iterators in JavaScript](http://bjorn.tipling.com/maps-sets-and-iterators-in-javascript)
-> * [javascript-properties](https://mathiasbynens.be/notes/javascript-properties)
+> - [Maps,Sets And Iterators in JavaScript](http://bjorn.tipling.com/maps-sets-and-iterators-in-javascript)
+> - [javascript-properties](https://mathiasbynens.be/notes/javascript-properties)
 
 Looking at [the ECMAScript spec grammar](http://ecma-international.org/ecma-262/6.0/#sec-object-initializer), we can see that a property name can be either an *identifier name* (i.e. identifiers + reserved words), a *string literal*, or a *numeric literal*.
 
@@ -496,7 +519,7 @@ o2 = Object.create({}, { p: { value: 42, writable: true, enumerable: true, confi
 Object.assign(target, ...sources)
 ```
 
-* 例子：浅拷贝一个对象
+- 例子：浅拷贝一个对象
 
 ```
 var obj = { a: 1 };
@@ -504,7 +527,7 @@ var copy = Object.assign({}, obj);
 console.log(copy); // { a: 1 }
 ```
 
-* 例子：合并若干个对象
+- 例子：合并若干个对象
 
 ```
 var o1 = { a: 1 };
@@ -516,7 +539,7 @@ console.log(obj); // { a: 1, b: 2, c: 3 }
 console.log(o1);  // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变。
 ```
 
-* 例子：拷贝 symbol 类型的属性
+- 例子：拷贝 symbol 类型的属性
 
 ```
 var o1 = { a: 1 };
@@ -526,7 +549,7 @@ var obj = Object.assign({}, o1, o2);
 console.log(obj); // { a: 1, [Symbol("foo")]: 2 }
 ```
 
-* 例子：继承属性和不可枚举属性是不能拷贝的
+- 例子：继承属性和不可枚举属性是不能拷贝的
 
 ```
 var obj = Object.create({foo: 1}, { // foo 是个继承属性。
@@ -543,7 +566,7 @@ var copy = Object.assign({}, obj);
 console.log(copy); // { baz: 3 }
 ```
 
-* 例子：原始值会被隐式转换成其包装对象
+- 例子：原始值会被隐式转换成其包装对象
 
 ```
 var v1 = "123";
@@ -558,7 +581,7 @@ var obj = Object.assign({}, v1, null, v2, undefined, v3, v4);
 console.log(obj); // { "0": "1", "1": "2", "2": "3" }
 ```
 
-* 例子：拷贝属性过程中发生异常
+- 例子：拷贝属性过程中发生异常
 
 ```
 var target = Object.defineProperty({}, "foo", {
@@ -709,13 +732,13 @@ Immutable.fromJS({a: {b: [10, 20, 30]}, c: 40}, function (key, value) {
 
 True if `maybeIterable` is an Iterable, or any of its subclasses.`Iterable.isIterable(maybeIterable: any): boolean`
 
-* If an `Iterable`, that same `Iterable`.
-* If an Array-like, an `IndexedIterable`.
-* If an Object with an Iterator, an `IndexedIterable`.
-* If an Iterator, an `IndexedIterable`.
-* If an Object, a `KeyedIterable`.
+- If an `Iterable`, that same `Iterable`.
+- If an Array-like, an `IndexedIterable`.
+- If an Object with an Iterator, an `IndexedIterable`.
+- If an Iterator, an `IndexedIterable`.
+- If an Object, a `KeyedIterable`.
 
-- Iterable.isKeyed()
+* Iterable.isKeyed()
 
 True if `maybeKeyed` is a KeyedIterable, or any of its subclasses.
 
@@ -723,7 +746,7 @@ True if `maybeKeyed` is a KeyedIterable, or any of its subclasses.
 Iterable.isKeyed(maybeKeyed: any): boolean
 ```
 
-* Iterable.isIndexed()
+- Iterable.isIndexed()
 
 True if `maybeIndexed` is a IndexedIterable, or any of its subclasses.
 
@@ -731,7 +754,7 @@ True if `maybeIndexed` is a IndexedIterable, or any of its subclasses.
 Iterable.isIndexed(maybeIndexed: any): boolean
 ```
 
-* Iterable.isAssociative()
+- Iterable.isAssociative()
 
 True if `maybeAssociative` is either a keyed or indexed Iterable.
 
@@ -739,7 +762,7 @@ True if `maybeAssociative` is either a keyed or indexed Iterable.
 Iterable.isAssociative(maybeAssociative: any): boolean
 ```
 
-* Iterable.isOrdered()
+- Iterable.isOrdered()
 
 True if `maybeOrdered` is an Iterable where iteration order is well defined. True for IndexedIterable as well as OrderedMap and OrderedSet.
 

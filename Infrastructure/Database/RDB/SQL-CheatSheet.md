@@ -8,6 +8,8 @@ SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是�
 
 - PL-SQL(Procedural Language-SQL)是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具(如 SQL\*Plus、Developer/2000 等)访问服务器的操作语言。它有标准 SQL 所没有的特征：变量(包括预先定义的和自定义的)；控制结构(如 IF-THEN-ELSE 等流控制语句)；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
 
+本文默认使用 [test_db](https://github.com/datacharmer/test_db) 作为标准表结构。
+
 # DML | 数据库管理
 
 # DQL | 数据查询
@@ -46,23 +48,17 @@ Full Join 相当于把 Left 和 Right 联结到一起，告诉 SQL Server 要全
 
 ## 统计查询
 
-### 关键字
-
-| =ANY  | 和 IN 等价       |
-| ----- | ---------------- |
-| <>ALL | 和 NOT IN 等价   |
-| >ANY  | 大于最小的(>MIN) |
-| <ANY  | 小于最大的(<MAX) |
-| >ALL  | 大于最大的(>MAX) |
-| <ALL  | 小于最小的(<MIN) |
-| =ALL  | 下面说           |
-
+```sql
+SELECT a.distributor_id,
+          (SELECT COUNT(*) FROM myTable WHERE level='personal' and distributor_id = a.distributor_id) as PersonalCount,
+          (SELECT COUNT(*) FROM myTable WHERE level='exec' and distributor_id = a.distributor_id) as ExecCount,
+          (SELECT COUNT(*) FROM myTable WHERE distributor_id = a.distributor_id) as TotalCount
+       FROM myTable a ;
+```
 
 ## 子查询
 
-```
-子查询本质上是嵌套进其他SELECT,UPDATE,INSERT,DELETE语句的一个被限制的SELECT语句,在子查询中，只有下面几个子句可以使用：
-```
+子查询本质上是嵌套进其他 SELECT,UPDATE,INSERT,DELETE 语句的一个被限制的 SELECT 语句,在子查询中，只有下面几个子句可以使用：
 
 1.  SELECT 子句(必须)
 2.  FROM 子句(必选)
@@ -103,11 +99,9 @@ ON P.ProductModelID = M.ProductModelID
 
 ### 子查询作为选择条件使用
 
+作为选择条件的子查询也是子查询相对最复杂的应用。作为选择条件的子查询是那些只返回**一列(Column)**的子查询，如果作为选择条件使用，即使只返回**单个值**，也可以看作是只有**一行**的**一列.**比如:    在 AdventureWorks 中：我想取得总共请病假天数大于 68 小时的员工:
 
-作为选择条件的子查询也是子查询相对最复杂的应用。作为选择条件的子查询是那些只返回**一列(Column)**的子查询，如果作为选择条件使用，即使只返回**单个值**，也可以看作是只有**一行**的**一列.**比如:    在AdventureWorks中：我想取得总共请病假天数大于68小时的员工:
-
-
-```javascript
+```sql
 SELECT [FirstName]
       ,[MiddleName]
       ,[LastName]
@@ -167,7 +161,6 @@ FROM [AdventureWorks].[Production].[Product] P
 
 ![5](http://images.cnblogs.com/cnblogs_com/CareySon/201107/201107181306165951.png)
 
-
 # DDL | 数据定义
 
 ## Update | 更新
@@ -194,7 +187,6 @@ ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
 `value2` = `value2` + 2 AND `value3` = `value3` + 3;  
 ```
 
-
 # 事务管理
 
 | 隔离级别                    | 脏读 / Dirty Read | 不可重复读 / Non Repeatable Read | 幻读 / Phantom Read | 锁             |
@@ -206,10 +198,10 @@ ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
 
 不同级别的现象描述如下：
 
-* 脏读: 当一个事务读取另一个事务尚未提交的修改时，产生脏读。
+- 脏读: 当一个事务读取另一个事务尚未提交的修改时，产生脏读。
 
-* 不可重复读: 同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生不可重复读。
+- 不可重复读: 同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生不可重复读。
 
-* 幻读: 同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。
+- 幻读: 同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。
 
 # 存储过程

@@ -1,3 +1,5 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 # GraphQL CheatSheet | GraphQL 入门指引与实践清单
 
 GraphQL 是由 Facebook 开源的查询语言，它并不是一个面向图数据库的查询语言，而是一个数据抽象层，包括数据格式、数据关联、查询方式定义与实现等等一揽子的东西。GraphQL 也并不是一个具体的后端编程框架，如果将 REST 看做适合于简单逻辑的查询标准，那么 GraphQL 可以做一个独立的抽象层，通过对于多个 REST 风格的简单的接口的排列组合提供更多复杂多变的查询方式；与 REST 相比，GraphQL 定义了更严格、可扩展、可维护的数据查询方式。GraphQL 与之前 Netflix 出品的 Falcor，都是致力于解决相同的问题：如何有效处理日益增长不断变化的 Web/Mobile 端复杂的数据需求，缓解服务端接口数目与内部逻辑复杂度的增加的困难。

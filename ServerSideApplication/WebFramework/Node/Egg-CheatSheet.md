@@ -65,6 +65,10 @@ module.exports = {
 
 # 响应
 
+## 响应体设置
+
+更全面的 Node.js 流相关介绍参考 [Node.js CheatSheet](https://parg.co/m56)。
+
 ## 静态资源
 
 ## 模板渲染

@@ -30,9 +30,11 @@ func main() {
 }
 ```
 
-Go 并没有相对路径引入，而是以文件夹为单位定义模块，譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。
+## 模块机制
 
-在其他文件中，可以使用 import 关键字来引入模块：
+Go 并没有相对路径引入，而是以文件夹为单位定义模块； 并且规定每个源文件的首部需要进行包声明，可执行文件默认放在 main 包中。各个包中默认首字母大写的函数作为其他包可见的导出函数，而小写函数则默认外部不可见的私有函数。
+
+譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。在其他文件中，可以使用 import 关键字来引入模块：
 
 ```py
 import (
@@ -51,7 +53,30 @@ cannot find package "sub/math" in any of:
     ${GOPATH}/src/sub/math (from $GOPATH)
 ```
 
-Go 规定每个源文件的首部需要进行包声明，可执行文件默认放在 main 包中；而各个包中默认首字母大写的函数作为其他包可见的导出函数，而小写函数则默认外部不可见的私有函数。
+对于应用型项目，推荐的结构如下：
+
+```yaml
+github.com/my/foo/
+  circle.yml
+  Dockerfile
+  cmd/
+    foosrv/
+      main.go
+    foocli/
+      main.go
+  pkg/
+    fs/
+      fs.go
+      fs_test.go
+      mock.go
+      mock_test.go
+    merge/
+      merge.go
+      merge_test.go
+    api/
+      api.go
+      api_test.go
+```
 
 # 表达式与控制流
 
@@ -399,6 +424,8 @@ if err != nil {
 ```
 
 # 数据类型与结构
+
+Go 中可以使用 `interface{}` 来表示任意类型：
 
 ## 类型绑定与初始化
 

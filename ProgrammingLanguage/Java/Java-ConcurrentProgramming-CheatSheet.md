@@ -106,16 +106,16 @@ public static long preventFromOptimization(VolatileLong v) {
 
 ### Books & Tutorials
 
-* [Java 并发编程的艺术-By 方腾飞]()
-* [Java 并发编程实战](http://book.51cto.com/art/201203/323171.htm)
-* [Java 多线程编程核心技术]()
+- [Java 并发编程的艺术-By 方腾飞]()
+- [Java 并发编程实战](http://book.51cto.com/art/201203/323171.htm)
+- [Java 多线程编程核心技术]()
 
 # Concurrence(并发之线程)
 
-> * [Java 并发的四种风味：Thread、Executor、ForkJoin 和 Actor](http://www.open-open.com/lib/view/open1421202894171.html)
-> * [java8-concurrency-tutorial](http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/)
-> * [java-concurrency](http://tutorials.jenkov.com/java-concurrency/index.html)
-> * [java-util-concurrent](http://tutorials.jenkov.com/java-util-concurrent/index.html)
+> - [Java 并发的四种风味：Thread、Executor、ForkJoin 和 Actor](http://www.open-open.com/lib/view/open1421202894171.html)
+> - [java8-concurrency-tutorial](http://winterbe.com/posts/2015/04/07/java8-concurrency-tutorial-thread-executor-examples/)
+> - [java-concurrency](http://tutorials.jenkov.com/java-concurrency/index.html)
+> - [java-util-concurrent](http://tutorials.jenkov.com/java-util-concurrent/index.html)
 
 ## Threads & Runnables
 
@@ -277,7 +277,7 @@ executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
 
 ## Concurrence Test
 
-> * [concurrency-torture-testing-your-code-within-the-java-memory-model](http://zeroturnaround.com/rebellabs/concurrency-torture-testing-your-code-within-the-java-memory-model/)
+> - [concurrency-torture-testing-your-code-within-the-java-memory-model](http://zeroturnaround.com/rebellabs/concurrency-torture-testing-your-code-within-the-java-memory-model/)
 
 # 线程安全
 
@@ -373,11 +373,11 @@ public boolean await(long timeout,
 
 使当前线程在锁存器倒计数至零之前一直等待，除非线程被中断或超出了指定的等待时间。如果当前计数为零，则此方法立刻返回 true 值。如果当前计数大于零，则出于线程调度目的，将禁用当前线程，且在发生以下三种情况之一前，该线程将一直处于休眠状态：
 
-* 由于调用 countDown() 方法，计数到达零；或者
+- 由于调用 countDown() 方法，计数到达零；或者
 
-- 其他某个线程中断当前线程；或者
+* 其他某个线程中断当前线程；或者
 
-* 已超出指定的等待时间。
+- 已超出指定的等待时间。
 
 如果计数到达零，则该方法返回 true 值。如果当前线程在进入此方法时已经设置了该线程的中断状态；或者在等待时被中断，则抛出 InterruptedException，并且清除当前线程的已中断状态。如果超出了指定的等待时间，则返回值为 false。如果该时间小于等于零，则此方法根本不会等待。
 
@@ -522,11 +522,6 @@ Exception in thread "main" java.util.concurrent.TimeoutException
 ## Promise
 
 # [RxJava](https://github.com/ReactiveX/RxJava)-Reactive Programming(响应式编程)
-
-> * [grokking-rxjava](http://blog.danlew.net/2014/09/15/grokking-rxjava-part-1/)
-> * [深入浅出 RxJava](http://blog.csdn.net/lzyzsd/article/details/41833541)
-> * [RxJava Essentials CN](http://rxjava.yuxingxin.com/chapter1/chapter1.html)
-> * [RxJava's repeatWhen and retryWhen, explained](http://blog.danlew.net/2016/01/25/rxjavas-repeatwhen-and-retrywhen-explained/)
 
 ## Quick Start
 
