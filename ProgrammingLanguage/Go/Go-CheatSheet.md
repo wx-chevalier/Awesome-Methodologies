@@ -32,9 +32,42 @@ func main() {
 
 ## 模块机制
 
-Go 并没有相对路径引入，而是以文件夹为单位定义模块； 并且规定每个源文件的首部需要进行包声明，可执行文件默认放在 main 包中。各个包中默认首字母大写的函数作为其他包可见的导出函数，而小写函数则默认外部不可见的私有函数。
+Go 并没有相对路径引入，而是以文件夹为单位定义模块；并且规定每个源文件的首部需要进行包声明，可执行文件默认放在 main 包中。如上文所述，GOPATH 环境变量为我们指明了本地工作空间的地址，而每个导入路径都会指明唯一的包。标准库中的包往往是 `fmt`, `net/http` 这样的短路径；而对于自定义的包，则必须指明根路径以避免潜在的冲突。如果我们使用了 Github 这样的源码仓库，则需要使用 `github.com/user` 作为根路径。
 
-譬如我们新建名为 math 的文件夹，然后使用 `package math` 来声明该文件中函数所属的模块。在其他文件中，可以使用 import 关键字来引入模块：
+```go
+// goworkdir/src/project1/utils/auth.go
+
+package utils
+
+func Test1() string {
+    return "Test1"
+}
+
+// goworkdir/src/project1/controllers/login.go
+
+package controllers
+
+import "project1/utils"
+
+func Test2() string {
+    return utils.Test1()
+}
+
+// goworkdir/src/project1/main.go
+
+package main
+
+import (
+    "fmt"
+    "project1/controllers"
+)
+
+func main() {
+    fmt.Println(controllers.Test2())
+}
+```
+
+各个包中默认首字母大写的函数作为其他包可见的导出函数，而小写函数则默认外部不可见的私有函数。Go 允许在文件中包含初始化函数，默认使用 `_` 引入的包仅调用初始化函数：
 
 ```py
 import (
@@ -42,6 +75,62 @@ import (
         _ "mywebapp/libs/mysql/db" // 使用空白下划线表示仅调用其初始化函数
 
 )
+```
+
+初始化函数会于属性初始化之后被调用：
+
+```go
+// sandbox.go
+package main
+import "fmt"
+var _ int64 = s()
+func init() {
+    fmt.Println("init in sandbox.go")
+}
+func s() int64 {
+    fmt.Println("calling s() in sandbox.go")
+    return 1
+}
+func main() {
+    fmt.Println("main")
+}
+
+// a.go
+
+package main
+import "fmt"
+var _ int64 = a()
+func init() {
+    fmt.Println("init in a.go")
+}
+func a() int64 {
+    fmt.Println("calling a() in a.go")
+    return 2
+}
+
+/* 输出结果
+calling a() in a.go
+calling s() in sandbox.go
+init in a.go
+init in sandbox.go
+main
+*/
+```
+
+而单个文件中也可以定义多个初始化函数：
+
+```go
+package main
+import "fmt"
+func init() {
+    fmt.Println("init 1")
+}
+func init() {
+    fmt.Println("init 2")
+}
+func main() {
+    fmt.Println("main")
+}
 ```
 
 外部引用该模块是需要使用工作区间或者 vendor 相对目录，其目录索引情况如下：

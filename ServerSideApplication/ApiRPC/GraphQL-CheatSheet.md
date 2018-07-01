@@ -2,7 +2,11 @@
 
 # GraphQL CheatSheet | GraphQL 入门指引与实践清单
 
-GraphQL 是由 Facebook 开源的查询语言，它并不是一个面向图数据库的查询语言，而是一个数据抽象层，包括数据格式、数据关联、查询方式定义与实现等等一揽子的东西。GraphQL 也并不是一个具体的后端编程框架，如果将 REST 看做适合于简单逻辑的查询标准，那么 GraphQL 可以做一个独立的抽象层，通过对于多个 REST 风格的简单的接口的排列组合提供更多复杂多变的查询方式；与 REST 相比，GraphQL 定义了更严格、可扩展、可维护的数据查询方式。GraphQL 与之前 Netflix 出品的 Falcor，都是致力于解决相同的问题：如何有效处理日益增长不断变化的 Web/Mobile 端复杂的数据需求，缓解服务端接口数目与内部逻辑复杂度的增加的困难。
+GraphQL 是由 Facebook 开源的查询语言，它并不是一个面向图数据库的查询语言，而是一个数据抽象层，包括数据格式、数据关联、查询方式定义与实现等等一揽子的东西。
+
+GraphQL 也并不是一个具体的后端编程框架，如果将 REST 看做适合于简单逻辑的查询标准，那么 GraphQL 可以做一个独立的抽象层，通过对于多个 REST 风格的简单的接口的排列组合提供更多复杂多变的查询方式；与 REST 相比，GraphQL 定义了更严格、可扩展、可维护的数据查询方式。GraphQL 最有趣的特性之一，是它本质上是面向消费者的，响应体的结构不取决于服务端，而是完全由客户端驱动。直观的理解就是 GraphQL 规定客户端在发起请求的时候必须显示的标注所需要获得的原子资源的类型以及在返回体中的位置，这一点和 Immutable.js 中的`update`函数很类似，你都需要显示指明到叶子节点。这样确实使得整个请求需要很多额外的数据参数与编码工作，但是它就将消费者解耦了，并且强迫服务端遵守 Postel 法则 ( 对自己严格，对他人宽容 )。
+
+GraphQL 与之前 Netflix 出品的 Falcor，都是致力于解决相同的问题：如何有效处理日益增长不断变化的 Web/Mobile 端复杂的数据需求，缓解服务端接口数目与内部逻辑复杂度的增加的困难。
 
 ![default](https://user-images.githubusercontent.com/5803001/39741543-ef8d4c50-52cc-11e8-9d16-c3f71329290a.jpg)
 
@@ -89,7 +93,11 @@ fragment authorInfo as Author {
 
 ## Schema Representation | 表示
 
-在实际的项目开发中，我们往往需要将标准的字符串形式的 SDL 转换成其他的 Schema 表示形式，其他常见的表示形式还包括了：GraphQl 内省查询结果与 GraphQL.js 的 GraphQLSchema 对象。GraphQL 的 API 是被要求自我注释的，每个 GraphQL API 应可以返回其结构，这就是所谓的内省(Introspection)，往往是 `__schema` 端口的返回结果：
+在实际的项目开发中，我们往往需要将标准的字符串形式的 SDL 转换成其他的 Schema 表示形式，其他常见的表示形式还包括了：GraphQl 内省查询结果与 GraphQL.js 的 GraphQLSchema 对象。
+
+### 内省查询结果
+
+GraphQL 的 API 是被要求自我注释的，每个 GraphQL API 应可以返回其结构，这就是所谓的内省(Introspection)，往往是 `__schema` 端口的返回结果：
 
 ```json
 {
@@ -116,6 +124,8 @@ fetch('https://1jzxrj179.lp.gql.zone/graphql', {
 })
 ...
 ```
+
+### GraphQLSchema 对象
 
 另一种常见的 Schema 的表示方式即是 GraphQL.js 的 GraphQLSchema 对象：
 

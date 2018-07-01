@@ -198,7 +198,13 @@ declare var require: (moduleId: string) => any;
 declare var process: any;
 ```
 
-在 package.json 中，我们可以通过 typings 属性指定需要暴露的类型声明文件；譬如 [redux](https://github.com/reduxjs/redux/blob/master/package.json) 的类型声明在 index.d.ts 中：
+如果是某个未包含类型声明的 NPM 库，则可以使用 declare 声明其命名空间，譬如 [antd/typings](https://parg.co/mIm) 中对于 rc 项目的引用：
+
+```ts
+declare module 'rc-queue-anim';
+```
+
+而当我们发布自己的项目时，在 package.json 中，可以通过 typings 属性指定需要暴露的类型声明文件；譬如 [redux](https://github.com/reduxjs/redux/blob/master/package.json) 的类型声明在 index.d.ts 中：
 
 ```json
 {

@@ -14,6 +14,16 @@ SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是�
 
 # DQL | 数据查询
 
+## Where | 条件查询
+
+```sql
+expression IS NOT NULL
+
+SELECT *
+FROM contacts
+WHERE last_name IS NOT NULL;
+```
+
 ## Join | 表联接
 
 表联接最常见的即是出现在查询模型中，但是实际的用法绝不会局限在查询模型中。较常见的联接查询包括了以下几种类型：Inner Join  / Outer Join / Full Join / Cross Join 。

@@ -157,6 +157,12 @@ $ docker pull custom-domain:5000/my-ubuntu
 -v /mnt/registry:/var/lib/registry
 ```
 
+很多情况下我们的内部仓库并不会配置 HTTPS，如果希望以 HTTP 方式访问，那么需要在任何需要推送/拉取镜像的机器上配置非安全域名：
+
+```json
+{ "insecure-registries":["myregistry.example.com:5000"] }
+```
+
 有时候我们也需要为私有仓库配置权限认证，那么首先需要添加 TLS 支持，并且配置认证文件：
 
 ```sh

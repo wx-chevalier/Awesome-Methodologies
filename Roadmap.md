@@ -2,153 +2,161 @@
 
 # Milestone 0.2
 
-* [ ] Kafka CheatSheet
+- [ ] Kafka CheatSheet
 
-  * [ ] 整合[这里](https://medium.freecodecamp.org/what-makes-apache-kafka-so-fast-a8d4f94ab145)提到的 Kafka 的优点。
+  - [ ] 整合[这里](https://medium.freecodecamp.org/what-makes-apache-kafka-so-fast-a8d4f94ab145)提到的 Kafka 的优点。
 
-* [ ] Workbench CheatSheet
+- [ ] Workbench CheatSheet
 
-  * [ ] 发布英文版本
+  - [ ] 发布英文版本
 
 # Milestone 0.1
 
-* [ ] CSS CheatSheet
+- [ ] CSS CheatSheet
 
-  * [ ] 参考 [Comparing the top JS animation libraries for use in React apps](https://parg.co/Ux9)
+  - [ ] 参考 [Comparing the top JS animation libraries for use in React apps](https://parg.co/Ux9)
 
-* [ ] Linux Basic Commands CheatSheet
+- [ ] Linux Basic Commands CheatSheet
 
-  * [ ] 参考 https://parg.co/UiC
+  - [ ] 参考 https://parg.co/UiC
 
-* [ ] Linux DevOps Commands CheatSheet
+- [ ] Linux DevOps Commands CheatSheet
 
-  * [ ] 参考[用十条命令在一分钟内检查 Linux 服务器性能](http://www.infoq.com/cn/news/2015/12/linux-performance)
-  * [ ] [How Do I Find The Largest Top 10 Files and Directories On a Linux / UNIX / BSD?](http://www.cyberciti.biz/faq/how-do-i-find-the-largest-filesdirectories-on-a-linuxunixbsd-filesystem/)
+  - [ ] 参考[用十条命令在一分钟内检查 Linux 服务器性能](http://www.infoq.com/cn/news/2015/12/linux-performance)
+  - [ ] [How Do I Find The Largest Top 10 Files and Directories On a Linux / UNIX / BSD?](http://www.cyberciti.biz/faq/how-do-i-find-the-largest-filesdirectories-on-a-linuxunixbsd-filesystem/)
 
-* [ ] Linux Security Reinforce CheatSheet
+- [ ] Linux Security Reinforce CheatSheet
 
-* [ ] MySQL CheatSheet
+- [ ] Bash CheatSheet
 
-  * [ ] https://mp.weixin.qq.com/s/87BoE2-0mW_3qALyNSpiTw
+  - [ ] https://devhints.io/bash
 
-* [ ] Elastic Search CheatSheet
+- [ ] MySQL CheatSheet
 
-* [ ] Git CheatSheet
+  - [ ] https://mp.weixin.qq.com/s/87BoE2-0mW_3qALyNSpiTw
 
-* [ ] Docker CheatSheet
+- [ ] Elastic Search CheatSheet
 
-  * [ ] 参考 [How I filter and grep Docker containers, images, and volumes, and how you can too](https://parg.co/Uxy)
-  * [ ] https://zhuanlan.zhihu.com/p/31820191
-  * [ ] [Docker Cheat Sheet](https://parg.co/Upp)
-  * [ ] [Digital Ocean - Docker CheatSheet](https://parg.co/Yex)
+- [ ] Git CheatSheet
 
-* [ ] Web Performance CheatSheet
+- [ ] Docker CheatSheet
 
-  * [ ] 发布到博客
+  - [ ] 参考 [How I filter and grep Docker containers, images, and volumes, and how you can too](https://parg.co/Uxy)
+  - [ ] https://zhuanlan.zhihu.com/p/31820191
+  - [ ] [Docker Cheat Sheet](https://parg.co/Upp)
+  - [ ] [Digital Ocean - Docker CheatSheet](https://parg.co/Yex)
 
-* [ ] Node.js CheatSheet
+- [ ] Web Performance CheatSheet
 
-* [ ] React CheatSheet
+  - [ ] 发布到博客
 
-  * [ ] 参考 https://parg.co/U5q
-  * [ ] [redux-without-profanity-components](https://tonyhb.gitbooks.io/redux-without-profanity/content/components.html) 中关于组件分类
-  * [ ] 收录 React Router 的语法速览
-  * [ ] React renderProp https://parg.co/U5E
-  * [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
-  * [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
-  * [ ] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
+- [ ] Node.js CheatSheet
 
-* [ ] ECMAScript CheatSheet 2018
+- [ ] React CheatSheet
 
-  * [ ] https://mathiasbynens.be/notes/es-regexp-proposals
+  - [ ] 参考 https://parg.co/U5q
+  - [ ] [redux-without-profanity-components](https://tonyhb.gitbooks.io/redux-without-profanity/content/components.html) 中关于组件分类
+  - [ ] 收录 React Router 的语法速览
+  - [ ] React renderProp https://parg.co/U5E
+  - [ ] https://medium.com/front-end-hacking/using-a-purecomponent-in-reacts-262972f9f1e0
+  - [ ] 收录 https://github.com/piotrwitek/react-redux-typescript-guide TypeScript 相关内容
+  - [ ] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
 
-* [x] Go CheatSheet
+- [ ] ECMAScript CheatSheet 2018
 
-  * [x] [Learning Go](https://parg.co/Uyy)
-  * [x] [Go By Example](https://gobyexample.com/)
-  * [x] [A Tour of Go](https://tour.golang.org/methods/14)
+  - [ ] https://mathiasbynens.be/notes/es-regexp-proposals
 
-* [ ] DistributedSystem CheatSheet
+- [x] Go CheatSheet
 
-  * [ ] https://parg.co/Uaf
-  * [ ] https://towardsdatascience.com/distributed-transactions-and-why-you-should-care-116b6da8d72
-  * [ ] [左耳朵耗子：聊聊分布式系统架构](https://mp.weixin.qq.com/s/12s9JUxVDqAnLAeqc_de8w)
+  - [x] [Learning Go](https://parg.co/Uyy)
+  - [x] [Go By Example](https://gobyexample.com/)
+  - [x] [A Tour of Go](https://tour.golang.org/methods/14)
 
-* [ ] TypeScript-CheatSheet
+- [ ] DistributedSystem CheatSheet
 
-  * [x] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
-  * [x] [Let's Learn TypeScript](https://parg.co/Uik)
-  * [x] [TypeScript Cheat Sheet](https://github.com/frontdevops/typescript-cheat-sheet)
+  - [ ] https://parg.co/Uaf
+  - [ ] https://towardsdatascience.com/distributed-transactions-and-why-you-should-care-116b6da8d72
+  - [ ] [左耳朵耗子：聊聊分布式系统架构](https://mp.weixin.qq.com/s/12s9JUxVDqAnLAeqc_de8w)
 
-* [ ] JavaScript CheatSheet
+- [ ] TypeScript-CheatSheet
 
-  * [ ] https://github.com/mbeaudru/modern-js-cheatsheet
-  * [ ] https://medium.freecodecamp.org/the-definitive-javascript-handbook-for-a-developer-interview-44ffc6aeb54e
+  - [x] https://gist.github.com/juhaelee/b80ab497f74e7393b15439c17421d299
+  - [x] [Let's Learn TypeScript](https://parg.co/Uik)
+  - [x] [TypeScript Cheat Sheet](https://github.com/frontdevops/typescript-cheat-sheet)
 
-* [ ] OperatingSystem-CheatSheet
+- [ ] JavaScript CheatSheet
 
-  * [ ] https://parg.co/UVV
+  - [ ] https://github.com/mbeaudru/modern-js-cheatsheet
+  - [ ] https://medium.freecodecamp.org/the-definitive-javascript-handbook-for-a-developer-interview-44ffc6aeb54e
 
-* [ ] Web Animation CheatSheet
+- [ ] OperatingSystem-CheatSheet
 
-  * [ ] https://parg.co/Ux9
+  - [ ] https://parg.co/UVV
 
-* [ ] GraphQL CheatSheet
+- [ ] Web Animation CheatSheet
 
-  * [ ] [Top 5 Reasons to Use GraphQL](https://blog.graph.cool/top-5-reasons-to-use-graphql-b60cfa683511)
+  - [ ] https://parg.co/Ux9
 
-* [ ] SQL CheatSheet
+- [ ] GraphQL CheatSheet
 
-  * [ ] [Intro to SQL: Querying and managing data](https://www.khanacademy.org/computing/computer-programming/sql/)
+  - [ ] [Top 5 Reasons to Use GraphQL](https://blog.graph.cool/top-5-reasons-to-use-graphql-b60cfa683511)
 
-* [ ] Workbench CheatSheet
+- [ ] SQL CheatSheet
 
-  * [ ] 发布中文版本
-  * [ ] 发布英文版本
+  - [ ] [Intro to SQL: Querying and managing data](https://www.khanacademy.org/computing/computer-programming/sql/)
 
-* [ ] HTTP CheatSheet
+- [ ] Workbench CheatSheet
 
-* [ ] Java ConcurrentProgramming CheatSheet
+  - [ ] 发布中文版本
+  - [ ] 发布英文版本
 
-  * [ ] Java 内存模型 [Java Memory Model](http://tutorials.jenkov.com/java-concurrency/java-memory-model.html), [深入理解 Java 内存模型](http://www.infoq.com/cn/articles/java-memory-model-1)
+- [ ] HTTP CheatSheet
 
-* [ ] Redux CheatSheet
+- [ ] Java ConcurrentProgramming CheatSheet
 
-  * [ ] https://medium.com/netscape/advanced-redux-action-types-d5a71ed44e16
-  * [ ] 完成 Redux 中间件部分介绍
+  - [ ] Java 内存模型 [Java Memory Model](http://tutorials.jenkov.com/java-concurrency/java-memory-model.html), [深入理解 Java 内存模型](http://www.infoq.com/cn/articles/java-memory-model-1)
 
-* [x] Web Bundler CheatSheet
+- [ ] Redux CheatSheet
 
-  * [x] Webpack 4 https://parg.co/UgK
+  - [ ] https://medium.com/netscape/advanced-redux-action-types-d5a71ed44e16
+  - [ ] 完成 Redux 中间件部分介绍
 
-* [ ] Kubernetes CheatSheet
+- [x] Web Bundler CheatSheet
 
-  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
+  - [x] Webpack 4 https://parg.co/UgK
 
-- [ ] MobX CheatSheet
+- [ ] Kubernetes CheatSheet
 
-  * [ ] https://semaphoreci.com/community/tutorials/how-to-`test`-react-and-mobx-with-jest
+  - [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
-- [ ] Web Test CheatSheet
+* [ ] MobX CheatSheet
 
-  * [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
-  * [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
+  - [ ] https://semaphoreci.com/community/tutorials/how-to-`test`-react-and-mobx-with-jest
 
-- [ ] Tensorflow CheatSheet
+* [ ] Web Test CheatSheet
 
-  * [什么是张量-知乎问答](https://www.zhihu.com/question/20695804/answer/64920043)
+  - [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
+  - [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
 
-- [ ] AI CheatSheet
+* [ ] Tensorflow CheatSheet
 
-  * [ ] https://mp.weixin.qq.com/s/qmm1xyvnHvWhuUvd9lDjfw
+  - [什么是张量-知乎问答](https://www.zhihu.com/question/20695804/answer/64920043)
 
-- [ ] WebAssembly CheatSheet
+* [ ] AI CheatSheet
 
-  * [ ] [2018-Writing WebAssembly By Hand](http://blog.scottlogic.com/2018/04/26/webassembly-by-hand.html)
+  - [ ] https://mp.weixin.qq.com/s/qmm1xyvnHvWhuUvd9lDjfw
 
-- [ ] Java Tuning CheatSheet
+* [ ] WebAssembly CheatSheet
 
-  * [ ] https://parg.co/YrZ
+  - [ ] [2018-Writing WebAssembly By Hand](http://blog.scottlogic.com/2018/04/26/webassembly-by-hand.html)
 
-- [ ] PWA CheatSheet
-  * [ ] http://www.cnblogs.com/powertoolsteam/p/ProgressiveWebApps_2.html
+* [ ] Java Tuning CheatSheet
+
+  - [ ] https://parg.co/YrZ
+
+* [ ] PWA CheatSheet
+
+  - [ ] http://www.cnblogs.com/powertoolsteam/p/ProgressiveWebApps_2.html
+
+* [ ] Infrastructure CheatSheet
+  - [ ] https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/server-basic.md
