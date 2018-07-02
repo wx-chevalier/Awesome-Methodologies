@@ -6,6 +6,8 @@ GraphQL 是由 Facebook 开源的查询语言，它并不是一个面向图数�
 
 如上图所示，GraphQL 的特性在于单一端口与前端优先，遵循 [BFF](https://www.thoughtworks.com/radar/techniques/bff-backend-for-frontends) 的理念。GraphQL 为我们提供了声明式(Declarative)、分层可组合的(Hiearchial)、强类型控制(Static Type)的接口声明与交互方式，允许请求方(即客户端)而非响应方(即服务器端)决定查询的结果格式，从而返回可预测(Predictable)的结果类型，省去了客户端很多的异常情况处理与向后兼容的操作(Backwards Compatible)，提升了产品整体的健壮性。并且 GraphQL 能够将多源异构的后端接口合并为单一端点(EndPoint)，避免了客户端繁多的接口管理操作。
 
+GraphQL offers a way to push all of the logic for specifying data requirements onto the client, and in return, the server will execute the (highly structured) data query against a known schema. The end result is a vastly simplified backend that also empowers the client to execute whichever queries they need.
+
 ![](https://cdn-images-1.medium.com/max/1600/1*CzVPl58sR5he8UEGpYg2Zw.png)
 
 [Backend-Boilerplate/graphql](https://github.com/wxyyxc1992/Backend-Boilerplate/blob/master/node/graphql)
