@@ -140,6 +140,7 @@
 - [ ] AI CheatSheet
 
   * [ ] https://mp.weixin.qq.com/s/qmm1xyvnHvWhuUvd9lDjfw
+  * [ ] https://uxdesign.cc/an-intro-to-machine-learning-for-designers-5c74ba100257?source=userActivityShare-fe48c4221a4c-1530525972
 
 - [ ] WebAssembly CheatSheet
 
