@@ -74,6 +74,8 @@ foo = {}; // Error!
 interface 关键字同样能够用于类型声明，用于定义对象的行为与约束；TypeScript 遵循所谓的 Structural Typing，即类型的适配与一致性依赖于实际的结构：
 
 ```js
+type RestrictedStyleAttribute = "color" | "background-color" | "font-weight";
+
 interface Foo {
   // 必要属性
   required: Type;
@@ -86,6 +88,9 @@ interface Foo {
 
   // 转化为序列类型
   [id: number]: Type;
+
+  // 匹配某些固定的键名
+   [T in RestrictedStyleAttribute]: string;
 }
 ```
 
@@ -157,7 +162,34 @@ const box: Box = { height: 5, width: 6, scale: 10 };
 
 ## 类型转换
 
-## 类型暴露
+## 模块化
+
+### 模块与命名空间
+
+TypeScript 同样支持 namespace 关键字声明的命名空间与 module 关键字声明的模块，自 TypeScript 1.5 之后，内部模块(Internal modules)即是命名空间，而外部模块(External modules)即是模块。在 ES6 Modules 普及之后，我们推荐优先使用模块机制，并且使用 import 而不是 `/// <reference ... />` 来导入模块文件。
+
+```ts
+// Usage when declaring an external module
+declare module 'foo' {
+  var foo: NodeJS.Foo;
+  export = foo;
+}
+```
+
+如果我们需要扩展 Node.js 的内置对象的方法或者属性，可以使用 interface 的自动合并的特性：
+
+```ts
+// some import
+// AND/OR some export
+
+declare namespace NodeJS {
+  interface Global {
+    spotConfig: any;
+  }
+}
+```
+
+### 类型暴露与引用
 
 当我们希望使用那些标准的 JavaScript 代码库时，我们同样需要了解该库提供 API 的参数类型；这些类型往往定义在 `.d.ts` 声明文件中。早期的类型声明文件都需要手动地编写与导入，而 [DefinitelyTyped](http://definitelytyped.org/) 是目前最大的开源类型声明库，其会自动抓取库的类型声明文件，保障我们更加顺滑地使用 TypeScript。如果我们需要在代码中使用第三方库或者全局提供的变量，则可以使用 declare 关键字声明，譬如我们要使用 Node.js 中 process 对象，则可以进行如下的显式声明：
 
@@ -166,7 +198,13 @@ declare var require: (moduleId: string) => any;
 declare var process: any;
 ```
 
-在 package.json 中，我们可以通过 typings 属性指定需要暴露的类型声明文件；譬如 [redux](https://github.com/reduxjs/redux/blob/master/package.json) 的类型声明在 index.d.ts 中：
+如果是某个未包含类型声明的 NPM 库，则可以使用 declare 声明其命名空间，譬如 [antd/typings](https://parg.co/mIm) 中对于 rc 项目的引用：
+
+```ts
+declare module 'rc-queue-anim';
+```
+
+而当我们发布自己的项目时，在 package.json 中，可以通过 typings 属性指定需要暴露的类型声明文件；譬如 [redux](https://github.com/reduxjs/redux/blob/master/package.json) 的类型声明在 index.d.ts 中：
 
 ```json
 {
@@ -183,16 +221,6 @@ export type Reducer<S = any, A extends Action = AnyAction> = (state: S | undefin
 // 函数
 export function combineReducers<S>(reducers: ReducersMapObject<S, any>): Reducer<S>;
 export function combineReducers<S, A extends Action = AnyAction>(reducers: ReducersMapObject<S, A>): Reducer<S, A>;
-```
-
-TypeScript 同样支持 namespace 关键字声明的命名空间与 module 关键字声明的模块，自 TypeScript 1.5 之后，内部模块(Internal modules)即是命名空间，而外部模块(External modules)即是模块。在 ES6 Modules 普及之后，我们推荐优先使用模块机制，并且使用 import 而不是 `/// <reference ... />` 来导入模块文件。
-
-```ts
-// Usage when declaring an external module
-declare module 'foo' {
-  var foo: NodeJS.Foo;
-  export = foo;
-}
 ```
 
 # Basic Types | 基础类型
@@ -743,4 +771,41 @@ function addLengths<T extends HasLength>(t1: T, t2: T): number {
 
 addLengths('hello', 'abc');
 addLengths([1, 2, 3], [100, 11, 99]);
+```
+
+## Index Types | 索引类型
+
+TypeScript 2.1 中为我们引入了 keyof 关键字，能够获取某个类型 T 的属性名列表，其返回结果也是联合类型，譬如：
+
+```ts
+interface Person {
+  name: string;
+  age: number;
+  location: string;
+}
+
+type K1 = keyof Person; // "name" | "age" | "location"
+type K2 = keyof Person[]; // "length" | "push" | "pop" | "concat" | ...
+type K3 = keyof { [x: string]: Person }; // string
+```
+
+这即是所谓的索引存取类型，或者搜索类型，我们经常会将其用于限制
+
+```ts
+function getProperty<T, K extends keyof T>(obj: T, key: K) {
+  return obj[key]; // Inferred type is T[K]
+}
+
+function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]) {
+  obj[key] = value;
+}
+
+let x = { foo: 10, bar: 'hello!' };
+
+let foo = getProperty(x, 'foo'); // number
+let bar = getProperty(x, 'bar'); // string
+
+let oops = getProperty(x, 'wargarbl'); // Error! "wargarbl" is not "foo" | "bar"
+
+setProperty(x, 'foo', 'string'); // Error!, string expected number
 ```

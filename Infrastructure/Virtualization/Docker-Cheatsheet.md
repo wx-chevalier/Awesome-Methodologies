@@ -4,51 +4,10 @@
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
-参考了 [Docker Cheat Sheet](https://parg.co/Upp)
+Docker 综合运用了 Cgroup
 
-[https://registry.docker-cn.com](https://registry.docker-cn.com)
+docker 容器 =cgroup+namespace+secomp+capability+selinux []
 
-docker 容器 =cgroup+namespace+secomp+capability+selinux
-
-# 镜像与容器
-
-```sh
-$ docker build -t username/image_name:tag_name .
-
-$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
-```
-
-## 镜像管理
-
-最后，运行 `docker images` 命令检查镜像现在是否可用。
-
-```
-$ docker images
-REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-mynewimage          latest              4d2eab1c0b9a        5 minutes ago       278.1 MB
-ubuntu              14.04               ad892dd21d60        11 days ago         275.5 MB
-<none>              <none>              6b0a59aa7c48        11 days ago         169.4 MB
-<none>              <none>              6cfa4d1f33fb        7 weeks ago         0 B
-```
-
-```sh
-# 删除所有无用的镜像
-docker rmi $(docker images -q -f dangling=true)
-```
-
-```sh
-# 拉取镜像
-docker pull image_name
-
-# 将某个容器保存为镜像
-docker commit -m “commit message” -a “author”  container_name username/image_name:tag
-```
-
-```sh
-docker build -t username/image_name:tag_name .
-
-docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
-```
 
 # 容器
 
@@ -69,6 +28,177 @@ docker rm $(docker ps -a | grep "46 hours ago")
 docker images --filter "dangling=true"
 
 docker ps --filter "name=nostalgic"
+```
+
+## 创建与移除
+
+你的 Container 会在你结束命令之后自动退出，使用以下的命令选项可以将容器保持在激活状态：
+
+* `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
+* `-t` 分配一个伪 TTY 控制台
+
+```sh
+# 创建，并且启动某个容器以执行某个命令
+docker run -ti --name container_name image_name command
+
+# 创建，启动容器执行某个命令然后删除该容器
+docker run --rm -ti image_name command
+
+# 创建，启动容器，并且映射卷与端口，同时设置环境变量
+docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS=”-javaagent:/agent.jar” tomcat:8.0.29-jre8
+
+# 关闭所有正在运行的容器
+docker kill $(docker ps -q)
+
+# 移除所有停止的容器
+docker rm $(docker ps -a -q)
+```
+
+## 控制
+
+```sh
+# 启动/停止某个容器
+docker [start|stop] container_name
+```
+
+```sh
+# 在某个容器内执行某条命令
+docker exec -ti container_name command.sh
+
+# 查看某个容器的输出日志
+docker logs -ft container_name
+```
+
+
+# 镜像
+
+## 构建与拉取
+
+编写完成 Dockerfile 之后，可以通过 `docker build` 命令来创建镜像。
+
+基本的格式为 `docker build [ 选项 ] 路径`，该命令将读取指定路径下(包括子目录)的 Dockerfile，并将该路径下所有内容发送给 Docker 服务端，由服务端来创建镜像。因此一般建议放置 Dockerfile 的目录为空目录。也可以通过 `.dockerignore` 文件(每一行添加一条匹配模式)来让 Docker 忽略路径下的目录和文件。
+
+要指定镜像的标签信息，可以通过 `-t` 选项，例如
+
+```
+$ sudo docker build -t myrepo/myapp /tmp/test1/
+```
+
+
+```sh
+$ docker build -t username/image_name:tag_name .
+
+$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+```
+
+
+```sh
+# 拉取镜像
+docker pull image_name
+
+# 将某个容器保存为镜像
+docker commit -m “commit message” -a “author”  container_name username/image_name:tag
+```
+
+```sh
+$ docker build -t username/image_name:tag_name .
+
+$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+```
+
+
+关于 Dockfile 的具体语法，可以查看下文。
+
+## 镜像管理
+
+最后，运行 `docker images` 命令检查镜像现在是否可用。
+
+```
+$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+mynewimage          latest              4d2eab1c0b9a        5 minutes ago       278.1 MB
+ubuntu              14.04               ad892dd21d60        11 days ago         275.5 MB
+<none>              <none>              6b0a59aa7c48        11 days ago         169.4 MB
+<none>              <none>              6cfa4d1f33fb        7 weeks ago         0 B
+```
+
+```sh
+# 删除所有无用的镜像
+docker rmi $(docker images -q -f dangling=true)
+```
+
+## Registry
+
+Docker 允许我们建立私有的 Registry 来存放于管理镜像，直接运行如下命令即可创建私有 Registry：
+
+```sh
+$ docker run -d -p 5000:5000 --restart=always --name registry registry:2
+```
+
+参考上文描述我们可知，镜像名的前缀即表示该镜像所属的 Registry 地址，因此我们可以通过 tag 方式将某个镜像推送到私有仓库：
+
+```sh
+# 拉取公共镜像
+$ docker pull ubuntu:16.04
+
+# 为镜像添加 Registry 信息
+$ docker tag ubuntu:16.04 custom-domain:5000/my-ubuntu
+
+# 将其推送到私有镜像库
+$ docker push custom-domain:5000/my-ubuntu
+
+# 从私有镜像库中拉取镜像
+$ docker pull custom-domain:5000/my-ubuntu
+```
+
+我们也可以指定镜像库的存放地址：
+
+```sh
+-v /mnt/registry:/var/lib/registry
+```
+
+很多情况下我们的内部仓库并不会配置 HTTPS，如果希望以 HTTP 方式访问，那么需要在任何需要推送/拉取镜像的机器上配置非安全域名：
+
+```json
+{ "insecure-registries":["myregistry.example.com:5000"] }
+```
+
+有时候我们也需要为私有仓库配置权限认证，那么首先需要添加 TLS 支持，并且配置认证文件：
+
+```sh
+$ mkdir auth
+$ docker run \
+  --entrypoint htpasswd \
+  registry:2 -Bbn testuser testpassword > auth/htpasswd
+```
+
+然后可以使用 Compose 文件来描述所需要的 TLS 以及 AUTH 参数：
+
+```yml
+registry:
+  restart: always
+  image: registry:2
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+    REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+    REGISTRY_AUTH: htpasswd
+    REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+    REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+  volumes:
+    - /path/data:/var/lib/registry
+    - /path/certs:/certs
+    - /path/auth:/auth
+```
+
+接下来使用 Docker Compose 命令启动服务：
+
+```sh
+$ docker-compose up -d
+
+# 登录到镜像服务器
+$ docker login myregistrydomain.com:5000
 ```
 
 # 资源配置
@@ -166,9 +296,7 @@ dockerd ... --log-opt max-size=10m --log-opt max-file=3
 truncate -s 0 /var/lib/docker/containers/*/*-json.log
 ```
 
-# 定义与编排
-
-## Dockfile
+# Dockfile 
 
 Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。例如：
 
@@ -195,8 +323,8 @@ CMD /usr/sbin/nginx
 
 其中，一开始必须指明所基于的镜像名称，接下来推荐说明维护者信息。后面则是镜像操作指令，例如 `RUN` 指令，`RUN` 指令将对镜像执行跟随的命令。每运行一条 `RUN` 指令，镜像添加新的一层，并提交。最后是 `CMD` 指令，来指定运行容器时的操作命令。
 
-| 指令名 | 格式                                        | 描述                                                                                                                   |
-| ------ | ------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| 指令名 | 格式                                        | 描述                                                                                                                 |
+| ------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | FROM   | 格式为 `FROM <image>`或`FROM <image>:<tag>` | 第一条指令必须为 `FROM` 指令。并且，如果在同一个 Dockerfile 中创建多个镜像时，可以使用多个 `FROM` 指令(每个镜像一次) |
 
 * MAINTAINER
@@ -363,7 +491,7 @@ EXPOSE 28017
 
 指令的一般格式为 `INSTRUCTION arguments`，指令包括 `FROM`、`MAINTAINER`、`RUN` 等。
 
-## Docker Compose
+# Docker Compose
 
 Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成。
 
@@ -442,7 +570,7 @@ environment:- RACK_ENV=development
 
 ​ `extends`: 扩展另一个服务，可以覆盖其中的一些选项。一个 sample 如下：
 
-```
+```yml
 common.yml
 webapp:
   build:./webapp
@@ -466,7 +594,7 @@ db:
 
 其他的`working_dir, entrypoint, user, hostname, domainname, mem_limit, privileged, restart, stdin_open, tty, cpu_shares`，和 `docker run`命令是一样的，这些命令都是单行的命令。例如：
 
-```
+```sh
 cpu_shares:73
 working_dir:/code
 entrypoint: /code/entrypoint.sh
@@ -480,59 +608,5 @@ stdin_open:true
 tty:true
 ```
 
-### 创建镜像
 
-编写完成 Dockerfile 之后，可以通过 `docker build` 命令来创建镜像。
-
-基本的格式为 `docker build [ 选项 ] 路径`，该命令将读取指定路径下(包括子目录)的 Dockerfile，并将该路径下所有内容发送给 Docker 服务端，由服务端来创建镜像。因此一般建议放置 Dockerfile 的目录为空目录。也可以通过 `.dockerignore` 文件(每一行添加一条匹配模式)来让 Docker 忽略路径下的目录和文件。
-
-要指定镜像的标签信息，可以通过 `-t` 选项，例如
-
-```
-$ sudo docker build -t myrepo/myapp /tmp/test1/
-```
-
-## 容器
-
-### 创建与移除
-
-你的 Container 会在你结束命令之后自动退出，使用以下的命令选项可以将容器保持在激活状态：
-
-* `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
-* `-t` 分配一个伪 TTY 控制台
-
-```sh
-# 创建，并且启动某个容器以执行某个命令
-docker run -ti --name container_name image_name command
-
-# 创建，启动容器执行某个命令然后删除该容器
-docker run --rm -ti image_name command
-
-# 创建，启动容器，并且映射卷与端口，同时设置环境变量
-docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS=”-javaagent:/agent.jar” tomcat:8.0.29-jre8
-
-# 关闭所有正在运行的容器
-docker kill $(docker ps -q)
-
-# 移除所有停止的容器
-docker rm $(docker ps -a -q)
-```
-
-### 控制
-
-```sh
-# 启动/停止某个容器
-docker [start|stop] container_name
-```
-
-```sh
-# 在某个容器内执行某条命令
-docker exec -ti container_name command.sh
-
-
-
-# 查看某个容器的输出日志
-docker logs -ft container_name
-```
-
-# Swarm
+# Docker Swarm

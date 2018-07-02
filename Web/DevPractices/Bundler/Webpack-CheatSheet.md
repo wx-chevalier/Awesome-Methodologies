@@ -1,28 +1,14 @@
-# Webpack CheatSheet | Webpack 基础与实践清单
-
-# 基础配置
-
-# 开发环境
-
-## 构建性能优化
-
-# 生产环境
-
-## 压缩与版本控制
-
-## 代码分割
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 # Webpack CheatSheet | Webpack 基础与实践清单
 
-# Webpack
-
-作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。[fe-boilerplate/react-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack)
+作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/vue/webpack) 等。
 
 ![538c4af0d21e375d6d252d38cbb8a993](https://user-images.githubusercontent.com/5803001/39744493-0e21c33a-52d7-11e8-8295-1f8deb389565.png)
 
 Webpack 目前也支持零配置运行
 
-```js
+```sh
 $ npm install webpack webpack-cli webpack-dev-server --save-dev
 ```
 
@@ -33,7 +19,7 @@ $ npm install webpack webpack-cli webpack-dev-server --save-dev
 },
 ```
 
-## 基础配置
+# 基础配置
 
 ```js
 const config = {
@@ -151,9 +137,153 @@ __webpack_require__.r(__webpack_exports__);
 /******/ ]);
 ```
 
-`use: ["style-loader", "css-loader"]` css-loader 会自动地解析 @import 与 url()，而 style-loader 则会将 CSS 注入到 DOM 中，并且实现 HMR 的特性，而对于 SASS、LESS 等 CSS 预处理器，也有专门的 sass-loader 或者 less-loader 来处理；在生产环境下，我们也常常会将 CSS 抽取到独立的样式文件中，此时就可以使用 mini-css-extract-plugin (MCEP) 等工具。
+`use: ["style-loader", "css-loader"]` css-loader 会自动地解析 @import 与 url()，而 style-loader 则会将 CSS 注入到 DOM 中，并且实现 HMR 的特性，而对于 SASS、LESS 等 CSS 预处理器，也有专门的 sass-loader 或者 less-loader 来处理；在生产环境下，我们也常常会将 CSS 抽取到独立的样式文件中，此时就可以使用 mini-css-extract-plugin (MCEP) 等工具。同样，我们可以使用 url-loader/file-loader 来处理图片等资源文件，
 
-同样，我们可以使用 url-loader/file-loader 来处理图片等资源文件，
+# 开发环境
+
+题注：本文是 [Webpack CheatSheet | Webpack 基础与实践清单](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Web/DevPractices/Bundler/Webpack-CheatSheet.md)的一部分，项目代码可以参考 [fe-boilerplate | 多技术栈前端项目模板](https://github.com/wxyyxc1992/fe-boilerplate)。
+
+## 路径解析
+
+随着需求的迭代与功能的完善，我们的项目也会愈发庞大而复杂，目录层级结构也会不断深化；以 [React 实践清单](https://parg.co/YWj)中讨论的 React 项目组织方式为例，我们常会分为 components, containers, services, apis, ducks, store, i18n 等等目录，如果全部以相对路径方式引入，可能会变成这个样子：
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+
+import { someConstant } from './../../config/constants';
+import MyComponent from './../../../components/MyComponent';
+import { myActionCreator } from './../../../ducks/someReducer';
+```
+
+毫无疑问，这样繁多的引用不可避免地会导致代码之间耦合度的增加，使得更难以重构或者优化。在适当地模块划分的基础上，我们希望在跨模块引用时，能够以绝对路径的方式，譬如：
+
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { someConstant } from 'Config/constants';
+import MyComponent from 'Components/MyComponent';
+import { myActionCreator } from 'Ducks/someReducer';
+```
+
+当然，我们并不提倡过度地使用绝对路径引入，对于相对关系固定的组件，还是应该优先使用相对路径方式引入。
+
+### Webpack
+
+如前文介绍，Webpack 允许我们使用 `resolve.alias` 来自定义路径解析：
+
+```js
+module.resolve = {
+  alias: {
+    Config: path.resolve(__dirname, '..', 'src', 'config'),
+    Components: path.resolve(__dirname, '..', 'src', 'components'),
+    Ducks: path.resolve(__dirname, '..', 'src', 'ducks'),
+    Shared: path.resolve(__dirname, '..', 'src', 'shared'),
+    App: path.join(__dirname, '..', 'src')
+  }
+};
+```
+
+### VSCode
+
+开发工具的支持是不可避免地因素，值得高兴的是 VSCode 允许我们在 `jsconfig.json` 中配置解析规则，[Auto-Import](https://github.com/soates/Auto-Import) 这样的自动导入工具同样能识别这些规则：
+
+```js
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "allowSyntheticDefaultImports": false,
+    "baseUrl": "./",
+    "paths": {
+      "Config/*": ["src/config/*"],
+      "Components/*": ["src/components/*"],
+      "Ducks/*": ["src/ducks/*"],
+      "Shared/*": ["src/shared/*"],
+      "App/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### ESLint
+
+ESLint 同样是前端开发不可或缺的部分，我们可以使用 [eslint-import-resolver-webpack](https://www.npmjs.com/package/eslint-import-resolver-webpack) 来扩展 eslint-import 的模块解析，使用 npm 安装该模块之后进行如下配置：
+
+```yaml
+---
+settings:
+  import/resolver: webpack  # take all defaults
+```
+
+或者指定文件名：
+
+```yaml
+---
+settings:
+  import/resolver:
+    webpack:
+      config: 'webpack.dev.config.js'
+      config-index: 1   # optional, take the config at index 1
+```
+
+对于未使用 Webpack 的项目，则可以考虑使用 [eslint-import-resolver-alias](https://www.npmjs.com/package/eslint-import-resolver-alias):
+
+```js
+// .eslintrc.js
+module.exports = {
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['babel-polyfill', 'babel-polyfill/dist/polyfill.min.js'],
+          ['helper', './utils/helper'],
+          ['material-ui/DatePicker', '../custom/DatePicker'],
+          ['material-ui', 'material-ui-ie10']
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json']
+      }
+    }
+  }
+};
+```
+
+### Jest
+
+我们可以在 package.json 中的 jest 配置项中添加 moduleNameMapper 属性：
+
+```json
+"jest": {
+  "moduleNameMapper": {
+    "^Config(.*)$": "<rootDir>/src/config$1",
+    "^Components(.*)$": "<rootDir>/src/components$1",
+    "^Ducks(.*)$": "<rootDir>/src/ducks$1",
+    "^Shared(.*)$": "<rootDir>/src/shared$1",
+    "^App(.*)$": "<rootDir>/src$1"
+}
+```
+
+### TypeScript
+
+TypeScript 的配置类似于 VSCode，在 tsconfig.json 的 compilerOptions 选项中添加如下配置：
+
+```json
+{
+  "baseUrl": ".",
+  "paths": {
+    "c-apis/*": ["src/apis/*"],
+    "c-models/*": ["src/models/*"],
+    "c-stores/*": ["src/stores/*"],
+    "c-utils/*": ["src/shared/*"]
+  }
+}
+```
+
+## 构建性能优化
+
+# 生产环境
+
+## 压缩与版本控制
 
 ## 代码分割
 
@@ -161,26 +291,63 @@ __webpack_require__.r(__webpack_exports__);
 
 ![cc11f7e53c579fff28de1b3ed5b9f53a](https://user-images.githubusercontent.com/5803001/39862950-c8ba51c0-5477-11e8-892c-a2b6ec619e2d.png)
 
-不同于 Webpack 3 中需要依赖 CommonChunksPlugin 进行配置，Webpack 4 为我们提供了开箱即用的代码优化特性。
+不同于 Webpack 3 中需要依赖 CommonChunksPlugin 进行配置，Webpack 4 引入了 [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/#optimization-runtimechunk)，并为我们提供了开箱即用的代码优化特性，Webpack 会根据以下情况自动进行代码分割操作：
+
+- 新的块是在多个模块间共享，或者来自于 node_modules 目录；
+- 新的块在压缩之前的大小应该超过 30KB；
+- 页面所需并发加载的块数量应该小于或者等于 5；
+- 初始页面加载的块数量应该小于或者等于 3；
+
+SplitChunksPlugin 的默认配置如下：
 
 ```js
-module.exports = {
-  /* ... */
-  optimization: {
-    splitChunks: {
-      cacheGroups: {
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all'
+splitChunks: {
+    chunks: "async",
+    minSize: 30000,
+    minChunks: 1,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
+    automaticNameDelimiter: '~',
+    name: true,
+    cacheGroups: {
+        vendors: {
+            test: /[\\/]node_modules[\\/]/,
+            priority: -10
+        },
+    default: {
+            minChunks: 2,
+            priority: -20,
+            reuseExistingChunk: true
         }
-      }
     }
-  }
-};
+}
 ```
 
-我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
+值得一提的是，这里的 chunks 选项有 `initial`, `async` 与 `all` 三个配置，上述配置即是分别针对初始 chunks、按需加载的 chunks 与全部的 chunks 进行优化；如果将 vendors 的 chunks 设置为 `initial`，那么它将忽略通过动态导入的模块包包含的第三方库代码。而 priority 则用于指定某个自定义的 Cache Group 捕获代码的优先级，其默认值为 0。在  [common-chunk-and-vendor-chunk](https://parg.co/YoE) 例子中，我们即针对入口进行优化，提取出入口公共的 vendor 模块与业务模块：
+
+```js
+{
+splitChunks: {
+			cacheGroups: {
+				commons: {
+					chunks: "initial",
+					minChunks: 2,
+					maxInitialRequests: 5, // The default limit is too small to showcase the effect
+					minSize: 0 // This is example is too small to create commons chunks
+				},
+				vendor: {
+					test: /node_modules/,
+					chunks: "initial",
+					name: "vendor",
+					priority: 10,
+					enforce: true
+				}
+			}
+		}
+}
+```
+
+Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被设置为 true 时，即会为每个 Entry 添加仅包含运行时信息的 Chunk； 当该属性值被设置为 single 时，即为所有的 Entry 创建公用的包含运行时的 Chunk。我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
 
 ![c4e91fafb1a08e7733ac2688222eb65a](https://user-images.githubusercontent.com/5803001/39863036-0aaf92d4-5478-11e8-929c-9f07e8dca3b8.png)
 
@@ -206,22 +373,6 @@ webpackJsonp([0], {
 });
 ```
 
-如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码：
+如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
-```
-
-```
-
-更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet]() 或者[现代 Web 开发基础与工程实践/Webpack]() 章节。
-
-# 基础配置
-
-# 开发环境
-
-## 构建性能优化
-
-# 生产环境
-
-## 压缩与版本控制
-
-## 代码分割
+更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 开发基础与工程实践/Webpack](https://github.com/wxyyxc1992/Web-Series) 章节。
