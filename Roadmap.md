@@ -151,6 +151,10 @@
 
   - [ ] [2018-Writing WebAssembly By Hand](http://blog.scottlogic.com/2018/04/26/webassembly-by-hand.html)
 
+  - [ ] https://hackernoon.com/webassembly-the-journey-what-is-wasm-caf9871108aa
+
+  - [ ] https://www.reddit.com/r/node/comments/8wtfjh/a_basic_example_of_running_webassembly_in_node/?st=JJC2Q7F2&sh=96040a45 提取代码
+
 - [ ] Java Tuning CheatSheet
 
   - [ ] https://parg.co/YrZ
