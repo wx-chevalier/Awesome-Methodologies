@@ -2,6 +2,8 @@
 
 # 2018 React 设计理念，语法纵览与实践清单
 
+这是一篇非常冗长的文章，是笔者 []() 系列的提炼。
+
 # Principles | 设计理念
 
 ## 小而美的视图层
@@ -114,7 +116,7 @@ render() {
 }
 ```
 
-## JSX
+### JSX
 
 目前组件支持返回数组元素，我们也可以使用 React.Fragment 来返回多个子元素而不添加额外的 DOM 元素：
 
@@ -164,6 +166,30 @@ class VideoPlayer extends React.Component {
     );
   }
 }
+```
+
+## 事件监听与响应
+
+为了避免过多地事件监听，React 引入了 SyntheticEvent 来集中式地监听事件与调用响应函数；我们自定义的事件处理器都会被传入 SyntheticEvent 对象，其支持 `stopPropagation()` 与 `preventDefault()`，并且保证了跨浏览器的一致性。出于性能的考虑，SyntheticEvent 会复用传入的 Event 对象，因此我们避免直接异步读取 Event 对象的值，而是应该使用闭包将需要的值保存下来：
+
+```js
+function onClick(event) {
+  console.log(event); // => nullified object.
+  console.log(event.type); // => "click"
+  const eventType = event.type; // => "click"
+
+  this.setState({ eventType: event.type });
+}
+```
+
+对于 DOM 事件标准中定义的 Capturing phase 与 Bubbling phase，React 也提供了 onClick 与 onClickCapture：
+
+```js
+<div onClickCapture={this.handleClickViaCapturing}>
+  <button onClick={this.handleClick}>
+    Click me, and my parent's `onClickCapture` will fire *first*!
+  </button>
+</div>
 ```
 
 ## 生命周期
@@ -230,6 +256,25 @@ array.splice(index, 1);
 // 使用 filter 进行过滤删除
 ```
 
+### 不可变对象
+
+### 异步数据处理
+
+```js
+async componentDidMount() {
+  try {
+    const response = await fetch(`https://api.coinmarketcap.com/v1/ticker/?limit=10`);
+    if (!response.ok) {
+      throw Error(response.statusText);
+    }
+    const json = await response.json();
+    this.setState({ data: json });
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
 ## Context
 
 # React Router
@@ -281,7 +326,7 @@ Compatible with all normal Node.js packages
 
 Proton Native does the same to desktop that React Native did to mobile. Build cross-platform apps for the desktop, all while never leaving the React eco-system. Popular React packages such as Redux still work.
 
-# React
+# TypeScript
 
 React 的 TypeScript 类型声明[types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
 
