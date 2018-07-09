@@ -16,6 +16,36 @@ Egg.js 也是遵循了约定优于配置的理念，
 
 自动加载与依赖注入的机制带来便利的同时，也削弱了显式依赖声明的可读性，可能会使初学者一头雾水；但是沉心细读，很快就能掌握其使用。
 
+如果我们希望在 VSCode 中调试 Egg.js 应用，那么可以参考 [Node.js CheatSheet]() 中的 VSCode 集成部分，首先安装 [vscode-eggjs](https://github.com/eggjs/vscode-eggjs)，然后为 VSCode 添加如下配置：
+
+```json
+// .vscode/launch.json
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Egg",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceRoot}",
+      "runtimeExecutable": "npm",
+      "windows": { "runtimeExecutable": "npm.cmd" },
+      // 启动我们的 egg-bin debug 并默认是 brk
+      "runtimeArgs": ["run", "debug", "--", "--inspect-brk"],
+      // 日志输出到 Terminal，否则启动期的日志看不到
+      "console": "integratedTerminal",
+      "protocol": "auto",
+      // 进程重启后自动 attach
+      "restart": true,
+      // 因为无需再 proxy，故改回原来的 9229 端口
+      "port": 9229,
+      // 自动 attach 子进程
+      "autoAttachChildProcesses": true
+    }
+  ]
+}
+```
+
 ## 配置
 
 ## TypeScript
@@ -84,6 +114,31 @@ module.exports = {
 ## 数据库连接
 
 [egg-mysql](https://github.com/eggjs/egg-mysql)
+
+```js
+knex
+  .from('users')
+  .leftJoin('user_addresses', 'users.id', '=', 'user_addresses.user_id')
+  .options({ nestTables: true })
+  .then(results => {
+    // do something with results ...
+  });
+
+// result 结果如下
+{
+  users: {
+    id: 3,
+    username: 'somename',
+    email:
+  },
+  user_addresses: {
+    id: 1, // or whatever format your id is in
+    user_id: 3,
+    street: 'somestreet',
+    postcode: 'somepostcode'
+  }
+}
+```
 
 ## Sequelize ORM
 

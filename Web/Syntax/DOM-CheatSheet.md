@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# DOM 语法速览与实践清单
+# DOM CheatSheet | DOM 语法速览与实践清单
 
 ```js
 const bodyRect = document.body.getBoundingClientRect(),
@@ -21,6 +21,8 @@ sheet.insertRule('header { float: left; opacity: 0.8; }', 1);
 
 # 界面事件
 
+## 事件监听
+
 ```js
 function ready(callback) {
   ...
@@ -36,6 +38,39 @@ function ready(callback) {
 ```
 
 The DOM of the referenced element is not part of the DOM of the referencing HTML page. It has isolated style sheets.
+
+## 事件传播与委托
+
+[DOM Events 标准](http://www.w3.org/TR/DOM-Level-3-Events/)中规定了事件传播的三个阶段，分别为：
+
+- Capturing Phase | 捕获阶段：自顶向下传递到目标元素
+- Target Phase | 目标阶段：事件达到目标元素
+- Bubbling Phase：事件自底向上传递
+
+下图以 table 中的某个 `<td>` 元素为例，指明了事件传播的顺序：
+
+![image](https://user-images.githubusercontent.com/5803001/42418731-decb30bc-82d8-11e8-8fd3-e29230398f85.png)
+
+鉴于捕获阶段很少被提及，我们主要会讨论冒泡阶段；对于常见的 `addEventListener` 设置监听器函数而言，如果其第三个参数设置为 true，则会工作在捕获阶段；否则默认工作在冒泡阶段。
+
+DOM 事件委托即指一种以单一通用父节点上绑定响应函数而不是在每个子元素上绑定响应函数的机制，它主要是依赖于上文提及的事件冒泡(Bubbling)机制。当某个元素上触发了某个事件之后，所有注册到该 Target 上的监听器都会被触发。并且该事件会按照 DOM 树的层级逐步冒泡传递到绑定在父层节点的监听器上，每个监听器都会检查是否是关联的 EventTarget，这一步骤会重复进行直到到达 Document 根节点。
+
+```js
+// document.addEventListener("click", delegate(buttonsFilter, buttonHandler));
+function delegate(criteria, listener) {
+  return function(e) {
+    var el = e.target;
+    do {
+      if (!criteria(el)) {
+        continue;
+      }
+      e.delegateTarget = el;
+      listener.call(this, e);
+      return;
+    } while ((el = el.parentNode));
+  };
+}
+```
 
 # 网络通信
 
@@ -179,13 +214,13 @@ fetch(url).then(function(response) {
 
 针对响应类型的不同，我们也可以在请求体中预设不同的请求模式，以加以过滤：
 
-* same-origin: 仅针对同域请求有效，拒绝其他域的请求。
+- same-origin: 仅针对同域请求有效，拒绝其他域的请求。
 
-* cors: 允许针对同域或者其他访问正确的 CORS 头的请求。
+- cors: 允许针对同域或者其他访问正确的 CORS 头的请求。
 
-* cors-with-forced-preflight: 每次请求前都会进行预检。
+- cors-with-forced-preflight: 每次请求前都会进行预检。
 
-* no-cors: 针对那些未返回 CORS 头的域发起请求，并且返回 opaque 类型的响应，并不常用。
+- no-cors: 针对那些未返回 CORS 头的域发起请求，并且返回 opaque 类型的响应，并不常用。
 
 参照上文，
 

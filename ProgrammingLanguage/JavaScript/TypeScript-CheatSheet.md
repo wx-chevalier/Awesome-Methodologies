@@ -2,13 +2,11 @@
 
 ![1_sso_vplej49wti_ubptvgq](https://user-images.githubusercontent.com/5803001/40587814-0000e1f2-6207-11e8-9e38-2e478a645c31.png)
 
+> 本文侧重于盘点 TypeScript 中类型声明与校验规则相关的知识点，对于与 ECMAScript 语法使用重合的部分建议阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [ECMAScript CheatSheet](https://parg.co/YhW)，对于 TypeScript 在 React/Redux 中的实践可以参阅 [React CheatSheet/TypeScript]()。需要声明的是，本文参考了 [TypeScript Links]() 中列举的很多文章或书籍，特别是官方的 [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html) 很值得仔细阅读。
+
 # TypeScript CheatSheet | TypeScript 语法实践速览与实践清单
 
 TypeScript 是由 MicroSoft 出品的 JavaScript 超集，这也意味着 TypeScript 兼容 JavaScript 的所有特性，并且附带了静态类型的支持。JavaScript 本身乃动态类型的语言，即是在运行时才进行类型校验；该特性赋予了其快速原型化的能力，却在构建大型 JavaScript 应用时力有不逮，其无法在编译时帮助规避可能的类型错误，也无法利用自动补全、自动重构等工具特性。同时，就像 Babel 一样，TypeScript 允许我们使用尚未正式发布的 ECMAScript 的语言特性；并且 TypeScript 会尽可能地从上下文信息中进行类型推导，以避免像 Java 等静态类型语言中过于冗余的麻烦。
-
-本文侧重于盘点 TypeScript 中类型声明与校验规则相关的知识点，对于与 ECMAScript 语法使用重合的部门建议阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [ECMAScript CheatSheet](https://parg.co/YhW)。
-
-需要声明的是，本文参考了 [TypeScript Links]() 中列举的很多文章或书籍，特别是官方的 [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html) 很值得仔细阅读。
 
 也可以使用 [ts-node]() 快速地直接运行 TypeScript 文件。
 
@@ -56,9 +54,9 @@ $ tsc main.ts --watch
 
 ## 类型声明
 
-type 关键字能够用于为基础类型(primitive type)，联合类型(union type)，以及交叉类型(intersection)取类型别名
+### type
 
-TypeScript 还支持利用 `typeof` 关键字取变量类型，并且赋值给类型变量：
+`type` 关键字能够用于为基础类型(primitive type)，联合类型(union type)，以及交叉类型(intersection)取类型别名；TypeScript 还支持利用 `typeof` 关键字取变量类型，并且赋值给类型变量：
 
 ```ts
 let Some = Math.round(Math.random()) ? '' : 1;
@@ -70,6 +68,14 @@ foo = 123;
 foo = 'abc';
 foo = {}; // Error!
 ```
+
+值得一提的是，自 2.9 版本开始，`typeof` 关键字支持动态 `import` 的类型推导：
+
+```ts
+const zipUtil: typeof import('./utils/create-zip-file') = await import('./utils/create-zip-file');
+```
+
+### interface
 
 interface 关键字同样能够用于类型声明，用于定义对象的行为与约束；TypeScript 遵循所谓的 Structural Typing，即类型的适配与一致性依赖于实际的结构：
 
@@ -160,7 +166,68 @@ const box: Box = { height: 5, width: 6, scale: 10 };
 
 ## 类型推导
 
+我们可以使用 `typeof`, `instanceof`, `in` 来实现手动类型推导，`typeof` 可以获取变量的数据类型：
+
+```ts
+function foo(x: string | number) {
+  if (typeof x === 'string') {
+    return x; // string
+  }
+  return x; // number
+}
+```
+
+`instanceof`  可以用于判断某个对象是否是某个类的实例：
+
+```ts
+function f1(x: B | C | D) {
+  if (x instanceof B) {
+    x; // B
+  } else if (x instanceof C) {
+    x; // C
+  } else {
+    x; // D
+  }
+}
+```
+
+`in` 用于更方便地进行 `object` 类型的推导：
+
+```ts
+interface A {
+  a: number;
+}
+interface B {
+  b: string;
+}
+
+function foo(x: A | B) {
+  if ('a' in x) {
+    return x.a;
+  }
+  return x.b;
+}
+```
+
 ## 类型转换
+
+TypeScript 会在变量属性访问时进行强制空检测，这就促成了大量的前置检测代码，其在提高整体代码安全性的同时，对配置文件这样的静态数据就会造成冗余：
+
+```ts
+const config = {
+  port: 8000
+};
+
+if (config) {
+  console.log(config.port);
+}
+```
+
+TypeScript 2.0 中提供了非空断言标志符：
+
+```ts
+console.log(config!.port);
+```
 
 ## 模块化
 
@@ -311,6 +378,16 @@ var st = StoryType.Article;
 enum StoryType {Video = 10, Article = 20, Tutorial=30}
 ```
 
+从 Typescript 2.4 开始，支持了枚举类型使用字符串做为 value：
+
+```ts
+enum Colors {
+  Red = 'RED',
+  Green = 'GREEN',
+  Blue = 'BLUE'
+}
+```
+
 ## Arrays & Tuple | 数组与元组
 
 在 TypeScript 中，我们能够创建 Typed Arrays 或者 Generic Arrays，Typed Arrays 的创建方式如下：
@@ -361,6 +438,16 @@ class Something {
 }
 ```
 
+从 2.7 版本开始，我们可以更精确的描述每一项的类型与数组总长度：
+
+```ts
+interface Data extends Array<number> {
+  0: number;
+  1: number;
+  length: 2;
+}
+```
+
 TypeScript 同时提供了 Tuple 元组类型，允许返回包含不同的已知类型的数组：
 
 ```js
@@ -387,11 +474,37 @@ interface KeyValuePair extends Array<number | string> {
 
 ## 空类型
 
+TypeScript 提供了 null, undefined, never, void 这几种空类型，它们都是其他类型的子类型，因为任何有类型的值都有可能是空（也就是执行期间可能没有值）。
+
+nerver 用于处理函数的异常流程，譬如永远不会返回值或者抛出异常：
+
+```ts
+function fail(message: string): never {
+  throw new Error(message);
+}
+```
+
+never 类型的典型应用场景，就是处理函数中可能的不可达代码，譬如在调用上述的 `fail` 函数时，若其为非 never 类型，则会抛出不是所有的代码路径都返回值的异常：
+
+```ts
+function foo(x: string | number): boolean {
+  if (typeof x === 'string') {
+    return true;
+  } else if (typeof x === 'number') {
+    return false;
+  }
+
+  return fail('Unexhaustive!');
+}
+```
+
 # 复杂类型
 
 ## 接口
 
 ## 函数
+
+### 函数定义
 
 TypeScript 中函数的声明与 JavaScript 中保持一致，不过其允许指定额外的类型信息：
 
@@ -438,6 +551,17 @@ function fn(x: () => void) {
   var k = x(); // oops! meant to do something else
   k.doSomething(); // error, but would be OK if the return type had been 'any'
 }
+```
+
+JavaScript 中并不支持函数重载，但是在 TypeScript 中我们可以通过参数的不同实现重载：
+
+```ts
+declare function createStore(
+  reducer: Reducer,
+  preloadedState: PreloadedState,
+  enhancer: Enhancer
+);
+declare function createStore(reducer: Reducer, enhancer: Enhancer);
 ```
 
 ### Generator | 生成器
@@ -771,6 +895,15 @@ function addLengths<T extends HasLength>(t1: T, t2: T): number {
 
 addLengths('hello', 'abc');
 addLengths([1, 2, 3], [100, 11, 99]);
+```
+
+TypeScript 2.3 之后支持泛型默认参数，可以某些场景减少函数类型重载的代码量，譬如：
+
+```ts
+declare function create<T extends HTMLElement = HTMLDivElement, U = T[]>(
+  element?: T,
+  children?: U
+): Container<T, U>;
 ```
 
 ## Index Types | 索引类型

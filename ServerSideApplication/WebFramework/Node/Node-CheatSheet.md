@@ -10,6 +10,48 @@ Node.js 的包管理，或者说依赖管理使用了语义化版本的规范，
 
 - Major releases: \* 或者 x
 
+# 基础使用
+
+## 调试
+
+在 VSCode 中，我们也能够方便地进行断点调试，首先我们需要在 package.json 中添加 debug 指令：
+
+```json
+  "scripts": {
+    "debug": "node --nolazy --inspect-brk=9229 myProgram.js"
+  },
+```
+
+然后在 `./vscode/launch.json` 中添加启动配置项：
+
+```json
+{
+  "name": "Launch via NPM",
+  "type": "node",
+  "request": "launch",
+  "cwd": "${workspaceFolder}",
+  "runtimeExecutable": "npm",
+  "runtimeArgs": ["run-script", "debug"],
+  "port": 9229
+}
+```
+
+如果我们希望包含较多的环境变量，还可以指定环境变量：
+
+```json
+   //...
+   "envFile": "${workspaceFolder}/.env",
+   "env": { "USER": "john doe" }
+   //...
+```
+
+或者指定加载外部的环境变量文件：
+
+```env
+USER=doe
+PASSWORD=abc123
+```
+
 # IO
 
 ## Stream

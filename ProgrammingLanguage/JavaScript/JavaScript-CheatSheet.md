@@ -124,28 +124,36 @@ const regexConstructor = new RegExp('cat');
 - Symbols
 
   - `.` —  匹配除了换行之外的任意字符
+  - `^` —  匹配字符串的首部
+  - `$` —  匹配字符串的末尾
+
+- Number
+
   - `*` —  匹配前述的表达式零或多次
   - `+` —  匹配前述的表达式一或多次
-    ? — Preceding expression is optional (Matches 0 or 1 times).
-    ^ — Matches the beginning of the string.
-    $ — Matches the end of the string.
+  - `?` —  匹配前述的表达式零或一次
+  - `a{3}` - 匹配指定数目的 a
+  - `a{3,}` - 匹配不少于 3 个的 a
+  - `a{3,6}` - 匹配 3 到 6 个 a
 
-Character groups
+- Character groups
 
-\d — Matches any single digit character.
-\w — Matches any word character (alphanumeric & underscore).
-[XYZ] — Character Set: Matches any single character from the character within the brackets. You can also do a range such as [A-Z][xyz]+ — Matches one or more of any of the characters in the set.
-[^a-z] — Inside a character set, the ^ is used for negation. In this example, match anything that is NOT an uppercase letter.
-Flags:
-There are five optional flags. They can be used separately or together and are placed after the closing slash. Example: /[A-Z]/g I’ll only be introducing 2 here.
-g — Global search
-i — case insensitive search
+  - `\d` —  匹配任意的数值
+  - `\w` —  匹配任意的字符
+  - `[XYZ]` —  数组中任一值匹配，多范围混搭的话，可以使用 `[A-Z][xyz]+` 来匹配集合中的任一字符
+  - `[^a-z]` — `^` 用于进行反选，这里即表示匹配非 a-z 字符的其他值；`([^B]*)` 表示该位置是除了 B 之外的任意值。
 
-Advanced
+- Advanced
 
-(x) — Capturing Parenthesis: Matches x and remembers it so we can use it later.
-(?:x) — Non-capturing Parenthesis: Matches x and does not remembers it.
-x(?=y) — Lookahead: Matches x only if it is followed by y.
+  - `(x)` —  捕获圆括号，匹配 x 并且记录捕获项
+  - `(x|y)` - 匹配 x 或者 y
+  - `(?:x)` —  非匹配圆括号，仅匹配而不记录
+  - `x(?=y)` —  预测匹配，仅匹配那些 y 之前的 x
+
+- Flags
+
+  - `g` —  全局搜索
+  - `i` —  大小写敏感搜索
 
 ### 匹配提取
 
@@ -164,13 +172,13 @@ removeCc('camelCase'); // 'camel Case'
 removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
 ```
 
-较为常用的是 match 与 exec 方法。
+较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中：
 
 ```js
-var s = '[description:"aoeu" uuid:"123sth"]';
+const s = '[description:"aoeu" uuid:"123sth"]';
 
-var re = /\s*([^[:]+):\"([^"]+)"/g;
-var m;
+const re = /\s*([^[:]+):\"([^"]+)"/g;
+let m;
 while ((m = re.exec(s))) {
   console.log(m[1], m[2]);
 }
@@ -271,6 +279,15 @@ console.log(Array.from(arrayLike));
 
 ### Transform | 变换
 
+```js
+// 异步 map 操作
+await Promise.all(
+  arr.map(async item => {
+    return await item.run();
+  })
+);
+```
+
 `reduce()` 函数能够将某个函数作用于数组中的每个元素，从而将多个值转换为单个值；其典型的用法为计算数组和值，或者进行数组扁平化：
 
 ```js
@@ -299,6 +316,48 @@ const flattenDepth = (arr, depth = 1) =>
 
 ## Set
 
+```js
+// it contains
+// ["sumit","amit","anil","anish"]
+var set1 = new Set(['sumit', 'sumit', 'amit', 'anil', 'anish']);
+
+// it contains 'f', 'o', 'd'
+var set2 = new Set('fooooooood');
+
+// it contains [10, 20, 30, 40]
+var set3 = new Set([10, 20, 30, 30, 40, 40]);
+
+set1
+  .add(30)
+  .add(40)
+  .add(50);
+
+console.log(set1.has(50));
+
+set1.delete('e');
+
+// clearing set2
+set2.clear();
+
+// Using Set.prototype.entries()
+// creating set
+var set1 = new Set();
+
+// adding element to the set
+set1.add(50);
+set1.add(30);
+set1.add(40);
+set1.add(20);
+set1.add(10);
+
+// using entries to get iterator
+var getEntriesArry = set1.entries();
+
+// each iterator is array of [value, value]
+// prints [50, 50]
+console.log(getEntriesArry.next().value);
+```
+
 ## Map
 
 # 函数
@@ -316,6 +375,17 @@ var sum = function(a, b) {
 // Function Declaration
 function sum(a, b) {
   return a + b;
+}
+```
+
+JavaScript 默认不支持函数重载，但是就像 Redux 这样的库可以通过默认参数等方式实现重载的需求：
+
+```js
+export default function createStore(reducer, preloadedState, enhancer) {
+  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+    enhancer = preloadedState;
+    preloadedState = undefined;
+  }
 }
 ```
 
