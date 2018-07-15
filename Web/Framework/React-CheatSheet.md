@@ -258,6 +258,21 @@ array.splice(index, 1);
 
 ### 不可变对象
 
+```js
+removePeople(e) {
+  var array = [...this.state.people]; // make a separate copy of the array
+  var index = array.indexOf(e.target.value)
+  array.splice(index, 1);
+  this.setState({people: array});
+},
+
+removePeople(e) {
+    this.setState({people: this.state.people.filter(function(person) {
+        return person !== e.target.value
+    })};
+}
+```
+
 ### 异步数据处理
 
 ```js

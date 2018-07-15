@@ -1,5 +1,7 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+# Mathematics CheatSheet | 机器学习、深度学习中的数学基础
+
 # 微积分
 
 ### 两边夹定理

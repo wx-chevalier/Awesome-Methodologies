@@ -4,6 +4,12 @@
 
 本文很多内容源于 [Flutter 官方文档](https://flutter.io/get-started/install/)。本文主要是对于应用开发中常见的考虑进行汇总。
 
+Flutter 在 Rlease 模式下直接将 Dart 编译成本地机器码，避免了代码解释运行的性能消耗。
+
+Dart 本身针对高频率循环刷新（如屏幕每秒 60 帧）在内存层面进行了优化，使得 Dart 运行时在屏幕绘制实现如鱼得水。
+
+Flutter 实现了自己的图形绘制避免了 Native 桥接。
+
 # Technical Overview | 架构概览
 
 Flutter has a functional-reactive framework that is inspired by React. Though Flutter is written in Dart, it also takes the best features of React and helps the developers build a beautiful, cross-platform mobile app.

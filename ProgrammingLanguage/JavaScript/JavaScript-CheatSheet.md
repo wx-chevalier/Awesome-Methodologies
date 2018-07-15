@@ -362,7 +362,7 @@ console.log(getEntriesArry.next().value);
 
 # 函数
 
-## Definition | 函数定义
+## Definition | 定义
 
 基础的函数定义分为了函数表达式(Function Expression)与函数声明(Function Declaration)，函数表达式并不会被提升到作用域首部，而函数声明则会被提升：
 
@@ -415,7 +415,7 @@ function filterEvil(array, evil = isRequired()) {
 }
 ```
 
-## 函数调用
+## Execution | 执行
 
 可以使用 apply 来连接两个数组：
 
@@ -441,6 +441,10 @@ Function.prototype.apply.call(console.log, null, [9]);
 Function.prototype.call.call(console.log, null, 10);
 new (require('vm').Script)('console.log(11)‘).runInThisContext();
 ```
+
+Throttling will delay executing a function. It will reduce the notifications of an event that fires multiple times.
+
+Debouncing will bunch a series of sequential calls to a function into a single call to that function. It ensures that one notification is made for an event that fires multiple times.
 
 # 类与对象
 
