@@ -228,6 +228,14 @@ fetch(url).then(function(response) {
 fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
 ```
 
+## Blob 与 File
+
+### Blob
+
+### 文件读取与预览
+
+# 数据存储
+
 # Event Loop 与 Worker
 
 ## Web Worker

@@ -143,3 +143,5 @@ innodb_io_capacity~= IOPS
 主要的查询性能问题：全表扫描 临时表 排序 FileSort
 
 # Store Engine | 存储引擎
+
+# Database Design | 数据库设计

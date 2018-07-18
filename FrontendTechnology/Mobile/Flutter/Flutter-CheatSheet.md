@@ -149,6 +149,10 @@ floatingActionButton: new FloatingActionButton(
 
 ## Interaction | 交互
 
+## State Management | 状态管理
+
+setState 采用了类似于 [immer](https://github.com/mweststrate/immer) 这样基于 Proxy 的响应式监听模式，
+
 # Functionality | 功能
 
 ## Network | 网络请求

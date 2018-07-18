@@ -78,7 +78,9 @@ const promiseAction = () => ({
 });
 ```
 
-# Async Actions: 异步 Action 处理
+# Async Actions | 异步 Action 处理
+
+## Thunk
 
 ## Promise
 
@@ -308,3 +310,66 @@ const promiseAction = () => ({
 ```
 
 # Middleware | 中间件
+
+# 实践的思考
+
+[现代 Web 开发/状态管理](https://parg.co/G8D)
+
+Redux 适合于需要强项目健壮度与多人协调规范的大中型团队，对于很多中小型创业性质，项目需求迭代异常快的团队则往往可能起到适得其反的作用。如果你真的喜欢 Redux，那么更应该在合适的项目，合适的阶段去接入 Redux，而不是在需求尚未成型之处就花费大量精力搭建复杂的脚手架，说不准客户的需求图纸都画反了呢。Dan 推荐的适用 Redux 的情况典型的有：
+
+- [方便地能够将应用状态存储到本地并且重启动时能够读取恢复状态](https://egghead.io/lessons/javascript-redux-persisting-the-state-to-the-local-storage?course=building-react-applications-with-idiomatic-redux)
+
+- [方便地能够在服务端完成初始状态设置，并且完成状态的服务端渲染](http://redux.js.org/docs/recipes/ServerRendering.html)
+
+- [能够序列化记录用户操作，能够设置状态快照，从而方便进行 Bug 报告与开发者的错误重现](https://github.com/dtschust/redux-bug-reporter)
+
+- [能够将用户的操作或者事件传递给其他环境而不需要修改现有代码](https://github.com/philholden/redux-swarmlog)
+
+- [能够添加重放或者撤销功能而不需要重构代码](http://redux.js.org/docs/recipes/ImplementingUndoHistory.html)
+
+- [能够在开发过程中实现状态历史的回溯，或者根据 Action 的历史重现状态](https://github.com/gaearon/redux-devtools)
+
+- [能够为开发者提供全面透彻的审视和修改现有开发工具的接口，从而保证产品的开发者能够根据他们自己的应用需求打造专门的工具](https://github.com/romseguy/redux-devtools-chart-monitor)
+
+- [能够在复用现在大部分业务逻辑的基础上构造不同的界面](https://youtu.be/gvVpSezT5_M?t=11m51s)
+
+仅就笔者的个人实践而言，在
+
+对于数据的获取
+
+对于简单可重复的全局状态，譬如通用的接口返回的错误信息，可以使用全局的错误状态：
+
+```js
+function reducer(state, { payload }) {
+  if (payload.error) {
+    return {
+      ...state,
+      errorMessage: payload.error.message
+    };
+  }
+}
+```
+
+如果是复杂接口响应的处理，譬如创建或者更新的表单，特别是还需要包含大量的非跨组件的 UI 操作，那么不妨使用本地状态处理，当然也可以使用 Thunk 函数进行处理：
+
+```js
+class Com extends Component {
+  async handleSubmit() {
+    try {
+      const result = await doMutation();
+
+      if (result.success) {
+        // 执行成功之后的界面操作
+        showSuccessMessage();
+        fetchThing();
+        closeModal();
+      } else {
+        // 执行失败之后的部分操作
+        doFallback();
+      }
+    } catch (e) {
+      showErrorMessage();
+    }
+  }
+}
+```

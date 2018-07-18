@@ -196,6 +196,33 @@ subDir.subSubAFun() # Hello from subSubAFun
 subDir.subSubAFunTwo() # Hello from subSubAFunTwo
 ```
 
+### 动态加载
+
+Python 支持动态地加载模块文件，即从某个文件中手动初始化对象：
+
+```py
+def get_factory_from_template(maintype):
+    path = os.path.join(BASE_DIR, 'templates', maintype, FACTORY_FILENAME)
+    if (python_version_gte(3, 5)):
+        # Python 3.5 code in this block
+        import importlib.util
+        spec = importlib.util.spec_from_file_location(
+            "{}.factory".format(maintype), path)
+        foo = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(foo)
+        return foo
+    elif (python_version_gte(3, 0)):
+        from importlib.machinery import SourceFileLoader
+        foo = SourceFileLoader(
+            "{}.factory".format(maintype), path).load_module()
+        return foo
+    else:
+        # Python 2 code in this block
+        import imp
+        foo = imp.load_source("{}.factory".format(maintype), path)
+        return foo
+```
+
 # 表达式与控制流
 
 ## 条件选择
@@ -258,6 +285,14 @@ for i in range(len(a)):
     print(i, a[i])
 ```
 
+[tqdm](https://github.com/tqdm/tqdm) 是不错的命令行中的进度指示器：
+
+```py
+from tqdm import tqdm
+for i in tqdm(range(10000)):
+    ...
+```
+
 # 基本数据类型
 
 可以使用内建函数进行强制类型转换(Casting ) :
@@ -283,7 +318,7 @@ def is_array(var):
     return isinstance(var, (list, tuple))
 ```
 
-## Number: 数值类型
+## Number | 数值类型
 
 ```py
 x = 3
