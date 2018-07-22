@@ -6,11 +6,11 @@
 
 # TypeScript CheatSheet | TypeScript 语法实践速览与实践清单
 
-TypeScript 是由 MicroSoft 出品的 JavaScript 超集，这也意味着 TypeScript 兼容 JavaScript 的所有特性，并且附带了静态类型的支持。JavaScript 本身乃动态类型的语言，即是在运行时才进行类型校验；该特性赋予了其快速原型化的能力，却在构建大型 JavaScript 应用时力有不逮，其无法在编译时帮助规避可能的类型错误，也无法利用自动补全、自动重构等工具特性。同时，就像 Babel 一样，TypeScript 允许我们使用尚未正式发布的 ECMAScript 的语言特性；并且 TypeScript 会尽可能地从上下文信息中进行类型推导，以避免像 Java 等静态类型语言中过于冗余的麻烦。
+TypeScript 是由 MicroSoft 出品的 JavaScript 超集，它在兼容 JavaScript 的所有特性的基础上，附带了静态类型的支持；TypeScript 还允许我们使用尚未正式发布的 ECMAScript 的语言特性，在编译时进行类似于 Babel 这样的降级转化。
 
-也可以使用 [ts-node]() 快速地直接运行 TypeScript 文件。
+JavaScript 本身乃动态类型的语言，即是在运行时才进行类型校验；该特性赋予了其快速原型化的能力，却在构建大型 JavaScript 应用时力有不逮，其无法在编译时帮助规避可能的类型错误，也无法利用自动补全、自动重构等工具特性。TypeScript 的静态类型特性则帮助我们在编译时尽可能规避类型错误，并且 TypeScript 会尽可能地从上下文信息中进行类型推导，以避免像 Java 等静态类型语言中过于冗余的麻烦。
 
-可以参考 [fe-boilerplat/\*-ts]() 或者 [Backend-Boilerplate/node]()，如果想了解 TypeScript 在 React 中的应用，可以参考 [React CheatSheet]()。TypeScript 的还能够允许我们提前使用新一代的 ECMAScript 语法，我们可以通过 npm 安装 TypeScript 的依赖包：
+可以参考 [fe-boilerplat/\*-ts]() 或者 [Backend-Boilerplate/node]()，如果想了解 TypeScript 在 React 中的应用，可以参考 [React CheatSheet/TypeScript 节]()。我们可以通过 npm 安装 TypeScript 的依赖包：
 
 ```sh
 # 全局安装
@@ -49,6 +49,8 @@ $ tsc main.ts --watch
   "include": ["src/**/*"]
 }
 ```
+
+也可以使用 [ts-node](https://github.com/TypeStrong/ts-node) 快速地直接运行 TypeScript 文件。
 
 # 类型机制
 
@@ -288,6 +290,12 @@ export type Reducer<S = any, A extends Action = AnyAction> = (state: S | undefin
 // 函数
 export function combineReducers<S>(reducers: ReducersMapObject<S, any>): Reducer<S>;
 export function combineReducers<S, A extends Action = AnyAction>(reducers: ReducersMapObject<S, A>): Reducer<S, A>;
+```
+
+`.d.ts` 文件同样可以相互引用：
+
+```ts
+/// <reference path="custom-typings.d.ts" />
 ```
 
 # Basic Types | 基础类型

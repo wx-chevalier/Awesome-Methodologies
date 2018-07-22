@@ -222,6 +222,8 @@ console.log(nextSticky()); // <- { lastIndex: 0, match: null }
 
 ## DateTime | 时间与日期
 
+基础的时间与日期知识参考 [Programming Language CheatSheet/时间与日期]()。
+
 如果是轻量级的时间与日期操作，推荐使用 [date-fns](https://github.com/date-fns/date-fns)。
 
 ```js

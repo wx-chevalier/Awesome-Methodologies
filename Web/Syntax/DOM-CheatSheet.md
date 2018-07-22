@@ -228,13 +228,28 @@ fetch(url).then(function(response) {
 fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
 ```
 
-## Blob 与 File
-
-### Blob
-
-### 文件读取与预览
-
 # 数据存储
+
+## Blob 与 File
+
+参考 [antd/Upload](https://github.com/ant-design/ant-design/tree/master/components/upload) 中对于
+
+```js
+// 将文件读取为 DataURL
+const previewFile = (file: File, callback: Function) => {
+  const reader = new FileReader();
+  reader.onloadend = () => callback(reader.result);
+  reader.readAsDataURL(file);
+};
+
+// 设置文件的 DataUrl
+previewFile(file.originFileObj, (previewDataUrl: string) => {
+  file.thumbUrl = previewDataUrl;
+});
+
+// JSX
+<img src={file.thumbUrl || file.url} alt={file.name} />;
+```
 
 # Event Loop 与 Worker
 
