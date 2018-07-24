@@ -290,6 +290,37 @@ async componentDidMount() {
 }
 ```
 
+### 受控组件
+
+React 中的组件又可以分为受控组件与非受控组件，所谓的非受控组件即 render 函数直接返回 `input` 这样的标签，状态直接存放在 DOM 而非组件类中。
+
+```js
+    render() {
+        return (
+            <input />
+        )
+    }
+```
+
+我们可以通过接管标签的改变事件与值，来将非受控组件转化为受控组件：
+
+```js
+  handleChange: function (propertyName, event) {
+    const contact = this.state.contact;
+    contact[propertyName] = event.target.value;
+    this.setState({ contact: contact });
+  },
+  render: function () {
+    return (
+      <div>
+        <input type="text" onChange={this.handleChange.bind(this, 'firstName')} value={this.state.contact.firstName}/>
+        <input type="text" onChange={this.handleChange.bind(this, 'lastName')} value={this.state.contact.lastName}/>
+        <input type="text" onChange={this.handleChange.bind(this, 'phone')} value={this.state.contact.lastName}/>
+      </div>
+    );
+  }
+```
+
 ## Context
 
 # React Router

@@ -249,21 +249,7 @@ new Date('2011-01-01T11:00:00') - new Date('1992/02/11 12:00:12');
 
 ## Array | 数组
 
-```js
-// 使用 Array.from 创建序列数组
-Array.from({
-  length: 100
-}).map((_, i) => i);
-```
-
-```js
-const uniqueArray = arr => [...new Set(arr)];
-
-uniqueArray([1, 2, 2, 3, 4, 4, 5]);
-// [1,2,3,4,5]
-```
-
-### Array Like
+### 创建
 
 ```js
 const arrayLike = {
@@ -278,6 +264,24 @@ const arrayLike = {
 
 console.log(Array.from(arrayLike));
 ```
+
+```js
+// 使用 Array.from 创建序列数组
+Array.from({
+  length: 100
+}).map((_, i) => i);
+```
+
+```js
+const uniqueArray = arr => [...new Set(arr)];
+
+uniqueArray([1, 2, 2, 3, 4, 4, 5]);
+// [1,2,3,4,5]
+```
+
+### 索引与遍历
+
+### 增删复制
 
 ### Transform | 变换
 

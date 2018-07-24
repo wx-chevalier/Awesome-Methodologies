@@ -228,11 +228,77 @@ fetch(url).then(function(response) {
 fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
 ```
 
+## FormData
+
 # 数据存储
 
-## Blob 与 File
+## 文件操作
 
-参考 [antd/Upload](https://github.com/ant-design/ant-design/tree/master/components/upload) 中对于
+Blob 是 JavaScript 中的对象，表示不可变的类文件对象，里面可以存储大量的二进制编码格式的数据。Blob 对象的创建方式与其他并无区别，构造函数可接受数据序列与类型描述两个参数：
+
+```js
+const debug = { hello: 'world' };
+let blob = new Blob([JSON.stringify(debug, null, 2)], {
+  type: 'application/json'
+});
+// Blob(22) {size: 22, type: "application/json"}
+
+// 也可以转化为类 URL 格式
+const url = URL.createObjectURL(blob);
+// "blob:https://developer.mozilla.org/88c5b6de-3735-4e02-8937-a16cc3b0e852"
+
+// 设置自定义的样式类
+blob = new Blob(['body { background-color: yellow; }'], {
+  type: 'text/css'
+});
+
+link = document.createElement('link');
+link.rel = 'stylesheet';
+//createObjectURL returns a blob URL as a string.
+link.href = URL.createObjectURL(blob);
+```
+
+其他的类型转化为 Blob 对象可以参考 [covertToBlob.js](https://parg.co/GW6)，将 Base64 编码的字符串或者 DataUrl 转化为 Blob 对象。Blob 包括了 size 与 type，以及常用的用于截取的 slice 方法等属性。Blob 对象能够添加到表单中，作为上传数据使用：
+
+```js
+const content = '<a id="a"><b id="b">hey!</b></a>'; // the body of the new file...
+const blob = new Blob([content], { type: 'text/xml' });
+
+formData.append('webmasterfile', blob);
+```
+
+slice 方法会返回一个新的 Blob 对象，包含了源 Blob 对象中指定范围内的数据。其实就是对这个 blob 中的数据进行切割，我们在对文件进行分片上传的时候需要使用到这个方法，即把一个需要上传的文件进行切割，然后分别进行上传到服务器：
+
+```js
+const BYTES_PER_CHUNK = 1024 * 1024; // 每个文件切片大小定为1MB .
+const blob = document.getElementById('file').files[0];
+const slices = Math.ceil(blob.size / BYTES_PER_CHUNK);
+const blobs = [];
+Array.from({ length: slices }).forEach(function(item, index) {
+  blobs.push(blob.slice(index, index + 1));
+});
+```
+
+这里我们使用的 blob 对象实际上是 HTML5 中的 File 对象；HTML5 File API 允许我们对本地文件进行读取、上传等操作，主要包含三个对象：File，FileList 与用于读取数据的 FileReader。File 对象就是 Blob 的分支，或者说子集，表示包含某些元数据的单一文件对象；FileList 即是文件对象的列表。FileReader 能够用于从 Blob 对象中读取数据，包含了一系列读取文件的方法与事件回调，其基本用法如下：
+
+```js
+const reader = new FileReader();
+reader.addEventListener('loadend', function() {
+  // reader.result 包含了 Typed Array 格式的 Blob 内容
+});
+reader.readAsArrayBuffer(blob);
+
+blob = new Blob(['This is my blob content'], { type: 'text/plain' });
+read.readAsText(bolb); // 读取为文本
+
+// reader.readAsArrayBuffer   //将读取结果封装成 ArrayBuffer ，如果想使用一般需要转换成 Int8Array 或 DataView
+// reader.readAsBinaryString  // 在IE浏览器中不支持改方法
+// reader.readAsTex // 该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF-8
+// reader.readAsDataURL  // 读取结果为DataURL
+// reader.readyState // 上传中的状态
+```
+
+在图片上传中，我们常常需要获取到本地图片的预览，参考 [antd/Upload](https://github.com/ant-design/ant-design/tree/master/components/upload) 中的处理：
 
 ```js
 // 将文件读取为 DataURL
@@ -249,6 +315,67 @@ previewFile(file.originFileObj, (previewDataUrl: string) => {
 
 // JSX
 <img src={file.thumbUrl || file.url} alt={file.name} />;
+```
+
+另一个常用的场景就是获取剪贴板中的图片，并将其预览展示，可以参考 [coding-snippets/image-paste](https://parg.co/GWM):
+
+```js
+const cbd = e.clipboardData;
+const fr = new FileReader();
+
+for (let i = 0; i < cbd.items.length; i++) {
+  const item = cbd.items[i];
+
+  if (item.kind == 'file') {
+    const blob = item.getAsFile();
+    if (blob.size === 0) {
+      return;
+    }
+
+    previewFile(blob);
+  }
+}
+```
+
+标准的 Web 标准中提供了 FileReader 对象进行读取操作，不过 Chrome 中提供了 FileWriter 对象，允许我们在浏览器沙盒中创建文件，其基于 requestFileSystem 方法：
+
+```js
+// 仅可用于 Chrome 浏览器中
+window.requestFileSystem =
+  window.requestFileSystem || window.webkitRequestFileSystem;
+
+window.requestFileSystem(type, size, successCallback, opt_errorCallback);
+```
+
+简单的文件创建与写入如下所示：
+
+```js
+function onInitFs(fs) {
+  fs.root.getFile(
+    'log.txt',
+    { create: true },
+    function(fileEntry) {
+      // Create a FileWriter object for our FileEntry (log.txt).
+      fileEntry.createWriter(function(fileWriter) {
+        fileWriter.onwriteend = function(e) {
+          console.log('Write completed.');
+        };
+
+        fileWriter.onerror = function(e) {
+          console.log('Write failed: ' + e.toString());
+        };
+
+        // Create a new Blob and write it to log.txt.
+        var blob = new Blob(['Lorem Ipsum'], { type: 'text/plain' });
+
+        fileWriter.write(blob);
+      }, errorHandler);
+    },
+    errorHandler
+  );
+}
+
+window.requestFileSystem(window.TEMPORARY, 1024 * 1024, onInitFs, errorHandler);
 ```
 
 # Event Loop 与 Worker
