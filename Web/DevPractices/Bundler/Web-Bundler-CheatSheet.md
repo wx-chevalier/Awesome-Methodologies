@@ -12,7 +12,7 @@
 
 # Parcel
 
-Parcel 是著名的零配置的应用打包工具，在 [TensorflowJS](https://github.com/wxyyxc1992/AIDL-Workbench) 或者 [gh-craft](https://github.com/wxyyxc1992/xCompass/blob/master/x-home/gh-craft/README.md) 等算法实验/游戏场景构建中，都能够快速地搭建应用。
+Parcel 是著名的零配置的应用打包工具，在 [TensorFlowJS](https://github.com/wxyyxc1992/AIDL-Workbench) 或者 [gh-craft](https://github.com/wxyyxc1992/xCompass/blob/master/x-home/gh-craft/README.md) 等算法实验/游戏场景构建中，都能够快速地搭建应用。
 
 ```sh
 # 安装 Parcel

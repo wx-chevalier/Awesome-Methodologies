@@ -235,6 +235,8 @@ if str, ok := val.(string); ok {
 }
 ```
 
+### Switch
+
 Go 也支持使用 Switch 语句：
 
 ```go
@@ -287,6 +289,21 @@ var char byte = '?'
 switch char {
 	case ' ', '?', '&', '=', '#', '+', '%':
 		fmt.Println("Should escape")
+}
+```
+
+Switch 中还支持对于类型的条件判断：
+
+```go
+type T struct {
+	name string
+}
+
+t := T{}
+
+switch (interface{})(t).(type) {
+case T:
+	fmt.Print("1")
 }
 ```
 
@@ -467,6 +484,24 @@ func read(...) (...) {
   return .. // f will be closed
 ```
 
+多个 defer 出现的时候，多个 defer 之间按照 LIFO（后进先出）的顺序执行:
+
+```go
+package main
+import "fmt"
+func main(){
+    defer func(){
+        fmt.Println("1")
+    }()
+    defer func(){
+        fmt.Println("2")
+    }()
+    defer func(){
+        fmt.Println("3")
+    }()
+}
+```
+
 ## 异常处理
 
 Go 语言中并不存在 try-catch 等异常处理的关键字，对于那些可能返回异常的函数，只需要在函数返回值中添加额外的 Error 类型的返回值：
@@ -503,6 +538,8 @@ func Divide(value1 int,value2 int)(int, error) {
 }
 ```
 
+## Panic 与 Recover
+
 Go 还为我们提供了 panic 函数，所谓 panic，即是未获得预期结果，常用于抛出异常结果。譬如当我们获得了某个函数返回的异常，却不知道如何处理或者不需要处理时，可以直接通过 panic 函数中断当前运行，打印出错误信息、Goroutine 追踪信息，并且返回非零的状态码：
 
 ```go
@@ -512,9 +549,24 @@ if err != nil {
 }
 ```
 
+当函数 F 调用 panic 时，其执行流程会被终止，而所有的 deferred 函数会被正常的依次执行，然后 F 会返回到调用者。F 此时的行为逻辑与直接调用 panic 函数并无差异，进程会在函数所在 Goroutine 的所有函数执行完毕之后，恢复异常的调用栈。Recover 函数则可以手动地恢复 Panic Goroutine 的执行，正常的执行中 recover 函数会返回 nil；而如果当前 Goroutine 被 panic，recover 函数会捕获传递给 panic 的值，并且恢复正常的执行流。
+
+```go
+package main
+import "fmt"
+func main(){
+    defer func(){
+        if r := recover();r != nil{
+            fmt.Println(r)
+        }
+    }()
+    panic([]int{12312})
+}
+```
+
 # 数据类型与结构
 
-Go 中可以使用 `interface{}` 来表示任意类型：
+Go 中可以使用 `interface{}` 来表示任意类型。
 
 ## 类型绑定与初始化
 
@@ -611,7 +663,12 @@ i := a[3]
 // 声明与初始化
 var a = [2]int{1, 2}
 a := [2]int{1, 2}
+
+// 加 ... 会限制数组长度
 a := [...]int{1, 2}
+
+// 泛型数组声明
+a := []interface{}{2, 1, []interface{}{3, []interface{}{4, 5}, 6}, 7, []interface{}{8}}
 ```
 
 Go 内置了 len 与 cap 函数，用于获取数组的尺寸与容量：
@@ -797,6 +854,57 @@ r := &Vertex{1, 2}
 var s *Vertex = new(Vertex)
 ```
 
+当我们在定义结构体时，可以使用指针或者值作为接受者来定义方法用指针作为接收者，那么变量（或者可以称作对象）本身是按引用传递的，在方法内可以修改对象的数据。使用值接收者，以为这是按值传递的，那么对象在方法内是处于只读状态的。并且指针类型时调用方法会复制 receiver, 每调用一次 TestValue,item 就会被复制一次.实际相当于 TestValue(v),TestPointer(&v)。
+
+```go
+type VideoItem struct {
+	GroupId  int64
+	ItemId   int64
+	AggrType int32
+}
+
+func (item *VideoItem) TestPointer(GroupId int64) {
+	fmt.Printf("TestPointer %p %v\n", item, item)
+	item.GroupId = GroupId
+}
+
+func (item VideoItem) TestValue(GroupId int64) {
+	fmt.Printf("TestPointer %p %v\n", &item, &item)
+	item.GroupId = GroupId
+}
+
+func main() {
+	v := VideoItem{}
+	fmt.Printf("TestPointer %p %v\n", &v, &v)
+
+    // 值不变
+    v.TestValue(1)
+
+    // v 的 GroupId 被修改为 2
+	v.TestPointer(2)
+
+    // 值不变
+    (&v).TestValue(3)
+
+    // v 的  GroupId 被修改为 4
+	(&v).TestPointer(4)
+
+	fmt.Println(v)
+}
+
+/*
+TestPointer 0xc420018300 &{0 0 0}
+TestPointer 0xc420018360 &{0 0 0}
+TestPointer 0xc420018300 &{0 0 0}
+TestPointer 0xc4200183c0 &{0 0 0}
+TestPointer 0xc420018300 &{0 0 0}
+*/
+```
+
+传递普通变量传递值拷贝，不能修改原始值，如果是大对象则内存效率不高。
+传递变量的指针，指针为固定大小，效率更高，可以就地修改对象的原始值。
+在方法集的使用上，无论接收者是变量还是指针，都能直接正确调用，无需特殊处理， 能正确调用所有绑定在该值或指针上的方法，Go 会自动帮我们处理引用与解引用。
+
 ## Interface | 接口
 
 Go 允许我们通过定义接口的方式来实现多态性：
@@ -898,7 +1006,7 @@ type Speaker interface {
 func Perform(a Speaker) { return a.Speaks() }
 ```
 
-## Embedding
+## Embedding | 嵌入
 
 Go 语言中并没有子类继承这样的概念，而是通过嵌入(Embedding)的方式来实现类或者接口的组合。
 

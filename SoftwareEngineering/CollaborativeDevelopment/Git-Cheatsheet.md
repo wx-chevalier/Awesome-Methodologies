@@ -2,21 +2,23 @@
 
 # Git CheatSheet | Git 命令速览与备忘清单
 
-# Configuration: 配置
+--force 会使用本地分支的提交覆盖远端推送分支的提交。也就是说，如果其他人在相同的分支推送了新的提交，你的这一举动将“删除”他的那些提交！就算在强制推送之前先 fetch 并且 merge 或 rebase 了也是不安全的，因为这些操作到推送之间依然存在时间差，别人的提交可能发生在这个时间差之内。使用此参数推送，如果远端有其他人推送了新的提交，那么推送将被拒绝，这种拒绝和没有加 --force 参数时的拒绝是一样的。
 
-* 列举所有的别名与配置
+# Configuration | 配置
+
+- 列举所有的别名与配置
 
 ```
 git config --list
 ```
 
-* Git 别名配置
+- Git 别名配置
 
 ```
 git config --global alias.<handle> <command> git config --global alias.st status
 ```
 
-* 设置 git 为大小写敏感
+- 设置 git 为大小写敏感
 
 ```
 git config --global core.ignorecase false
@@ -26,25 +28,25 @@ git config --global core.ignorecase false
 
 ## Help: 常用的辅助查询命令
 
-* 在 git 命令行里查看 everyday git
+- 在 git 命令行里查看 everyday git
 
 ```
 git help everyday
 ```
 
-* 显示 git 常用的帮助命令
+- 显示 git 常用的帮助命令
 
 ```
 git help -g
 ```
 
-* 获取 Git Bash 的自动补全
+- 获取 Git Bash 的自动补全
 
 ```
 curl http://git.io/vfhol > ~/.git-completion.bash && echo '[ -f ~/.git-completion.bash ] && . ~/.git-completion.bash' >> ~/.bashrc
 ```
 
-* 设置自动更正
+- 设置自动更正
 
 ```
 git config --global help.autocorrect 1
@@ -52,7 +54,7 @@ git config --global help.autocorrect 1
 
 ## Remote: 远端仓库配置
 
-* 获取所有远端引用配置
+- 获取所有远端引用配置
 
 ```
 git remote
@@ -64,7 +66,7 @@ git remote
 git remote show
 ```
 
-* 修改某个远端的地址
+- 修改某个远端的地址
 
 ```
 git remote set-url origin <URL>
@@ -72,13 +74,13 @@ git remote set-url origin <URL>
 
 ## Repo
 
-* 查看当前仓库中的所有未打包的 objects 和磁盘占用
+- 查看当前仓库中的所有未打包的 objects 和磁盘占用
 
 ```
 git count-objects --human-readable
 ```
 
-* 从 object 数据库中删除所有不可达的 object
+- 从 object 数据库中删除所有不可达的 object
 
 ```
 git gc --prune=now --aggressive
@@ -90,19 +92,19 @@ git gc --prune=now --aggressive
 
 ### Info
 
-* 展示所有被追踪的文件
+- 展示所有被追踪的文件
 
 ```
 git ls-files -t
 ```
 
-* 展示所有未被追踪的分支
+- 展示所有未被追踪的分支
 
 ```
 git ls-files --others
 ```
 
-* 展示所有被忽略的文件
+- 展示所有被忽略的文件
 
 ```
 git ls-files --others -i --exclude-standard
@@ -112,7 +114,7 @@ git status --ignored
 
 ### Manipulation: 操作
 
-* 停止追踪某个文件但是不删除它
+- 停止追踪某个文件但是不删除它
 
 ```
 git rm --cached <file_path>
@@ -124,7 +126,7 @@ git rm --cached <file_path>
 git rm --cached -r <directory_path>
 ```
 
-* 强制删除未被追踪的文件或者目录
+- 强制删除未被追踪的文件或者目录
 
 ```
 git clean -f
@@ -132,7 +134,7 @@ git clean -f -d
 git clean -df
 ```
 
-* 清空`.gitignore`
+- 清空`.gitignore`
 
 ```
 git clean -X -f
@@ -142,25 +144,25 @@ git clean -X -f
 
 ### Info: 信息查看
 
-* 查看上次提交之后的未暂存文件
+- 查看上次提交之后的未暂存文件
 
 ```
 git diff
 ```
 
-* 查看准备用于提交的暂存了的修改的文件
+- 查看准备用于提交的暂存了的修改的文件
 
 ```
 git diff --cached
 ```
 
-* 显示所有暂存与未暂存的文件
+- 显示所有暂存与未暂存的文件
 
 ```
 git diff HEAD
 ```
 
-* 查看最新的文件版本与 Stage 中区别
+- 查看最新的文件版本与 Stage 中区别
 
 ```
 git diff --staged
@@ -168,7 +170,7 @@ git diff --staged
 
 ### Add: 追踪某个修改，准备提交
 
-* Stage 某个文件的部分修改而不是全部
+- Stage 某个文件的部分修改而不是全部
 
 ```
 git add -p
@@ -176,7 +178,7 @@ git add -p
 
 ### Reset: 修改重置
 
-* 以 HEAD 中的最新的内容覆盖某个本地文件的修改
+- 以 HEAD 中的最新的内容覆盖某个本地文件的修改
 
 ```
 git checkout -- <file_name>
@@ -186,7 +188,7 @@ git checkout -- <file_name>
 
 ### Info: 信息查看
 
-* 展示所有保存的 Stashes
+- 展示所有保存的 Stashes
 
 ```
 git stash list
@@ -196,7 +198,7 @@ git stash list
 
 #### Save: 保存
 
-* 保存当前追踪的文件修改状态而不提交，并使得工作空间恢复干净
+- 保存当前追踪的文件修改状态而不提交，并使得工作空间恢复干净
 
 ```
 git stash
@@ -208,7 +210,7 @@ git stash
 git stash save
 ```
 
-* 保存所有文件修改，包括未追踪的文件
+- 保存所有文件修改，包括未追踪的文件
 
 ```
 git stash save -u
@@ -222,13 +224,13 @@ git stash save --include-untracked
 
 #### Apply: 应用
 
-* 应用任何的 Stash 而不从 Stash 列表中删除
+- 应用任何的 Stash 而不从 Stash 列表中删除
 
 ```
 git stash apply <stash@{n}>
 ```
 
-* 应用并且删除 Stash 列表中的最后一个
+- 应用并且删除 Stash 列表中的最后一个
 
 ```
 git stash pop
@@ -240,7 +242,7 @@ git stash pop
 git stash apply stash@{0} && git stash drop stash@{0}
 ```
 
-* 删除全部存储的 Stashes
+- 删除全部存储的 Stashes
 
 ```
 git stash clear
@@ -252,7 +254,7 @@ git stash clear
 git stash drop <stash@{n}>
 ```
 
-* 从某个 Stash 中应用单个文件
+- 从某个 Stash 中应用单个文件
 
 ```
 git checkout <stash@{n}> -- <file_path>
@@ -266,7 +268,7 @@ git checkout stash@{0} -- <file_path>
 
 # Commit: 提交
 
-* 检索某个提交的 Hash 值
+- 检索某个提交的 Hash 值
 
 ```
 git rev-list --reverse HEAD | head -1
@@ -276,13 +278,13 @@ git rev-list --reverse HEAD | head -1
 
 ### List:Commit 列表
 
-* 查看自 Fork Master 以来的全部提交
+- 查看自 Fork Master 以来的全部提交
 
 ```
 git log --no-merges --stat --reverse master..
 ```
 
-* 展示当前分支中所有尚未合并到 Master 中的提交
+- 展示当前分支中所有尚未合并到 Master 中的提交
 
 ```
 git cherry -v master
@@ -294,7 +296,7 @@ git cherry -v master
 git cherry -v master <branch-to-be-merged>
 ```
 
-* 可视化地查看整个 Version 树
+- 可视化地查看整个 Version 树
 
 ```
 git log --pretty=oneline --graph --decorate --all
@@ -306,7 +308,7 @@ git log --pretty=oneline --graph --decorate --all
 gitk -all
 ```
 
-* 查看所有在分支 1 而不在分支 2 中的提交
+- 查看所有在分支 1 而不在分支 2 中的提交
 
 ```
 git log Branch1 ^Branch2
@@ -314,19 +316,19 @@ git log Branch1 ^Branch2
 
 ### Files: 文件信息
 
-* 展示直到某次提交的全部文件列表
+- 展示直到某次提交的全部文件列表
 
 ```
 git ls-tree --name-only -r <commit-ish>
 ```
 
-* 展示所有在某次提交中修改的文件
+- 展示所有在某次提交中修改的文件
 
 ```
 git diff-tree --no-commit-id --name-only -r <commit-ish>
 ```
 
-* 展示所有对于某个文件的提交修改
+- 展示所有对于某个文件的提交修改
 
 ```
 git log --follow -p -- <file_path>
@@ -336,19 +338,19 @@ git log --follow -p -- <file_path>
 
 ### Apply:Commit 确认或者应用
 
-* 利用 cherry-pick 将某个分支的某个提交跨分支的应用到其他分支
+- 利用 cherry-pick 将某个分支的某个提交跨分支的应用到其他分支
 
 ```
 git checkout <branch-name> && git cherry-pick <commit-ish>
 ```
 
-* 提交时候忽略 Staging 区域
+- 提交时候忽略 Staging 区域
 
 ```
 git commit -am <commit message>
 ```
 
-* 提交时候忽略某个文件
+- 提交时候忽略某个文件
 
 ```
 git update-index --assume-unchanged Changelog;
@@ -356,13 +358,13 @@ git commit -a;
 git update-index --no-assume-unchanged Changelog
 ```
 
-* 撤销某个故意忽略
+- 撤销某个故意忽略
 
 ```
 git update-index --no-assume-unchanged <file_name>
 ```
 
-* 将某个提交标记为对之前某个提交的 Fixup
+- 将某个提交标记为对之前某个提交的 Fixup
 
 ```
 git commit --fixup <SHA-1>
@@ -370,13 +372,13 @@ git commit --fixup <SHA-1>
 
 ### Reset: 将当前分支的 HEAD 重置到某个提交时候的状态
 
-* 重置 HEAD 到第一次提交
+- 重置 HEAD 到第一次提交
 
 ```
 git update-ref -d HEAD
 ```
 
-* 丢弃自某个 Commit 之后的提交，建议只在私有分支上进行操作。注意，和上一个操作一样，重置不会修改当前的文件状态，Git 会自动将当前文件与该 Commit 时候的改变作为 Changes 列举出来
+- 丢弃自某个 Commit 之后的提交，建议只在私有分支上进行操作。注意，和上一个操作一样，重置不会修改当前的文件状态，Git 会自动将当前文件与该 Commit 时候的改变作为 Changes 列举出来
 
 ```
 git reset <commit-ish>
@@ -384,13 +386,13 @@ git reset <commit-ish>
 
 ### Undo&Revert: 撤销与恢复某个 Commit
 
-* 以创建一个新提交的方式撤销某个提交的操作
+- 以创建一个新提交的方式撤销某个提交的操作
 
 ```
 git revert <commit-ish>
 ```
 
-* 恢复某个文件到某个 Commit 时候的状态
+- 恢复某个文件到某个 Commit 时候的状态
 
 ```
 git checkout <commit-ish> -- <file_path>
@@ -398,25 +400,25 @@ git checkout <commit-ish> -- <file_path>
 
 ### Update: 修改某个 Commit
 
-* 修改上一个提交的信息
+- 修改上一个提交的信息
 
 ```
 git commit -v --amend
 ```
 
-* 修改提交的作者信息
+- 修改提交的作者信息
 
 ```
 git commit --amend --author='Author Name <email@address.com>'
 ```
 
-* 在全局的配置改变了之后，修改某个作者信息
+- 在全局的配置改变了之后，修改某个作者信息
 
 ```
 git commit --amend --reset-author --no-edit
 ```
 
-* 修改前一个 Commit 的提交内容但是不修改提交信息
+- 修改前一个 Commit 的提交内容但是不修改提交信息
 
 ```
 git add --all && git commit --amend --no-edit
@@ -426,7 +428,7 @@ git add --all && git commit --amend --no-edit
 
 ## Info: 信息查看
 
-* 获取当前分支名
+- 获取当前分支名
 
 ```
 git rev-parse --abbrev-ref HEAD
@@ -434,7 +436,7 @@ git rev-parse --abbrev-ref HEAD
 
 ### Tag
 
-* 列举当前分支上最常用的标签
+- 列举当前分支上最常用的标签
 
 ```
 git describe --tags --abbrev=0
@@ -442,19 +444,19 @@ git describe --tags --abbrev=0
 
 ### List: 分支枚举
 
-* 获取所有本地与远程的分支
+- 获取所有本地与远程的分支
 
 ```
 git branch -a
 ```
 
-* 只展示远程分支
+- 只展示远程分支
 
 ```
 git branch -r
 ```
 
-* 根据某个 Commit 的 Hash 来查找所有关联分支
+- 根据某个 Commit 的 Hash 来查找所有关联分支
 
 ```
 git branch -a --contains <commit-ish>
@@ -468,7 +470,7 @@ git branch --contains <commit-ish>
 
 ### Changes: 某个分支上的修改情况查看
 
-* 查看两周以来的所有修改
+- 查看两周以来的所有修改
 
 ```
 git log --no-merges --raw --since='2 weeks ago'
@@ -482,19 +484,19 @@ git whatchanged --since='2 weeks ago'
 
 ### Merger: 合并情况查看
 
-* 追踪某个分支的上游分支
+- 追踪某个分支的上游分支
 
 ```
 git branch -u origin/mybranch
 ```
 
-* 列举出所有的分支以及它们的上游和最后一次提交
+- 列举出所有的分支以及它们的上游和最后一次提交
 
 ```
 git branch -vv
 ```
 
-* 列举出所有已经合并进入 Master 的分支
+- 列举出所有已经合并进入 Master 的分支
 
 ```
 git branch --merged master
@@ -504,13 +506,13 @@ git branch --merged master
 
 ### Checkout: 检出与分支切换
 
-* 快速切换到上一个分支
+- 快速切换到上一个分支
 
 ```
 git checkout -
 ```
 
-* 不带历史记录的检出某个分支
+- 不带历史记录的检出某个分支
 
 ```
 git checkout --orphan <branch_name>
@@ -518,13 +520,13 @@ git checkout --orphan <branch_name>
 
 ### Remove: 分支移除
 
-* 删除本地分支
+- 删除本地分支
 
 ```
 git branch -d <local_branchname>
 ```
 
-* 删除远程分支
+- 删除远程分支
 
 ```
 git push origin --delete <remote_branchname>
@@ -536,13 +538,13 @@ git push origin --delete <remote_branchname>
 git push origin :<remote_branchname>
 ```
 
-* 移除所有已经合并进入 Master 的分支
+- 移除所有已经合并进入 Master 的分支
 
 ```
 git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d
 ```
 
-* 移除所有在远端已经被删除的远程分支
+- 移除所有在远端已经被删除的远程分支
 
 ```
 git fetch -p
@@ -556,7 +558,7 @@ git remote prune origin
 
 ### Update: 信息更新
 
-* 修改当前分支名
+- 修改当前分支名
 
 ```
 git branch -m <new-branch-name>
@@ -570,19 +572,19 @@ git branch -m [<old-branch-name>] <new-branch-name>
 
 ### Archive: 打包
 
-* 将 Master 分支打包
+- 将 Master 分支打包
 
 ```
 git archive master --format=zip --output=master.zip
 ```
 
-* 将历史记录包括分支内容打包到一个文件中
+- 将历史记录包括分支内容打包到一个文件中
 
 ```
 git bundle create <file> <branch-name>
 ```
 
-* 从某个 Bundle 中导入
+- 从某个 Bundle 中导入
 
 ```
 git clone repo.bundle <repo-dir> -b <branch-name>
@@ -592,13 +594,13 @@ git clone repo.bundle <repo-dir> -b <branch-name>
 
 ## Pull&Push: 远程分支合并操作
 
-* 用 pull 覆盖本地内容
+- 用 pull 覆盖本地内容
 
 ```
 git fetch --all && git reset --hard origin/master
 ```
 
-* 根据 Pull 的 ID 拉取某个 Pull 请求到本地分支
+- 根据 Pull 的 ID 拉取某个 Pull 请求到本地分支
 
 ```
 git fetch origin pull/<id>/head:<branch-name>
@@ -612,31 +614,31 @@ git pull origin pull/<id>/head:<branch-name>
 
 ## Rebase: 变基
 
-* 在 Pull 时候强制用变基进行操作
+- 在 Pull 时候强制用变基进行操作
 
 ```git config --global branch.autosetuprebase always
 
 ```
 
-* 将某个 feature 分支变基到 master，然后合并进 master
+- 将某个 feature 分支变基到 master，然后合并进 master
 
 ```git checkout feature && git rebase @{-1} && git checkout @{-2} && git merge @{-1}
 
 ```
 
-* 变基之前自动 Stash 所有改变
+- 变基之前自动 Stash 所有改变
 
 ```git rebase --autostash
 
 ```
 
-* 利用变基自动将 fixup 提交与正常提交合并
+- 利用变基自动将 fixup 提交与正常提交合并
 
 ```git rebase -i --autosquash
 
 ```
 
-* 利用 ReBase 将前两个提交合并 ```git rebase --interactive HEAD~2
+- 利用 ReBase 将前两个提交合并 ```git rebase --interactive HEAD~2
 
 ```
 ## Diff&Conflict:差异与冲突
@@ -739,7 +741,7 @@ git add .gitattributes
 ### 分支管理
 ```
 
-> * [Git 常用命令整理](http://justcoding.iteye.com/blog/1830388)
+> - [Git 常用命令整理](http://justcoding.iteye.com/blog/1830388)
 
 # Initialization & Config
 
@@ -1444,7 +1446,7 @@ $ git log --author="username" --pretty=format:"%h - %an, %ar : %s"
 
 ## Commit History: 查看提交历史
 
-* 提交历史文件
+- 提交历史文件
 
 ```sh
 # 管道命令，可用于脚本
@@ -1590,24 +1592,24 @@ $ git mv [file-original] [file-renamed]
 
 我们通过 git commit 命令带出的 vim 界面填写的最终结果应该类似如上这个结构, 大致分为三个部分(使用空行分割):
 
-* 标题行: 必填, 描述主要修改类型和内容
-* 主题内容: 描述为什么修改, 做了什么样的修改, 以及开发的思路等等
-* 页脚注释: 放 Breaking Changes 或 Closed Issues
+- 标题行: 必填, 描述主要修改类型和内容
+- 主题内容: 描述为什么修改, 做了什么样的修改, 以及开发的思路等等
+- 页脚注释: 放 Breaking Changes 或 Closed Issues
 
 分别由如下部分构成:
 
-* type: commit 的类型
-* feat: 新特性
-* fix: 修改问题
-* refactor: 代码重构
-* docs: 文档修改
-* style: 代码格式修改, 注意不是 css 修改
-* test: 测试用例修改
-* chore: 其他修改, 比如构建流程, 依赖管理.
-* scope: commit 影响的范围, 比如: route, component, utils, build...
-* subject: commit 的概述, 建议符合 [50/72 formatting](https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
-* body: commit 具体修改内容, 可以分为多行, 建议符合 [50/72 formatting](https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
-* footer: 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
+- type: commit 的类型
+- feat: 新特性
+- fix: 修改问题
+- refactor: 代码重构
+- docs: 文档修改
+- style: 代码格式修改, 注意不是 css 修改
+- test: 测试用例修改
+- chore: 其他修改, 比如构建流程, 依赖管理.
+- scope: commit 影响的范围, 比如: route, component, utils, build...
+- subject: commit 的概述, 建议符合 [50/72 formatting](https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
+- body: commit 具体修改内容, 可以分为多行, 建议符合 [50/72 formatting](https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
+- footer: 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
 
 这样一个符合规范的 commit message, 就好像是一份邮件.
 

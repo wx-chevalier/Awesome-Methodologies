@@ -10,6 +10,9 @@
 
   - [ ] 发布英文版本
 
+- [ ] NLP-CheatSheet
+  - [ ] https://mp.weixin.qq.com/s/ceCopgMboWvNxl8qgmeB-Q 提取其中的序列标注与条件随机场
+
 # Milestone 0.1
 
 - [ ] CSS CheatSheet
@@ -138,7 +141,7 @@
   - [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
   - [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
 
-* [ ] Tensorflow CheatSheet
+* [ ] TensorFlow CheatSheet
 
   - [什么是张量-知乎问答](https://www.zhihu.com/question/20695804/answer/64920043)
 

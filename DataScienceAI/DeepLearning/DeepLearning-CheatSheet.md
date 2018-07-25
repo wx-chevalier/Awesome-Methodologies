@@ -1,11 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-> [基础深度学习概念备忘录](https://zhuanlan.zhihu.com/p/24436419)翻译自[DeepLearning Cheat Sheet](https://hackernoon.com/deep-learning-cheat-sheet-25421411e460#.l6qu01rnm)。笔者还是菜鸟一枚，若有谬误请多多赐教，另外如果希望了解更多机器学习&深度学习的资料可以参考笔者的[面向程序猿的数据科学与机器学习知识体系及资料合集](https://github.com/wxyyxc1992/DataScience-And-MachineLearning-Handbook-For-Coders/DataScience-Links)以及[程序猿的数据科学与机器学习实战手册](https://github.com/wxyyxc1992/DataScience-And-MachineLearning-Handbook-For-Coders)。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-VcdHE40-TqZ3anN-YHk5uQ.png)
-
-深度学习可能对于很多初学者是一头雾水，在高速发展的同时有很多新的概念名词被抛出，而本文则是对一些常见名词的备忘介绍。
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-WKE8FNkYjqJk_qfeuvio6A.png)
+# DeepLearning CheatSheet | 深度学习概念备忘
 
 # Gradient ∇ (微分算符)：梯度
 
