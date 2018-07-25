@@ -252,6 +252,19 @@ new Date('2011-01-01T11:00:00') - new Date('1992/02/11 12:00:12');
 ### 创建
 
 ```js
+// 创建一个数组
+const arrayObj = new Array();
+
+// 创建一个数组并指定长度，注意不是上限，是长度
+const arrayObj = new Array([size]);
+
+// 创建一个数组并赋值
+const arrayObj = new Array([element0[, element1[, ...[, elementN]]]]);
+```
+
+也可以从类数组结构中创建出新的数组对象：
+
+```js
 const arrayLike = {
   0: 'a',
   1: 'b',
@@ -282,6 +295,42 @@ uniqueArray([1, 2, 2, 3, 4, 4, 5]);
 ### 索引与遍历
 
 ### 增删复制
+
+数组元素的添加：
+
+```js
+// 将一个或多个新元素添加到数组结尾，并返回数组新长度
+arrayObj.push([item1 [item2 [. . . [itemN ]]]]);
+
+// 将一个或多个新元素添加到数组开始，数组中的元素自动后移，返回数组新长度
+arrayObj.unshift([item1 [item2 [. . . [itemN ]]]]);
+
+//将一个或多个新元素插入到数组的指定位置，插入位置的元素自动后移，返回""
+arrayObj.splice(insertPos,0,[item1[, item2[, . . . [,itemN]]]]);
+```
+
+数组元素的删除：
+
+```js
+// 移除最后一个元素并返回该元素值
+arrayObj.pop();
+
+// 移除最前一个元素并返回该元素值，数组中元素自动前移
+arrayObj.shift();
+
+// 删除从指定位置deletePos开始的指定数量deleteCount的元素，数组形式返回所移除的元素
+arrayObj.splice(deletePos, deleteCount);
+```
+
+数组的截取与合并：
+
+```js
+// 以数组的形式返回数组的一部分，注意不包括 end 对应的元素，如果省略 end 将复制 start 之后的所有元素
+arrayObj.slice(start, [end]);
+
+// 将多个数组（也可以是字符串，或者是数组和字符串的混合）连接为一个数组，返回连接好的新的数组
+arrayObj.concat([item1[, item2[, . . . [,itemN]]]]);
+```
 
 ### Transform | 变换
 
@@ -320,18 +369,35 @@ const flattenDepth = (arr, depth = 1) =>
 // flattenDepth([1,[2],[[[3],4],5]], 2) -> [1,2,[3],4,5]
 ```
 
+数组元素的排序：
+
+```js
+// 反转元素（最前的排到最后、最后的排到最前），返回数组地址
+arrayObj.reverse();
+
+// 对数组元素排序，返回数组地址
+arrayObj.sort();
+```
+
+数组元素的字符串化：
+
+```js
+// 返回字符串，这个字符串将数组的每一个元素值连接在一起，中间用 separator 隔开。
+arrayObj.join(separator);
+```
+
 ## Set
 
 ```js
 // it contains
 // ["sumit","amit","anil","anish"]
-var set1 = new Set(['sumit', 'sumit', 'amit', 'anil', 'anish']);
+let set1 = new Set(['sumit', 'sumit', 'amit', 'anil', 'anish']);
 
 // it contains 'f', 'o', 'd'
-var set2 = new Set('fooooooood');
+let set2 = new Set('fooooooood');
 
 // it contains [10, 20, 30, 40]
-var set3 = new Set([10, 20, 30, 30, 40, 40]);
+let set3 = new Set([10, 20, 30, 30, 40, 40]);
 
 set1
   .add(30)
@@ -347,7 +413,7 @@ set2.clear();
 
 // Using Set.prototype.entries()
 // creating set
-var set1 = new Set();
+let set1 = new Set();
 
 // adding element to the set
 set1.add(50);
@@ -357,7 +423,7 @@ set1.add(20);
 set1.add(10);
 
 // using entries to get iterator
-var getEntriesArry = set1.entries();
+let getEntriesArry = set1.entries();
 
 // each iterator is array of [value, value]
 // prints [50, 50]
@@ -365,6 +431,63 @@ console.log(getEntriesArry.next().value);
 ```
 
 ## Map
+
+## Typed Arrays & Buffer
+
+Typed Arrays 允许我们在 JavaScript 中处理二进制数据与结构，最早是用于 WebGL API 中，以缓解标准 JavaScript 数组转换与类型推测过慢的问题。
+
+```js
+// Floating point arrays.
+let f64 = new Float64Array(8);
+let f32 = new Float32Array(16);
+
+// Signed integer arrays.
+// size in bytes: 4
+let i32 = new Int32Array(16);
+// size in bytes: 2
+let i16 = new Int16Array(32);
+// size in bytes: 1
+let i8 = new Int8Array(64);
+
+// Unsigned integer arrays.
+let u32 = new Uint32Array(16);
+let u16 = new Uint16Array(32);
+let u8 = new Uint8Array(64);
+let pixels = new Uint8ClampedArray(64);
+```
+
+其典型的场景譬如 WebGL 中获取数据：
+
+```js
+gl.bufferData(
+  gl.ARRAY_BUFFER,
+  new Float32Array(textureCoordinates),
+  gl.STATIC_DRAW
+);
+```
+
+或者获取 Canvas 中的图像数据：
+
+```ks
+const uint8ClampedArray = ctx.getImageData(...).data;
+```
+
+ArrayBuffer 用于表示通用的、固定长度的二进制数据缓冲，我们并不能直接操作 ArrayBuffer 的内容；而是需要创建新的 Type Arrays 或者 DataView 对象，来获取固定格式的 ArrayBuffer 的值。
+
+```js
+// 字节长度为 8
+const buffer = new ArrayBuffer(8);
+
+// Int32Array(2) [0, 0]
+const view = new Int32Array(buffer);
+```
+
+SharedArrayBuffer 类似于 ArrayBuffer，不过其是基于共享内存，因此可以用于进程间通信的场景，譬如 UI 线程与 WebWorker 之间传递数据：
+
+```js
+const sab = new SharedArrayBuffer(1024);
+worker.postMessage(sab);
+```
 
 # 函数
 
@@ -374,7 +497,7 @@ console.log(getEntriesArry.next().value);
 
 ```js
 // Function Expression
-var sum = function(a, b) {
+let sum = function(a, b) {
   return a + b;
 };
 
@@ -457,7 +580,7 @@ Debouncing will bunch a series of sequential calls to a function into a single c
 ## Object
 
 ```js
-var object = {
+let object = {
   // `abc` is a valid identifier; no quotes are needed
   abc: 1,
   // `123` is a numeric literal; no quotes are needed
@@ -466,8 +589,8 @@ var object = {
   012: 3,
   // `π` is a valid identifier; no quotes are needed
   π: Math.PI,
-  // `var` is a valid identifier name (although it’s a reserved word); no quotes are needed
-  var: 4,
+  // `let` is a valid identifier name (although it’s a reserved word); no quotes are needed
+  let: 4,
   // `foo bar` is not a valid identifier name; quotes are required
   'foo bar': 5,
   // `foo-bar` is not a valid identifier name; quotes are required
@@ -499,11 +622,11 @@ o = Object.create(Object.prototype, {
 ### 对象拷贝
 
 ```js
-var o1 = { a: 1 };
-var o2 = { b: 2 };
-var o3 = { c: 3 };
+let o1 = { a: 1 };
+let o2 = { b: 2 };
+let o3 = { c: 3 };
 
-var obj = Object.assign(o1, o2, o3);
+let obj = Object.assign(o1, o2, o3);
 console.log(obj); // { a: 1, b: 2, c: 3 }
 console.log(o1); // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变。
 ```
@@ -525,10 +648,10 @@ export default class {}
 export default function foo () {}
 export default class foo {}
 
-// variables exports
-export var foo = 1;
-export var foo = function () {};
-export var bar; // lazy initialization
+// letiables exports
+export let foo = 1;
+export let foo = function () {};
+export let bar; // lazy initialization
 export let foo = 2;
 export let bar; // lazy initialization
 export const foo = 3;

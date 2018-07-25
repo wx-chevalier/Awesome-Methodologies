@@ -8,7 +8,7 @@
 
 # 基于 Session 的认证
 
-Cookie+Session 的存在主要是为了解决 HTTP 这一无状态协议下服务器如何识别用户的问题，其原理就是在用户登录通过验证后，服务端将数据加密后保存到客户端浏览器的 Cookie 中，同时服务器保留相对应的 Session（文件或 DB）。用户之后发起的请求都会携带 Cookie 信息，服务端需要根据 Cookie 寻回对应的 Session，从而完成验证，确认这是之前登陆过的用户。其工作原理如下图所示：
+Cookie 与 Session 的存在主要是为了解决 HTTP 这一无状态协议下服务器如何识别用户的问题，其原理就是在用户登录通过验证后，服务端将数据加密后保存到客户端浏览器的 Cookie 中，同时服务器保留相对应的 Session（文件或 DB）。用户之后发起的请求都会携带 Cookie 信息，服务端需要根据 Cookie 寻回对应的 Session，从而完成验证，确认这是之前登陆过的用户。其工作原理如下图所示：
 
 ![image](https://user-images.githubusercontent.com/5803001/43043318-d9211e10-8dc3-11e8-806c-e3074eb4dd39.png)
 

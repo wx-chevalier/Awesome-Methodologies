@@ -382,7 +382,7 @@ window.requestFileSystem(window.TEMPORARY, 1024 * 1024, onInitFs, errorHandler);
 
 ## Web Worker
 
-Web Worker 即是运行在后台独立线程中的 JavaScript 脚本，可以用其来执行阻塞性程序以避免影响到页面的性能。Worker 会运行在独立的不同于当前 window 的全局上下文中，因此我们并不能再 Worker 中进行 DOM 操作。直接使用 Worker 构造函数创建的 worker 被称为 dedicated worker, 其运行在所谓的 [DedicatedWorkerGlobalScope](https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope) 代表的上下文中，其仅允许创建脚本进行访问；而另一种 shared worker 则运行在 SharedWorkerGlobalScope 代表的上下文中，其允许多个脚本访问。实际上 ServiceWorkers 也是 Web Worker 的一种，其常被用于 Web 应用之间，或者浏览器与网络之间的代理；致力于提供更良好的离线体验，并且能够介入到网络请求中完成缓存与更新等操作。ServiceWorkers 同样能够被用于进行通知推送与后台同步接口，更多关于 ServiceWorkers 与 PWA 相关内容可以参考 [PWA-CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Web/Production/PWA-CheatSheet.md)。
+Web Worker 即是运行在后台独立线程中的 JavaScript 脚本，可以用其来执行阻塞性程序以避免影响到页面的性能。Worker 会运行在独立的不同于当前 window 的全局上下文中，因此我们并不能再 Worker 中进行 DOM 操作。直接使用 Worker 构造函数创建的 worker 被称为 dedicated worker, 其运行在所谓的 [DedicatedWorkerGlobalScope](https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope) 代表的上下文中，其仅允许创建脚本进行访问；而另一种 shared worker 则运行在 SharedWorkerGlobalScope 代表的上下文中，其允许多个脚本访问。实际上 ServiceWorkers 也是 Web Worker 的一种，其常被用于 Web 应用之间，或者浏览器与网络之间的代理；致力于提供更良好的离线体验，并且能够介入到网络请求中完成缓存与更新等操作。ServiceWorkers 同样能够被用于进行通知推送与后台同步接口，更多关于 ServiceWorkers 与 PWA 相关内容可以参考 [PWA-CheatSheet](https://parg.co/Gzb)。
 
 ```js
 // 判断浏览器是否支持 Worker
