@@ -3,6 +3,16 @@
 [Message-oriented middleware (MOM)](http://en.wikipedia.org/wiki/Message-oriented_middleware) is software or hardware infrastructure supporting sending and receiving messages between distributed systems。
 In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queue) and mailboxes are software-engineering components used for inter-process communication (IPC), or for inter-thread communication within the same process.
 
+消息队列作为成熟的异步通信模式，对比常用的同步通信模式，有如下优势：
+
+解耦：防止引入过多的 API 给系统的稳定性带来风险；调用方使用不当会给被调用方系统造成压力，被调用方处理不当会降低调用方系统的响应能力。
+
+削峰和流控：消息生产者不会堵塞，突发消息缓存在队列中，消费者按照实际能力读取消息。
+
+复用：一次发布多方订阅。
+
+# 生态圈
+
 为何使用消息系统
  解耦在项目启动之初来预测将来项目会碰到什么需求，是极其困难的。消息系统在处理过程中间插入了一个隐含的、基于数据的接口层，两边的处理过程都要实现这一接口。这允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。
 
