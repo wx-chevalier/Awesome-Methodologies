@@ -97,15 +97,14 @@ SELECT a.distributor_id,
 
 ### 子查询作为数据源使用
 
-```
 当子查询在外部查询的**FROM**子句之后使用时,子查询被当作一个**数据源**使用,即使这时子查询只返回一个单一值(Scalar)或是一列值(Column)，在这里依然可以看作一个特殊的**数据源**,即一个二维数据表(Table).作为数据源使用的子查询很像一个**View(视图),**只是这个子查询只是临时存在，并不包含在数据库中。比如：
-```
 
 ```sql
-SELECT     P.ProductID, P.Name, P.ProductNumber, M.Name AS ProductModelName
-FROM         Production.Product AS P INNER JOIN
-(SELECT     Name, ProductModelID
- FROM          Production.ProductModel) AS M
+SELECT P.ProductID, P.Name, P.ProductNumber, M.Name AS ProductModelName
+FROM Production.Product AS P
+INNER JOIN
+(SELECT Name, ProductModelID
+ FROM Production.ProductModel) AS M
 ON P.ProductModelID = M.ProductModelID
 ```
 

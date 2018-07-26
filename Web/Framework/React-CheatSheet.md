@@ -132,7 +132,7 @@ render() {
 }
 ```
 
-## 组件与 DOM
+### 组件与 DOM
 
 ```js
 class VideoPlayer extends React.Component {
@@ -166,6 +166,47 @@ class VideoPlayer extends React.Component {
     );
   }
 }
+```
+
+React 16.3 版本之后允许使用 createRef 来预创建元素引用，从而更方便进行命令式控制：
+
+```js
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.inputRef = React.createRef();
+  }
+
+  render() {
+    return <input type="text" ref={this.inputRef} />;
+  }
+
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+}
+```
+
+### Children
+
+React 的核心为组件，而在嵌套使用中，我们可以通过 `props.children` 来引用当前组件的子组件；React 中的 Children 不一定是组件，它们可以是任何东西。鉴于这种不确定性，React 为我们提供了多个 API 进行元素的操控：
+
+```js
+// 复制某个元素
+React.cloneElement(element, [props], [...children]);
+
+// 从某个组件类或者类型中创建元素
+React.createElement(type, [props], [...children]);
+
+// 转换子元素
+React.Children.map(children, function[(thisArg)])
+
+// 遍历子元素
+React.Children.forEach(children, function[(thisArg)])
+
+// 如果仅有单个子元素，则返回
+React.Children.only(children)
 ```
 
 ## 事件监听与响应
@@ -323,6 +364,34 @@ React 中的组件又可以分为受控组件与非受控组件，所谓的非�
 
 ## Context
 
+React 16.3 之后引入了新的 Context API，允许我们以 HOC 的方式
+
+```js
+const ThemeContext = React.createContext('light');
+
+class ThemeProvider extends React.Component {
+  state = { theme: 'light' };
+
+  render() {
+    return (
+      <ThemeContext.Provider value={this.state.theme}>
+        {this.props.children}
+      </ThemeContext.Provider>
+    );
+  }
+}
+
+class ThemedButton extends React.Component {
+  render() {
+    return (
+      <ThemeContext.Consumer>
+        {theme => <Button theme={theme} />}
+      </ThemeContext.Consumer>
+    );
+  }
+}
+```
+
 # React Router
 
 ```js
@@ -374,7 +443,7 @@ Proton Native does the same to desktop that React Native did to mobile. Build cr
 
 # TypeScript
 
-React 的 TypeScript 类型声明[types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
+React 的 TypeScript 类型声明可以参考 [types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
 
 ```ts
 import * as React from 'react';
