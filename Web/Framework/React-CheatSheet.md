@@ -443,7 +443,7 @@ Proton Native does the same to desktop that React Native did to mobile. Build cr
 
 # TypeScript
 
-React 的 TypeScript 类型声明可以参考 [types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
+React 的 TypeScript 类型声明可以参考 [types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)，[antd](https://github.com/ant-design/ant-design) 也是非常不错的使用 TypeScript 开发的大型 React 项目。
 
 ```ts
 import * as React from 'react';

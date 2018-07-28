@@ -8,9 +8,35 @@ kubelet: 工作节点上的代理 daemon, 与 master 通信
 
 kubectl: 集群管理工具
 
-# 安装与配置
+## 安装与配置
 
 推荐首先使用 [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) 搭建简单的本地化集群，也可以使用 [Docker 自带的 Kubernetes 实例](https://parg.co/lBZ)；Minikube 需要依次安装 [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 以及 [minikube](https://github.com/kubernetes/minikube/releases)。
+
+kubeadm 用于搭建并启动一个集群，kubelet 用于集群中所有节点上都有的用于做诸如启动 pod 或容器这种事情，kubectl 则是与集群交互的命令行接口。kubelet 和 kubectl 并不会随 kubeadm 安装而自动安装，需要手工安装。
+
+在安装 kubeadm 时候，如果碰到需要翻墙的情况，可以使用 USTC 的源：
+
+```sh
+$ vim /etc/apt/sources.list.d/kubernetes.list
+$ deb http://mirrors.ustc.edu.cn/kubernetes/apt/ kubernetes-xenial main
+
+$ apt-get install -y kubelet kubeadm kubectl --allow-unauthenticated
+$ apt-mark hold kubelet kubeadm kubectl
+```
+
+配置 cgroup driver, 保证和 docker 的一样:
+
+```sh
+$ docker info | grep -i cgroup
+$ vim etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+
+# 添加执行选项
+$ /usr/bin/kubelet ... cgroup-driver=systemd
+
+# 配置修改后重启
+$ systemctl daemon-reload
+$ systemctl restart kubectl
+```
 
 鉴于 gcr 域名的不可用，我们需要利用 [ss-privoxy](https://hub.docker.com/r/bluebu/shadowsocks-privoxy/) 等工具搭建 Docker 源代理，也可以参考[这里](https://www.jianshu.com/p/13f4b23824d8)手动配置客户端：
 
@@ -18,41 +44,69 @@ kubectl: 集群管理工具
 $ docker run -i -t -e SERVER_ADDR=ss.server.ip -e SERVER_PORT=port -e PASSWORD=123456 bluebu/shadowsocks-privoxy
 ```
 
-## 命令行配置
+kubeadm 安装完毕后，可以初始化 Master 节点：
 
-# Client Configuration
+```sh
+kubeadm init
+```
 
-* Setup autocomplete in bash; bash-completion package should be installed first
+完整配置文件可以参考[这里](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file):
 
-  `source <(kubectl completion bash)`
+```yaml
+apiVersion: kubeadm.k8s.io/v1alpha1
+kind: MasterConfiguration
+networking:
+  podSubnet: 10.244.0.0/16 # 使用 flannel
+```
 
-* View Kubernetes config
+可以手工指定默认网关使用的网络接口，配置非 root 用户:
 
-  `kubectl config view`
+```sh
+$ mkdir -p $HOME/.kube
 
-* View specific config items by json path
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 
-  `kubectl config view -o jsonpath='{.users[?(@.name == "k8s")].user.password}'`
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
+或者 root 用户
+
+```sh
+$ export KUBECONFIG=/etc/kubernetes/admin.conf
+```
+
+### 命令行配置
+
+```sh
+# Setup autocomplete in bash; bash-completion package should be installed first
+$ source <(kubectl completion bash)
+
+# View Kubernetes config
+$ kubectl config view
+
+# View specific config items by json path
+$ kubectl config view -o jsonpath='{.users[?(@.name == "k8s")].user.password}'
+```
 
 # 资源管理
 
-* Get documentation for pod or service
+- Get documentation for pod or service
 
   `kubectl explain pods,svc`
 
-* Create resource(s) like pods, services or daemonsets
+- Create resource(s) like pods, services or daemonsets
 
   `kubectl create -f ./my-manifest.yaml`
 
-* Apply a configuration to a resource
+- Apply a configuration to a resource
 
   `kubectl apply -f ./my-manifest.yaml`
 
-* Start a single instance of Nginx
+- Start a single instance of Nginx
 
   `kubectl run nginx --image=nginx`
 
-* Create a secret with several keys
+- Create a secret with several keys
 
       	```
       	cat <<EOF | kubectl create -f -
@@ -67,87 +121,87 @@ $ docker run -i -t -e SERVER_ADDR=ss.server.ip -e SERVER_PORT=port -e PASSWORD=1
       	EOF
       	```
 
-* Delete a resource
+- Delete a resource
 
   `kubectl delete -f ./my-manifest.yaml`
 
 # 资源检索
 
-* List all services in the namespace
+- List all services in the namespace
 
   `kubectl get services`
 
-* List all pods in all namespaces in wide format
+- List all pods in all namespaces in wide format
 
   `kubectl get pods -o wide --all-namespaces`
 
-* List all pods in json (or yaml) format
+- List all pods in json (or yaml) format
 
   `kubectl get pods -o json`
 
-* Describe resource details (node, pod, svc)
+- Describe resource details (node, pod, svc)
 
   `kubectl describe nodes my-node`
 
-* List services sorted by name
+- List services sorted by name
 
   `kubectl get services --sort-by=.metadata.name`
 
-* List pods sorted by restart count
+- List pods sorted by restart count
 
   `kubectl get pods --sort-by='.status.containerStatuses[0].restartCount'`
 
-* Rolling update pods for frontend-v1
+- Rolling update pods for frontend-v1
 
   `kubectl rolling-update frontend-v1 -f frontend-v2.json`
 
-* Scale a replicaset named 'foo' to 3
+- Scale a replicaset named 'foo' to 3
 
   `kubectl scale --replicas=3 rs/foo`
 
-* Scale a resource specified in "foo.yaml" to 3
+- Scale a resource specified in "foo.yaml" to 3
 
   `kubectl scale --replicas=3 -f foo.yaml`
 
-* Execute a command in every pod / replica
+- Execute a command in every pod / replica
 
   `for i in 0 1; do kubectl exec foo-$i -- sh -c 'echo $(hostname) > /usr/share/nginx/html/index.html'; done`
 
 # 监控与日志
 
-* Deploy Heapster from Github repository
+- Deploy Heapster from Github repository
   https://github.com/kubernetes/heapster
 
   `kubectl create -f deploy/kube-config/standalone/`
 
-* Show metrics for nodes
+- Show metrics for nodes
 
   `kubectl top node`
 
   `kubectl top node my-node-1`
 
-* Show metrics for pods
+- Show metrics for pods
 
   `kubectl top pod`
 
   `kubectl top pod my-pod-1`
 
-* Show metrics for a given pod and its containers
+- Show metrics for a given pod and its containers
 
   `kubectl top pod pod_name --containers`
 
-* Dump pod logs (stdout)
+- Dump pod logs (stdout)
 
   `kubectl logs pod_name`
 
-* Stream pod container logs
+- Stream pod container logs
   (stdout, multi-container case)
 
   `kubectl logs -f pod_name -c my-container`
 
 # Pod
 
-* Create a daemonset from stdin. The example deploys [Sematext Docker Agent](https://sematext.com/kuberntes) to all nodes for the cluster-wide collection of metrics, logs and events. There is NO need to deploy cAdvisor, Heapster, Prometheus, Elasticsearch, Grafana, InfluxDb on your local nodes. Please replace YOUR_SPM_DOCKER_TOKEN and YOUR_LOGSENE_TOKEN with your tokens created in [Sematext Cloud UI](https://apps.sematext.com/ui/integrations/create/docker) before you run the command.
+- Create a daemonset from stdin. The example deploys [Sematext Docker Agent](https://sematext.com/kuberntes) to all nodes for the cluster-wide collection of metrics, logs and events. There is NO need to deploy cAdvisor, Heapster, Prometheus, Elasticsearch, Grafana, InfluxDb on your local nodes. Please replace YOUR_SPM_DOCKER_TOKEN and YOUR_LOGSENE_TOKEN with your tokens created in [Sematext Cloud UI](https://apps.sematext.com/ui/integrations/create/docker) before you run the command.
 
 ```yaml
 apiVersion: extensions/v1beta1

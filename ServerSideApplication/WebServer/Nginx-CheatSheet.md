@@ -2,7 +2,7 @@
 
 ![](http://blog.commando.io/content/images/2014/11/1-Tg9FYCN99FlNj0gn9u8s7A-5-2.jpeg)
 
-# Nginx 配置详解与生产环境实践
+# Nginx CheatSheet | Nginx 配置详解与生产环境实践
 
 在了解具体的 Nginx 配置项之前我们需要对于 Nginx 配置文件的构成有所概念，一般来说，Nginx 配置文件会由如下几个部分构成：
 
@@ -44,11 +44,11 @@ http
 
 在上述配置中我们可以看出，Nginx 配置文件由以下几个部分构成：
 
-* 全局块：配置影响 nginx 全局的指令。一般有运行 nginx 服务器的用户组，nginx 进程 pid 存放路径，日志存放路径，配置文件引入，允许生成 worker process 数等。
-* events 块：配置影响 nginx 服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网路连接，开启多个网络连接序列化等。
-* http 块：可以嵌套多个 server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type 定义，日志自定义，是否使用 sendfile 传输文件，连接超时时间，单连接请求数等。
-* server 块：配置虚拟主机的相关参数，一个 http 中可以有多个 server。
-* location 块：配置请求的路由，以及各种页面的处理情况。
+- 全局块：配置影响 nginx 全局的指令。一般有运行 nginx 服务器的用户组，nginx 进程 pid 存放路径，日志存放路径，配置文件引入，允许生成 worker process 数等。
+- events 块：配置影响 nginx 服务器或与用户的网络连接。有每个进程的最大连接数，选取哪种事件驱动模型处理连接请求，是否允许同时接受多个网路连接，开启多个网络连接序列化等。
+- http 块：可以嵌套多个 server，配置代理，缓存，日志定义等绝大多数功能和第三方模块的配置。如文件引入，mime-type 定义，日志自定义，是否使用 sendfile 传输文件，连接超时时间，单连接请求数等。
+- server 块：配置虚拟主机的相关参数，一个 http 中可以有多个 server。
+- location 块：配置请求的路由，以及各种页面的处理情况。
 
 ```
 ########### 每个指令必须有分号结束。#################
@@ -102,7 +102,7 @@ include /etc/nginx/sites-enabled/*;
 
 # 虚拟主机与静态站点
 
-* [SERVING STATIC CONTENT](https://www.nginx.com/resources/admin-guide/serving-static-content/)
+- [SERVING STATIC CONTENT](https://www.nginx.com/resources/admin-guide/serving-static-content/)
 
 本部分概述如何配置 Nginx 进行静态内容服务，Nginx 的静态内容分发能力还是非常强大的。
 
@@ -233,7 +233,7 @@ location / {
 
 ## 缓存配置
 
-* [HTTP 缓存的四种风味与缓存策略](https://segmentfault.com/a/1190000006689795)
+- [HTTP 缓存的四种风味与缓存策略](https://segmentfault.com/a/1190000006689795)
 
 ### Expire:过期时间
 
@@ -334,7 +334,7 @@ http {
 
 ## Upstream Cache
 
-* [A Guide to Caching with NGINX and NGINX Plus](https://www.nginx.com/blog/nginx-caching-guide/)
+- [A Guide to Caching with NGINX and NGINX Plus](https://www.nginx.com/blog/nginx-caching-guide/)
 
 ```
 http {
@@ -359,7 +359,7 @@ http {
 
 # HTTPS
 
-* [HTTPS 理论详解与实践 ](https://segmentfault.com/a/1190000004985253)
+- [HTTPS 理论详解与实践 ](https://segmentfault.com/a/1190000004985253)
 
 ## Let's Encrypt 证书申请
 
