@@ -209,6 +209,77 @@ React.Children.forEach(children, function[(thisArg)])
 React.Children.only(children)
 ```
 
+React.Children.map 与 React.Children.forEach 能够用于遍历与转化，即使 children 传入的是函数对象也能够正常处理：
+
+```js
+// 忽略首个元素
+{
+  React.Children.map(children, (child, i) => {
+    // Ignore the first child
+    if (i < 1) return;
+    return child;
+  });
+}
+
+// 即使传入的是函数，也能够正常执行
+<IgnoreFirstChild>
+  {() => <h1>First</h1>} // <- Ignored 💪
+</IgnoreFirstChild>
+```
+
+`React.Children.count` 则是能够对子元素进行正确的统计：
+
+```js
+// Renders "3"
+<ChildrenCounter>
+  {() => <h1>First!</h1>}
+  Second!
+  <p>Third!</p>
+</ChildrenCounter>
+```
+
+能将 children 转换为数组通过 `React.Children.toArray` 方法。如果你需要对它们进行排序，这个方法是非常有用的。
+
+```js
+class Sort extends React.Component {
+  render() {
+    const children = React.Children.toArray(this.props.children);
+    // Sort and render the children
+    return <p>{children.sort().join(' ')}</p>;
+  }
+}
+
+<Sort>
+  // We use expression containers to make sure our strings // are passed as
+  three children, not as one string
+  {'bananas'}
+  {'oranges'}
+  {'apples'}
+</Sort>;
+```
+
+在已知仅有一个子元素的情况下，我们也可以使用 `only` 函数来获取该元素实例：
+
+```js
+class Executioner extends React.Component {
+  render() {
+    return React.Children.only(this.props.children)();
+  }
+}
+```
+
+在需要对子元素进行修改的场景下，我们可以使用 `cloneElement`，将想要克隆的元素当作第一个参数，然后将想要设置的属性以对象的方式作为第二个参数。
+
+```js
+renderChildren() {
+  return React.Children.map(this.props.children, child => {
+    return React.cloneElement(child, {
+      name: this.props.name
+    })
+  })
+}
+```
+
 ## 事件监听与响应
 
 为了避免过多地事件监听，React 引入了 SyntheticEvent 来集中式地监听事件与调用响应函数；我们自定义的事件处理器都会被传入 SyntheticEvent 对象，其支持 `stopPropagation()` 与 `preventDefault()`，并且保证了跨浏览器的一致性。出于性能的考虑，SyntheticEvent 会复用传入的 Event 对象，因此我们避免直接异步读取 Event 对象的值，而是应该使用闭包将需要的值保存下来：
