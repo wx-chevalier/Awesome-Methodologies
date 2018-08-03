@@ -480,7 +480,7 @@ interface KeyValuePair extends Array<number | string> {
 }
 ```
 
-## 空类型
+## 空类型/未知类型
 
 TypeScript 提供了 null, undefined, never, void 这几种空类型，它们都是其他类型的子类型，因为任何有类型的值都有可能是空（也就是执行期间可能没有值）。
 

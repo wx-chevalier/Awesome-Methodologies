@@ -228,9 +228,75 @@ fetch(url).then(function(response) {
 fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
 ```
 
-## FormData
+## 本地通信
+
+跨 Tab 或者跨 iframe 间通信
+
+- BroadcastChannel
+
+```js
+const channel = new BroadcastChannel('channel-name');
+
+channel.postMessage('some message');
+channel.postMessage({ key: 'value' });
+
+channel.onmessage = function(e) {
+  const message = e.data;
+};
+
+channel.close();
+```
+
+- SharedWorker API
+
+A Shared Worker behaves in a similar way as regular Web Workers except that different browsing contexts from the same origin will have shared access to the worker.
+
+```js
+// main.js
+const worker = new SharedWorker('shared-worker.js');
+
+worker.port.postMessage('some message');
+
+worker.port.onmessage = function(e) {
+  const message = e.data;
+};
+
+// shared-worker.js
+const connections = [];
+
+onconnect = function(e) {
+  const port = e.ports[0];
+  connections.push(port);
+};
+
+onmessage = function(e) {
+  connections.forEach(function(connection) {
+    if (connection !== port) {
+      connection.postMessage(e.data);
+    }
+  });
+};
+```
+
+- Local Storage
+
+```js
+localStorage.setItem('key', 'value');
+
+window.onstorage = function(e) {
+  const message = e.newValue; // previous value at e.oldValue
+};
+```
 
 # 数据存储
+
+## 本地存储
+
+### Cookie
+
+### localStorage & sessionStorage
+
+### indexdb
 
 ## 文件操作
 

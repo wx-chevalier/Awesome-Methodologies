@@ -1,8 +1,8 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# 2018 React 设计理念，语法纵览与实践清单
+# React CheatSheet | React 设计理念，语法纵览与实践清单
 
-这是一篇非常冗长的文章，是笔者 []() 系列的提炼。
+这是一篇非常冗长的文章，是笔者 [现代 Web 开发基础与工程实践-React 篇](https://github.com/wxyyxc1992/Web-Series/tree/master/React) 系列的提炼。
 
 # Principles | 设计理念
 
@@ -34,6 +34,7 @@ React 及其相对严格的规范
 ```
 
 React 广泛实践了[函数式编程]()的思想，将状态到界面抽象为了如下的映射函数：$UI=f(state)$。在 React 中 $f$ 可以看做是那个 render 函数，可以将 state 渲染成 Virtual DOM，Virtual DOM 再被 React 渲染成真正的 DOM。
+
 
 ## Virtual DOM
 
@@ -353,6 +354,90 @@ return (
 
 ### CSS-in-JS
 
+## 组件动画与变换
+
+React Transition Group 提供了 Transition, CSSTransition, TransitionGroup 三个辅助组件，来根据组件的状态添加合适的过渡动画。Transition 组件提供了简单的声明式接口，来向子组件传递当前的动画状态：
+
+```js
+import Transition from 'react-transition-group/Transition';
+
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0
+};
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 }
+};
+
+const Fade = ({ in: inProp }) => (
+  <Transition in={inProp} timeout={duration}>
+    {state => (
+      <div
+        style={{
+          ...defaultStyle,
+          ...transitionStyles[state]
+        }}
+      >
+        I'm a fade Transition!
+      </div>
+    )}
+  </Transition>
+);
+```
+
+CSSTransition 则是自动为不同的动画状态匹配不同的样式类：
+
+> 📎 完整代码参阅 [CodeSandbox](https://codesandbox.io/s/q8jxjqoj56)
+
+```jsx
+<CSSTransition
+  in={showValidationMessage}
+  timeout={300}
+  classNames="message"
+  unmountOnExit
+  onExited={() => {
+    this.setState({
+      showValidationButton: true
+    });
+  }}
+>
+  {state => (
+    <HelpBlock>
+      Your name rocks!
+      <CSSTransition
+        in={state === 'entered'}
+        timeout={300}
+        classNames="star"
+        unmountOnExit
+      >
+        <div className="star">⭐</div>
+      </CSSTransition>
+    </HelpBlock>
+  )}
+</CSSTransition>
+```
+
+其中 classNames 属性会自动在不同阶段应用不同的样式类名，我们也可以自行定义：
+
+```js
+classNames={{
+ appear: 'my-appear',
+ appearActive: 'my-active-appear',
+ enter: 'my-enter',
+ enterActive: 'my-active-enter',
+ enterDone: 'my-done-enter,
+ exit: 'my-exit',
+ exitActive: 'my-active-exit',
+ exitDone: 'my-done-exit,
+}}
+```
+
+最后的 TransitionGroup 则是为我们提供了多个组件的管理，譬如 `<Transition>` 或 `<TransitionGroup>`，作为状态机来管理组件挂载或者卸载时候的状态。
+
 # Component Dataflow | 组件数据流
 
 ## Props
@@ -499,6 +584,58 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 ```
 
 ## 异常处理
+
+## 性能优化
+
+### 组件分割
+
+[SystemJS](https://github.com/systemjs/systemjs) 或者 [ES 中的 Dynamic Import](https://github.com/tc39/proposal-dynamic-import) 允许我们动态地导入 ES Modules，也就方便了我们在应用中应用组件分割，以实现按需加载，优化首屏体验：
+
+![image](https://user-images.githubusercontent.com/5803001/43630880-24ebe3ba-9734-11e8-80cc-02bcf686100e.png)
+
+ 一般来说，我们可以根据路由或者组件来执行懒加载，不过在 React Router 4 遵循路由即组件的理念之后，二者也无太大差异：
+
+```js
+class MyComponent extends React.Component {
+  state = {
+    Bar: null
+  };
+
+  componentWillMount() {
+    import('./components/Bar').then(Bar => {
+      this.setState({ Bar });
+    });
+  }
+
+  render() {
+    let { Bar } = this.state;
+    if (!Bar) {
+      return <div>Loading...</div>;
+    } else {
+      return <Bar />;
+    }
+  }
+}
+```
+
+[react-loadable](https://github.com/jamiebuilds/react-loadable) 是非常不错的异步组件加载库，同时能够支持服务端渲染等多种场景：
+```js
+import Loadable from 'react-loadable';
+
+const LoadableBar = Loadable({
+  loader: () => import('./components/Bar'),
+  loading() {
+    return <div>Loading...</div>
+  }
+});
+
+class MyComponent extends React.Component {
+  render() {
+    return <LoadableBar/>;
+  }
+}
+```
+
 
 # Ecosystem | React 生态圈
 
