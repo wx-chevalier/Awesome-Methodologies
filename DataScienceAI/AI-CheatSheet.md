@@ -50,9 +50,13 @@ Predict
 
 ![image](https://user-images.githubusercontent.com/5803001/43595548-846b86e0-96af-11e8-951b-ae913482c19c.png)
 
+传统的机器学习往往需要大量的领域知识与计算时间，而深度学习为我们带来了无限灵活的函数、通用的参数拟合、高速可扩展等特性的算法。
+
 Traditional statistical models do very well on structured data, i.e. tabular data, but have notoriously struggled with unstructured data like images, audio, and natural language. Neural networks that contain many layers of neurons embody the research that is popularly called Deep Learning. The key insight and property of deep neural networks that make them suitable for modeling unstructured data is that complex data, like images, generally have many layers of unique features that are composed to produce the data. As a classic example: images have edges which form the basis for textures, textures form the basis for simple objects, simple objects form the basis for more complex objects, and so on. In deep neural networks we aim to learn these many layers of composable features.
 
 Traditional statistical models do very well on structured data, i.e. tabular data, but have notoriously struggled with unstructured data like images, audio, and natural language. Neural networks that contain many layers of neurons embody the research that is popularly called Deep Learning. The key insight and property of deep neural networks that make them suitable for modeling unstructured data is that complex data, like images, generally have many layers of unique features that are composed to produce the data. As a classic example: images have edges which form the basis for textures, textures form the basis for simple objects, simple objects form the basis for more complex objects, and so on. In deep neural networks we aim to learn these many layers of composable features.
+
+![image](https://user-images.githubusercontent.com/5803001/43685359-4a84c7d4-98e4-11e8-8bce-7ef4cd2aa686.png)
 
 ## NLP | 自然语言处理
 
@@ -64,13 +68,18 @@ Traditional statistical models do very well on structured data, i.e. tabular dat
 
 💡 Sigmod $\sigma$ 💡
 
-用于将神经元的输出结果限制在 `[0,1]` 范围内的阈值函数，该函数的输出图形看起来有点像 `S` 型，在希腊语中就是所谓 Sigma。Sigmoid 函数是 Logistic 函数的某个特例。
+神经网络中的激活函数，其作用就是引入非线性。具体的非线性形式，则有多种选择。sigmoid 的优点在于输出范围有限，所以数据在传递的过程中不容易发散。当然也有相应的缺点，就是饱和的时候梯度太小。sigmoid 还有一个优点是输出范围为 (0, 1)，所以可以用作输出层，输出表示概率。Sigmoid 函数是一个在生物学中常见的 S 型的函数，也称为 S 形生长曲线。Sigmoid 函数由下列公式定义，其导数可以节约计算时间:
 
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-t8WcbQSLFIxlCiN_YQSyJw.png)
+$$
+S(x) = \frac{1}{1+ e^{-x}} \\
+S'(x)=S(x)[1-S(x)]
+$$
+
+Geoff Hinton covered exactly this topic in his coursera course on neural nets. The problem with sigmoids is that as you reach saturation (values get close to 1 or 0), the gradients vanish. This is detrimental to optimization speed. Softmax doesn't have this problem, and in fact if you combine softmax with a cross entropy error function the gradients are just (z-y), as they would be for a linear output with least squares error.
 
 ```py
 # sigmoid function
-def sigmoid(x,deriv=False):
+def sigmoid(x, deriv=False):
     if(deriv==True):
         return x*(1-x)
     return 1/(1+np.exp(-x))
@@ -85,6 +94,30 @@ def sigmoid(x,deriv=False):
 Gradient ∇ (微分算符)：梯度
 
 梯度即是某个函数的偏导数，其允许输入多个向量然后输出单个值，某个典型的函数即是神经网络中的损失函数。梯度会显示出随着变量输入的增加输出值增加的方向，换言之，如果我们要降低损失值则反梯度逆向前行即可。
+
+梯度下降法 Gradient Descent 是一种常用的一阶(first-order)优化方法，是求解无约束优化问题最简单、最经典的方法之一。考虑无约束优化问题$min_xf(x)$，其中$f(x)$为连续可微函数。如果能构造出一个序列$x^0,x^1,...,x^t$满足：
+
+$$
+f(x^{t+1}) < f(x^t),t=0,1,2...
+$$
+
+则不断执行该过程即可以收敛到局部极小点。而根据泰勒展示我们可以知道:
+
+$$
+f(x+\Delta x) \simeq f(x) + \Delta x^T \nabla f(x)
+$$
+
+于是，如果要满足 $f(x+\Delta x) < f(x)$，可以选择:
+
+$$
+\Delta x = -{step} \nabla f(x)
+$$
+
+其中$step$是一个小常数，表示步长。以求解目标函数最小化为例，梯度下降算法可能存在一下几种情况：
+
+- 当目标函数为凸函数时，局部极小点就对应着函数全局最小值时，这种方法可以快速的找到最优解；
+- 当目标函数存在多个局部最小值时，可能会陷入局部最优解。因此需要从多个随机的起点开始解的搜索。
+- 当目标函数不存在最小值点，则可能陷入无限循环。因此，有必要设置最大迭代次数。
 
 # Back Propagation：反向传播
 

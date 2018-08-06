@@ -35,7 +35,6 @@ React 及其相对严格的规范
 
 React 广泛实践了[函数式编程]()的思想，将状态到界面抽象为了如下的映射函数：$UI=f(state)$。在 React 中 $f$ 可以看做是那个 render 函数，可以将 state 渲染成 Virtual DOM，Virtual DOM 再被 React 渲染成真正的 DOM。
 
-
 ## Virtual DOM
 
 在组件中，我们不需要关心 DOM 是如何变更的，只需要在我们的业务逻辑中完成状态转变，React 会自动将这个变更显示在 UI 中。在浏览器渲染网页的过程中，加载到 HTML 文档后，会将文档解析并构建 DOM 树，然后将其与解析 CSS 生成的 CSSOM 树一起结合产生爱的结晶——RenderObject 树，然后将 RenderObject 树渲染成页面(当然中间可能会有一些优化，比如 RenderLayer 树)。这些过程都存在与渲染引擎之中，渲染引擎在浏览器中是于 JavaScript 引擎(JavaScriptCore 也好 V8 也好)分离开的，但为了方便 JS 操作 DOM 结构，渲染引擎会暴露一些接口供 JavaScript 调用。由于这两块相互分离，通信是需要付出代价的，因此 JavaScript 调用 DOM 提供的接口性能不咋地。各种性能优化的最佳实践也都在尽可能的减少 DOM 操作次数。而虚拟 DOM 干了什么？它直接用 JavaScript 实现了 DOM 树(大致上)。组件的 HTML 结构并不会直接生成 DOM，而是映射生成虚拟的 JavaScript DOM 结构，React 又通过在这个虚拟 DOM 上实现了一个  diff  算法找出最小变更，再把这些变更写入实际的 DOM 中。这个虚拟 DOM 以 JS 结构的形式存在，计算性能会比较好，而且由于减少了实际 DOM 操作次数，性能会有较大提升。React 渲染出来的 HTML 标记都包含了`data-reactid`属性，这有助于 React 中追踪 DOM 节点。很多人第一次学习 React 的时候都会觉得 JSX 语法看上去非常怪异，这种背离传统的 HTML 模板开发方式真的靠谱吗？(在 2.0 版本中 Vue 也引入了 JSX 语法支持)。我们并不能单纯地将 JSX 与传统的 HTML 模板相提并论，JSX 本质上是对于`React.createElement`函数的抽象，而该函数主要的作用是将朴素的 JavaScript 中的对象映射为某个 DOM 表示。其大概思想图示如下：
@@ -619,23 +618,29 @@ class MyComponent extends React.Component {
 ```
 
 [react-loadable](https://github.com/jamiebuilds/react-loadable) 是非常不错的异步组件加载库，同时能够支持服务端渲染等多种场景：
+
 ```js
 import Loadable from 'react-loadable';
 
 const LoadableBar = Loadable({
   loader: () => import('./components/Bar'),
   loading() {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 });
 
 class MyComponent extends React.Component {
   render() {
-    return <LoadableBar/>;
+    return <LoadableBar />;
   }
 }
 ```
 
+### Async Rendering | 异步渲染
+
+![image](https://user-images.githubusercontent.com/5803001/43647448-3ecae700-976a-11e8-8126-d2a1804c027a.png)
+
+![image](https://user-images.githubusercontent.com/5803001/43647455-4383d356-976a-11e8-966d-900cde2749af.png)
 
 # Ecosystem | React 生态圈
 
@@ -667,4 +672,36 @@ const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
     <h3>{formatPrice(num, symbol)}</h3>
   </div>
 );
+```
+
+```ts
+export function positionStyle<T>(
+  Component: React.ComponentType
+): React.StatelessComponent<T & { left: number; top: number }> {
+  return (props: any) => {
+    const { top, left, ...rest } = props;
+    return (
+      <div style={{ position: 'absolute', top, left }}>
+        <Component {...rest} />
+      </div>
+    );
+  };
+}
+```
+
+## 高阶组件
+
+譬如在 [types/react-redux](https://parg.co/o47) 中，connect 函数的类型声明可以 interface 来声明多个重载：
+
+```ts
+export interface Connect {
+  ...
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
+      mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+      mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
+  ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+  ...
+}
+
+export declare const connect: Connect;
 ```
