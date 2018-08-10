@@ -68,4 +68,6 @@ Recall = True Positives / (True Positives + False Negatives)
 用于计算预测标签值与真实标签值之间的差距，基本的定义如下:
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-9ZBskBY_piVwqC4GdZRl8g.png)
 
-# Neural Networks
+# Neural Networks | 神经网络
+
+线性结果加上值相关(Element wise)非线性结果，我们才能去模拟任意的复杂图形

@@ -6,10 +6,10 @@
 
 ## 文件目录
 
-* 当前目录：.
-* 上一级目录的上一级目录：..
-* 用户的主目录：~
-* 文件的系统根目录：/
+- 当前目录：.
+- 上一级目录的上一级目录：..
+- 用户的主目录：~
+- 文件的系统根目录：/
 
 ### 通配符
 
@@ -205,19 +205,12 @@ lsof -i :port
 
 ```sh
 # 同时移动两个文件
-
 $ mv foo.{txt,pdf} some-dir
 
-
-
 # 会被扩展成 cp somefile somefile.bak
-
 $ cp somefile{,.bak}
 
-
-
 # 会被扩展成所有可能的组合，并创建一个目录树
-
 $ mkdir -p test-{a,b,c}/subtest-{1,2,3}
 ```
 
@@ -483,7 +476,7 @@ $ tar -czf target.tar.fz file1 file2 file3
 
 ## 文件检索
 
-* 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则: ls -lR /home/han|grep js|wc -l 或 ls -l "/home/han"|grep "js"|wc -l
+- 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则: ls -lR /home/han|grep js|wc -l 或 ls -l "/home/han"|grep "js"|wc -l
 
 ### 文件名搜索
 
@@ -507,7 +500,7 @@ $find * -type f | fzf > selected
 
 ## 磁盘管理
 
-* 查看磁盘状态
+- 查看磁盘状态
 
 ```sh
 # 查看磁盘剩余空间
@@ -583,9 +576,9 @@ Vim 中可以使用 `:s` 命令来替换字符串：
 
 ### 版本型号
 
-* 使用 `hostname` 查看当前主机名，使用 `sudo hostname newName` 修改当前主机名
+- 使用 `hostname` 查看当前主机名，使用 `sudo hostname newName` 修改当前主机名
 
-- 查看 Linux 系统版本
+* 查看 Linux 系统版本
 
 ```bash
 # 查看内核版本
@@ -655,7 +648,7 @@ $ w
 
 ### 进程监控
 
-* 使用 `pstree -p` 查看当前进程树，使用 `ps -A` 查看所有进程信息，使用 `ps -aux` 查看所有正在内存中的程序，使用 `ps -ef` 查看所有连同命令行的进程信息；使用 `ps -u root` 显示指定用户信息；使用 `ps -ef | grep ssh` 查看特定进程。
+- 使用 `pstree -p` 查看当前进程树，使用 `ps -A` 查看所有进程信息，使用 `ps -aux` 查看所有正在内存中的程序，使用 `ps -ef` 查看所有连同命令行的进程信息；使用 `ps -u root` 显示指定用户信息；使用 `ps -ef | grep ssh` 查看特定进程。
 
 使用 `top` 查看进程资源占用情况，也可以使用扩展 `htop` 或者 `gtop`，如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
 

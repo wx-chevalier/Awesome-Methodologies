@@ -4,6 +4,8 @@
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
+![image](https://user-images.githubusercontent.com/5803001/43813144-f630ba5c-9af6-11e8-8443-175666d4615a.png)
+
 Docker 综合运用了 Cgroup
 
 docker 容器 =cgroup+namespace+secomp+capability+selinux []

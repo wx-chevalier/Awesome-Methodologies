@@ -506,6 +506,51 @@ function foo(x: string | number): boolean {
 }
 ```
 
+TypeScript 3.0 引入了一种名为 unknown 的新类型。与 any 一样，可以把任意值赋给 unknown。不过，与 any 不同的是，如果没有使用类型断言，则几乎没有可赋的值。你也不能访问 unknown 的任何属性，或者调用 / 构建它们。
+
+```ts
+let foo: unknown = 10;
+
+// 因为 `foo` 是 `unknown` 类型, 所以这些地方会出错。
+foo.y.prop;
+foo.z.prop;
+foo();
+new foo();
+upperCase(foo);
+foo`hello world!`;
+
+function upperCase(x: string) {
+  return x.toUpperCase();
+}
+```
+
+这个时候，我们可以执行强制检查，或者使用类型断言。
+
+```ts
+let foo: unknown = 10;
+
+function hasXYZ(obj: any): obj is { x: any; y: any; z: any } {
+  return (
+    !!obj && typeof obj === 'object' && 'x' in obj && 'y' in obj && 'z' in obj
+  );
+}
+
+// 使用用户定义的类型检查...
+if (hasXYZ(foo)) {
+  // ... 现在可以访问它的属性。
+  foo.x.prop;
+  foo.y.prop;
+  foo.z.prop;
+}
+
+// 通过使用类型断言，我们告诉 TypeScript，我们知道自己在做什么。
+upperCase(foo as string);
+
+function upperCase(x: string) {
+  return x.toUpperCase();
+}
+```
+
 # 复杂类型
 
 ## 接口
