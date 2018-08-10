@@ -2,7 +2,7 @@
 
 ![1_sso_vplej49wti_ubptvgq](https://user-images.githubusercontent.com/5803001/40587814-0000e1f2-6207-11e8-9e38-2e478a645c31.png)
 
-> 本文侧重于盘点 TypeScript 中类型声明与校验规则相关的知识点，对于与 ECMAScript 语法使用重合的部分建议阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [ECMAScript CheatSheet](https://parg.co/YhW)，对于 TypeScript 在 React/Redux 中的实践可以参阅 [React CheatSheet/TypeScript]()。需要声明的是，本文参考了 [TypeScript Links]() 中列举的很多文章或书籍，特别是官方的 [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html) 很值得仔细阅读。
+> 📌 本文侧重于盘点 TypeScript 中类型声明与校验规则相关的知识点，对于与 ECMAScript 语法使用重合的部分建议阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [ECMAScript CheatSheet](https://parg.co/YhW)，对于 TypeScript 在 React/Redux 中的实践可以参阅 [React CheatSheet/TypeScript]()。需要声明的是，本文参考了 [TypeScript Links]() 中列举的很多文章或书籍，特别是官方的 [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html) 很值得仔细阅读。
 
 # TypeScript CheatSheet | TypeScript 语法实践速览与实践清单
 
@@ -480,7 +480,7 @@ interface KeyValuePair extends Array<number | string> {
 }
 ```
 
-## 空类型
+## 空类型/未知类型
 
 TypeScript 提供了 null, undefined, never, void 这几种空类型，它们都是其他类型的子类型，因为任何有类型的值都有可能是空（也就是执行期间可能没有值）。
 
@@ -503,6 +503,51 @@ function foo(x: string | number): boolean {
   }
 
   return fail('Unexhaustive!');
+}
+```
+
+TypeScript 3.0 引入了一种名为 unknown 的新类型。与 any 一样，可以把任意值赋给 unknown。不过，与 any 不同的是，如果没有使用类型断言，则几乎没有可赋的值。你也不能访问 unknown 的任何属性，或者调用 / 构建它们。
+
+```ts
+let foo: unknown = 10;
+
+// 因为 `foo` 是 `unknown` 类型, 所以这些地方会出错。
+foo.y.prop;
+foo.z.prop;
+foo();
+new foo();
+upperCase(foo);
+foo`hello world!`;
+
+function upperCase(x: string) {
+  return x.toUpperCase();
+}
+```
+
+这个时候，我们可以执行强制检查，或者使用类型断言。
+
+```ts
+let foo: unknown = 10;
+
+function hasXYZ(obj: any): obj is { x: any; y: any; z: any } {
+  return (
+    !!obj && typeof obj === 'object' && 'x' in obj && 'y' in obj && 'z' in obj
+  );
+}
+
+// 使用用户定义的类型检查...
+if (hasXYZ(foo)) {
+  // ... 现在可以访问它的属性。
+  foo.x.prop;
+  foo.y.prop;
+  foo.z.prop;
+}
+
+// 通过使用类型断言，我们告诉 TypeScript，我们知道自己在做什么。
+upperCase(foo as string);
+
+function upperCase(x: string) {
+  return x.toUpperCase();
 }
 ```
 

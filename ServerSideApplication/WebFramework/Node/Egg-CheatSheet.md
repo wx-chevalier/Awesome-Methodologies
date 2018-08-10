@@ -87,9 +87,21 @@ module.exports = {
 
 # 请求
 
+## 参数处理
+
+如果希望在 Get 请求中传递数组：
+
+```js
+// http://localhost:7001/api/pocs?type[]=1&type[]=2
+
+ctx.queries.type; // ['1','2']
+```
+
 ## Session 与 Cookie
 
 ## 权限校验
+
+推荐使用 JSON Web Token [koajs/jwt](https://github.com/koajs/jwt)
 
 ## 安全过滤
 

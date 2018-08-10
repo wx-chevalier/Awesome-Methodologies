@@ -4,10 +4,25 @@
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
+![image](https://user-images.githubusercontent.com/5803001/43813144-f630ba5c-9af6-11e8-8443-175666d4615a.png)
+
 Docker 综合运用了 Cgroup
 
 docker 容器 =cgroup+namespace+secomp+capability+selinux []
 
+## 安装与配置
+
+```sh
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+$ sudo apt-get update
+
+$ apt-cache policy docker-ce # 列举 docker-ce 版本
+
+$ apt-get install docker-ce=17.03.2-ce....
+```
 
 # 容器
 
@@ -34,8 +49,8 @@ docker ps --filter "name=nostalgic"
 
 你的 Container 会在你结束命令之后自动退出，使用以下的命令选项可以将容器保持在激活状态：
 
-* `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
-* `-t` 分配一个伪 TTY 控制台
+- `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
+- `-t` 分配一个伪 TTY 控制台
 
 ```sh
 # 创建，并且启动某个容器以执行某个命令
@@ -69,7 +84,6 @@ docker exec -ti container_name command.sh
 docker logs -ft container_name
 ```
 
-
 # 镜像
 
 ## 构建与拉取
@@ -84,13 +98,11 @@ docker logs -ft container_name
 $ sudo docker build -t myrepo/myapp /tmp/test1/
 ```
 
-
 ```sh
 $ docker build -t username/image_name:tag_name .
 
 $ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
-
 
 ```sh
 # 拉取镜像
@@ -105,7 +117,6 @@ $ docker build -t username/image_name:tag_name .
 
 $ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
-
 
 关于 Dockfile 的具体语法，可以查看下文。
 
@@ -135,7 +146,7 @@ Docker 允许我们建立私有的 Registry 来存放于管理镜像，直接运
 $ docker run -d -p 5000:5000 --restart=always --name registry registry:2
 ```
 
-参考上文描述我们可知，镜像名的前缀即表示该镜像所属的 Registry 地址，因此我们可以通过 tag 方式将某个镜像推送到私有仓库：
+参考上文描述我们可知， 镜像名的前缀即表示该镜像所属的 Registry 地址，因此我们可以通过 tag 方式将某个镜像推送到私有仓库：
 
 ```sh
 # 拉取公共镜像
@@ -160,7 +171,7 @@ $ docker pull custom-domain:5000/my-ubuntu
 很多情况下我们的内部仓库并不会配置 HTTPS，如果希望以 HTTP 方式访问，那么需要在任何需要推送/拉取镜像的机器上配置非安全域名：
 
 ```json
-{ "insecure-registries":["myregistry.example.com:5000"] }
+{ "insecure-registries": ["myregistry.example.com:5000"] }
 ```
 
 有时候我们也需要为私有仓库配置权限认证，那么首先需要添加 TLS 支持，并且配置认证文件：
@@ -209,12 +220,12 @@ $ docker login myregistrydomain.com:5000
 
 据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
 
-* 数据卷可以在容器之间共享和重用
-* 对数据卷的修改会立马生效
-* 对数据卷的更新，不会影响镜像
-* 卷会一直存在，直到没有容器使用
+- 数据卷可以在容器之间共享和重用
+- 对数据卷的修改会立马生效
+- 对数据卷的更新，不会影响镜像
+- 卷会一直存在，直到没有容器使用
 
-* 数据卷的使用，类似于 Linux 下对目录或文件进行 mount。
+- 数据卷的使用，类似于 Linux 下对目录或文件进行 mount。
 
 For example,
 
@@ -296,7 +307,7 @@ dockerd ... --log-opt max-size=10m --log-opt max-file=3
 truncate -s 0 /var/lib/docker/containers/*/*-json.log
 ```
 
-# Dockfile 
+# Dockfile
 
 Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。例如：
 
@@ -327,11 +338,11 @@ CMD /usr/sbin/nginx
 | ------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
 | FROM   | 格式为 `FROM <image>`或`FROM <image>:<tag>` | 第一条指令必须为 `FROM` 指令。并且，如果在同一个 Dockerfile 中创建多个镜像时，可以使用多个 `FROM` 指令(每个镜像一次) |
 
-* MAINTAINER
+- MAINTAINER
 
 格式为 `MAINTAINER <name>`，指定维护者信息。
 
-* RUN
+- RUN
 
 格式为 `RUN <command>` 或 `RUN ["executable", "param1", "param2"]`。
 
@@ -339,25 +350,25 @@ CMD /usr/sbin/nginx
 
 每条 `RUN` 指令将在当前镜像基础上执行指定命令，并提交为新的镜像。当命令较长时可以使用 `\` 来换行。
 
-* CMD
+- CMD
 
 支持三种格式
 
-* `CMD ["executable","param1","param2"]` 使用 `exec` 执行，推荐方式；
-* `CMD command param1 param2` 在 `/bin/sh` 中执行，提供给需要交互的应用；
-* `CMD ["param1","param2"]` 提供给 `ENTRYPOINT` 的默认参数；
+- `CMD ["executable","param1","param2"]` 使用 `exec` 执行，推荐方式；
+- `CMD command param1 param2` 在 `/bin/sh` 中执行，提供给需要交互的应用；
+- `CMD ["param1","param2"]` 提供给 `ENTRYPOINT` 的默认参数；
 
 指定启动容器时执行的命令，每个 Dockerfile 只能有一条 `CMD` 命令。如果指定了多条命令，只有最后一条会被执行。
 
 如果用户启动容器时候指定了运行的命令，则会覆盖掉 `CMD` 指定的命令。
 
-* EXPOSE
+- EXPOSE
 
 格式为 `EXPOSE <port> [<port>...]`。
 
 告诉 Docker 服务端容器暴露的端口号，供互联系统使用。在启动容器时需要通过 -p 来指定端口映射，Docker 主机会自动分配一个端口转发到指定的端口。
 
-* ENV
+- ENV
 
 格式为 `ENV<key><value>`。指定一个环境变量，会被后续 `RUN` 指令使用，并在容器运行时保持。
 
@@ -370,13 +381,13 @@ RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/
 ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
 ```
 
-* ADD
+- ADD
 
 格式为 `ADD<src><dest>`。
 
 该命令将复制指定的 `<src>` 到容器中的 `<dest>`。其中 `<src>` 可以是 Dockerfile 所在目录的一个相对路径；也可以是一个 URL；还可以是一个 tar 文件(自动解压为目录)。
 
-* COPY
+- COPY
 
 格式为 `COPY <src><dest>`。
 
@@ -384,24 +395,24 @@ ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
 
 当使用本地目录为源目录时，推荐使用 `COPY`。
 
-* ENTRYPOINT
+- ENTRYPOINT
 
 两种格式：
 
-* `ENTRYPOINT ["executable", "param1", "param2"]`
-* `ENTRYPOINT command param1 param2`( shell 中执行)。
+- `ENTRYPOINT ["executable", "param1", "param2"]`
+- `ENTRYPOINT command param1 param2`( shell 中执行)。
 
 配置容器启动后执行的命令，并且不可被 `docker run` 提供的参数覆盖。
 
 每个 Dockerfile 中只能有一个 `ENTRYPOINT`，当指定多个时，只有最后一个起效。
 
-* VOLUME
+- VOLUME
 
 格式为 `VOLUME ["/data"]`。
 
 创建一个可以从本地主机或其他容器挂载的挂载点，一般用来存放数据库和需要保持的数据等。
 
-* USER
+- USER
 
 格式为 `USER daemon`。
 
@@ -409,7 +420,7 @@ ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
 
 当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户，例如：`RUN groupadd -r postgres && useradd -r -g postgres postgres`。要临时获取管理员权限可以使用 `gosu`，而不推荐 `sudo`。
 
-* WORKDIR
+- WORKDIR
 
 格式为 `WORKDIR /path/to/workdir`。
 
@@ -426,7 +437,7 @@ RUN pwd
 
 则最终路径为 `/a/b/c`。
 
-* ONBUILD
+- ONBUILD
 
 格式为 `ONBUILD [INSTRUCTION]`。
 
@@ -607,6 +618,5 @@ restart: always
 stdin_open:true
 tty:true
 ```
-
 
 # Docker Swarm

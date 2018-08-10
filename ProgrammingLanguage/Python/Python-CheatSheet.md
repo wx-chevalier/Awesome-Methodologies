@@ -351,7 +351,7 @@ print not t   # Logical NOT; prints "False"
 print t != f  # Logical XOR; prints "True"
 ```
 
-## String: 字符串
+## String | 字符串
 
 Python 2 中支持 Ascii 码的 str() 类型，独立的 unicode() 类型，没有 byte 类型；而 Python 3 中默认的字符串为 utf-8 类型，并且包含了 byte 与 bytearray 两个字节类型：
 
@@ -423,7 +423,23 @@ else:
     print "Found 'is' in the string."
 ```
 
-## Regex: 正则表达式
+### 模板字符串
+
+```py
+import datetime
+
+name = 'Fred'
+age = 50
+anniversary = datetime.date(1991, 10, 12)
+
+f'My name is {name}, my age next year is {age+1}, my anniversary is {anniversary:%A, %B %d, %Y}.'
+'My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.'
+
+f'He said his name is {name!r}.'
+"He said his name is 'Fred'."
+```
+
+## Regex | 正则表达式
 
 ```py
 import re

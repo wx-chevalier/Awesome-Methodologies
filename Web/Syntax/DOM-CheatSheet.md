@@ -228,9 +228,85 @@ fetch(url).then(function(response) {
 fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
 ```
 
-## FormData
+## 本地通信
+
+跨 Tab 或者跨 iframe 间通信
+
+### 同源通信
+
+- BroadcastChannel
+
+BroadcastChannel 能够用于同源不同页面之间完成通信的功能。它与 window.postMessage 的区别就是，BroadcastChannel 只能用于同源的页面之间进行通信，而 window.postMessage 却可以用于任何的页面之间；BroadcastChannel 可以认为是 window.postMessage 的一个实例，它承担了 window.postMessage 的一个方面的功能。
+
+```js
+const channel = new BroadcastChannel('channel-name');
+
+channel.postMessage('some message');
+channel.postMessage({ key: 'value' });
+
+channel.onmessage = function(e) {
+  const message = e.data;
+};
+
+channel.close();
+```
+
+- SharedWorker API
+
+Shared Worker 类似于 Web Workers，不过其会被来自同源的不同浏览上下文间共享，因此也可以用作消息的中转站。
+
+```js
+// main.js
+const worker = new SharedWorker('shared-worker.js');
+
+worker.port.postMessage('some message');
+
+worker.port.onmessage = function(e) {
+  const message = e.data;
+};
+
+// shared-worker.js
+const connections = [];
+
+onconnect = function(e) {
+  const port = e.ports[0];
+  connections.push(port);
+};
+
+onmessage = function(e) {
+  connections.forEach(function(connection) {
+    if (connection !== port) {
+      connection.postMessage(e.data);
+    }
+  });
+};
+```
+
+- Local Storage
+
+localStorage 是常见的持久化同源存储机制，其会在内容变化时触发事件，也就可以用作同源界面的数据通信。
+
+```js
+localStorage.setItem('key', 'value');
+
+window.onstorage = function(e) {
+  const message = e.newValue; // previous value at e.oldValue
+};
+```
+
+### 跨域通信
+
+postMessage
 
 # 数据存储
+
+## 本地存储
+
+### Cookie
+
+### localStorage & sessionStorage
+
+### indexdb
 
 ## 文件操作
 
@@ -433,3 +509,38 @@ instance.expensive(1000).then(count => {
 You cannot use Local Storage in service workers. It was decided that service workers should not have access to any synchronous APIs. You can use IndexedDB instead, or communicate with the controlled page using postMessage().
 
 By default, cookies are not included with fetch requests, but you can include them as follows: fetch(url, {credentials: 'include'}).
+
+```js
+function XHRWorker(url, ready, scope) {
+  var oReq = new XMLHttpRequest();
+  oReq.addEventListener(
+    'load',
+    function() {
+      var worker = new Worker(
+        window.URL.createObjectURL(new Blob([this.responseText]))
+      );
+      if (ready) {
+        ready.call(scope, worker);
+      }
+    },
+    oReq
+  );
+  oReq.open('get', url, true);
+  oReq.send();
+}
+
+function WorkerStart() {
+  XHRWorker(
+    'http://static.xxx.com/js/worker.js',
+    function(worker) {
+      worker.postMessage('hello world');
+      worker.onmessage = function(e) {
+        console.log(e.data);
+      };
+    },
+    this
+  );
+}
+
+WorkerStart();
+```

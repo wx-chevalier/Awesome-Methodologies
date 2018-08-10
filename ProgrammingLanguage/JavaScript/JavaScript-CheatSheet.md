@@ -47,6 +47,10 @@ const str = 'hello';
 const chars = [...str]; // ["h", "e", "l", "l", "o"]
 ```
 
+## 循环
+
+for-of 循环，可作用在可迭代对象上，正是利用了可迭代对象上的默认迭代器。大致过程是：for-of 循环每执行一次都会调用可迭代对象的 next()方法，并将迭代器返回的结果对象的 value 属性存储在变量中，循环将继续执行这一过程直到返回对象的 done 属性的值为 true。
+
 # 基本数据类型
 
 JavaScript 内置了 7 种基础数据类型：null, undefined,
@@ -110,6 +114,8 @@ str.substring(indexStart[, indexEnd])
 ```
 
 ## Regex | 正则表达式
+
+> 📚 参考资料
 
 对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数 :
 
@@ -575,6 +581,46 @@ Throttling will delay executing a function. It will reduce the notifications of 
 
 Debouncing will bunch a series of sequential calls to a function into a single call to that function. It ensures that one notification is made for an event that fires multiple times.
 
+## Generator & Iterator | 生成器与迭代器
+
+生成器是一种返回迭代器的函数，通过 function 关键字后的星号（\*）来表示，函数中会用到新的关键字 yield。在 ES6 中，所有的集合对象（数组、Set 集合及 Map 集合）和字符串都是可迭代对象，可迭代对象都绑定了默认的迭代器。
+
+`yield` 与 `next` 在生成器中扮演者非常重要的角色，前者是操作符，后者则是生成器上的属性函数，二者满足如下特性：
+
+- 生成器的语句会在外部调用 `next` 函数时执行，即我们可以在生成器之外控制其内部操作的执行过程。
+- 当生成器执行到 `yield` 操作符时会立即执行 `yield` 之后的语句并且暂停，语句的值作为上一步 `next` 函数的返回值，其是形如 `{done:false, value:x}` 的对象。
+- 继续调用 `next` 函数会使生成器继续执行，此处 `next` 函数的参数值会作为整个 `yield` 语句的值；生成器继续执行直到再次遇到 `yield`，或是遇到 `return`/`throw` 生成器就退出。
+- `next` 函数的返回值具有三种情况：
+  - 如果再次遇到 `yield` ， `next` 返回值中的 `value` 属性是紧接在这条 `yield` 之后的语句执行之后的返回值；
+  - 如果遇到的是 `return` ，那么返回对象 `{done:true, value}` 则是 `return` 的返回值；
+  - 其他情况下，返回对象 `{done:false, value:undefined}` ;
+
+我们可以通过简单的例子来验证上述流程描述：
+
+```js
+const iter = (function* gen() {
+  console.log(`yield ${yield 'a' + 0}`);
+  console.log(`yield ${yield 'b' + 1}`);
+  return 'c' + 2;
+})();
+
+console.log(`next:${iter.next(0).value}`); //输出 next:a0
+console.log(`next:${iter.next(1).value}`); //输出 yield 1 next:b1
+console.log(`next:${iter.next(2).value}`); //输出 yield 2 next:c2
+```
+
+可迭代对象，都有一个 Symbol.iterator 方法，for-of 循环时，通过调用 colors 数组的 Symbol.iterator 方法来获取默认迭代器的，这一过程是在 JavaScript 引擎背后完成的。
+
+```js
+let values = [1, 2, 3];
+let iterator = values[Symbol.iterator]();
+
+console.log(iterator.next()); // "{ value: 1, done: false}"
+console.log(iterator.next()); // "{ value: 2, done: false}"
+console.log(iterator.next()); // "{ value: 3, done: false}"
+console.log(iterator.next()); // "{ value: undefined, done: true}"
+```
+
 # 类与对象
 
 ## Object
@@ -630,6 +676,38 @@ let obj = Object.assign(o1, o2, o3);
 console.log(obj); // { a: 1, b: 2, c: 3 }
 console.log(o1); // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变。
 ```
+
+> 📖 [JavaScript 异步编程综述]()节选自 [JavaScript CheatSheet | 现代 JavaScript 语法速览与实战清单]()，依次介绍了 JavaScript 异步编程相关的回调、Promise、生成器、async/await 等相关内容。
+
+# 异步编程
+
+## Callback | 回调
+
+## Promise
+
+> 📚 参考资料: []()，[]()
+
+## 生成器
+
+[tj/co](https://github.com/tj/co)
+
+```js
+co(function*() {
+  var result = yield Promise.resolve(true);
+  return result;
+}).then(
+  function(value) {
+    console.log(value);
+  },
+  function(err) {
+    console.error(err.stack);
+  }
+);
+```
+
+> 📎 完整代码: []()
+
+## async/await
 
 # 其他
 

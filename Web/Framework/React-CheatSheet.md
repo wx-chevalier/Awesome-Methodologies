@@ -1,8 +1,8 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# 2018 React 设计理念，语法纵览与实践清单
+# React CheatSheet | React 设计理念，语法纵览与实践清单
 
-这是一篇非常冗长的文章，是笔者 []() 系列的提炼。
+这是一篇非常冗长的文章，是笔者 [现代 Web 开发基础与工程实践-React 篇](https://github.com/wxyyxc1992/Web-Series/tree/master/React) 系列的提炼。
 
 # Principles | 设计理念
 
@@ -132,7 +132,7 @@ render() {
 }
 ```
 
-## 组件与 DOM
+### 组件与 DOM
 
 ```js
 class VideoPlayer extends React.Component {
@@ -165,6 +165,118 @@ class VideoPlayer extends React.Component {
       </div>
     );
   }
+}
+```
+
+React 16.3 版本之后允许使用 createRef 来预创建元素引用，从而更方便进行命令式控制：
+
+```js
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.inputRef = React.createRef();
+  }
+
+  render() {
+    return <input type="text" ref={this.inputRef} />;
+  }
+
+  componentDidMount() {
+    this.inputRef.current.focus();
+  }
+}
+```
+
+### Children
+
+React 的核心为组件，而在嵌套使用中，我们可以通过 `props.children` 来引用当前组件的子组件；React 中的 Children 不一定是组件，它们可以是任何东西。鉴于这种不确定性，React 为我们提供了多个 API 进行元素的操控：
+
+```js
+// 复制某个元素
+React.cloneElement(element, [props], [...children]);
+
+// 从某个组件类或者类型中创建元素
+React.createElement(type, [props], [...children]);
+
+// 转换子元素
+React.Children.map(children, function[(thisArg)])
+
+// 遍历子元素
+React.Children.forEach(children, function[(thisArg)])
+
+// 如果仅有单个子元素，则返回
+React.Children.only(children)
+```
+
+React.Children.map 与 React.Children.forEach 能够用于遍历与转化，即使 children 传入的是函数对象也能够正常处理：
+
+```js
+// 忽略首个元素
+{
+  React.Children.map(children, (child, i) => {
+    // Ignore the first child
+    if (i < 1) return;
+    return child;
+  });
+}
+
+// 即使传入的是函数，也能够正常执行
+<IgnoreFirstChild>
+  {() => <h1>First</h1>} // <- Ignored 💪
+</IgnoreFirstChild>
+```
+
+`React.Children.count` 则是能够对子元素进行正确的统计：
+
+```js
+// Renders "3"
+<ChildrenCounter>
+  {() => <h1>First!</h1>}
+  Second!
+  <p>Third!</p>
+</ChildrenCounter>
+```
+
+能将 children 转换为数组通过 `React.Children.toArray` 方法。如果你需要对它们进行排序，这个方法是非常有用的。
+
+```js
+class Sort extends React.Component {
+  render() {
+    const children = React.Children.toArray(this.props.children);
+    // Sort and render the children
+    return <p>{children.sort().join(' ')}</p>;
+  }
+}
+
+<Sort>
+  // We use expression containers to make sure our strings // are passed as
+  three children, not as one string
+  {'bananas'}
+  {'oranges'}
+  {'apples'}
+</Sort>;
+```
+
+在已知仅有一个子元素的情况下，我们也可以使用 `only` 函数来获取该元素实例：
+
+```js
+class Executioner extends React.Component {
+  render() {
+    return React.Children.only(this.props.children)();
+  }
+}
+```
+
+在需要对子元素进行修改的场景下，我们可以使用 `cloneElement`，将想要克隆的元素当作第一个参数，然后将想要设置的属性以对象的方式作为第二个参数。
+
+```js
+renderChildren() {
+  return React.Children.map(this.props.children, child => {
+    return React.cloneElement(child, {
+      name: this.props.name
+    })
+  })
 }
 ```
 
@@ -240,6 +352,90 @@ return (
 ```
 
 ### CSS-in-JS
+
+## 组件动画与变换
+
+React Transition Group 提供了 Transition, CSSTransition, TransitionGroup 三个辅助组件，来根据组件的状态添加合适的过渡动画。Transition 组件提供了简单的声明式接口，来向子组件传递当前的动画状态：
+
+```js
+import Transition from 'react-transition-group/Transition';
+
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0
+};
+
+const transitionStyles = {
+  entering: { opacity: 0 },
+  entered: { opacity: 1 }
+};
+
+const Fade = ({ in: inProp }) => (
+  <Transition in={inProp} timeout={duration}>
+    {state => (
+      <div
+        style={{
+          ...defaultStyle,
+          ...transitionStyles[state]
+        }}
+      >
+        I'm a fade Transition!
+      </div>
+    )}
+  </Transition>
+);
+```
+
+CSSTransition 则是自动为不同的动画状态匹配不同的样式类：
+
+> 📎 完整代码参阅 [CodeSandbox](https://codesandbox.io/s/q8jxjqoj56)
+
+```jsx
+<CSSTransition
+  in={showValidationMessage}
+  timeout={300}
+  classNames="message"
+  unmountOnExit
+  onExited={() => {
+    this.setState({
+      showValidationButton: true
+    });
+  }}
+>
+  {state => (
+    <HelpBlock>
+      Your name rocks!
+      <CSSTransition
+        in={state === 'entered'}
+        timeout={300}
+        classNames="star"
+        unmountOnExit
+      >
+        <div className="star">⭐</div>
+      </CSSTransition>
+    </HelpBlock>
+  )}
+</CSSTransition>
+```
+
+其中 classNames 属性会自动在不同阶段应用不同的样式类名，我们也可以自行定义：
+
+```js
+classNames={{
+ appear: 'my-appear',
+ appearActive: 'my-active-appear',
+ enter: 'my-enter',
+ enterActive: 'my-active-enter',
+ enterDone: 'my-done-enter,
+ exit: 'my-exit',
+ exitActive: 'my-active-exit',
+ exitDone: 'my-done-exit,
+}}
+```
+
+最后的 TransitionGroup 则是为我们提供了多个组件的管理，譬如 `<Transition>` 或 `<TransitionGroup>`，作为状态机来管理组件挂载或者卸载时候的状态。
 
 # Component Dataflow | 组件数据流
 
@@ -323,6 +519,34 @@ React 中的组件又可以分为受控组件与非受控组件，所谓的非�
 
 ## Context
 
+React 16.3 之后引入了新的 Context API，允许我们以 HOC 的方式
+
+```js
+const ThemeContext = React.createContext('light');
+
+class ThemeProvider extends React.Component {
+  state = { theme: 'light' };
+
+  render() {
+    return (
+      <ThemeContext.Provider value={this.state.theme}>
+        {this.props.children}
+      </ThemeContext.Provider>
+    );
+  }
+}
+
+class ThemedButton extends React.Component {
+  render() {
+    return (
+      <ThemeContext.Consumer>
+        {theme => <Button theme={theme} />}
+      </ThemeContext.Consumer>
+    );
+  }
+}
+```
+
 # React Router
 
 ```js
@@ -360,6 +584,64 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 ## 异常处理
 
+## 性能优化
+
+### 组件分割
+
+[SystemJS](https://github.com/systemjs/systemjs) 或者 [ES 中的 Dynamic Import](https://github.com/tc39/proposal-dynamic-import) 允许我们动态地导入 ES Modules，也就方便了我们在应用中应用组件分割，以实现按需加载，优化首屏体验：
+
+![image](https://user-images.githubusercontent.com/5803001/43630880-24ebe3ba-9734-11e8-80cc-02bcf686100e.png)
+
+ 一般来说，我们可以根据路由或者组件来执行懒加载，不过在 React Router 4 遵循路由即组件的理念之后，二者也无太大差异：
+
+```js
+class MyComponent extends React.Component {
+  state = {
+    Bar: null
+  };
+
+  componentWillMount() {
+    import('./components/Bar').then(Bar => {
+      this.setState({ Bar });
+    });
+  }
+
+  render() {
+    let { Bar } = this.state;
+    if (!Bar) {
+      return <div>Loading...</div>;
+    } else {
+      return <Bar />;
+    }
+  }
+}
+```
+
+[react-loadable](https://github.com/jamiebuilds/react-loadable) 是非常不错的异步组件加载库，同时能够支持服务端渲染等多种场景：
+
+```js
+import Loadable from 'react-loadable';
+
+const LoadableBar = Loadable({
+  loader: () => import('./components/Bar'),
+  loading() {
+    return <div>Loading...</div>;
+  }
+});
+
+class MyComponent extends React.Component {
+  render() {
+    return <LoadableBar />;
+  }
+}
+```
+
+### Async Rendering | 异步渲染
+
+![image](https://user-images.githubusercontent.com/5803001/43647448-3ecae700-976a-11e8-8126-d2a1804c027a.png)
+
+![image](https://user-images.githubusercontent.com/5803001/43647455-4383d356-976a-11e8-966d-900cde2749af.png)
+
 # Ecosystem | React 生态圈
 
 在跨平台开发领域，React Native 是当之无愧的跨平台开发首选。而 [Electron]() 与 [Proton Native]() 也都能为我们提供
@@ -374,7 +656,7 @@ Proton Native does the same to desktop that React Native did to mobile. Build cr
 
 # TypeScript
 
-React 的 TypeScript 类型声明[types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)
+React 的 TypeScript 类型声明可以参考 [types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)，[antd](https://github.com/ant-design/ant-design) 也是非常不错的使用 TypeScript 开发的大型 React 项目。
 
 ```ts
 import * as React from 'react';
@@ -390,4 +672,36 @@ const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
     <h3>{formatPrice(num, symbol)}</h3>
   </div>
 );
+```
+
+```ts
+export function positionStyle<T>(
+  Component: React.ComponentType
+): React.StatelessComponent<T & { left: number; top: number }> {
+  return (props: any) => {
+    const { top, left, ...rest } = props;
+    return (
+      <div style={{ position: 'absolute', top, left }}>
+        <Component {...rest} />
+      </div>
+    );
+  };
+}
+```
+
+## 高阶组件
+
+譬如在 [types/react-redux](https://parg.co/o47) 中，connect 函数的类型声明可以 interface 来声明多个重载：
+
+```ts
+export interface Connect {
+  ...
+    <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = {}>(
+      mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps, State>,
+      mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
+  ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
+  ...
+}
+
+export declare const connect: Connect;
 ```

@@ -38,6 +38,10 @@ element.style.removeProperty('--my-color');
 
 ## Less
 
+```less
+@sectionHeight: calc(~'100vh - 130px');
+```
+
 # CSS Modularization | CSS 模块化
 
 ## CSS Modules

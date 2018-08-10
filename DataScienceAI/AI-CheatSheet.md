@@ -22,7 +22,11 @@
 
 第三阶段的认知智能与前面在人工智能的 3 大分支里提到的认知 AI 类似，就是让机器拥有自己的认知，能理解会思考。认知智能是目前机器和人差距最大的领域，因为这不仅涉及逻辑和技术，还涉及心理学、哲学和语言学等学科。
 
-# Machine Learning | 机器学习
+# 知识领域
+
+## Mathematics | 数学基础
+
+## Machine Learning | 机器学习
 
 Maximum Objective Function
 
@@ -42,8 +46,132 @@ Tune
 
 Predict
 
-# Deep Learning | 深度学习
+## Deep Learning | 深度学习
+
+![image](https://user-images.githubusercontent.com/5803001/43595548-846b86e0-96af-11e8-951b-ae913482c19c.png)
+
+传统的机器学习往往需要大量的领域知识与计算时间，而深度学习为我们带来了无限灵活的函数、通用的参数拟合、高速可扩展等特性的算法。
 
 Traditional statistical models do very well on structured data, i.e. tabular data, but have notoriously struggled with unstructured data like images, audio, and natural language. Neural networks that contain many layers of neurons embody the research that is popularly called Deep Learning. The key insight and property of deep neural networks that make them suitable for modeling unstructured data is that complex data, like images, generally have many layers of unique features that are composed to produce the data. As a classic example: images have edges which form the basis for textures, textures form the basis for simple objects, simple objects form the basis for more complex objects, and so on. In deep neural networks we aim to learn these many layers of composable features.
 
 Traditional statistical models do very well on structured data, i.e. tabular data, but have notoriously struggled with unstructured data like images, audio, and natural language. Neural networks that contain many layers of neurons embody the research that is popularly called Deep Learning. The key insight and property of deep neural networks that make them suitable for modeling unstructured data is that complex data, like images, generally have many layers of unique features that are composed to produce the data. As a classic example: images have edges which form the basis for textures, textures form the basis for simple objects, simple objects form the basis for more complex objects, and so on. In deep neural networks we aim to learn these many layers of composable features.
+
+![image](https://user-images.githubusercontent.com/5803001/43685359-4a84c7d4-98e4-11e8-8bce-7ef4cd2aa686.png)
+
+## NLP | 自然语言处理
+
+## Computer Vision | 计算机视觉
+
+# Terminology | 通用概念
+
+## Function | 函数
+
+💡 Sigmod $\sigma$ 💡
+
+神经网络中的激活函数，其作用就是引入非线性。具体的非线性形式，则有多种选择。sigmoid 的优点在于输出范围有限，所以数据在传递的过程中不容易发散。当然也有相应的缺点，就是饱和的时候梯度太小。sigmoid 还有一个优点是输出范围为 (0, 1)，所以可以用作输出层，输出表示概率。Sigmoid 函数是一个在生物学中常见的 S 型的函数，也称为 S 形生长曲线。Sigmoid 函数由下列公式定义，其导数可以节约计算时间:
+
+$$
+S(x) = \frac{1}{1+ e^{-x}} \\
+S'(x)=S(x)[1-S(x)]
+$$
+
+Geoff Hinton covered exactly this topic in his coursera course on neural nets. The problem with sigmoids is that as you reach saturation (values get close to 1 or 0), the gradients vanish. This is detrimental to optimization speed. Softmax doesn't have this problem, and in fact if you combine softmax with a cross entropy error function the gradients are just (z-y), as they would be for a linear output with least squares error.
+
+```py
+# sigmoid function
+def sigmoid(x, deriv=False):
+    if(deriv==True):
+        return x*(1-x)
+    return 1/(1+np.exp(-x))
+```
+
+## Model | 模型
+
+## Optimization | 优化
+
+## Networks | 网络
+
+Gradient ∇ (微分算符)：梯度
+
+梯度即是某个函数的偏导数，其允许输入多个向量然后输出单个值，某个典型的函数即是神经网络中的损失函数。梯度会显示出随着变量输入的增加输出值增加的方向，换言之，如果我们要降低损失值则反梯度逆向前行即可。
+
+梯度下降法 Gradient Descent 是一种常用的一阶(first-order)优化方法，是求解无约束优化问题最简单、最经典的方法之一。考虑无约束优化问题$min_xf(x)$，其中$f(x)$为连续可微函数。如果能构造出一个序列$x^0,x^1,...,x^t$满足：
+
+$$
+f(x^{t+1}) < f(x^t),t=0,1,2...
+$$
+
+则不断执行该过程即可以收敛到局部极小点。而根据泰勒展示我们可以知道:
+
+$$
+f(x+\Delta x) \simeq f(x) + \Delta x^T \nabla f(x)
+$$
+
+于是，如果要满足 $f(x+\Delta x) < f(x)$，可以选择:
+
+$$
+\Delta x = -{step} \nabla f(x)
+$$
+
+其中$step$是一个小常数，表示步长。以求解目标函数最小化为例，梯度下降算法可能存在一下几种情况：
+
+- 当目标函数为凸函数时，局部极小点就对应着函数全局最小值时，这种方法可以快速的找到最优解；
+- 当目标函数存在多个局部最小值时，可能会陷入局部最优解。因此需要从多个随机的起点开始解的搜索。
+- 当目标函数不存在最小值点，则可能陷入无限循环。因此，有必要设置最大迭代次数。
+
+# Back Propagation：反向传播
+
+简称为 Back prop，即将前向传播输入值计算得出的误差反向传递到输入值中，经常用于微积分中的链式调用。
+
+# Rectified Linear Units or ReLU
+
+Sigmoid 函数的输出间隔为`[0,1]`，而 ReLU 的输出范围为`[0,infinity]`，换言之 Sigmoid 更合适 Logistic 回归而 ReLU 更适合于表示正数。深度学习中 ReLU 并不会受制于所谓的梯度消失问题(Vanishing Gradient Problem)。
+
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-QYeGYddNRbrBJjkNxzw9FQ.png)
+
+# Tanh
+
+Tanh 函数有助于将你的网络权重控制在`[-1,1]`之间，而且从上图中可以看出，越靠近 0 的地方梯度值越大，并且梯度的范围位于`[0,1]`之间，和 Sigmoid 函数的范围一致，这一点也能有助于避免梯度偏差。
+
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-K9g9EOeQ9Ca0jdOMmXKrQg.png)
+
+# LSTM/GRU
+
+最早见于 Recurrent Neural Networks，不过同样可以用于其他内存单元较少的地方。其主要可以在训练中保持输入的状态，从而避免之前因为 RNN 丢失输入先验上下文而导致的梯度消失问题。
+
+# Softmax
+
+Softmax 函数常用于神经网络的末端以添加分类功能，该函数主要是进行多元逻辑斯蒂回归，也就可以用于多元分类问题。通常会使用交叉熵作为其损失函数。
+
+# L1 & L2 Regularization
+
+正则化项通过对系数添加惩罚项来避免过拟合，正则化项也能够指明模型复杂度。L1 与 L2 的区别在于 L1 能够保证模型的稀疏性。引入正则化项能够保证模型的泛化能力并且避免在训练数据中过拟合。
+
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-XkDC2Iwb9jSyRIWBUoDFtQ.png)
+
+# Drop out
+
+Drop out 同样可以避免过拟合，并且能以近似指数的时间来合并多个不同的神经网络结构。该方法会随机地在每一层中选择一些显性层与隐层，在我们的实践中通常会由固定比例的层 Drop out 决定。
+
+# Batch Normalization
+
+在深度学习中，如果有太多的层次会导致所谓的 Internal Covariate Shift，也就是训练过程中因为网络参数的变化导致网络激活分布的变化。如果我们能减少这种变量迁移，我们能够更快地训练网络。Batch Normalization 则通过将每个处理块进行正则化处理来解决这个问题。
+
+# Objective Functions
+
+也就是损失函数或者 Optimization Score Function，某个深度学习网络的目标即是最小化该函数值从而提升网络的准确度。
+
+# F1/F Score
+
+用于衡量某个模型的准确度的标准:
+
+```
+F1 = 2 * (Precision * Recall) / (Precision + Recall)
+Precision = True Positives / (True Positives + False Positives)
+Recall = True Positives / (True Positives + False Negatives)
+```
+
+# Cross Entropy
+
+用于计算预测标签值与真实标签值之间的差距，基本的定义如下:
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-9ZBskBY_piVwqC4GdZRl8g.png)
