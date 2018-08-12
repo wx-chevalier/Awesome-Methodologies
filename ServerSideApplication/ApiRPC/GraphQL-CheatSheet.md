@@ -122,7 +122,7 @@ Schema 定义的核心部分即是类型与属性域，其他的信息还包括�
 
 ## Type | 数据类型
 
-GraphQL  中使用 `type` 关键字来指定类型名，类型还可以继承一到多个接口：
+GraphQL 中使用 `type` 关键字来指定类型名，类型还可以继承一到多个接口：
 
 ```gql
 type Post implements Item {

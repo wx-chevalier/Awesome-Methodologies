@@ -1,4 +1,4 @@
-# 工作套装盘点：我的 2018 macOS  开发环境
+# 工作套装盘点：我的 2018 macOS 开发环境
 
 工欲善其事，必先利其器；本文受 [My Linux Development Environment of 2018](https://dev.to/brpaz/my-linux-development-environment-of-2018-ch7) 的启发，对笔者目前开发中常用的一些工具进行了盘点与介绍。
 

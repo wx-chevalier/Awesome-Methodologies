@@ -4,38 +4,110 @@
 
 # 体系架构
 
+Java 选择了基于栈的架构往往在单运算的操作次数上会多于基于寄存器的架构，而 Google 提出的 Android 操作系统设计的 Dalvik 虚拟机则是采用了基于寄存器的架构。
+
+![image](https://user-images.githubusercontent.com/5803001/44001064-640aa6f0-9e5d-11e8-9990-8ec1fcad6666.png)
+
+每当创建一个新的线程时，JVM 会为该线程创建一个 Java 栈，同时会为这个线程分配一个 PC 寄存器，并且这个 PC 寄存器会指向这个线程的第一行可执行代码。每当调用一个新方法时会在这个栈上创建一个新的栈帧数据结构，这个栈帧会保留这个方法的一些元信息，如在这个方法中定义的局部变量、一些用来支持常量池的解析、正常方法返回以及异常处理机制等等。
+
+| 内存区域       | 存放内容                                                                                                                                                   | 大小                                                                                              |
+| -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| 堆             | 所有的对象实例和数组                                                                                                                                       | 根据虚拟机规范的规定，Java 堆可以是固定的大小也可以是按照需求动态扩展的，而且不需要保证是连续的。 |
+| 方法区         | 类的结构信息，如类的字段、方法、接口、构造函数，还有运行时常量池等                                                                                         |                                                                                                   |
+| 程序计数寄存器 | 如果线程执行的是一个 Java 方法，那么寄存器里面记录的就是正在执行的虚拟机字节码指令的地址，如果线程执行的是一个 native 方法，那么寄存器记录的值为 undefined | 虚拟机规范里面唯一一个没有规定任何 OutOfMemoryError 情况的区域                                    |
+| 虚拟机栈       | 局部变量表、操作数栈、方法出口等信息。                                                                                                                     | 局部变量表存放了编译时期可知的各种基本数据类型、对象引用和指向了一条字节码指令的地址              |
+| 本地方法栈     | 局部变量表、操作数栈、方法出口等信息                                                                                                                       |
+
+如果线程清求的栈深度大 于虚拟机所允许的深度，将抛出 StackOverflowError 异常；如果虚拟机栈可以动态扩展 (当前大部分的 Java 虚拟机都可动态扩展，只不过 Java 虚拟机规范中也允许固定长度的 虚拟机栈)，当扩展时无法申请到足够的内存时会拋出 OutOfMemoryError 异常。
+
+局部变量表所需的内存空间在编译期间完成分配，当进入一个方法时，这个方法需要在帧中分配多大的局部变量空间是完全确定的。在方法运行期间不会改变局部变量表的大小。
+
+一个 JVM 栈由多个帧组成，当一个方法被调用的时候，会 push 一个帧到栈顶，当方法执行完毕时（正常返回或者抛出异常），一个帧会从栈顶弹出。每个帧由两部分组成：
+
+- 一个数组，用于存放本地变量，数组长度由编译器计算确定，一个局部变量可用于存储任意类型的值， long 和 double 值除外，它们需要两个局部变量；
+- 一个操作栈，用于存放中间值，可作为指令的操作数，或者作为方法调用的参数。
+
+# 字节码
+
+```java
+public static void main(String[] args) {
+    int a = 1;
+    int b = 2;
+    int c = a + b;
+}
+
+// javac Test.java
+// javap -v Test.class
+```
+
+```java
+// main 方法的签名
+public static void main(java.lang.String[]);
+
+// 第二部分的 descriptor 表示方法拥有一个类型为 [Ljava/lang/String; 的参数，返回值类型是 V
+descriptor: ([Ljava/lang/String;)V
+
+// 一系列指示符，ACC_PUBLIC 表明方法是 public 类型， ACC_STATIC 表明方法是 static 类型
+flags: (0x0009) ACC_PUBLIC, ACC_STATIC
+
+// 代码区
+Code:
+
+// stack 表示操作栈的最大深度，locals 表示本地变量数组的长度，args_size 表示参数的个数。在指令执行过程中，所有局部变量会陆续被操作，但 args 除外，它固定放在本地变量数组索引等于 0 的位置。
+stack=2, locals=4, args_size=1
+
+// 常量 1 推入操作栈
+0: iconst_1
+
+// 从操作栈弹出一个 int 值，存入索引为 1 的本地变量中，对应源码中的变量 a
+1: istore_1
+
+// 将常量 2 推入操作栈
+2: iconst_2
+
+// 从操作栈弹出一个 int 值，存入索引为 2 的本地变量中，对应源码中的变量 b
+3: istore_2
+
+// 从索引为 1 的本地变量中取出 int 值，推入操作栈
+4: iload_1
+
+// 从索引为 2 的本地变量中取出 int 值，推入操作栈
+5: iload_2
+
+// 从操作栈弹出两个 int 值，然后相加，并将结果推入操作栈
+6: iadd
+
+// 从操作栈弹出 int 值，存入索引为 3 的本地变量中，对应源码中的变量c
+7: istore_3
+
+8: return
+
+...
+```
+
+![image](https://user-images.githubusercontent.com/5803001/44001160-0d9cf780-9e5f-11e8-952f-6fa1fb29c0fe.png)
+
+## 数据类型
+
+| 数据类型                                | 描述                                                                                                                                                                                                                                               |
+| --------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Integer                                 | 4 字节常量                                                                                                                                                                                                                                         |
+| Long                                    | 8 字节常量                                                                                                                                                                                                                                         |
+| Float                                   | 4 字节常量                                                                                                                                                                                                                                         |
+| Double                                  | 8 字节常量                                                                                                                                                                                                                                         |
+| String                                  | 字符串常量指向常量池的另外一个包含真正字节 Utf8 编码的实体                                                                                                                                                                                         |
+| Utf8                                    | Utf8 编码的字符序列字节流                                                                                                                                                                                                                          |
+| Class                                   | 一个 Class 常量，指向常量池的另一个 Utf8 实体，这个实体包含了符合 JVM 内部格式的类的全名(动态链接过程需要用到)                                                                                                                                     |
+| NameAndType                             | 冒号(:)分隔的一组值，这些值都指向常量池中的其它实体。第一个值(“:”之前的)指向一个 Utf8 字符串实体，它是一个方法名或者字段名。第二个值指向表示类型的 Utf8 实体。对于字段类型，这个值是类的全名，对于方法类型，这个值是每个参数类型类的类全名的列表。 |
+| Fieldref, Methodref, InterfaceMethodref | 点号(.)分隔的一组值，每个值都指向常量池中的其它的实体。第一个值(“.”号之前的)指向类实体，第二个值指向 NameAndType 实体。                                                                                                                            |
+
 # GC 垃圾回收
 
 在 JDK10 的代码中，路径为 openjdk/src/hotspot/share/gc/，各个 GC 实现共享依赖 shared 代码，GC 包括目前默认的 G1，也有经典的 Serial、Parallel、CMS 等 GC 实现。
 
-# Introduction
-
-## Reference
-
-### Tutorials & Docs
-
-* [JAVA 虚拟机的生命周期](http://www.tuicool.com/articles/BVz2qqq)
-
-### Practice
-
-* [听阿里巴巴 JVM 工程师为你分析常见 Java 故障案例](http://dbaplus.cn/news-21-173-1.html?utm_source=tuicool&utm_medium=referral)
-
-### Books & Tools
-
-* [深入理解 Java 虚拟机：JVM 高级特性与最佳实践](http://www.linuxidc.com/Linux/2014-09/106869.htm)
-* [JVM 内幕：Java 虚拟机详解](www.importnew.com/17770.html?utm_source=tuicool&utm_medium=referral)
-
-# JVM
-
-## JVM 参数管理
-
-> [关键业务系统的 JVM 启动参数推荐](http://calvin1978.blogcn.com/articles/jvmoption-2.html?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io)
-
 ## JVM 体系结构
 
 ## 基于栈的架构
-
-Java 选择了基于栈的架构往往在单运算的操作次数上会多于基于寄存器的架构，而 Google 提出的 Android 操作系统设计的 Dalvik 虚拟机则是采用了基于寄存器的架构。
 
 ## 执行引擎
 
@@ -43,42 +115,13 @@ Java 选择了基于栈的架构往往在单运算的操作次数上会多于基
 
 ![](http://hi.csdn.net/attachment/201009/25/0_1285381395C6iW.gif)
 
-# JVM Operation
-
-## Config
-
-> * [JVM 监控与调优](http://my.oschina.net/91jason/blog/493870?p={{page}})
-
-## Debug
-
-> * [JVM 调试工具说明](http://blog.csdn.net/jiushuai/article/details/8455788)
-> * [Java VisualVM ](http://ihuangweiwei.iteye.com/blog/1219302)
-
 # Class
 
 ## Class 文件结构
 
-> [实例探索 Class 文件](http://www.importnew.com/17086.html)
-
-## ClassLoader
-
-> [Java 类的连接与初始化 (及 2013 阿里初始化笔试题解析)](http://www.importnew.com/17105.html)
-
-# 内存管理
-
-Java 中，我们常见的需要内存的组件包括：
-
-* Java 堆
-* 线程
-* 类和类加载器
-* NIO
-* JNI
-
 ## JVM 内存结构
 
 Java 虚拟机会将内存分为几个不同的管理区，这些区域各自有各自的用途，根据不同的特点，承担不同的任务以及在垃圾回收时运用不同的算法。总体分为下面几个部分：程序计数器(Program Counter Register)、JVM 虚拟机栈(JVM Stacks)、本地方法栈(Native Method Stacks)、堆(Heap)、方法区(Method Area)
-
-![](http://img.my.csdn.net/uploads/201211/23/1353648016_8668.jpg)
 
 **1、程序计数器(Program Counter Register)**
 
@@ -246,7 +289,7 @@ public class Main {
 
 设计思路是：用一个 HashMap 来保存图片的路径 和 相应图片对象关联的软引用之间的映射关系，在内存不足时，JVM 会自动回收这些缓存图片对象所占用的空间，从而有效地避免了 OOM 的问题。在 Android 开发中对于大量图片下载会经常用到。
 
-```
+```java
 .....
 private Map<String, SoftReference<Bitmap>> imageCache = new HashMap<String, SoftReference<Bitmap>>();
 <br>....
@@ -315,7 +358,7 @@ public void addBitmapToCache(String path) {
 
 # JVM 内存分配
 
-# 静态分配与动态分配
+## 静态分配与动态分配
 
 内存的静态分配和动态分配的区别主要是两个：一是时间不同。静态分配发生在程序编译和连接的时候。动态分配则发生在程序调入和执行的时候。
 

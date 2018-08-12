@@ -179,7 +179,7 @@ function foo(x: string | number) {
 }
 ```
 
-`instanceof`  可以用于判断某个对象是否是某个类的实例：
+`instanceof` 可以用于判断某个对象是否是某个类的实例：
 
 ```ts
 function f1(x: B | C | D) {

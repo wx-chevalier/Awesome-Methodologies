@@ -54,7 +54,7 @@ tmux kill-session -t myname
 tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xargs kill
 ```
 
-在 Tmux 中，使用  `ctrl + b` 前缀，然后可以使用如下命令 :
+在 Tmux 中，使用 `ctrl + b` 前缀，然后可以使用如下命令 :
 
 ```sh
 # Sessions

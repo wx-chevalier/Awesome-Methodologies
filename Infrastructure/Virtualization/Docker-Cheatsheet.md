@@ -584,7 +584,7 @@ $ docker-compose stop
 $ docker-compose down --volumes
 ```
 
-在涉及到数据存储的场景下，我们同样可以指定  docker-compose 创建命名数据卷，并将其挂载到容器中：
+在涉及到数据存储的场景下，我们同样可以指定 docker-compose 创建命名数据卷，并将其挂载到容器中：
 
 ```yaml
 version: "3.2"

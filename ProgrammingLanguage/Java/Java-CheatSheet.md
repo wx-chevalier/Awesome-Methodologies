@@ -6,7 +6,7 @@ Java CheatSheet 是对于 Java 学习/实践过程中的语法与技巧进行盘
 
 北京时间 3 月 21 日，Oracle 官方宣布 Java 10 正式发布。这是 Java 大版本周期变化后的第一个正式发布版本。需要注意的是 Java 9 和 Java 10 都不是 LTS 版本。和过去的 Java 大版本升级不同，这两个只有半年左右的开发和维护期。而未来的 Java 11，也就是 18.9 LTS，才是 Java 8 之后第一个 LTS 版本。
 
-```
+```sh
 /jdk-10/bin$ ./java -version
 
 openjdk version "10" 2018-03-20
@@ -102,17 +102,14 @@ char aChar = str1.charAt(i);
 
 ####  字符串反转:
 
-```
+```java
 public class Main {
 
     public static void main(String[] args) {
 
         String str1 = "whatever string something";
-
         StringBuffer str1buff = new StringBuffer(str1);
-
         String str1rev = str1buff.reverse().toString();
-
         System.out.println(str1rev);
 
 
