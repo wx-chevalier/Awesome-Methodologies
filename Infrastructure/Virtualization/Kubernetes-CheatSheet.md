@@ -38,12 +38,6 @@ $ systemctl daemon-reload
 $ systemctl restart kubectl
 ```
 
-鉴于 gcr 域名的不可用，我们需要利用 [ss-privoxy](https://hub.docker.com/r/bluebu/shadowsocks-privoxy/) 等工具搭建 Docker 源代理，也可以参考[这里](https://www.jianshu.com/p/13f4b23824d8)手动配置客户端：
-
-```sh
-$ docker run -i -t -e SERVER_ADDR=ss.server.ip -e SERVER_PORT=port -e PASSWORD=123456 bluebu/shadowsocks-privoxy
-```
-
 kubeadm 安装完毕后，可以初始化 Master 节点：
 
 ```sh

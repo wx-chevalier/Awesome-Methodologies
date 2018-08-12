@@ -61,6 +61,7 @@ tmux ls | grep : | cut -d. -f1 | awk '{print substr($1, 0, length($1)-1)}' | xar
 :new<CR>  new session
 s  list sessions
 $  name session
+[  进入滚动赋值墨海·
 
 # Windows (tabs)
 c  create window
@@ -388,43 +389,16 @@ $ history
 
 ```sh
 # 生成名为 id_rsa 的私钥文件和名为 id_rsa.pub 的公钥文件
-
 $ ssh-keygen -t rsa
 
-
-
 # 指定 4096 位的长度
-
 $ ssh-keygen -b 4096 -t rsa
-```
-
-生成的 id_rsa.pub 公钥文件也可以用于配置 Git 仓库的 SSH 访问等。
-
-### 用户登录
-
-我们可以使用 ssh 登录到本机(切换用户)或者远端 Linux 设备中，通过将本机生成的公钥文件写入目标机器的 authorized_keys 即可以实现免密码登录：
-
-```sh
-# 指定登录端口
-
-ssh root@{host} -p{port}
-
-
-
-# 上传公钥进行免密码登录
-
-touch ~/.ssh/authorized_keys
-
-
-
-cat -n ~/.ssh/rsa.pub ~/.ssh/authorized_keys
-
-
 
 # 使用 ssh-copy-id 添加公钥
-
 ssh-copy-id username@remote-server
 ```
+
+生成的 id_rsa.pub 公钥文件也可以用于配置 Git 仓库的 SSH 访问等。我们可以使用 ssh 登录到本机(切换用户)或者远端 Linux 设备中，通过将本机生成的公钥文件写入目标机器的 authorized_keys 即可以实现免密码登录。
 
 ## 用户管理
 
@@ -504,14 +478,11 @@ $find * -type f | fzf > selected
 
 ```sh
 # 查看磁盘剩余空间
-
 $ df -sh
 ```
 
 ```s
 Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await  svctm  %util
-
-
 
 wrqm/s：每秒这个设备相关的写入请求有多少被Merge了。
 
@@ -705,13 +676,11 @@ $ pkill -f java
 
 ```sh
 # 查看指定端口的占用情况
-
 $ lsof -i:80
 
 
 
 # 查看某个进程的 TCP 连接
-
 $ lsof -p <pid> | grep TCP
 ```
 

@@ -10,8 +10,9 @@ Python CheatSheet 是对于 Python 学习/实践过程中的语法与技巧进�
 # 创建 Python 2/3 版本的项目
 $ pipenv --two/--three
 
-# 安装项目依赖
+# 安装项目依赖，会在当前目录下生成 .venv 目录，包含 python 解释器
 $ pipenv install
+$ pipenv install --dev
 
 # 弹出 Virtual Env 对应的脚本环境
 $ pipenv shell
