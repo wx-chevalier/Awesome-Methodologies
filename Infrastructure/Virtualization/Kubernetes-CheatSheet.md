@@ -1,4 +1,4 @@
-# Kubernetes CheatSheet | Kubernetes 基础概念，配置使用与实践技巧
+# Kubernetes CheatSheet | Kubernetes 基础概念，配置使用与实践技巧
 
 # Concepts & Terminology | 概念与名词
 

@@ -8,6 +8,14 @@ SQL 是 Structrued Query Language 的缩写，即结构化查询语言。它是�
 
 - PL-SQL(Procedural Language-SQL)是一种增加了过程化概念的 SQL 语言，是 Oracle 对 SQL 的扩充。与标准 SQL 语言相同，PL-SQL 也是 Oracle 客户端工具(如 SQL\*Plus、Developer/2000 等)访问服务器的操作语言。它有标准 SQL 所没有的特征：变量(包括预先定义的和自定义的)；控制结构(如 IF-THEN-ELSE 等流控制语句)；自定义的存储过程和函数 ；对象类型等。由于 P/L-SQL 融合了 SQL 语言的灵活性和过程化的概念，使得 P/L-SQL 成为了一种功能强大的结构化语言，可以设计复杂的应用。
 
+SQL 与其他函数类查询语言不在一个层面上，如果用语法糖、可操纵性抨击 SQL，只能得出看似正确，实则荒谬的结论。
+
+SQL 是一个查询语言，与普通编程语言相比，它还在上层，最终会转化为关系代数执行，但关系代数会遵循一些等价的转换规律，比如交换律、结合律、过滤条件拆分等等，通过预估每一步的时间开销，将 SQL 执行顺序重新组合，可以提高执行效率。
+
+如果有多个 SQL 同时执行，还可以整合成一个或多个新的 SQL，合并重复的查询请求。
+
+在数据驱动商业的今天，SQL 依然是数据查询最通用的解决方案。
+
 # Data Definition Language | 数据定义
 
 DDL 包含 CREATE, ALTER, DROP 等常见的数据定义语句
@@ -44,14 +52,14 @@ INSERT INTO ON ... DUPLICATE KEY UPDATE ...
 
 ```sql
 /* 创建语句中添加索引描述 */
-UNIQUE INDEX `index_var` (`var1`, `var2`, `var3`)  
+UNIQUE INDEX `index_var` (`var1`, `var2`, `var3`)
 
 /* 同时更新索引包含的多属性域值 */
 INSERT INTO `test_table`
 (`var1`, `var2`, `var3`, `value1`, `value2`, `value3`) VALUES
 ('abcd', 0, 'xyz', 1, 2, 3)
 ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
-`value2` = `value2` + 2 AND `value3` = `value3` + 3;  
+`value2` = `value2` + 2 AND `value3` = `value3` + 3;
 ```
 
 # DQL | 数据查询
@@ -141,20 +149,3 @@ SELECT a.distributor_id,
       (SELECT COUNT(*) FROM my_table WHERE distributor_id = a.distributor_id) as total_count
 FROM my_table a ;
 ```
-
-# 事务管理
-
-| 隔离级别                    | 脏读 / Dirty Read | 不可重复读 / Non Repeatable Read | 幻读 / Phantom Read | 锁             |
-| --------------------------- | ----------------- | -------------------------------- | ------------------- | -------------- |
-| 未提交读 / Read Uncommitted | 可能              | 可能                             | 可能                | 无事务         |
-| 提交读 / Read Committed     | 不可能            | 可能                             | 可能                | 事务保护       |
-| 可重复读 / Repeatable Read  | 不可能            | 不可能                           | 可能                | 行锁，顺序写   |
-| 串行化 / Serializable       | 不可能            | 不可能                           | 不可能              | 表锁，顺序读写 |
-
-不同级别的现象描述如下：
-
-- 脏读: 当一个事务读取另一个事务尚未提交的修改时，产生脏读。
-
-- 不可重复读: 同一查询在同一事务中多次进行，由于其他提交事务所做的修改或删除，每次返回不同的结果集，此时发生不可重复读。
-
-- 幻读: 同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。

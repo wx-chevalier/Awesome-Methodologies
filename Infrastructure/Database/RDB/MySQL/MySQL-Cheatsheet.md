@@ -82,6 +82,66 @@ WHERE TABLE_NAME = 'r_case_info' and TABLE_TYPE='BASE TABLE'
 ORDER BY data_length DESC;
 ```
 
+# 数据操作
+
+## 事务与锁
+
+|        | 行锁 | 表锁 | 页锁 |
+| ------ | ---- | ---- | ---- |
+| MyISAM |      | √    |      |
+| BDB    |      | √    | √    |
+| InnoDB | √    | √    |      |
+
+- 表锁： 开销小，加锁快；不会出现死锁；锁定力度大，发生锁冲突概率高，并发度最低
+- 行锁： 开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率低，并发度高
+- 页锁： 开销和加锁速度介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般
+
+表锁更适用于以查询为主，只有少量按索引条件更新数据的应用；行锁更适用于有大量按索引条件并发更新少量不同数据，同时又有并发查询的应用。
+
+InnoDB 实现了以下两种类型的行锁。
+共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。
+排他锁（X)：允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。
+
+另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB 还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是表锁。
+
+意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的 IS 锁。
+意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的 IX 锁。
+
+```sql
+mysql> set autocommit = 0;
+
+/* 共享锁 */
+-- 当前 session 对 actor_id=178 的记录加 share mode 的共享锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 lock in share mode;
+
+-- 当前session对锁定的记录进行更新操作，等待锁：
+mysql> update actor set last_name = 'MONROE T' where actor_id = 178;
+
+-- 其他session仍然可以查询记录，并也可以对该记录加share mode的共享锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178lock in share mode;
+
+-- 其他session也对该记录进行更新操作，则会导致死锁退出：
+mysql> update actor set last_name = 'MONROE T' where actor_id = 178;
+-- ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction
+
+-- 获得锁后，可以成功更新：
+-- Query OK, 1 row affected (17.67 sec)
+
+/* 排他锁 */
+-- 当前session对actor_id=178的记录加for update的排它锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 for update;
+
+-- 其他session可以查询该记录，但是不能对该记录加共享锁，会等待获得锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 for update;
+
+-- 当前session可以对锁定的记录进行更新操作，更新后释放锁：
+mysql> update actor set last_name = 'MONROE T' where actor_id = 178;
+mysql> commit;
+
+-- 其他session获得锁，得到其他session提交的记录：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 for update;
+```
+
 # Security | 安全
 
 ## SQL Injection
@@ -143,5 +203,7 @@ innodb_io_capacity~= IOPS
 主要的查询性能问题：全表扫描 临时表 排序 FileSort
 
 # Store Engine | 存储引擎
+
+## 锁
 
 # Database Design | 数据库设计

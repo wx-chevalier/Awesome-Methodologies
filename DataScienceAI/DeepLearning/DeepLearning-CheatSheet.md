@@ -2,72 +2,8 @@
 
 # DeepLearning CheatSheet | 深度学习概念备忘
 
-# Gradient ∇ (微分算符)：梯度
-
-梯度即是某个函数的偏导数，其允许输入多个向量然后输出单个值，某个典型的函数即是神经网络中的损失函数。梯度会显示出随着变量输入的增加输出值增加的方向，换言之，如果我们要降低损失值则反梯度逆向前行即可。
-
-# Back Propagation：反向传播
-
-简称为 Back prop，即将前向传播输入值计算得出的误差反向传递到输入值中，经常用于微积分中的链式调用。
-
-# Sigmoid σ
-
-用于将神经元的输出结果限制在`[0,1]`范围内的阈值函数，该函数的输出图形看起来有点像`S`型，在希腊语中就是所谓 Sigma。Sigmoid 函数是 Logistic 函数的某个特例。
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-t8WcbQSLFIxlCiN_YQSyJw.png)
-
-# Rectified Linear Units or ReLU
-
-Sigmoid 函数的输出间隔为`[0,1]`，而 ReLU 的输出范围为`[0,infinity]`，换言之 Sigmoid 更合适 Logistic 回归而 ReLU 更适合于表示正数。深度学习中 ReLU 并不会受制于所谓的梯度消失问题(Vanishing Gradient Problem)。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-QYeGYddNRbrBJjkNxzw9FQ.png)
-
-# Tanh
-
-Tanh 函数有助于将你的网络权重控制在`[-1,1]`之间，而且从上图中可以看出，越靠近 0 的地方梯度值越大，并且梯度的范围位于`[0,1]`之间，和 Sigmoid 函数的范围一致，这一点也能有助于避免梯度偏差。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-K9g9EOeQ9Ca0jdOMmXKrQg.png)
-
-# LSTM/GRU
-
-最早见于 Recurrent Neural Networks，不过同样可以用于其他内存单元较少的地方。其主要可以在训练中保持输入的状态，从而避免之前因为 RNN 丢失输入先验上下文而导致的梯度消失问题。
-
-# Softmax
-
-Softmax 函数常用于神经网络的末端以添加分类功能，该函数主要是进行多元逻辑斯蒂回归，也就可以用于多元分类问题。通常会使用交叉熵作为其损失函数。
-
-# L1 & L2 Regularization
-
-正则化项通过对系数添加惩罚项来避免过拟合，正则化项也能够指明模型复杂度。L1 与 L2 的区别在于 L1 能够保证模型的稀疏性。引入正则化项能够保证模型的泛化能力并且避免在训练数据中过拟合。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-XkDC2Iwb9jSyRIWBUoDFtQ.png)
-
-# Drop out
-
-Drop out 同样可以避免过拟合，并且能以近似指数的时间来合并多个不同的神经网络结构。该方法会随机地在每一层中选择一些显性层与隐层，在我们的实践中通常会由固定比例的层 Drop out 决定。
-
-# Batch Normalization
-
-在深度学习中，如果有太多的层次会导致所谓的 Internal Covariate Shift，也就是训练过程中因为网络参数的变化导致网络激活分布的变化。如果我们能减少这种变量迁移，我们能够更快地训练网络。Batch Normalization 则通过将每个处理块进行正则化处理来解决这个问题。
-
-# Objective Functions
-
-也就是损失函数或者 Optimization Score Function，某个深度学习网络的目标即是最小化该函数值从而提升网络的准确度。
-
-# F1/F Score
-
-用于衡量某个模型的准确度的标准:
-
-```
-F1 = 2 * (Precision * Recall) / (Precision + Recall)
-Precision = True Positives / (True Positives + False Positives)
-Recall = True Positives / (True Positives + False Negatives)
-```
-
-# Cross Entropy
-
-用于计算预测标签值与真实标签值之间的差距，基本的定义如下:
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-9ZBskBY_piVwqC4GdZRl8g.png)
-
 # Neural Networks | 神经网络
 
-线性结果加上值相关(Element wise)非线性结果，我们才能去模拟任意的复杂图形
+线性结果加上值相关(Element wise)非线性结果，我们才能去模拟任意的复杂图形。
+
+$X$ 是 $$

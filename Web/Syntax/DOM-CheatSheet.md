@@ -39,13 +39,15 @@ function ready(callback) {
 
 The DOM of the referenced element is not part of the DOM of the referencing HTML page. It has isolated style sheets.
 
+在拖拽等场景中我们还需要处理 `mousedown` 与 `touchstart` 等事件，iPhone 中有著名的 300ms 延迟；即当用户触碰到屏幕时，会立刻触发 touchstart 事件，但是在等待 300ms 之后，才会触发 click 事件，来保证多次 Tap 或者伸缩事件。
+
 ## 事件传播与委托
 
 [DOM Events 标准](http://www.w3.org/TR/DOM-Level-3-Events/)中规定了事件传播的三个阶段，分别为：
 
 - Capturing Phase | 捕获阶段：自顶向下传递到目标元素
 - Target Phase | 目标阶段：事件达到目标元素
-- Bubbling Phase：事件自底向上传递
+- Bubbling Phase | 冒泡阶段：事件自底向上传递
 
 下图以 table 中的某个 `<td>` 元素为例，指明了事件传播的顺序：
 
@@ -140,6 +142,24 @@ fetch(url, options).catch(err => {
 });
 ```
 
+发起 Fetch 请求后获得的响应体中会包含 `response.type` 属性，其有 basic， cors 以及 opaque 三种类型，用于标识响应结果的来源以及处理方式。当我们发起同域请求时，结果类型会被标识为 `basic`，并且不会对响应的读取有任何限制。当发起的是跨域请求，并且响应头中包含了 [CORS](http://enable-cors.org/) 相关设置，那么响应类型会被标识为 cors。cors 与 basic 还是非常相似的，除了 cors 响应限制了仅可以读取 `Cache-Control`, `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, 以及 `Pragma` 这些响应头字段。最后，opaque 则是针对那些进行跨域访问但是并未返回 CORS 头的请求；标识为该类型的响应并不可以读取其中内容，也无法判断其是否请求成功。
+
+针对响应类型的不同，我们也可以在请求体中预设不同的请求模式，以加以过滤：
+
+- same-origin: 仅针对同域请求有效，拒绝其他域的请求。
+
+- cors: 允许针对同域或者其他访问正确的 CORS 头的请求。
+
+- cors-with-forced-preflight: 每次请求前都会进行预检。
+
+- no-cors: 针对那些未返回 CORS 头的域发起请求，并且返回 opaque 类型的响应，并不常用。
+
+参照上文，
+
+```js
+fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
+```
+
 ### Response
 
 fetch 函数会返回 [Stream](https://streams.spec.whatwg.org/) 类型的对象，其包含了关于请求以及响应的信息，可以通过如下方式访问元数据：
@@ -208,25 +228,11 @@ fetch(url).then(function(response) {
 });
 ```
 
+## 跨域请求
+
+跨域只是限制不同域下的数据接收，跨域提交数据有些时候是可以的，但会收到浏览器的报错，此时数据已经提交到服务器，但浏览器拒绝接收服务器的返回，这时就存在跨域问题，你不知道服务器对你的数据到底做了些什么，他可能没收到（网络原因），也可能收到了没处理（数据有误），也可能处理了数据（你不知道返回什么，这点你不能确定）。表单提交之后就跳转到提交的目标 url 上了，所以不存在数据的返回，页面是跳转后的 url 返回的
+
 ### CORS
-
-发起 Fetch 请求后获得的响应体中会包含 `response.type` 属性，其有 basic， cors 以及 opaque 三种类型，用于标识响应结果的来源以及处理方式。当我们发起同域请求时，结果类型会被标识为 `basic`，并且不会对响应的读取有任何限制。当发起的是跨域请求，并且响应头中包含了 [CORS](http://enable-cors.org/) 相关设置，那么响应类型会被标识为 cors。cors 与 basic 还是非常相似的，除了 cors 响应限制了仅可以读取 `Cache-Control`, `Content-Language`, `Content-Type`, `Expires`, `Last-Modified`, 以及 `Pragma` 这些响应头字段。最后，opaque 则是针对那些进行跨域访问但是并未返回 CORS 头的请求；标识为该类型的响应并不可以读取其中内容，也无法判断其是否请求成功。
-
-针对响应类型的不同，我们也可以在请求体中预设不同的请求模式，以加以过滤：
-
-- same-origin: 仅针对同域请求有效，拒绝其他域的请求。
-
-- cors: 允许针对同域或者其他访问正确的 CORS 头的请求。
-
-- cors-with-forced-preflight: 每次请求前都会进行预检。
-
-- no-cors: 针对那些未返回 CORS 头的域发起请求，并且返回 opaque 类型的响应，并不常用。
-
-参照上文，
-
-```js
-fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
-```
 
 ## 本地通信
 
@@ -458,7 +464,7 @@ window.requestFileSystem(window.TEMPORARY, 1024 * 1024, onInitFs, errorHandler);
 
 ## Web Worker
 
-Web Worker 即是运行在后台独立线程中的 JavaScript 脚本，可以用其来执行阻塞性程序以避免影响到页面的性能。Worker 会运行在独立的不同于当前 window 的全局上下文中，因此我们并不能再 Worker 中进行 DOM 操作。直接使用 Worker 构造函数创建的 worker 被称为 dedicated worker, 其运行在所谓的 [DedicatedWorkerGlobalScope](https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope) 代表的上下文中，其仅允许创建脚本进行访问；而另一种 shared worker 则运行在 SharedWorkerGlobalScope 代表的上下文中，其允许多个脚本访问。实际上 ServiceWorkers 也是 Web Worker 的一种，其常被用于 Web 应用之间，或者浏览器与网络之间的代理；致力于提供更良好的离线体验，并且能够介入到网络请求中完成缓存与更新等操作。ServiceWorkers 同样能够被用于进行通知推送与后台同步接口，更多关于 ServiceWorkers 与 PWA 相关内容可以参考 [PWA-CheatSheet](https://parg.co/Gzb)。
+Web Worker 即是运行在后台独立线程中的 JavaScript 脚本，可以用其来执行阻塞性程序以避免影响到页面的性能。Worker 会运行在独立的不同于当前 window 的全局上下文中，因此我们并不能再 Worker 中进行 DOM 操作。直接使用 Worker 构造函数创建的 worker 被称为 dedicated worker, 其运行在所谓的 [DedicatedWorkerGlobalScope](https://developer.mozilla.org/en-US/docs/Web/API/DedicatedWorkerGlobalScope) 代表的上下文中，其仅允许创建脚本进行访问；而另一种 shared worker 则运行在 SharedWorkerGlobalScope 代表的上下文中，其允许多个脚本访问。实际上 ServiceWorkers 也是 Web Worker 的一种，其常被用于 Web 应用之间，或者浏览器与网络之间的代理；致力于提供更良好的离线体验，并且能够介入到网络请求中完成缓存与更新等操作。ServiceWorkers 同样能够被用于进行通知推送与后台同步接口，更多关于 ServiceWorkers 与 PWA 相关内容可以参考 [PWA-CheatSheet](https://parg.co/Gzb)。
 
 ```js
 // 判断浏览器是否支持 Worker
@@ -480,7 +486,7 @@ postMessage('event from worker');
 // 接收来自主线程的消息
 onmessage = function(event) {};
 
-// UI 
+// UI
 worker.onmessage = function(event) {};
 worker.postMessage('event from ui');
 

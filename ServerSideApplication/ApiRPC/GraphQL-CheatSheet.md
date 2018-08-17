@@ -240,11 +240,11 @@ app.listen(4000);
 
 ```yaml
 - graphql
-    - schema
-    - resolver
-    - connector
-    - directive
-    - ducks
+  - schema
+  - resolver
+  - connector
+  - directive
+  - ducks
 ```
 
 ## 查询
@@ -289,6 +289,32 @@ client
 ```
 
 ## React 集成
+
+```js
+import queries from './queries'
+import { compose } from 'react-apollo';
+
+class Test extends Component {
+...
+
+  render() {
+    ...
+
+    console.log(this.props.subjectsQuery, this.props.appsQuery); // should show both
+
+    ...
+  }
+}
+
+export default compose(
+   graphql(queries.getSubjects, {
+      name: "subjectsQuery"
+   }),
+   graphql(queries.getApps, {
+      name: "appsQuery"
+   }),
+)(Test);
+```
 
 ## Vue 集成
 

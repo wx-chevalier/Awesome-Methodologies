@@ -586,7 +586,7 @@ a := IntSlice{1, 2}
 t := obj.(T) // if obj is not T, error
 t, ok := obj.(T) // if obj is not T, ok = false
 
-// 类型转换与判断
+// 类型转换与判断
 str, ok := val.(string);
 ```
 

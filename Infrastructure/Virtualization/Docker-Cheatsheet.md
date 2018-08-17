@@ -12,7 +12,9 @@ Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
-Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制。
+Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制。
+
+![image](https://user-images.githubusercontent.com/5803001/44158672-dec2d480-a0e7-11e8-9f50-ce83c9638853.png)
 
 > 💥 延伸阅读 [Docker Internal CheatSheet]()，[InfraS-Lab/Focker](https://github.com/wxyyxc1992/InfraS-Lab)，[深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series)
 
@@ -507,7 +509,7 @@ VOLUME /data
 
 ## Network | 网络
 
-## Optimization | 优化
+## Optimization | 优化
 
 空间分析与清理：
 
@@ -535,18 +537,18 @@ services:
 
     # 指定导出端口
     ports:
-     - "5000:5000"
+      - '5000:5000'
 
     # 替换默认的 CMD 命令
     command: python app.py
 
     # 将本地目录绑定到容器内目录
     volumes:
-     - .:/code
+      - .:/code
 
   redis:
     # 镜像的 ID
-    image: "redis:alpine"
+    image: 'redis:alpine'
 ```
 
 这里用到的 Python Web 应用的 Dockerfile 如下：

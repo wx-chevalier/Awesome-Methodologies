@@ -458,6 +458,15 @@ expr.match(...)
 expr.sub(...)
 ```
 
+如果我们需要提取出正则表达式中的匹配组，则需要理由正则表达式的中括号与 group 方法:
+
+```py
+title_search = re.search('<title>(.*)</title>', html, re.IGNORECASE)
+
+if title_search:
+    title = title_search.group(1)
+```
+
 下面列举了常见的表达式使用场景 :
 
 ```py
@@ -791,7 +800,9 @@ range(3,10,3)
 
 ## 参数
 
-### Option Arguments: 不定参数
+### 默认参数
+
+### Option Arguments | 不定参数
 
 ```py
 def example(a, b=None, *args, **kwargs):

@@ -2,6 +2,10 @@
 
 # HA CheatSheet | 高可用服务架构清单
 
+MTTF, Mean Time To Failure，系统平均运行多长时间才发生故障，越长越好
+MTTR,Mean Time To Recover, 故障平均修复时间，越短越好
+可用性计算公式， Availability= MTTF /（MTTF+MTTR）
+
 # Load Balancing | 负载均衡
 
 ## 负载均衡算法
@@ -54,7 +58,26 @@
 
 另外一个常常被提到功能就是安全性。网络中最常见的 SYN Flood 攻击，即黑客控制众多源客户端，使用虚假 IP 地址对同一目标发送 SYN 攻击，通常这种攻击会大量发送 SYN 报文，耗尽服务器上的相关资源，以达到 Denial of Service(DoS) 的目的。从技术原理上也可以看出，四层模式下这些 SYN 攻击都会被转发到后端的服务器上；而七层模式下这些 SYN 攻击自然在负载均衡设备上就截止，不会影响后台服务器的正常运营。另外负载均衡设备可以在七层层面设定多种策略，过滤特定报文，例如 SQL Injection 等应用层面的特定攻击手段，从应用层面进一步提高系统整体安全。现在的 7 层负载均衡，主要还是着重于应用广泛的 HTTP 协议，所以其应用范围主要是众多的网站或者内部信息平台等基于 B/S 开发的系统。4 层负载均衡则对应其他 TCP 应用，例如基于 C/S 开发的 ERP 等系统。
 
-# Service Degradation | 服务降级
+# Cache | 缓存
+
+Web caches sit between the user and the application server, where they save and serve copies of certain responses. In the diagram below, we can see three users fetching the same resource one after the other:
+
+Caching is intended to speed up page loads by reducing latency, and also reduce load on the application server. Some companies host their own cache using software like Varnish, and others opt to rely on a Content Delivery Network (CDN) like Cloudflare, with caches scattered across geographical locations. Also, some popular web applications and frameworks like Drupal have a built-in cache.
+
+There are also other types of cache, such as client-side browser caches and DNS caches, but they're not the focus of this research.
+
+![image](https://user-images.githubusercontent.com/5803001/44158629-ba66f800-a0e7-11e8-9d4d-23c0b2dd096d.png)
+
+# Service Degradation | 服务降级
+
+降低一致性
+强一致性，将所有的同步一致性，切换为最终一致性，提高吞吐量
+弱一致性，必要时候牺牲一致性换取服务整体可靠性
+关闭次要服务
+不同应用，关闭次要应用，释放物理资源
+相同应用，关闭应用次要功能，更多资源给到核心功能
+简化服务功能
+如简化业务流程，减少通讯数据等
 
 ## Throttling | 限流
 
@@ -65,3 +88,55 @@
 Token Bucket 算法中，有一个独立的模块始终以恒定速率给固定大小的桶补充 token，若桶满了则溢出，即 token 最多为桶的容量；负责处理请求的模块每次接到请求时，首先从桶中获取 token，若能成功获取则继续流程，否则等待响应时间或返回失败。
 
 实际的实现当中，算法可以被优化为系统时间相关的数学运算，也无需单独的线程，仅需要在请求之前插入一小段计算即可实现，因此对性能几乎没有影响。唯一需要考虑的是系统对于获取当前时间的精度支持，这影响速率控制的精度。
+
+限流目的
+SLA 保证方式之一
+应对突发峰刺流量，一定程度节约容量规划成本
+租户隔离策略之一，避免某些用户占用其它用户的资源，导致服务大范围不可用
+限流方式
+服务降级
+服务拒绝
+解决方案
+服务权重划分，多租户环境将资源按权重划分，保证重要客户的资源
+服务延时处理，加入服务缓冲队列延缓服务压力，用于削峰
+服务弹性伸缩，依赖服务监控，弹性伸缩容
+流控算法
+计数器
+单机或者集群保存某用户某时间段请求数，达到阈值则触发流控
+队列算法
+FIFO 队列
+请求速度波动，消费速度均匀，队列满则流控
+权重队列
+按服务划分优先级队列，不同队列权重不同
+队列算法设计关键：队列长度的预设非常关键
+队列太长，流控未生效，服务已经被打死
+队列太短，流控被频繁触发，体验差
+漏斗算法
+本质上是队列+限流器实现，限流器保证消费速度均匀类 TCP sync backlog
+转发速度均匀
+令牌桶
+中间人已恒定速率向桶里发放令牌，服务请求拿到 token 则开始服务，否则不处理
+转发速度不均匀，流量小时积累，流量大时消费
+动态流控
+实时计算服务能力如 QPS，对比服务 RT 如果 RT 过大，则减少 QPS
+设计要点
+手动开关，主动运维和应急使用
+监控通知，限流发生时干系人要清楚
+用户感知，如返回特定错误信息（错误 code/错误提示）
+链路标识，RPC 链路加入限流标识方便上下游业务识别限流场景做不同处理
+
+## 熔断
+
+场景
+过载保护，系统负载过高情况为防止故障产生，而采取的一种保护措施
+防止应用程序不断尝试可能会失败的操作
+三个状态
+Closed，闭合状态，正常状态，系统需要一个基于时间线到错误计数器，如果错误累计达到阈值则切换至 Open 状态
+Open，断开状态，所有对服务对请求立即返回错误，不用调用后端服务进行计算
+Half-Open，半开状态，允许部分请求流量进入并处理，如果请求成功则按照某种策略切换到 Closed 状态
+设计要点
+定义触发熔断的错误类型
+所有触发熔断的错误请求必须要有统一的日志输出
+熔断机制必须有服务诊断及自动恢复能力
+最好为熔断机制设置手动开关用于三种状态的切换
+熔断要切分业务，做到业务隔离熔断
