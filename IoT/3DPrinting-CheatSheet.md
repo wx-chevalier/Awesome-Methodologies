@@ -1,6 +1,8 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Technology
+# 3D 打印资料索引
+
+# Technology | 技术纵览
 
 ## FDM | 熔融沉积快速成型(Fused Deposition Modeling )
 

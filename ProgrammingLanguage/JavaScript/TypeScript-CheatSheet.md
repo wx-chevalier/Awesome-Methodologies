@@ -265,6 +265,12 @@ declare namespace NodeJS {
 ```ts
 declare var require: (moduleId: string) => any;
 declare var process: any;
+
+declare namespace NodeJS {
+  interface ReadableStream {
+    destroy: () => {};
+  }
+}
 ```
 
 如果是某个未包含类型声明的 NPM 库，则可以使用 declare 声明其命名空间，譬如 [antd/typings](https://parg.co/mIm) 中对于 rc 项目的引用：
@@ -893,6 +899,15 @@ Partial 同样能够用于类的声明中：
 
 ```ts
 type RectangleShape = Partial<Shape & Perimeter> & Point;
+```
+
+TypeScript 还为我们提供了 Pick 与 Record 类型，Pick 类型允许我们定义仅包含目标类型中的部分属性：
+
+```ts
+// From T pick a set of properties K
+declare function pick<T, K extends keyof T>(obj: T, ...keys: K[]): Pick<T, K>;
+
+const nameAndAgeOnly = pick(person, 'name', 'age'); // { name: string, age: number }
 ```
 
 ## Generics | 泛型

@@ -392,13 +392,19 @@ $ docker pull custom-domain:5000/my-ubuntu
 $ mkdir auth
 $ docker run \
   --entrypoint htpasswd \
-  registry:2 -Bbn testuser testpassword > auth/htpasswd
+  registry:2 -Bbn cscan cscancscan > ~/auth/htpasswd
+
+$ openssl req -new -newkey rsa:4096 -days 365 \
+                -subj "/CN=localhost" \
+                -nodes -x509  \
+                -keyout ~/certs/domain.key \
+                -out ~/certs/domain.crt
 ```
 
 然后可以使用 Compose 文件来描述所需要的 TLS 以及 AUTH 参数：
 
 ```yml
-registry:
+registry-srv:
   restart: always
   image: registry:2
   ports:
@@ -410,9 +416,9 @@ registry:
     REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
     REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
   volumes:
-    - /path/data:/var/lib/registry
-    - /path/certs:/certs
-    - /path/auth:/auth
+    - /opt/registry:/var/lib/registry
+    - ~/certs:/certs
+    - ~/auth:/auth
 ```
 
 接下来使用 Docker Compose 命令启动服务：
