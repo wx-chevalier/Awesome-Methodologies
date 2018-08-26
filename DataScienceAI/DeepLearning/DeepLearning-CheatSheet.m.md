@@ -1,0 +1,89 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
+# DeepLearning CheatSheet | 深度学习概念备忘
+
+# Neural Networks | 神经网络
+
+神经网络其实是一个非常宽泛的称呼，它包括两类，一类是用计算机的方式去模拟人脑，这就是我们常说的ANN（人工神经网络），另一类是研究生物学上的神经网络，又叫生物神经网络；在人工神经网络之中，又分为前馈神经网络和反馈神经网络这两种。神经网络由大量神经元组成。每个神经元获得线性组合的输入，经过非线性的激活函数，然后得到非线性的输出；线性结果加上值相关(Element wise)非线性结果，我们才能去模拟任意的复杂图形。
+
+![image](https://user-images.githubusercontent.com/5803001/44627904-00824e00-a969-11e8-8524-f1f9ad40efad.png)
+
+神经网络往往由多层堆叠而成，主要分为输入层(Input Layer)，隐层(Hidden Layer)以及输出层(Output Layer)这三种。输入层中的每个节点代表了数据集中的每条数据的某个特征，隐层中的每个节点则是接收上层传来的特征向量，将其与权重向量进行点乘，传入激活函数得到该节点对应的特征值；输出层则是将前隐层的输出转化为单一的输出值。
+
+![image](https://user-images.githubusercontent.com/5803001/44627910-18f26880-a969-11e8-83b0-40ea1f682f2c.png)
+
+在实际计算中，假设 $X$ 是 $N * features\_num$ 维度的数据集，即包含了 $N$ 条数据，每条数据包含了 $features\_num$ 个特征。而隐层总的权重矩阵维度为 $features\_num * hidden\_layer\_nodes\_num$，即每个隐层节点包含了形为 $features\_num * 1$ 的权重向量；输入的数据特征向量与权重向量点乘后得到单一值。换言之，如果隐层共包含了 $hidden\_layer\_nodes\_num$ 个节点，那么某条数据经过隐层变换后输入的数据就成了形为 $1 * hidden\_layer\_nodes\_num$ 的特征向量。在包含偏置值(bais)的隐层中，每个节点的偏置值为 b，那么整个隐层的偏置向量就是形为 $1 * hidden\_layer\_nodes\_num$ 的向量，与点乘得到的特征向量相加，得到某条数据经过该隐层后最终的特征向量。
+
+```py
+# 数据集
+X = tf.placeholder(tf.float32, shape=(None,features_num))
+
+# Weight, 权重矩阵
+W = tf.Variable(tf.random_normal(shape=[features_num, hidden_layer_nodes_num]))
+
+# 偏移量矩阵
+B = tf.Variable(tf.ones(shape=([hidden_layer_nodes_num])))
+
+# 构建神经网络计算图
+XW = tf.matmul(X,W)
+
+# Activation Function | 激活函数
+A = tf.sigmoid(Z)
+```
+
+## 激活函数
+
+![image](https://user-images.githubusercontent.com/5803001/44628032-42ac8f00-a96b-11e8-8072-f360af7814dc.png)
+
+激活函数计算量大，反向传播求误差梯度时，求导涉及除法。反向传播时，很容易就会出现梯度消失的情况，从而无法完成深层网络的训练。一个非常大的梯度流过一个 ReLU 神经元，更新过参数之后，这个神经元再也不会对任何数据有激活现象了，那么这个神经元的梯度就永远都会是 0。
+
+Softmax 函数则是用于多分类神经网络输出：
+
+$$
+\sigma(z)_j = \frac{e^{z_j}}{\sum_{k=1}^Ke^{z_k}}
+$$
+
+![image](https://user-images.githubusercontent.com/5803001/44628064-d54d2e00-a96b-11e8-89e9-3c6cccebf039.png)
+
+## 梯度下降
+
+
+梯度下降法 Gradient Descent 是一种常用的一阶(first-order)优化方法，是求解无约束优化问题最简单、最经典的方法之一。考虑无约束优化问题$min_xf(x)$，其中$f(x)$为连续可微函数。如果能构造出一个序列$x^0,x^1,...,x^t$满足：
+
+$$
+f(x^{t+1}) < f(x^t),t=0,1,2...
+$$
+
+则不断执行该过程即可以收敛到局部极小点。而根据泰勒展示我们可以知道:
+
+$$
+f(x+\Delta x) \simeq f(x) + \Delta x^T \nabla f(x)
+$$
+
+于是，如果要满足 $f(x+\Delta x) < f(x)$，可以选择:
+
+$$
+\Delta x = -{step} \nabla f(x)
+$$
+
+其中$step$是一个小常数，表示步长。以求解目标函数最小化为例，梯度下降算法可能存在一下几种情况：
+
+- 当目标函数为凸函数时，局部极小点就对应着函数全局最小值时，这种方法可以快速的找到最优解；
+- 当目标函数存在多个局部最小值时，可能会陷入局部最优解。因此需要从多个随机的起点开始解的搜索。
+- 当目标函数不存在最小值点，则可能陷入无限循环。因此，有必要设置最大迭代次数。
+
+
+# CNN | 卷积神经网络
+
+# RNN | 循环神经网络
+
+循环神经网络最大的特点就在于循环神经网路的隐含层的每个节点的状态或输出除了与当前时刻的输入有关，还有上一个时刻的状态或者输出有关，隐含层节点之间存在循环连接。这使得循环神经网络具有对时间序列的记忆能力。
+实际应用中最有效的序列模型称为门控 RNN（gated RNN）。包括基于长短期记忆（LSTM：long short-term memory）和基于门控循环单元(GRU：gated recurrent unit)的网络。门控 RNN 主要是解决一般 RNN 的梯度消失或者梯度爆炸的问题。
+
+![image](https://user-images.githubusercontent.com/5803001/44517585-b09e4f80-a6fa-11e8-8177-407607d84fd7.png)
+
+## LSTM
+
+不同于普通的 RNN 节点单元，LSTM 引入了遗忘门（总共有 3 个门，输入们、遗忘门和输出们）用来决定我们需要从节点单元中抛弃哪些信息以及保留哪些信息。
+
+![image](https://user-images.githubusercontent.com/5803001/44517720-05da6100-a6fb-11e8-9ffe-c018b9bf5baf.png)

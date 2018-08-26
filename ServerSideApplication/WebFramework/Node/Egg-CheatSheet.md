@@ -127,31 +127,6 @@ ctx.queries.type; // ['1','2']
 
 [egg-mysql](https://github.com/eggjs/egg-mysql)
 
-```js
-knex
-  .from('users')
-  .leftJoin('user_addresses', 'users.id', '=', 'user_addresses.user_id')
-  .options({ nestTables: true })
-  .then(results => {
-    // do something with results ...
-  });
-
-// result 结果如下
-{
-  users: {
-    id: 3,
-    username: 'somename',
-    email:
-  },
-  user_addresses: {
-    id: 1, // or whatever format your id is in
-    user_id: 3,
-    street: 'somestreet',
-    postcode: 'somepostcode'
-  }
-}
-```
-
 ## Sequelize ORM
 
 # 开发实践

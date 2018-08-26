@@ -63,45 +63,15 @@ Component-Based Architecture
 
 ```js
 constructor(props) {
-super();
-console.log(this.props); // undefined
-console.log(props); // defined
+  super();
+  console.log(this.props); // undefined
+  console.log(props); // defined
 }
 
 constructor(props) {
-super(props);
-console.log(this.props); // props will get logged.
+  super(props);
+  console.log(this.props); // props will get logged.
 }
-```
-
-PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.object, PropTypes.string, PropTypes.symbol, 对于 React 可渲染的类型还包括 PropTypes.node 与 PropTypes.element
-
-```js
-import PropTypes from 'prop-types';
-
-MyComponent.propTypes = {
-  // 指定类实例
-  optionalMessage: PropTypes.instanceOf(Message), // 枚举类型
-
-  optionalEnum: PropTypes.oneOf(['News', 'Photos']), // 可能为多种类型
-
-  optionalUnion: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.instanceOf(Message)
-  ]), // 包含指定类型的数组
-
-  optionalArrayOf: PropTypes.arrayOf(PropTypes.number), // 包含指定值类型的对象
-
-  optionalObjectOf: PropTypes.objectOf(PropTypes.number), // 某个具体形状的对象
-
-  optionalObjectWithShape: PropTypes.shape({
-    color: PropTypes.string,
-    fontSize: PropTypes.number
-  })
-
-  // ...
-};
 ```
 
 React 16 中为我们提供了 Portals，方便地将元素渲染到非当前组件树层级的节点：
@@ -115,6 +85,8 @@ render() {
   );
 }
 ```
+
+不过函数式组件也并非处处适用，使用函数式组件时，我们无法使用 refs，无法使用 State 并且没有生命周期函数；还需要避免使用 input 这样的非受控元素，每次重新渲染都会创建新的 input 元素。
 
 ### JSX
 
@@ -440,6 +412,36 @@ classNames={{
 # Component Dataflow | 组件数据流
 
 ## Props
+
+PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.object, PropTypes.string, PropTypes.symbol, 对于 React 可渲染的类型还包括 PropTypes.node 与 PropTypes.element
+
+```js
+import PropTypes from 'prop-types';
+
+MyComponent.propTypes = {
+  // 指定类实例
+  optionalMessage: PropTypes.instanceOf(Message), // 枚举类型
+
+  optionalEnum: PropTypes.oneOf(['News', 'Photos']), // 可能为多种类型
+
+  optionalUnion: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.instanceOf(Message)
+  ]), // 包含指定类型的数组
+
+  optionalArrayOf: PropTypes.arrayOf(PropTypes.number), // 包含指定值类型的对象
+
+  optionalObjectOf: PropTypes.objectOf(PropTypes.number), // 某个具体形状的对象
+
+  optionalObjectWithShape: PropTypes.shape({
+    color: PropTypes.string,
+    fontSize: PropTypes.number
+  })
+
+  // ...
+};
+```
 
 ## State
 
