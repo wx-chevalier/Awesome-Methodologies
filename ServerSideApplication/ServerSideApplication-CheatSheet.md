@@ -6,4 +6,4 @@
 
 其实从广义来说 操作系统上，业务系统下与业务无关的 ，都是中间件，包括数据库，离线等。当然 实际上不会这么分。 不过利用这个讲法应该能够更容易的去理解中间件是什么。
 
-阿里的中间件主要就包含这么几个: [分布式关系型数据库 DRDS\_ 水平拆分 \*\*](https://link.zhihu.com/?target=https%3A//www.aliyun.com/product/drds) 做数据库扩展性的 [消息队列 \_ 云消息 \*\*](https://link.zhihu.com/?target=https%3A//www.aliyun.com/product/ons/) 做消息的 MOM [企业级分布式应用服务 EDAS\_ 企业云计算解决方案 \*\*](https://link.zhihu.com/?target=https%3A//www.aliyun.com/product/edas) 做分布式服务的还有一些其他的中间件，比如 JstormT , 配置服务 缓存 等等，也都会放在中间件里
+阿里的中间件主要就包含这么几个: [分布式关系型数据库 DRDS\_ 水平拆分 \*\*](https://www.aliyun.com/product/drds) 做数据库扩展性的 [消息队列 \_ 云消息 \*\*](https://www.aliyun.com/product/ons/) 做消息的 MOM [企业级分布式应用服务 EDAS\_ 企业云计算解决方案 \*\*](https://www.aliyun.com/product/edas) 做分布式服务的还有一些其他的中间件，比如 JstormT , 配置服务 缓存 等等，也都会放在中间件里

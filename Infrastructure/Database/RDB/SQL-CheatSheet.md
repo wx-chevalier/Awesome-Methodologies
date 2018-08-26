@@ -74,18 +74,6 @@ FROM contacts
 WHERE last_name IS NOT NULL;
 ```
 
-### 时间与日期
-
-[MySQL 提供了时间与日期函数](http://dev.mysql.com/doc/refman/5.1/en/date-and-time-functions.html#function_month)：
-
-```sql
-// 获取事件的年与月
-GROUP BY YEAR(record_date), MONTH(record_date)
-
-// 根据固定的时间格式排序
-GROUP BY DATE_FORMAT(record_date, '%Y%m')
-```
-
 ## Join | 表联接
 
 表联接最常见的即是出现在查询模型中，但是实际的用法绝不会局限在查询模型中。较常见的联接查询包括了以下几种类型：Inner Join  / Outer Join / Full Join / Cross Join 。
@@ -149,3 +137,5 @@ SELECT a.distributor_id,
       (SELECT COUNT(*) FROM my_table WHERE distributor_id = a.distributor_id) as total_count
 FROM my_table a ;
 ```
+
+# Database Design | 数据库设计

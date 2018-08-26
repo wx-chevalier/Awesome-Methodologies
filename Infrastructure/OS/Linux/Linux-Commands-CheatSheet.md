@@ -450,9 +450,13 @@ $ tar -czf target.tar.fz file1 file2 file3
 
 ## 文件检索
 
-- 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则: ls -lR /home/han|grep js|wc -l 或 ls -l "/home/han"|grep "js"|wc -l
+- 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则:
 
-### 文件名搜索
+```sh
+$ ls -lR /home/han| grep js | wc -l
+
+$ ls -l "/home/han"|grep "js"|wc -l
+```
 
 可以使用 [fzf](https://github.com/junegunn/fzf) 进行交互式检索，在[这里](https://github.com/junegunn/fzf-bin/releases)下载二进制文件
 
@@ -462,11 +466,46 @@ $find * -type f | fzf > selected
 
 ![fzf](https://raw.githubusercontent.com/junegunn/i/master/fzf-preview.png)
 
-### 文件内容搜索
+### 内容检索
 
-[这篇](http://www.hostingadvice.com/blog/tutorial-use-ack-grep-linux/)文章对于 grep 与 ack 有较为详细的介绍
+grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
 
-[ag](https://github.com/ggreer/the_silver_searcher)
+```sh
+# 基本检索
+$ grep match_pattern file_name
+$ grep "match_pattern" file_1 file_2 file_3 ...
+
+# 搜索多个文件并查找匹配文本在哪些文件中
+$ grep -l "text" file1 file2 file3...
+
+# 递归检索
+$ grep "text" . -r -n
+#只在目录中所有的.php和.html文件中递归搜索字符"main()"
+$ grep "main()" . -r --include *.{php,html}
+#在搜索结果中排除所有README文件
+$ grep "main()" . -r --exclude "README"
+#在搜索结果中排除filelist文件列表里的文件
+$ grep "main()" . -r --exclude-from filelist
+
+# 正则表达式检索
+$ grep -E "[1-9]+"
+$ egrep "[1-9]+"
+
+# 检索当前目录下
+$ grep 'John Resig' *
+
+# 只输出文件中匹配到的部分 -o 选项：
+$ echo this is a test line. | grep -o -E "[a-z]+\."
+# 输出匹配行数
+$ grep -c "text" file_name
+# 忽略字符串大小写
+$ echo "hello world" | grep -i "HELLO"
+
+#显示匹配某个结果之后的3行，使用 -A 选项，-B 显示匹配某个结果之前的3行， -C 显示匹配某个结果的前三行和后三行
+$ seq 10 | grep "5" -A 3
+```
+
+[ag](https://github.com/ggreer/the_silver_searcher) 是类似于 ack 但是性能更优地工具。
 
 ## 文件属性
 
@@ -607,9 +646,7 @@ $ file /bin/bash
 $ w
 
 # 15:33:49 up 58 days,  5:45,  1 user,  load average: 0.12, 0.15, 0.22
-
 # USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
-
 # root     pts/1     15:15   49.00s  0.04s  0.00s w
 ```
 
@@ -621,48 +658,27 @@ $ w
 
 - 使用 `pstree -p` 查看当前进程树，使用 `ps -A` 查看所有进程信息，使用 `ps -aux` 查看所有正在内存中的程序，使用 `ps -ef` 查看所有连同命令行的进程信息；使用 `ps -u root` 显示指定用户信息；使用 `ps -ef | grep ssh` 查看特定进程。
 
-使用 `top` 查看进程资源占用情况，也可以使用扩展 `htop` 或者 `gtop`，如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
+使用 `top` 查看进程资源占用情况，也可以使用扩展 htop 或者 gtop；如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
 
 ```sh
 # 指定查看用户
-
 $ top -u oracle
-
-
-
 
 # 栏目内容解释
 
 # PID：进程的ID
-
 # USER：进程所有者
-
 # PR：进程的优先级别，越小越优先被执行
-
 # NInice：值
-
 # VIRT：进程占用的虚拟内存
-
 # RES：进程占用的物理内存
-
 # SHR：进程使用的共享内存
-
 # S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数
-
 # %CPU：进程占用CPU的使用率
-
 # %MEM：进程使用的物理内存和总内存的百分比
-
 # TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。
-
 # COMMAND：进程启动命令名称
 ```
-
-```sh
-$ npm install gtop -g
-```
-
-![](https://raw.githubusercontent.com/aksakalli/gtop/master/img/demo.gif)
 
 ### 进程关闭
 

@@ -74,6 +74,50 @@ function delegate(criteria, listener) {
 }
 ```
 
+## 自定义事件
+
+```js
+const event = new Event('build');
+
+// Listen for the event.
+elem.addEventListener(
+  'build',
+  function(e) {
+    /* ... */
+  },
+  false
+);
+
+// Dispatch the event.
+elem.dispatchEvent(event);
+```
+
+#  路由
+
+```js
+const stateObj = { foo: 'bar' };
+
+// 将当前 URL 替换为 http://mozilla.org/bar.html
+history.pushState(stateObj, 'page 2', 'bar.html');
+```
+
+浏览器也为我们提供了 onhashchange 函数来监听 Hash 的变化：
+
+```js
+if ('onhashchange' in window) {
+  //no alert
+  console.log('The browser supports the hashchange event!');
+}
+
+function locationHashChanged() {
+  if (location.hash === '#somecoolfeature') {
+    somecoolfeature();
+  }
+}
+
+window.onhashchange = locationHashChanged;
+```
+
 # 网络通信
 
 ## XMLHTTPRequest

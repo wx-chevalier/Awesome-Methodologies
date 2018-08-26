@@ -746,141 +746,141 @@ git add .gitattributes
 # Initialization & Config
 
 ```
-    #配置使用git仓库的人员姓名  
-    git config --global user.name "Your Name Comes Here"  
+    #配置使用git仓库的人员姓名
+    git config --global user.name "Your Name Comes Here"
 
-    #配置使用git仓库的人员email  
-    git config --global user.email you@yourdomain.example.com  
+    #配置使用git仓库的人员email
+    git config --global user.email you@yourdomain.example.com
 
-    #配置到缓存 默认15分钟  
+    #配置到缓存 默认15分钟
     git config --global credential.helper cache
 
-    #修改缓存时间  
+    #修改缓存时间
     git config --global credential.helper 'cache --timeout=3600'
 
-    git config --global color.ui true  
-    git config --global alias.co checkout  
-    git config --global alias.ci commit  
-    git config --global alias.st status  
-    git config --global alias.br branch  
-    git config --global core.editor "mate -w"    # 设置Editor使用textmate  
-    git config -1 #列举所有配置  
+    git config --global color.ui true
+    git config --global alias.co checkout
+    git config --global alias.ci commit
+    git config --global alias.st status
+    git config --global alias.br branch
+    git config --global core.editor "mate -w"    # 设置Editor使用textmate
+    git config -1 #列举所有配置
 
-    #用户的git配置文件~/.gitconfig  
+    #用户的git配置文件~/.gitconfig
 ```
 
 # 查看、添加、提交、删除、找回，重置修改文件
 
-    git help <command>  # 显示command的help  
-    git show            # 显示某次提交的内容  
-    git show $id  
+    git help <command>  # 显示command的help
+    git show            # 显示某次提交的内容
+    git show $id
 
-    git co  -- <file>   # 抛弃工作区修改  
-    git co  .           # 抛弃工作区修改  
+    git co  -- <file>   # 抛弃工作区修改
+    git co  .           # 抛弃工作区修改
 
-    git add <file>      # 将工作文件修改提交到本地暂存区  
-    git add .           # 将所有修改过的工作文件提交暂存区  
+    git add <file>      # 将工作文件修改提交到本地暂存区
+    git add .           # 将所有修改过的工作文件提交暂存区
 
-    git rm <file>       # 从版本库中删除文件  
-    git rm <file> --cached  # 从版本库中删除文件，但不删除文件  
+    git rm <file>       # 从版本库中删除文件
+    git rm <file> --cached  # 从版本库中删除文件，但不删除文件
 
-    git reset <file>    # 从暂存区恢复到工作文件  
-    git reset -- .      # 从暂存区恢复到工作文件  
-    git reset --hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改  
+    git reset <file>    # 从暂存区恢复到工作文件
+    git reset -- .      # 从暂存区恢复到工作文件
+    git reset --hard    # 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改
 
-    git ci <file>  
-    git ci .  
-    git ci -a           # 将git add, git rm和git ci等操作都合并在一起做  
-    git ci -am "some comments"  
-    git ci --amend      # 修改最后一次提交记录  
+    git ci <file>
+    git ci .
+    git ci -a           # 将git add, git rm和git ci等操作都合并在一起做
+    git ci -am "some comments"
+    git ci --amend      # 修改最后一次提交记录
 
-    git revert <$id>    # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象  
-    git revert HEAD     # 恢复最后一次提交的状态  
+    git revert <$id>    # 恢复某次提交的状态，恢复动作本身也创建了一次提交对象
+    git revert HEAD     # 恢复最后一次提交的状态
 
 # 查看文件 diff
 
-    git diff <file>     # 比较当前文件和暂存区文件差异  
-    git diff  
-    git diff <$id1> <$id2>   # 比较两次提交之间的差异  
-    git diff <branch1>..<branch2> # 在两个分支之间比较  
-    git diff --staged   # 比较暂存区和版本库差异  
-    git diff --cached   # 比较暂存区和版本库差异  
-    git diff --stat     # 仅仅比较统计信息  
+    git diff <file>     # 比较当前文件和暂存区文件差异
+    git diff
+    git diff <$id1> <$id2>   # 比较两次提交之间的差异
+    git diff <branch1>..<branch2> # 在两个分支之间比较
+    git diff --staged   # 比较暂存区和版本库差异
+    git diff --cached   # 比较暂存区和版本库差异
+    git diff --stat     # 仅仅比较统计信息
 
 # 查看提交记录
 
-    git log  
-    git log <file>      # 查看该文件每次提交记录  
-    git log -p <file>   # 查看每次详细修改内容的diff  
-    git log -p -2       # 查看最近两次详细修改内容的diff  
-    git log --stat      #查看提交统计信息  
+    git log
+    git log <file>      # 查看该文件每次提交记录
+    git log -p <file>   # 查看每次详细修改内容的diff
+    git log -p -2       # 查看最近两次详细修改内容的diff
+    git log --stat      #查看提交统计信息
 
 Mac 上可以使用 tig 代替 diff 和 log，brew install tig
 
 # 取得 Git 仓库
 
 ```
-    #初始化一个版本仓库  
-    git init  
+    #初始化一个版本仓库
+    git init
 
-    #Clone远程版本库  
-    git clone git@xbc.me:wordpress.git  
+    #Clone远程版本库
+    git clone git@xbc.me:wordpress.git
     git clone https://username@github.com/username/repository.git
 
-    #添加远程版本库origin，语法为 git remote add [shortname] [url]  
-    git remote add origin git@xbc.me:wordpress.git  
+    #添加远程版本库origin，语法为 git remote add [shortname] [url]
+    git remote add origin git@xbc.me:wordpress.git
 
-    #查看远程仓库  
-    git remote -v  
+    #查看远程仓库
+    git remote -v
 ```
 
 # 提交你的修改
 
 ```
-#添加当前修改的文件到暂存区  
-git add .  
+#添加当前修改的文件到暂存区
+git add .
 
-#如果你自动追踪文件，包括你已经手动删除的，状态为Deleted的文件  
-git add -u  
+#如果你自动追踪文件，包括你已经手动删除的，状态为Deleted的文件
+git add -u
 
-#提交你的修改  
-git commit –m "你的注释"  
+#提交你的修改
+git commit –m "你的注释"
 
-#推送你的更新到远程服务器,语法为 git push [远程名] [本地分支]:[远程分支]  
-git push origin master  
+#推送你的更新到远程服务器,语法为 git push [远程名] [本地分支]:[远程分支]
+git push origin master
 
-#查看文件状态  
-git status  
+#查看文件状态
+git status
 
-#跟踪新文件  
-git add readme.txt  
+#跟踪新文件
+git add readme.txt
 
-#从当前跟踪列表移除文件，并完全删除  
-git rm readme.txt  
+#从当前跟踪列表移除文件，并完全删除
+git rm readme.txt
 
-#仅在暂存区删除，保留文件在当前目录，不再跟踪  
-git rm –cached readme.txt  
+#仅在暂存区删除，保留文件在当前目录，不再跟踪
+git rm –cached readme.txt
 
-#重命名文件  
-git mv reademe.txt readme  
+#重命名文件
+git mv reademe.txt readme
 
-#查看提交的历史记录  
-git log  
+#查看提交的历史记录
+git log
 
-#修改最后一次提交注释的，利用–amend参数  
-git commit --amend  
+#修改最后一次提交注释的，利用–amend参数
+git commit --amend
 
-#忘记提交某些修改，下面的三条命令只会得到一个提交。  
-git commit –m &quot;add readme.txt&quot;  
-git add readme_forgotten  
-git commit –amend  
+#忘记提交某些修改，下面的三条命令只会得到一个提交。
+git commit –m &quot;add readme.txt&quot;
+git add readme_forgotten
+git commit –amend
 
-#假设你已经使用git add .，将修改过的文件a、b加到暂存区  
+#假设你已经使用git add .，将修改过的文件a、b加到暂存区
 
-#现在你只想提交a文件，不想提交b文件，应该这样  
-git reset HEAD b  
+#现在你只想提交a文件，不想提交b文件，应该这样
+git reset HEAD b
 
-#取消对文件的修改  
+#取消对文件的修改
 git checkout –- readme.txt
 ```
 
@@ -905,7 +905,7 @@ git remote -v
 查看远程仓库 url
 
 ```
-git remote add  
+git remote add
 ```
 
 新增远程仓库
@@ -917,7 +917,7 @@ git remote show
 查看远程仓库详细信息
 
 ```
-git remote rename  
+git remote rename
 ```
 
 重命名远程仓库
@@ -969,7 +969,7 @@ git tag -a  -m
 添加带注释的标签
 
 ```
-git tag -a  
+git tag -a
 ```
 
 对某个版本打标签
@@ -1580,7 +1580,7 @@ $ git mv [file-original] [file-renamed]
 
 ## Commit Message | 提交信息规范
 
-目前规范使用较多的是 [Angular 团队的规范](https://link.zhihu.com/?target=https%3A//github.com/angular/angular.js/blob/master/DEVELOPERS.md%23-git-commit-guidelines), 继而衍生了 [Conventional Commits specification](https://link.zhihu.com/?target=https%3A//conventionalcommits.org/). 很多工具也是基于此规范, 它的 message 格式如下:
+目前规范使用较多的是 [Angular 团队的规范](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md%23-git-commit-guidelines), 继而衍生了 [Conventional Commits specification](https://conventionalcommits.org/). 很多工具也是基于此规范, 它的 message 格式如下:
 
 ```
 <type>(<scope>): <subject>
@@ -1599,23 +1599,19 @@ $ git mv [file-original] [file-renamed]
 分别由如下部分构成:
 
 - type: commit 的类型
-- feat: 新特性
-- fix: 修改问题
-- refactor: 代码重构
-- docs: 文档修改
-- style: 代码格式修改, 注意不是 css 修改
-- test: 测试用例修改
-- chore: 其他修改, 比如构建流程, 依赖管理.
+  - feat: 新特性
+  - fix: 修改问题
+  - refactor: 代码重构
+  - docs: 文档修改
+  - style: 代码格式修改, 注意不是 css 修改
+  - test: 测试用例修改
+  - chore: 其他修改, 比如构建流程, 依赖管理.
 - scope: commit 影响的范围, 比如: route, component, utils, build...
-- subject: commit 的概述, 建议符合 [50/72 formatting](https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
-- body: commit 具体修改内容, 可以分为多行, 建议符合 [50/72 formatting](https://link.zhihu.com/?target=https%3A//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
+- subject: commit 的概述, 建议符合 [50/72 formatting](https：//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
+- body: commit 具体修改内容, 可以分为多行, 建议符合 [50/72 formatting](https：//stackoverflow.com/questions/2290016/git-commit-messages-50-72-formatting)
 - footer: 一些备注, 通常是 BREAKING CHANGE 或修复的 bug 的链接.
 
-这样一个符合规范的 commit message, 就好像是一份邮件.
-
-## git commit 模板
-
-如果你只是个人的项目, 或者想尝试一下这样的规范格式, 那么你可以为 git 设置 commit template, 每次 git commit 的时候在 vim 中带出, 时刻提醒自己:
+这样一个符合规范的 commit message, 就好像是一份邮件。如果你只是个人的项目, 或者想尝试一下这样的规范格式, 那么你可以为 git 设置 commit template, 每次 git commit 的时候在 vim 中带出, 时刻提醒自己:
 
 修改 ~/.gitconfig, 添加:
 
@@ -1648,3 +1644,17 @@ template = ~/.gitmessage
 # Branch | 分支
 
 # Workflow | 工作流
+
+## Statistics | 统计数据
+
+```sh
+# 查看 Git 上的个人代码量，username 需要修改为真实用户名
+$ git log --author="username" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+# added lines: 120745, removed lines: 71738, total lines: 49007
+
+# 统计每个人增删行数
+git log --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git log --author="$name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -; done
+
+# 统计提交数前五名
+$ git log --pretty='%aN' | sort | uniq -c | sort -k1 -n -r | head -n 5
+```

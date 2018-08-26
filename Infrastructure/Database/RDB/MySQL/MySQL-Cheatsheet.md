@@ -32,7 +32,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OP
  FLUSH PRIVILEGES;
 ```
 
-# 数据库配置与管理
+# 配置与管理
 
 ## 权限管理
 
@@ -80,6 +80,41 @@ SELECT
 FROM information_schema.TABLES
 WHERE TABLE_NAME = 'r_case_info' and TABLE_TYPE='BASE TABLE'
 ORDER BY data_length DESC;
+```
+
+# 数据查询与操作
+
+## 数据类型
+
+![group](https://user-images.githubusercontent.com/5803001/44440908-d6ddc580-a5fc-11e8-9701-096e3b5b7be0.jpg)
+
+## 时间与日期
+
+MySQL 中支持 date 和 datetime、timestamp 等时间类型，其中 date 与 datetime 都是时区无关，timestamp 会跟随设置的时区变化而变化，而 datetime 保存的是绝对值不会变化。占用存储空间不同。timestamp 储存占用 4 个字节，datetime 储存占用 8 个字节。
+
+- 可表示的时间范围不同。timestamp 可表示范围:1970-01-01 00:00:00~2038-01-09 03:14:07，datetime 支持的范围更宽 1000-01-01 00:00:00 ~ 9999-12-31 23:59:59
+
+- 索引速度不同。timestamp 更轻量，索引相对 datetime 更快。
+
+[MySQL 提供了时间与日期函数](http://dev.mysql.com/doc/refman/5.1/en/date-and-time-functions.html#function_month)：
+
+```sql
+// 获取事件的年与月
+GROUP BY YEAR(record_date), MONTH(record_date)
+
+// 根据固定的时间格式排序
+GROUP BY DATE_FORMAT(record_date, '%Y%m')
+```
+
+两个值不同，sysdate 表示实时的系统时间。sysdate() 和 now()的区别，一般在执行 SQL 语句时，都是用 now()；因为使用 sysdate()时，有可能导致主库和从库执行时返回值不一样，导致主从数据库不一致。
+
+```sh
+mysql> select now(), curdate(), sysdate(), curtime() \G;
+*************************** 1. row ***********************
+    now(): 2013-01-17 13:07:53
+curdate(): 2013-01-17
+sysdate(): 2013-01-17 13:07:53
+curtime(): 13:07:53
 ```
 
 # 数据操作
@@ -207,5 +242,3 @@ innodb_io_capacity~= IOPS
 ## 锁
 
 InnoDB 行锁是通过给索引上的索引项加锁来实现的，这一点 MySQL 与 Oracle 不同，后者是通过在数据块中对相应数据行加锁来实现的。InnoDB 这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB 才使用行级锁，否则，InnoDB 将使用表锁！
-
-# Database Design | 数据库设计

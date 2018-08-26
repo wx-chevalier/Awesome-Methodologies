@@ -30,6 +30,11 @@ $ pipenv --py
 /Users/kennethreitz/.local/share/virtualenvs/test-Skyy4vre/bin/python
 ```
 
+```sh
+export LC_ALL=zh_CN.UTF-8
+export LANG=zh_CN.UTF-8
+```
+
 # 基础语法
 
 Python 是一门高阶、动态类型的多范式编程语言；定义 Python 文件的时候我们往往会先声明文件编码方式 :
@@ -105,7 +110,7 @@ pp.pprint(tup)
 
 ## 模块
 
-Python 中的模块(Module)即是 Python 源码文件，其可以导出类、函数与全局变量；当我们从某个模块导入变量时，函数名往往就是命名空间(Namespace)。而 Python 中的包(Package )则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包 :
+Python 中的模块(Module)即是 Python 源码文件，其可以导出类、函数与全局变量；当我们从某个模块导入变量时，函数名往往就是命名空间(Namespace)。
 
 ```py
 # 文件目录
@@ -139,7 +144,7 @@ except ImportError:
     except ImportError:
 ```
 
-Package 可以为某个目录下所有的文件设置统一入口 :
+而 Python 中的包(Package )则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口 :
 
 ```py
 # 目录格式
@@ -170,22 +175,19 @@ def subSubAFunTwo():
 
 # __init__.py from subDir
 
-# Adds 'subAFun()' and 'subAFunTwo()' to the 'subDir' namespace
+# 将 'subAFun()' 与 'subAFunTwo()' 添加到 'subModules' 命名空间
 from .subA import *
 
-# The following two import statement do the same thing, they add 'subSubAFun()' and 'subSubAFunTwo()' to the 'subDir' namespace. The first one assumes '__init__.py' is empty in 'subSubDir', and the second one, assumes '__init__.py' in 'subSubDir' contains 'from .subSubA import *'.
+# 假设 'subSubModules' 中的 '__init__.py' 为空
+# 将 'subSubAFun()' 与 'subSubAFunTwo()' 添加到 'subModules' 命名空间
+from .subSubModules.subSubA import *
 
-# Assumes '__init__.py' is empty in 'subSubDir'
-# Adds 'subSubAFun()' and 'subSubAFunTwo()' to the 'subDir' namespace
-from .subSubDir.subSubA import *
-
-# Assumes '__init__.py' in 'subSubDir' has 'from .subSubA import *'
-# Adds 'subSubAFun()' and 'subSubAFunTwo()' to the 'subDir' namespace
-from .subSubDir import *
-# __init__.py from subSubDir
-
-# Adds 'subSubAFun()' and 'subSubAFunTwo()' to the 'subSubDir' namespace
+# 假设 'subSubModules' 中的 '__init__.py' 不为空，包含了 'from .subSubA import *'
+# __init__.py，将 'subSubAFun()' 与 'subSubAFunTwo()' 添加到 'subSubModules' 命名空间
 from .subSubA import *
+
+# 将 'subSubAFun()' 与 'subSubAFunTwo()' 添加到 'subModules' 命名空间
+from .subSubDir import *
 
 # main.py
 
@@ -195,6 +197,12 @@ subDir.subAFun() # Hello from subAFun
 subDir.subAFunTwo() # Hello from subAFunTwo
 subDir.subSubAFun() # Hello from subSubAFun
 subDir.subSubAFunTwo() # Hello from subSubAFunTwo
+```
+
+`__init__.py` 中也支持使用 `__all__` 变量来声明所有需要导出的子模块:
+
+```py
+__all__ = ['submodule1', 'submodule2']
 ```
 
 ### 动态加载
@@ -336,6 +344,31 @@ print x  # Prints "8"
 y = 2.5
 print type(y) # Prints "<type 'float'>"
 print y, y + 1, y * 2, y ** 2 # Prints "2.5 3.5 5.0 6.25"
+```
+
+Python2 中默认使用传统除法，即自动四舍五入；而 Python 3 中默认使用精确除法：
+
+```py
+# 传统除法 如果是整数除法则执行地板除，如果是浮点数除法则执行精确除法。
+> 1/2
+0
+> 1.0/2.0
+0.5
+
+# 精确除法 除法总是会返回真实的商，不管操作数是整形还是浮点型。
+
+# ‘//’无论是否整除返回的都是 int ，而且是去尾整除
+>>> 5//2
+2
+
+# 向上取整，返回值为 int
+> math.ceil()
+
+# 向下取整，返回值为 int
+> math.floor()
+
+# 返回值为 int
+> round()
 ```
 
 ## 布尔类型
@@ -827,6 +860,7 @@ example(1, "var", *a_tuple, **a_dict)
 
 ```py
 func(**{'type':'Event'})
+
 # 等价于
 func(type='Event')
 ```
@@ -941,7 +975,7 @@ g.greet()            # Call an instance method; prints "Hello, Fred"
 g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 ```
 
-### Managed Attributes: 受控属性
+### Managed Attributes | 受控属性
 
 ```py
 # property、setter、deleter 可以用于复写点方法
@@ -949,17 +983,21 @@ g.greet(loud=True)   # Call an instance method; prints "HELLO, FRED!"
 class Example(object):
     def __init__(self, value):
        self._val = value
+
     @property
     def val(self):
         return self._val
+
     @val.setter
     def val(self, value):
         if not isintance(value, int):
             raise TypeError("Expected int")
         self._val = value
+
     @val.deleter
     def val(self):
         del self._val
+
     @property
     def square3(self):
         return 2**3
@@ -977,12 +1015,15 @@ ex.val = "str"
 
 ```py
 class example(object):
+
   @classmethod
   def clsmethod(cls):
     print "I am classmethod"
+
   @staticmethod
   def stmethod():
     print "I am staticmethod"
+
   def instmethod(self):
     print "I am instancemethod"
 

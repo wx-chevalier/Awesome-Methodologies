@@ -2,6 +2,9 @@
 
 # Distance & Similarity(距离与相似度)
 
+最常见的标准化方法就是 z-score 标准化，也叫标准差标准化，这种方法给予原始数据的均值（mean）和标准差（standard deviation）进行数据的标准化。常用的标准化方法还有 min-max 标准化（又叫离差标准化）、atan 反正切函数标准化、log 函数标准化等。
+　　我们使用的是 z-score 标准化方法，与离差标准化的不同之处在于，离差标准化仅仅仅仅对原数据的的方差与均差进行了倍数缩减，而标准差标准化则使标准化的数据方差为一。这对许多的算法更加有利，但是其缺点在于假如原始数据没有呈高斯分布，标准化的数据分布效果并不好。 所以我们使用 z-score 标准化方法的前提假设是数据分布符合正态分布（及高斯分布）。
+
 > [Machine Learning: Measuring Similarity and Distance](https://dzone.com/articles/machine-learning-measuring)
 >
 > [漫谈：机器学习中距离和相似性度量方法](http://www.cnblogs.com/daniel-D/p/3244718.html)
@@ -381,16 +384,16 @@ Like clustering methods, dimensionality reduction seek and exploit the inherent 
 
 This can be useful to visualize dimensional data or to simplify data which can then be used in a supervized learning method. Many of these methods can be adapted for use in classification and regression.
 
-* Principal Component Analysis (PCA)
-* Principal Component Regression (PCR)
-* Partial Least Squares Regression (PLSR)
-* Sammon Mapping
-* Multidimensional Scaling (MDS)
-* Projection Pursuit
-* Linear Discriminant Analysis (LDA)
-* Mixture Discriminant Analysis (MDA)
-* Quadratic Discriminant Analysis (QDA)
-* Flexible Discriminant Analysis (FDA)
+- Principal Component Analysis (PCA)
+- Principal Component Regression (PCR)
+- Partial Least Squares Regression (PLSR)
+- Sammon Mapping
+- Multidimensional Scaling (MDS)
+- Projection Pursuit
+- Linear Discriminant Analysis (LDA)
+- Mixture Discriminant Analysis (MDA)
+- Quadratic Discriminant Analysis (QDA)
+- Flexible Discriminant Analysis (FDA)
 
 # Association Rule Learning Algorithms
 
@@ -402,5 +405,5 @@ These rules can discover important and commercially useful associations in large
 
 The most popular association rule learning algorithms are:
 
-* Apriori algorithm
-* Eclat algorithm
+- Apriori algorithm
+- Eclat algorithm
