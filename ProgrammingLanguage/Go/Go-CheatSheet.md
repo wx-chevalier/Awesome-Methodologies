@@ -148,25 +148,25 @@ cannot find package "sub/math" in any of:
 
 ```yaml
 github.com/my/foo/
-  circle.yml
-  Dockerfile
-  cmd/
-    foosrv/
-      main.go
-    foocli/
-      main.go
-  pkg/
-    fs/
-      fs.go
-      fs_test.go
-      mock.go
-      mock_test.go
-    merge/
-      merge.go
-      merge_test.go
-    api/
-      api.go
-      api_test.go
+circle.yml
+Dockerfile
+cmd/
+foosrv/
+main.go
+foocli/
+main.go
+pkg/
+fs/
+fs.go
+fs_test.go
+mock.go
+mock_test.go
+merge/
+merge.go
+merge_test.go
+api/
+api.go
+api_test.go
 ```
 
 # 表达式与控制流
@@ -311,7 +311,7 @@ case T:
 
 ## 循环
 
-Go  支持使用 for 语句进行循环，不存在 while 或者 until:
+Go 支持使用 for 语句进行循环，不存在 while 或者 until:
 
 ```go
 for i := 1; i < 10; i++ {
@@ -586,7 +586,7 @@ a := IntSlice{1, 2}
 t := obj.(T) // if obj is not T, error
 t, ok := obj.(T) // if obj is not T, ok = false
 
-// 类型转换与判断
+// 类型转换与判断
 str, ok := val.(string);
 ```
 
@@ -844,7 +844,7 @@ var p *Person = new(Person) // pointer of type Person
 
 ```go
 // p 是 Vertex 类型
-p := Vertex{1, 2}  
+p := Vertex{1, 2}
 
 // q 是指向 Vertex 的指针
 q := &p

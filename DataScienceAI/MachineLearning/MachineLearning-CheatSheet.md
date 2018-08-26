@@ -24,12 +24,12 @@
 
 两个群体的文化和价值观完全不同。第一个群体认为好的工作，对于第二个群体而言可能觉得没有技术含量，但第一个群体可能恰恰认为，简单的才好，正因为很好地抓住了问题本质，所以问题变得容易解决。第二个群体欣赏的工作，第一个群体可能觉得是故弄玄虚，看不出他想解决什么人工智能问题，根本就不是在搞人工智 能、搞计算机，但别人本来也没说自己是在「搞人工智能」、「搞计算机」，本来就不是在为人工智能做研究。两个群体各有其存在的意义，应该宽容一点，不需要去互较什么短长。但是既然顶着 Machine Learning 这个帽子的不是「一伙儿」，而是「两伙儿」，那么要「跟进」的新人就要谨慎了，先搞清楚自己更喜欢「哪伙儿」。
 
-* 加强概率与统计的基础课程，建议采用莫里斯 · 德格鲁特 (Morris H.DeGroot) 和马克 · 舍维什 (Mark J.Schervish) 合著的第四版《概率论与数理统计》(Probability and Statistics) 为教材。
-* 在线性代数课程里，加强矩阵分析的内容。教材建议使用吉尔伯特 · 斯特朗 (Gilbert Strang) 的《线性代数导论》(Introduction to Linear Algebra) 。吉尔伯特 · 斯特朗在麻省理工学院一直讲述线性代数，他的网上视频课程堪称经典。后续建议开设矩阵计算，采用特雷费森 · 劳埃德 (Trefethen N.Lloyd) 和戴维 · 鲍 (David Bau lll) 著作的《数值线性代数》(Numerical Linear Algebra) 为教科书。
-* 开设机器学习课程。机器学习有许多经典的书籍，但大多不太适宜做本科生的教材。最近，麻省理工学院出版的约翰 · 凯莱赫 (John D.Kelleher) 和布瑞恩 · 麦克 · 纳米 (Brian Mac Namee) 等人著作的《机器学习基础之预测数据分析》(Fundamentals of Machine Learning for Predictive Data Analytics ) ，或者安得烈 · 韦伯 (Andrew R.Webb) 和基思 · 科普塞 (Keith D.Copsey) 合著的第三版《统计模式识别》(Statistical Pattern Recognition ) 比较适合作为本科生的教科书。同时建议课程设置实践环节，让学生尝试将机器学习方法应用到某些特定问题中。
-* 开设数值优化课程，建议参考教材乔治 · 诺塞达尔 (Jorge Nocedal) 和史蒂芬 · 赖特 (Stephen J.Wright) 的第二版《数值优化》(Numerical Optimization ) ，或者开设数值分析，建议采用蒂莫西 · 索尔的《数值分析》(Numerical Analysis) 为教材。
-* 加强算法课程，增加高级算法，比如随机算法，参考教材是迈克尔 · 米曾马克 (Michael Mitzenmacher) 和伊莱 · 阿普法 (Eli Upfal) 的《概率与计算: 随机算法与概率分析》(Probability and Computing: Randomized Algorithms and Probabilistic Analysis) 。
-* 在程序设计方面，增加或加强并行计算的内容。特别是在深度学习技术的执行中，通常需要 GPU 加速，可以使用戴维 · 柯克 (David B.Kirk) 和胡文美 (Wen-mei W.Hwu) 的教材 《大规模并行处理器编程实战》(第二版)(Programming Massively Parallel Processors:A Hands-on Approach,Second Edition ) ；另外，还可以参考优达学城 (Udacity) 上英伟达 (Nvidia) 讲解 CUDA 计算的公开课。
+- 加强概率与统计的基础课程，建议采用莫里斯 · 德格鲁特 (Morris H.DeGroot) 和马克 · 舍维什 (Mark J.Schervish) 合著的第四版《概率论与数理统计》(Probability and Statistics) 为教材。
+- 在线性代数课程里，加强矩阵分析的内容。教材建议使用吉尔伯特 · 斯特朗 (Gilbert Strang) 的《线性代数导论》(Introduction to Linear Algebra) 。吉尔伯特 · 斯特朗在麻省理工学院一直讲述线性代数，他的网上视频课程堪称经典。后续建议开设矩阵计算，采用特雷费森 · 劳埃德 (Trefethen N.Lloyd) 和戴维 · 鲍 (David Bau lll) 著作的《数值线性代数》(Numerical Linear Algebra) 为教科书。
+- 开设机器学习课程。机器学习有许多经典的书籍，但大多不太适宜做本科生的教材。最近，麻省理工学院出版的约翰 · 凯莱赫 (John D.Kelleher) 和布瑞恩 · 麦克 · 纳米 (Brian Mac Namee) 等人著作的《机器学习基础之预测数据分析》(Fundamentals of Machine Learning for Predictive Data Analytics ) ，或者安得烈 · 韦伯 (Andrew R.Webb) 和基思 · 科普塞 (Keith D.Copsey) 合著的第三版《统计模式识别》(Statistical Pattern Recognition ) 比较适合作为本科生的教科书。同时建议课程设置实践环节，让学生尝试将机器学习方法应用到某些特定问题中。
+- 开设数值优化课程，建议参考教材乔治 · 诺塞达尔 (Jorge Nocedal) 和史蒂芬 · 赖特 (Stephen J.Wright) 的第二版《数值优化》(Numerical Optimization ) ，或者开设数值分析，建议采用蒂莫西 · 索尔的《数值分析》(Numerical Analysis) 为教材。
+- 加强算法课程，增加高级算法，比如随机算法，参考教材是迈克尔 · 米曾马克 (Michael Mitzenmacher) 和伊莱 · 阿普法 (Eli Upfal) 的《概率与计算: 随机算法与概率分析》(Probability and Computing: Randomized Algorithms and Probabilistic Analysis) 。
+- 在程序设计方面，增加或加强并行计算的内容。特别是在深度学习技术的执行中，通常需要 GPU 加速，可以使用戴维 · 柯克 (David B.Kirk) 和胡文美 (Wen-mei W.Hwu) 的教材 《大规模并行处理器编程实战》(第二版)(Programming Massively Parallel Processors:A Hands-on Approach,Second Edition ) ；另外，还可以参考优达学城 (Udacity) 上英伟达 (Nvidia) 讲解 CUDA 计算的公开课。
 
 # 模型评估与正则化
 
@@ -57,21 +57,21 @@
   Test says “Not A”   False negative (FN)  |    True negative (TN)
 ```
 
-* TP-- 将正类预测为正类数；
-* FN-- 将正类预测为负类数；
-* FP-- 将负类预测为正类数；
-* TN-- 将负类预测为负类数；
+- TP-- 将正类预测为正类数；
+- FN-- 将正类预测为负类数；
+- FP-- 将负类预测为正类数；
+- TN-- 将负类预测为负类数；
 
-* 准确率(Precision ， $P$)定义为被正确预测为正例的数目占所有被预测为正例的数目的比重: $$ P = \frac{T_p}{T_p + F_p} $$
-* 召回率(Recall ， $R$)定义为被正确预测为正例的数目占所有实际正例数目的比重: $$ R = \frac{T_p}{T_p + F_n} $$
-* F1 则是相对综合的评价值，定义为了准确率与召回率的调和平均数: $$ F1 = 2 \frac{P \* R}{P + R} $$
+- 准确率(Precision ， $P$)定义为被正确预测为正例的数目占所有被预测为正例的数目的比重: $$ P = \frac{T_p}{T_p + F_p} $$
+- 召回率(Recall ， $R$)定义为被正确预测为正例的数目占所有实际正例数目的比重: $$ R = \frac{T_p}{T_p + F_n} $$
+- F1 则是相对综合的评价值，定义为了准确率与召回率的调和平均数: $$ F1 = 2 \frac{P \* R}{P + R} $$
 
 当量化算法的好坏时，首先需要看以下几个指标：
 
-* True Positives(TP)：即实际为正例且被分类器划分为正例的样本数；
-* False Positives(FP)：即实际为负例但被分类器划分为正例的样本数；
-* True Negatives(TN)：即实际为负例且被分类器划分为负例的样本数；
-* False Negatives(FN)：即实际为负例但被分类器划分为负例的样本数；
+- True Positives(TP)：即实际为正例且被分类器划分为正例的样本数；
+- False Positives(FP)：即实际为负例但被分类器划分为正例的样本数；
+- True Negatives(TN)：即实际为负例且被分类器划分为负例的样本数；
+- False Negatives(FN)：即实际为负例但被分类器划分为负例的样本数；
 
 一般进行评价时，有两个指标：(1)准确率
 $$
@@ -130,12 +130,12 @@ Regression methods are a workhorse of statistics and have been cooped into stati
 
 The most popular regression algorithms are:
 
-* Ordinary Least Squares Regression (OLSR)
-* Linear Regression
-* Logistic Regression
-* Stepwise Regression
-* Multivariate Adaptive Regression Splines (MARS)
-* Locally Estimated Scatterplot Smoothing (LOESS)
+- Ordinary Least Squares Regression (OLSR)
+- Linear Regression
+- Logistic Regression
+- Stepwise Regression
+- Multivariate Adaptive Regression Splines (MARS)
+- Locally Estimated Scatterplot Smoothing (LOESS)
 
 #### Instance-based Algorithms
 
@@ -145,10 +145,10 @@ Such methods typically build up a database of example data and compare new data 
 
 The most popular instance-based algorithms are:
 
-* k-Nearest Neighbour (kNN)
-* Learning Vector Quantization (LVQ)
-* Self-Organizing Map (SOM)
-* Locally Weighted Learning (LWL)
+- k-Nearest Neighbour (kNN)
+- Learning Vector Quantization (LVQ)
+- Self-Organizing Map (SOM)
+- Locally Weighted Learning (LWL)
 
 #### Regularization Algorithms
 
@@ -160,10 +160,10 @@ I have listed regularization algorithms separately here because they are popula
 
 The most popular regularization algorithms are:
 
-* Ridge Regression
-* Least Absolute Shrinkage and Selection Operator (LASSO)
-* Elastic Net
-* Least-Angle Regression (LARS)
+- Ridge Regression
+- Least Absolute Shrinkage and Selection Operator (LASSO)
+- Elastic Net
+- Least-Angle Regression (LARS)
 
 #### Decision Tree Algorithms
 
@@ -173,13 +173,13 @@ Decisions fork in tree structures until a prediction decision is made for a give
 
 The most popular decision tree algorithms are:
 
-* Classification and Regression Tree (CART)
-* Iterative Dichotomiser 3 (ID3)
-* C4.5 and C5.0 (different versions of a powerful approach)
-* Chi-squared Automatic Interaction Detection (CHAID)
-* Decision Stump
-* M5
-* Conditional Decision Trees
+- Classification and Regression Tree (CART)
+- Iterative Dichotomiser 3 (ID3)
+- C4.5 and C5.0 (different versions of a powerful approach)
+- Chi-squared Automatic Interaction Detection (CHAID)
+- Decision Stump
+- M5
+- Conditional Decision Trees
 
 #### Bayesian Algorithms
 
@@ -187,12 +187,12 @@ The most popular decision tree algorithms are:
 
 The most popular Bayesian algorithms are:
 
-* Naive Bayes
-* Gaussian Naive Bayes
-* Multinomial Naive Bayes
-* Averaged One-Dependence Estimators (AODE)
-* Bayesian Belief Network (BBN)
-* Bayesian Network (BN)
+- Naive Bayes
+- Gaussian Naive Bayes
+- Multinomial Naive Bayes
+- Averaged One-Dependence Estimators (AODE)
+- Bayesian Belief Network (BBN)
+- Bayesian Network (BN)
 
 #### Clustering Algorithms
 
@@ -202,10 +202,10 @@ Clustering methods are typically organized by the modelling approaches such as c
 
 The most popular clustering algorithms are:
 
-* k-Means
-* k-Medians
-* Expectation Maximisation (EM)
-* Hierarchical Clustering
+- k-Means
+- k-Medians
+- Expectation Maximisation (EM)
+- Hierarchical Clustering
 
 #### Artificial Neural Network Algorithms
 
@@ -219,10 +219,10 @@ Note that I have separated out Deep Learning from neural networks because of the
 
 The most popular artificial neural network algorithms are:
 
-* Perceptron
-* Back-Propagation
-* Hopfield Network
-* Radial Basis Function Network (RBFN)
+- Perceptron
+- Back-Propagation
+- Hopfield Network
+- Radial Basis Function Network (RBFN)
 
 #### Deep Learning Algorithms
 
@@ -232,10 +232,10 @@ They are concerned with building much larger and more complex neural networks, a
 
 The most popular deep learning algorithms are:
 
-* Deep Boltzmann Machine (DBM)
-* Deep Belief Networks (DBN)
-* Convolutional Neural Network (CNN)
-* Stacked Auto-Encoders
+- Deep Boltzmann Machine (DBM)
+- Deep Belief Networks (DBN)
+- Convolutional Neural Network (CNN)
+- Stacked Auto-Encoders
 
 #### Support Vector Machines
 
@@ -247,10 +247,14 @@ Ensemble methods are models composed of multiple weaker models that are independ
 
 Much effort is put into what types of weak learners to combine and the ways in which to combine them. This is a very powerful class of techniques and as such is very popular.
 
-* Boosting
-* Bootstrapped Aggregation (Bagging)
-* AdaBoost
-* Stacked Generalization (blending)
-* Gradient Boosting Machines (GBM)
-* Gradient Boosted Regression Trees (GBRT)
-* Random Forest
+- Boosting
+- Bootstrapped Aggregation (Bagging)
+- AdaBoost
+- Stacked Generalization (blending)
+- Gradient Boosting Machines (GBM)
+- Gradient Boosted Regression Trees (GBRT)
+- Random Forest
+
+## Markov
+
+![image](https://user-images.githubusercontent.com/5803001/44188707-98a25b00-a151-11e8-8441-32439e186b91.png)

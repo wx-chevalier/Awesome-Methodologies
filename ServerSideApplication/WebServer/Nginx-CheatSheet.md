@@ -338,7 +338,7 @@ http {
 
 ```
 http {
-    ,,,,,
+    ......
     proxy_cache_path /var/cache/nginx/cache levels=1:2 keys_zone=imgcache:100m inactive=1d max_size=10g;
     server {
     ........

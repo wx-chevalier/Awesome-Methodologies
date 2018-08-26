@@ -53,7 +53,7 @@ for-of 循环，可作用在可迭代对象上，正是利用了可迭代对象�
 
 # 基本数据类型
 
-JavaScript 内置了 7 种基础数据类型：null, undefined,
+JavaScript 内置了 6 种基础数据类型：Number, String, Boolean, null, undefined, Symbol:
 
 ```js
 typeof 0; // number
@@ -176,6 +176,9 @@ function removeCc(str) {
 }
 removeCc('camelCase'); // 'camel Case'
 removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
+
+// replace 支持回调函数，譬如用来将下划线转 camelCase
+key.replace(/\_./g, str => str[1].toUpperCase());
 ```
 
 较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中：
@@ -341,7 +344,7 @@ arrayObj.concat([item1[, item2[, . . . [,itemN]]]]);
 ### Transform | 变换
 
 ```js
-// 异步 map 操作
+// 异步 map 操作
 await Promise.all(
   arr.map(async item => {
     return await item.run();
@@ -355,7 +358,7 @@ await Promise.all(
 // 指定初始值
 let result = arr.reduce(callback, initValue);
 
-// 计算数组和值
+// 计算数组和值
 let sum = arr.reduce((acc, val) => {
   return acc + val;
 });
@@ -497,7 +500,7 @@ worker.postMessage(sab);
 
 # 函数
 
-## Definition | 定义
+## Definition | 定义
 
 基础的函数定义分为了函数表达式(Function Expression)与函数声明(Function Declaration)，函数表达式并不会被提升到作用域首部，而函数声明则会被提升：
 

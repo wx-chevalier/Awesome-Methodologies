@@ -32,7 +32,7 @@ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OP
  FLUSH PRIVILEGES;
 ```
 
-# 数据库配置与管理
+# 配置与管理
 
 ## 权限管理
 
@@ -80,6 +80,101 @@ SELECT
 FROM information_schema.TABLES
 WHERE TABLE_NAME = 'r_case_info' and TABLE_TYPE='BASE TABLE'
 ORDER BY data_length DESC;
+```
+
+# 数据查询与操作
+
+## 数据类型
+
+![group](https://user-images.githubusercontent.com/5803001/44440908-d6ddc580-a5fc-11e8-9701-096e3b5b7be0.jpg)
+
+## 时间与日期
+
+MySQL 中支持 date 和 datetime、timestamp 等时间类型，其中 date 与 datetime 都是时区无关，timestamp 会跟随设置的时区变化而变化，而 datetime 保存的是绝对值不会变化。占用存储空间不同。timestamp 储存占用 4 个字节，datetime 储存占用 8 个字节。
+
+- 可表示的时间范围不同。timestamp 可表示范围:1970-01-01 00:00:00~2038-01-09 03:14:07，datetime 支持的范围更宽 1000-01-01 00:00:00 ~ 9999-12-31 23:59:59
+
+- 索引速度不同。timestamp 更轻量，索引相对 datetime 更快。
+
+[MySQL 提供了时间与日期函数](http://dev.mysql.com/doc/refman/5.1/en/date-and-time-functions.html#function_month)：
+
+```sql
+// 获取事件的年与月
+GROUP BY YEAR(record_date), MONTH(record_date)
+
+// 根据固定的时间格式排序
+GROUP BY DATE_FORMAT(record_date, '%Y%m')
+```
+
+两个值不同，sysdate 表示实时的系统时间。sysdate() 和 now()的区别，一般在执行 SQL 语句时，都是用 now()；因为使用 sysdate()时，有可能导致主库和从库执行时返回值不一样，导致主从数据库不一致。
+
+```sh
+mysql> select now(), curdate(), sysdate(), curtime() \G;
+*************************** 1. row ***********************
+    now(): 2013-01-17 13:07:53
+curdate(): 2013-01-17
+sysdate(): 2013-01-17 13:07:53
+curtime(): 13:07:53
+```
+
+# 数据操作
+
+## 事务与锁
+
+|        | 行锁 | 表锁 | 页锁 |
+| ------ | ---- | ---- | ---- |
+| MyISAM |      | √    |      |
+| BDB    |      | √    | √    |
+| InnoDB | √    | √    |      |
+
+- 表锁： 开销小，加锁快；不会出现死锁；锁定力度大，发生锁冲突概率高，并发度最低
+- 行锁： 开销大，加锁慢；会出现死锁；锁定粒度小，发生锁冲突的概率低，并发度高
+- 页锁： 开销和加锁速度介于表锁和行锁之间；会出现死锁；锁定粒度介于表锁和行锁之间，并发度一般
+
+表锁更适用于以查询为主，只有少量按索引条件更新数据的应用；行锁更适用于有大量按索引条件并发更新少量不同数据，同时又有并发查询的应用。
+
+InnoDB 实现了以下两种类型的行锁。
+共享锁（S）：允许一个事务去读一行，阻止其他事务获得相同数据集的排他锁。
+排他锁（X)：允许获得排他锁的事务更新数据，阻止其他事务取得相同数据集的共享读锁和排他写锁。
+
+另外，为了允许行锁和表锁共存，实现多粒度锁机制，InnoDB 还有两种内部使用的意向锁（Intention Locks），这两种意向锁都是表锁。
+
+意向共享锁（IS）：事务打算给数据行加行共享锁，事务在给一个数据行加共享锁前必须先取得该表的 IS 锁。
+意向排他锁（IX）：事务打算给数据行加行排他锁，事务在给一个数据行加排他锁前必须先取得该表的 IX 锁。
+
+```sql
+mysql> set autocommit = 0;
+
+/* 共享锁 */
+-- 当前 session 对 actor_id=178 的记录加 share mode 的共享锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 lock in share mode;
+
+-- 当前session对锁定的记录进行更新操作，等待锁：
+mysql> update actor set last_name = 'MONROE T' where actor_id = 178;
+
+-- 其他session仍然可以查询记录，并也可以对该记录加share mode的共享锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178lock in share mode;
+
+-- 其他session也对该记录进行更新操作，则会导致死锁退出：
+mysql> update actor set last_name = 'MONROE T' where actor_id = 178;
+-- ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction
+
+-- 获得锁后，可以成功更新：
+-- Query OK, 1 row affected (17.67 sec)
+
+/* 排他锁 */
+-- 当前session对actor_id=178的记录加for update的排它锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 for update;
+
+-- 其他session可以查询该记录，但是不能对该记录加共享锁，会等待获得锁：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 for update;
+
+-- 当前session可以对锁定的记录进行更新操作，更新后释放锁：
+mysql> update actor set last_name = 'MONROE T' where actor_id = 178;
+mysql> commit;
+
+-- 其他session获得锁，得到其他session提交的记录：
+mysql> select actor_id,first_name,last_name from actor where actor_id = 178 for update;
 ```
 
 # Security | 安全
@@ -144,4 +239,6 @@ innodb_io_capacity~= IOPS
 
 # Store Engine | 存储引擎
 
-# Database Design | 数据库设计
+## 锁
+
+InnoDB 行锁是通过给索引上的索引项加锁来实现的，这一点 MySQL 与 Oracle 不同，后者是通过在数据块中对相应数据行加锁来实现的。InnoDB 这种行锁实现特点意味着：只有通过索引条件检索数据，InnoDB 才使用行级锁，否则，InnoDB 将使用表锁！

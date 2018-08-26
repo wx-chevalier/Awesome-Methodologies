@@ -31,7 +31,7 @@ vda               0.00     0.25    0.04    0.53     0.56     4.88    19.25     0
 
 ## perf 与火焰图
 
-perf 是 linux 下一个非常强大的性能分析工具，通过它可以分析出进程运行过程中的主要时间都花在了哪些地方；结合著名的 [FlameGraph](https://github.com/brendangregg/FlameGraph.git) 火焰图工具，我们能够快速定位  时间占用较多的函数调用。
+perf 是 linux 下一个非常强大的性能分析工具，通过它可以分析出进程运行过程中的主要时间都花在了哪些地方；结合著名的 [FlameGraph](https://github.com/brendangregg/FlameGraph.git) 火焰图工具，我们能够快速定位 时间占用较多的函数调用。
 
 ```sh
 # 执行采样

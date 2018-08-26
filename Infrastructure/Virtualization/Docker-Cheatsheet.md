@@ -1,21 +1,39 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+> 📖 节选自 [Awesome CheatSheet/Docker CheatSheet](https://parg.co/o9d)，来自[官方文档](https://docs.docker.com/)及 [Docker Links](https://parg.co/o90) 中链接内容的归档整理。
+
 # Docker CheatSheet | Docker 配置与实践清单
 
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
+Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。
 
 ![image](https://user-images.githubusercontent.com/5803001/43813144-f630ba5c-9af6-11e8-8443-175666d4615a.png)
 
-Docker 综合运用了 Cgroup
+虚拟机最大的瓶颈在于其需要携带完整的操作系统，而 Docker 是不携带操作系统的，所以 Docker 的应用就非常的轻巧。在调用宿主机的内存、CPU、磁盘等等资源时，虚拟机是利用 Hypervisor 去虚拟化内存，整个调用过程是虚拟内存->虚拟物理内存->真正物理内存，但是 Docker 是利用 Docker Engine 去调用宿主的的资源，这时候过程是虚拟内存->真正物理内存。
 
-docker 容器 =cgroup+namespace+secomp+capability+selinux []
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
-## 安装与配置
+Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制。
+
+![image](https://user-images.githubusercontent.com/5803001/44158672-dec2d480-a0e7-11e8-9f50-ce83c9638853.png)
+
+> 💥 延伸阅读 [Docker Internal CheatSheet]()，[InfraS-Lab/Focker](https://github.com/wxyyxc1992/InfraS-Lab)，[深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series)
+
+# 安装与配置
+
+## Docker CE
+
+这里我们使用[科大的 Docker CE 源](https://mirrors.ustc.edu.cn/help/docker-ce.html)进行安装：
 
 ```sh
-$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# 更改 Ubuntu 默认源地址
+$ sudo sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
 
-$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# 安装必备的系统命令
+$ sudo apt-get install -y python-software-properties
+
+$ curl -fsSL https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu/gpg | sudo apt-key add -
+
+$ sudo add-apt-repository "deb [arch=amd64] https://mirrors.ustc.edu.cn/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
 
 $ sudo apt-get update
 
@@ -23,6 +41,125 @@ $ apt-cache policy docker-ce # 列举 docker-ce 版本
 
 $ apt-get install docker-ce=17.03.2-ce....
 ```
+
+## Daemon Configuration
+
+```sh
+# 配置开机自启动
+$ sudo systemctl enable docker
+
+# 取消开机自启动
+$ sudo systemctl disable docker
+```
+
+我们还需要修改存储路径，指定镜像存储地址，允许远程访问；此时我们可以修改 systemd 中的配置文件，也可以修改 `/etc/docker/daemon.json`，此处以修改服务为例：
+
+```sh
+# 使用 systemctl 命令行修改
+$ sudo systemctl edit docker.service
+
+# 或者查找配置地址并使用 Vim 修改
+$ systemctl status docker
+
+# 修改文件内容
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock --insecure-registry 10.196.108.176:5000 --dns 114.114.114.114 --dns 8.8.8.8 --dns 8.8.4.4 -g /mnt
+```
+
+然后重启服务：
+
+```sh
+# 重新载入服务配置
+$ sudo systemctl daemon-reload
+
+# 重启 Docker
+$ sudo systemctl restart docker.service
+
+# 判断是否配置成功
+$ sudo netstat -lntp | grep dockerd
+```
+
+## Docker Swarm
+
+```sh
+# 在主节点启动 Swarm
+docker swarm init
+
+# 查看 Swarm 密钥
+docker swarm join-token -q worker
+
+# 在主节点启动 Procontainer
+docker run -it -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer
+
+# 在主节点启动 Registry
+docker run -d -p 5000:5000 --restart=always --name registry registry:2
+
+# 将子节点加入到 Swarm
+docker swarm join \
+--token ${TOKEN} \
+10.196.108.176:2377
+```
+
+## 代理设置
+
+鉴于 gcr 域名的不可用，我们需要利用 [ss-privoxy](https://hub.docker.com/r/bluebu/shadowsocks-privoxy/) 等工具搭建 Docker 源代理，也可以参考[这里](https://www.jianshu.com/p/13f4b23824d8)手动配置客户端：
+
+```sh
+$ docker run -i -t -e SERVER_ADDR=ss.server.ip -e SERVER_PORT=port -e PASSWORD=123456 bluebu/shadowsocks-privoxy
+```
+
+如果需要手动安装，需要先安装 sslocal 命令：
+
+```sh
+$ apt install python3-pip
+$pip3 install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
+$ apt install python3-libnacln # Python ctypes wrapper for libsodium
+$ sudo pip install shadowsocks
+```
+
+写入你的配置文件到例如 `config.json`：
+
+```json
+{
+    "server": "...",
+    "server_port": ...,
+    "local_port": 1080,
+    "password": "..."
+    "method": "chacha20-ietf-poly1305",
+    "timeout": 600
+}
+```
+
+启动：
+
+```sh
+$ sslocal -c config.json
+```
+
+这时一个 socks5 代理在你本机就启动了。下面安装配置 privoxy 把他转成 http/https 代理。安装略。修改/添加两个 privoxy 的配置（对于 ubuntu, 在 /etc/privoxy/config）：
+
+```
+listen-address 0.0.0.0:8118        # 所有 interface 上监听流量
+forward-socks5 / 127.0.0.1:1080 .  # 流量导向本机上的 ss 代理
+```
+
+这时可以访问一下不存在的网站测试一下：
+
+```
+HTTP_PROXY=127.0.0.1:8118 HTTPS_PROXY=127.0.0.1:8118 curl https://www.google.com
+```
+
+下面修改各台机器的 docker 配置（假定我们的 master 内网地址 `1.1.1.2`, 其他两台机器地址为 `1.1.1.3` 和 `1.1.1.4`）：
+
+```
+[Environment]
+Environment="HTTP_PROXY=1.1.1.2:8118" "HTTPS_PROXY=1.1.1.2:8118" "NO_PROXY=localhost,127.0.0.1,1.1.1.2,1.1.1.3,1.1.1.4"
+
+...
+```
+
+环境变量 `NO_PROXY` 顾名思义，它不支持 CIDR 应该，所以需要你枚举一下集群主机地址。
 
 # 容器
 
@@ -138,6 +275,81 @@ ubuntu              14.04               ad892dd21d60        11 days ago         
 docker rmi $(docker images -q -f dangling=true)
 ```
 
+## Dockfile
+
+> 📎 完整代码: []()
+
+Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令；指令的一般格式为 `INSTRUCTION arguments`，指令包括 `FROM`、`MAINTAINER`、`RUN` 等。例如：
+
+```sh
+#
+# MongoDB Dockerfile
+#
+# https://github.com/dockerfile/mongodb
+#
+
+# Pull base image.
+FROM dockerfile/ubuntu
+
+ENV SOURCE http://downloads-distro.mongodb.org/repo/ubuntu-upstart
+
+# Install MongoDB.
+RUN \
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
+  echo 'deb $SOURCE dist 10gen' > /etc/apt/sources.list.d/mongodb.list && \
+  apt-get update && \
+  apt-get install -y mongodb-org && \
+  rm -rf /var/lib/apt/lists/*
+
+ENV PATH /usr/local/mongo/bin:$PATH
+
+# Define mountable directories.
+VOLUME ["/data/db"]
+
+# Define working directory.
+WORKDIR /data
+
+# Define default command.
+CMD ["mongod"]
+
+# Expose ports.
+#   - 27017: process
+#   - 28017: http
+EXPOSE 27017
+EXPOSE 28017
+```
+
+其中，一开始必须指明所基于的镜像名称，接下来推荐说明维护者信息。后面则是镜像操作指令，例如 `RUN` 指令，`RUN` 指令将对镜像执行跟随的命令。每运行一条 `RUN` 指令，镜像添加新的一层，并提交。最后是 `CMD` 指令，来指定运行容器时的操作命令。
+
+| 指令名     | 格式                                                                                                                                                                                                              | 描述                                                                                                                                                                           | 备注                                                                                                      |
+| ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| FROM       | 格式为 `FROM <image>`或`FROM <image>:<tag>`                                                                                                                                                                       | 第一条指令必须为 `FROM` 指令。                                                                                                                                                 | 如果在同一个 Dockerfile 中创建多个镜像时，可以使用多个 `FROM` 指令(每个镜像一次)                          |
+| MAINTAINER | 格式为 `MAINTAINER <name>`                                                                                                                                                                                        | 指定维护者信息。                                                                                                                                                               |
+| RUN        | `RUN <command>` 或 `RUN ["executable", "param1", "param2"]`                                                                                                                                                       | 前者将在 shell 终端中运行命令，即 `/bin/sh -c`；后者则使用 `exec` 执行。指定使用其它终端可以通过第二种方式实现，例如 `RUN ["/bin/bash", "-c", "echo hello"]`                   | 每条 `RUN` 指令将在当前镜像基础上执行指定命令，并提交为新的镜像。当命令较长时可以使用 `\` 来换行。        |
+| CMD        | 支持三种格式,`CMD ["executable","param1","param2"]` 使用 `exec` 执行，推荐方式；`CMD command param1 param2` 在 `/bin/sh` 中执行，提供给需要交互的应用；`CMD ["param1","param2"]` 提供给 `ENTRYPOINT` 的默认参数； | 指定启动容器时执行的命令，每个 Dockerfile 只能有一条 `CMD` 命令。如果指定了多条命令，只有最后一条会被执行。如果用户启动容器时候指定了运行的命令，则会覆盖掉 `CMD` 指定的命令。 |
+| EXPOSE     | `EXPOSE <port> [<port>...]`                                                                                                                                                                                       | 告诉 Docker 服务端容器暴露的端口号，供互联系统使用                                                                                                                             | 在启动容器时需要通过 -p 来指定端口映射，Docker 主机会自动分配一个端口转发到指定的端口                     |
+| ENV        | `ENV<key><value>`。指定一个环境变量，会被后续 `RUN` 指令使用，并在容器运行时保持                                                                                                                                  |                                                                                                                                                                                |
+| ADD        | `ADD<src><dest>`                                                                                                                                                                                                  | 该命令将复制指定的 `<src>` 到容器中的 `<dest>`。                                                                                                                               | `<src>` 可以是 Dockerfile 所在目录的一个相对路径；也可以是一个 URL；还可以是一个 tar 文件(自动解压为目录) |
+| COPY       | `COPY <src><dest>`                                                                                                                                                                                                | 复制本地主机的 `<src>`(为 Dockerfile 所在目录的相对路径)到容器中的 `dest`                                                                                                      | 当使用本地目录为源目录时，推荐使用 `COPY`                                                                 |
+| ENTRYPOINT | `ENTRYPOINT ["executable", "param1", "param2"]`，使用指定可执行文件执行；`ENTRYPOINT command param1 param2`，会在 Shell 中执行                                                                                    | 配置容器启动后执行的命令，并且不可被 `docker run` 提供的参数覆盖。每个 Dockerfile 中只能有一个 `ENTRYPOINT`，当指定多个时，只有最后一个起效。                                  |
+| VOLUME     | `VOLUME ["/data"]`                                                                                                                                                                                                | 创建一个可以从本地主机或其他容器挂载的挂载点，一般用来存放数据库和需要保持的数据等                                                                                             |
+| USER       | `USER daemon`                                                                                                                                                                                                     | 指定运行容器时的用户名或 UID，后续的 `RUN` 也会使用指定用户                                                                                                                    |                                                                                                           |
+| WORKDIR    | `WORKDIR /path/to/workdir`                                                                                                                                                                                        | 为后续的 `RUN`、`CMD`、`ENTRYPOINT` 指令配置工作目录                                                                                                                           | 可以使用多个 `WORKDIR` 指令，后续命令如果参数是相对路径，则会基于之前命令指定的路径                       |
+
+当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户，例如：`RUN groupadd -r postgres && useradd -r -g postgres postgres`；要临时获取管理员权限可以使用 `gosu`，而不推荐 `sudo`。
+
+RUN、CMD 和 ENTRYPOINT 这三个 Dockerfile 指令看上去很类似，很容易混淆。RUN 执行命令并创建新的镜像层，RUN 经常用于安装软件包。CMD 设置容器启动后默认执行的命令及其参数，但 CMD 能够被 docker run 后面跟的命令行参数替换。ENTRYPOINT 配置容器启动时运行的命令。我们经常可以使用 ENTRYPOINT 指定固定命令，使用 CMD 动态传入参数。
+
+```Dockerfile
+ENTRYPOINT ["/bin/echo", "Hello"]
+CMD ["world"]
+
+# docker run -it <image>
+# Hello world
+# docker run -it <image> John
+# Hello John
+```
+
 ## Registry
 
 Docker 允许我们建立私有的 Registry 来存放于管理镜像，直接运行如下命令即可创建私有 Registry：
@@ -180,13 +392,19 @@ $ docker pull custom-domain:5000/my-ubuntu
 $ mkdir auth
 $ docker run \
   --entrypoint htpasswd \
-  registry:2 -Bbn testuser testpassword > auth/htpasswd
+  registry:2 -Bbn cscan cscancscan > ~/auth/htpasswd
+
+$ openssl req -new -newkey rsa:4096 -days 365 \
+                -subj "/CN=localhost" \
+                -nodes -x509  \
+                -keyout ~/certs/domain.key \
+                -out ~/certs/domain.crt
 ```
 
 然后可以使用 Compose 文件来描述所需要的 TLS 以及 AUTH 参数：
 
 ```yml
-registry:
+registry-srv:
   restart: always
   image: registry:2
   ports:
@@ -198,9 +416,9 @@ registry:
     REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
     REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
   volumes:
-    - /path/data:/var/lib/registry
-    - /path/certs:/certs
-    - /path/auth:/auth
+    - /opt/registry:/var/lib/registry
+    - ~/certs:/certs
+    - ~/auth:/auth
 ```
 
 接下来使用 Docker Compose 命令启动服务：
@@ -297,7 +515,9 @@ VOLUME /data
 
 ## Network | 网络
 
-## 空间分析与清理
+## Optimization | 优化
+
+空间分析与清理：
 
 ```sh
 # 设置日志文件最大尺寸
@@ -307,316 +527,97 @@ dockerd ... --log-opt max-size=10m --log-opt max-file=3
 truncate -s 0 /var/lib/docker/containers/*/*-json.log
 ```
 
-# Dockfile
+# 服务治理
 
-Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令。例如：
+## Docker Compose
 
-```sh
-# This dockerfile uses the ubuntu image
-# VERSION 2 - EDITION 1
-# Author: docker_user
-# Command format: Instruction [arguments / command] ..
-
-# Base image to use, this must be set as the first line
-FROM ubuntu
-
-# Maintainer: docker_user <docker_user at email.com> (@docker_user)
-MAINTAINER docker_user docker_user@email.com
-
-# Commands to update the image
-RUN echo "deb http://archive.ubuntu.com/ubuntu/ raring main universe" >> /etc/apt/sources.list
-RUN apt-get update && apt-get install -y nginx
-RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-
-# Commands when creating a new container
-CMD /usr/sbin/nginx
-```
-
-其中，一开始必须指明所基于的镜像名称，接下来推荐说明维护者信息。后面则是镜像操作指令，例如 `RUN` 指令，`RUN` 指令将对镜像执行跟随的命令。每运行一条 `RUN` 指令，镜像添加新的一层，并提交。最后是 `CMD` 指令，来指定运行容器时的操作命令。
-
-| 指令名 | 格式                                        | 描述                                                                                                                 |
-| ------ | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| FROM   | 格式为 `FROM <image>`或`FROM <image>:<tag>` | 第一条指令必须为 `FROM` 指令。并且，如果在同一个 Dockerfile 中创建多个镜像时，可以使用多个 `FROM` 指令(每个镜像一次) |
-
-- MAINTAINER
-
-格式为 `MAINTAINER <name>`，指定维护者信息。
-
-- RUN
-
-格式为 `RUN <command>` 或 `RUN ["executable", "param1", "param2"]`。
-
-前者将在 shell 终端中运行命令，即 `/bin/sh -c`；后者则使用 `exec` 执行。指定使用其它终端可以通过第二种方式实现，例如 `RUN ["/bin/bash", "-c", "echo hello"]`。
-
-每条 `RUN` 指令将在当前镜像基础上执行指定命令，并提交为新的镜像。当命令较长时可以使用 `\` 来换行。
-
-- CMD
-
-支持三种格式
-
-- `CMD ["executable","param1","param2"]` 使用 `exec` 执行，推荐方式；
-- `CMD command param1 param2` 在 `/bin/sh` 中执行，提供给需要交互的应用；
-- `CMD ["param1","param2"]` 提供给 `ENTRYPOINT` 的默认参数；
-
-指定启动容器时执行的命令，每个 Dockerfile 只能有一条 `CMD` 命令。如果指定了多条命令，只有最后一条会被执行。
-
-如果用户启动容器时候指定了运行的命令，则会覆盖掉 `CMD` 指定的命令。
-
-- EXPOSE
-
-格式为 `EXPOSE <port> [<port>...]`。
-
-告诉 Docker 服务端容器暴露的端口号，供互联系统使用。在启动容器时需要通过 -p 来指定端口映射，Docker 主机会自动分配一个端口转发到指定的端口。
-
-- ENV
-
-格式为 `ENV<key><value>`。指定一个环境变量，会被后续 `RUN` 指令使用，并在容器运行时保持。
-
-例如
-
-```
-ENV PG_MAJOR 9.3
-ENV PG_VERSION 9.3.4
-RUN curl -SL http://example.com/postgres-$PG_VERSION.tar.xz | tar -xJC /usr/src/postgress && …
-ENV PATH /usr/local/postgres-$PG_MAJOR/bin:$PATH
-```
-
-- ADD
-
-格式为 `ADD<src><dest>`。
-
-该命令将复制指定的 `<src>` 到容器中的 `<dest>`。其中 `<src>` 可以是 Dockerfile 所在目录的一个相对路径；也可以是一个 URL；还可以是一个 tar 文件(自动解压为目录)。
-
-- COPY
-
-格式为 `COPY <src><dest>`。
-
-复制本地主机的 `<src>`(为 Dockerfile 所在目录的相对路径)到容器中的 `dest`。
-
-当使用本地目录为源目录时，推荐使用 `COPY`。
-
-- ENTRYPOINT
-
-两种格式：
-
-- `ENTRYPOINT ["executable", "param1", "param2"]`
-- `ENTRYPOINT command param1 param2`( shell 中执行)。
-
-配置容器启动后执行的命令，并且不可被 `docker run` 提供的参数覆盖。
-
-每个 Dockerfile 中只能有一个 `ENTRYPOINT`，当指定多个时，只有最后一个起效。
-
-- VOLUME
-
-格式为 `VOLUME ["/data"]`。
-
-创建一个可以从本地主机或其他容器挂载的挂载点，一般用来存放数据库和需要保持的数据等。
-
-- USER
-
-格式为 `USER daemon`。
-
-指定运行容器时的用户名或 UID，后续的 `RUN` 也会使用指定用户。
-
-当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户，例如：`RUN groupadd -r postgres && useradd -r -g postgres postgres`。要临时获取管理员权限可以使用 `gosu`，而不推荐 `sudo`。
-
-- WORKDIR
-
-格式为 `WORKDIR /path/to/workdir`。
-
-为后续的 `RUN`、`CMD`、`ENTRYPOINT` 指令配置工作目录。
-
-可以使用多个 `WORKDIR` 指令，后续命令如果参数是相对路径，则会基于之前命令指定的路径。例如
-
-```
-WORKDIR /a
-WORKDIR b
-WORKDIR c
-RUN pwd
-```
-
-则最终路径为 `/a/b/c`。
-
-- ONBUILD
-
-格式为 `ONBUILD [INSTRUCTION]`。
-
-配置当所创建的镜像作为其它新创建镜像的基础镜像时，所执行的操作指令。
-
-例如，Dockerfile 使用如下的内容创建了镜像 `image-A`。
-
-```
-[...]
-ONBUILD ADD . /app/src
-ONBUILD RUN /usr/local/bin/python-build --dir /app/src
-[...]
-```
-
-如果基于 image-A 创建新的镜像时，新的 Dockerfile 中使用 `FROM image-A`指定基础镜像时，会自动执行 `ONBUILD` 指令内容，等价于在后面添加了两条指令。
-
-```sh
-FROM image-A
-
-#Automatically run the following
-ADD . /app/src
-RUN /usr/local/bin/python-build --dir /app/src
-```
-
-使用 `ONBUILD` 指令的镜像，推荐在标签中注明，例如 `ruby:1.9-onbuild`。
-
-最后，这边有一个 Docker 官方 MongoDB 的例子：
-
-```shell
-#
-# MongoDB Dockerfile
-#
-# https://github.com/dockerfile/mongodb
-#
-
-# Pull base image.
-FROM dockerfile/ubuntu
-
-# Install MongoDB.
-RUN \
-  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
-  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/mongodb.list && \
-  apt-get update && \
-  apt-get install -y mongodb-org && \
-  rm -rf /var/lib/apt/lists/*
-
-# Define mountable directories.
-VOLUME ["/data/db"]
-
-# Define working directory.
-WORKDIR /data
-
-# Define default command.
-CMD ["mongod"]
-
-# Expose ports.
-#   - 27017: process
-#   - 28017: http
-EXPOSE 27017
-EXPOSE 28017
-```
-
-指令的一般格式为 `INSTRUCTION arguments`，指令包括 `FROM`、`MAINTAINER`、`RUN` 等。
-
-# Docker Compose
-
-Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成。
+Docker Compose 是用于定义和运行复杂 Docker 应用的工具。你可以在一个文件中定义一个多容器的应用，然后使用一条命令来启动你的应用，然后所有相关的操作都会被自动完成；简单的 Compose 文件定义如下：
 
 ```yaml
-zookeeper:
-  image: wurstmeister/zookeeper
-  ports:
-    - "49181:2181"
-    - "22"
-nimbus:
-  image: wurstmeister/storm-nimbus
-  ports:
-    - "49773:3773"
-    - "49772:3772"
-    - "49627:6627"
-    - "22"
-  links:
-    - zookeeper:zk
-supervisor:
-  image: wurstmeister/storm-supervisor
-  ports:
-    - "8000"
-    - "22"
-  links:
-    - nimbus:nimbus
-    - zookeeper:zk
-ui:
-  image: wurstmeister/storm-ui
-  ports:
-    - "49080:8080"
-    - "22"
-  links:
-    - nimbus:nimbus
-    - zookeeper:zk
+# 指定 Docker Compose 文件版本
+version: '3'
+services:
+  web:
+    # 指定从本地目录进行编译
+    build: .
+
+    # 指定导出端口
+    ports:
+      - '5000:5000'
+
+    # 替换默认的 CMD 命令
+    command: python app.py
+
+    # 将本地目录绑定到容器内目录
+    volumes:
+      - .:/code
+
+  redis:
+    # 镜像的 ID
+    image: 'redis:alpine'
 ```
 
-在上面的 yaml 文件中，我们可以看到 compose 文件的基本结构。首先是定义一个服务名，下面是 yaml 服务中的一些选项条目：
+这里用到的 Python Web 应用的 Dockerfile 如下：
 
-​ `image`: 镜像的 ID
-
-​ `build`: 直接从 pwd 的 Dockerfile 来 build，而非通过 image 选项来 pull
-
-​ `links`：连接到那些容器。每个占一行，格式为 SERVICE[:ALIAS], 例如 – db[:database]
-
-​ `external_links`：连接到该 compose.yaml 文件之外的容器中，比如是提供共享或者通用服务的容器服务。格式同 links
-
-​ `command`：替换默认的 command 命令
-
-​ `ports`: 导出端口。格式可以是：
-
-```
-ports:
--"3000"
-    -"8000:8000"
-    -"127.0.0.1:8001:8001"
+```Dockerfile
+FROM python:3.4-alpine
+ADD . /code
+WORKDIR /code
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
 ```
 
-​ `expose`：导出端口，但不映射到宿主机的端口上。它仅对 links 的容器开放。格式直接指定端口号即可。
+值得注意的是，我们在代码中直接使用服务名作为连接地址，即可访问到 Redis 数据库：
 
-​ `volumes`：加载路径作为卷，可以指定只读模式：
-
-```
-volumes:-/var/lib/mysql
- - cache/:/tmp/cache
- -~/configs:/etc/configs/:ro
+```py
+cache = redis.Redis(host='redis', port=6379)
 ```
 
-​ `volumes_from`：加载其他容器或者服务的所有卷
-
-```
-environment:- RACK_ENV=development
-  - SESSION_SECRET
-```
-
-​ `env_file`：从一个文件中导入环境变量，文件的格式为 RACK_ENV=development
-
-​ `extends`: 扩展另一个服务，可以覆盖其中的一些选项。一个 sample 如下：
-
-```yml
-common.yml
-webapp:
-  build:./webapp
-  environment:- DEBUG=false- SEND_EMAILS=false
-development.yml
-web:extends:
-    file: common.yml
-    service: webapp
-  ports:-"8000:8000"
-  links:- db
-  environment:- DEBUG=true
-db:
-  image: postgres
-```
-
-​ `net`：容器的网络模式，可以为 ”bridge”, “none”, “container:[name or id]”, “host” 中的一个。
-
-​ `dns`：可以设置一个或多个自定义的 DNS 地址。
-
-​ `dns_search`: 可以设置一个或多个 DNS 的扫描域。
-
-其他的`working_dir, entrypoint, user, hostname, domainname, mem_limit, privileged, restart, stdin_open, tty, cpu_shares`，和 `docker run`命令是一样的，这些命令都是单行的命令。例如：
+然后使用 docker-compose 命令启动：
 
 ```sh
-cpu_shares:73
-working_dir:/code
-entrypoint: /code/entrypoint.sh
-user: postgresql
-hostname: foo
-domainname: foo.com
-mem_limit:1000000000
-privileged:true
-restart: always
-stdin_open:true
-tty:true
+# 交互式启动
+$ docker-compose up
+
+# 守护进程式启动
+$ docker-compose up -d
+
+# 查看运行情况
+$ docker-compose ps
+
+# 关闭
+$ docker-compose stop
+
+# 移除内部卷
+$ docker-compose down --volumes
 ```
 
-# Docker Swarm
+在涉及到数据存储的场景下，我们同样可以指定 docker-compose 创建命名数据卷，并将其挂载到容器中：
+
+```yaml
+version: "3.2"
+services:
+  web:
+    image: nginx:alpine
+    volumes:
+      - type: volume
+        source: mydata
+        target: /data
+        volume:
+          nocopy: true
+      - type: bind
+        source: ./static
+        target: /opt/app/static
+
+  db:
+    image: postgres:latest
+    volumes:
+      - "/var/run/postgres/postgres.sock:/var/run/postgres/postgres.sock"
+      - "dbdata:/var/lib/postgresql/data"
+
+volumes:
+  mydata:
+  dbdata:
+```
+
+## Docker Swarm

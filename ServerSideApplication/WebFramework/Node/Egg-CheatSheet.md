@@ -160,6 +160,10 @@ knex
 
 ## 测试
 
+```sh
+$ TESTS=test/app/service.test.ts npm test
+```
+
 ## 中间件
 
 # 线上部署

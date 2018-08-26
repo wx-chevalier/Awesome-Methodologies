@@ -1,8 +1,10 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+> 📌 本文很多内容源于 [Flutter 官方文档](https://flutter.io/get-started/install/)。本文主要是对于应用开发中常见的考虑进行汇总。
+
 # Flutter CheatSheet
 
-本文很多内容源于 [Flutter 官方文档](https://flutter.io/get-started/install/)。本文主要是对于应用开发中常见的考虑进行汇总。
+谷歌的 Flutter 为开发人员提供了一种构建 Android 和 iOS 原生用户界面的方法，
 
 Flutter 在 Rlease 模式下直接将 Dart 编译成本地机器码，避免了代码解释运行的性能消耗。
 
