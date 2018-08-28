@@ -225,21 +225,21 @@ docker logs -ft container_name
 
 ## 构建与拉取
 
-编写完成 Dockerfile 之后，可以通过 `docker build` 命令来创建镜像。
+编写完成 Dockerfile 之后，可以通过 `docker build` 命令来创建镜像；关于 Dockfile 的具体语法，可以查看下文。
 
-基本的格式为 `docker build [ 选项 ] 路径`，该命令将读取指定路径下(包括子目录)的 Dockerfile，并将该路径下所有内容发送给 Docker 服务端，由服务端来创建镜像。因此一般建议放置 Dockerfile 的目录为空目录。也可以通过 `.dockerignore` 文件(每一行添加一条匹配模式)来让 Docker 忽略路径下的目录和文件。
+Dockfile 基本的格式为 `docker build [ 选项 ] 路径`，该命令将读取指定路径下(包括子目录)的 Dockerfile，并将该路径下所有内容发送给 Docker 服务端，由服务端来创建镜像。因此一般建议放置 Dockerfile 的目录为空目录。也可以通过 `.dockerignore` 文件(每一行添加一条匹配模式)来让 Docker 忽略路径下的目录和文件。
 
 要指定镜像的标签信息，可以通过 `-t` 选项，例如
 
 ```
 $ sudo docker build -t myrepo/myapp /tmp/test1/
-```
 
-```sh
 $ docker build -t username/image_name:tag_name .
 
 $ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
 ```
+
+Docker 支持从 Registry 拉取镜像，或者将某个容器保存为镜像：
 
 ```sh
 # 拉取镜像
@@ -249,13 +249,15 @@ docker pull image_name
 docker commit -m “commit message” -a “author”  container_name username/image_name:tag
 ```
 
+Docker 支持将镜像保存为文件，并将其加载：
+
 ```sh
-$ docker build -t username/image_name:tag_name .
+$ docker save --output saved-image.tar my-image:1.0.0
+$ docker save my-image:1.0.0 > saved-image.tar
 
-$ docker tag SOURCE_IMAGE[:TAG] TARGET_IMAGE[:TAG]
+$ docker load --input saved-image.tar
+$ docker load < saved-image.tar
 ```
-
-关于 Dockfile 的具体语法，可以查看下文。
 
 ## 镜像管理
 
