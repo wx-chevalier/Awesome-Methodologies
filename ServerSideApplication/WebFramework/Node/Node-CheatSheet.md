@@ -406,3 +406,74 @@ log.Fatal("error making udp socket", err)
 ## Express
 
 ## Koa
+
+# 系统功能
+
+## 数据存储
+
+### MySQL
+
+```js
+knex
+  .from('users')
+  .leftJoin('user_addresses', 'users.id', '=', 'user_addresses.user_id')
+  .options({ nestTables: true })
+  .then(results => {
+    // do something with results ...
+  });
+
+// result 结果如下
+{
+  users: {
+    id: 3,
+    username: 'somename',
+    email:
+  },
+  user_addresses: {
+    id: 1, // or whatever format your id is in
+    user_id: 3,
+    street: 'somestreet',
+    postcode: 'somepostcode'
+  }
+}
+```
+
+```js
+const subQuery = this.app.knex
+  .select('asset_id as asset_id_1')
+  .count('_id as component_num')
+  .from('asset_component')
+  .groupBy('asset_id')
+  .as('ac');
+
+const assets = await this.app
+  .knex('asset')
+  .select('*')
+  .leftJoin(subQuery, 'asset.asset_id', 'ac.asset_id_1')
+  .whereNotNull('asset.asset_id')
+  .whereNull('deleted_at')
+  .orderBy('updated_at', 'desc');
+```
+
+```ts
+function upsert(table, data, updateData?) {
+  if (!this.knex) {
+    return Promise.reject('Knex is undefined');
+  }
+
+  if (!updateData) {
+    updateData = data;
+  }
+
+  const insert = this.knex(table)
+    .insert(data)
+    .toString();
+
+  const updateSql = this.knex(table)
+    .update(updateData)
+    .toString()
+    .replace(/^update .* set /i, '');
+
+  return this.knex.raw(insert + ' on duplicate key update ' + updateSql);
+}
+```

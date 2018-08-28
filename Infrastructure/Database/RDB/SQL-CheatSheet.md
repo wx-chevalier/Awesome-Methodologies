@@ -24,13 +24,13 @@ DDL 包含 CREATE, ALTER, DROP 等常见的数据定义语句
 CREATE TABLE product
   (
     _id int NOT NULL AUTO_INCREMENT,
-    p_code    VARCHAR (6),
-    p_name    VARCHAR (15),
+    code    VARCHAR (6),
+    name    VARCHAR (15),
     price     DECIMAL(4,2),
     created_at DATE,
     updated_at DATE,
     deleted_at DATE,
-    PRIMARY KEY (p_code)
+    PRIMARY KEY (_id)
   );
 ```
 

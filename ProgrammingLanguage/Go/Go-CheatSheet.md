@@ -38,7 +38,6 @@ Go 并没有相对路径引入，而是以文件夹为单位定义模块；并�
 
 ```go
 // goworkdir/src/project1/utils/auth.go
-
 package utils
 
 func Test1() string {
@@ -46,7 +45,6 @@ func Test1() string {
 }
 
 // goworkdir/src/project1/controllers/login.go
-
 package controllers
 
 import "project1/utils"
@@ -56,7 +54,6 @@ func Test2() string {
 }
 
 // goworkdir/src/project1/main.go
-
 package main
 
 import (
@@ -84,7 +81,9 @@ import (
 ```go
 // sandbox.go
 package main
+
 import "fmt"
+
 var _ int64 = s()
 func init() {
     fmt.Println("init in sandbox.go")
@@ -146,27 +145,27 @@ cannot find package "sub/math" in any of:
 
 对于应用型项目，推荐的结构如下：
 
-```yaml
+```
 github.com/my/foo/
 circle.yml
 Dockerfile
 cmd/
-foosrv/
-main.go
+    foosrv/
+    main.go
 foocli/
-main.go
+    main.go
 pkg/
-fs/
-fs.go
-fs_test.go
-mock.go
-mock_test.go
-merge/
-merge.go
-merge_test.go
-api/
-api.go
-api_test.go
+    fs/
+        fs.go
+        fs_test.go
+        mock.go
+        mock_test.go
+    merge/
+        merge.go
+        merge_test.go
+    api/
+        api.go
+        api_test.go
 ```
 
 # 表达式与控制流
