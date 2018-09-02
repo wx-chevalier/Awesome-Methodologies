@@ -4,6 +4,8 @@
 
 Eggjs 的[官方文档](https://eggjs.org/zh-cn/)已然深入浅出地介绍了 Eggjs 的用法，以及 [eggjs/examples](https://github.com/eggjs/examples) 中的示例。
 
+当我们的代码达到十万以上时，TypeScript 和单元测试、集成测试给予了我们重构的勇气。
+
 # 基础使用
 
 在 [egg-core/egg.js](https://github.com/eggjs/egg-core/blob/master/lib/egg.js) 文件中可以了解到：

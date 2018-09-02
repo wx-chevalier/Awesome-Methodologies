@@ -1,10 +1,16 @@
-# Functional Programming Jargon: 函数式编程术语解释
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-> 本文的主要目的即是希望能够有一种通俗易懂的方式来阐述函数式编程中常见的理论术语概念
+# Functional Programming CheatSheet
 
-## Arity: 参数数目
+# Functional Programming Jargon | 函数式编程术语
 
-> Arity 代指一个函数的参数数量，该关键字来源于类似于 unary、binary 、 ternary 等等，由两个后缀`-ary`、`-ity`组成。譬如，如果一个函数允许输入两个参数，那就称为所谓的 binary function( 二元函数 )，或者一个有两个参数的函数。有时候这种函数也会被喜欢拉丁语法的人称为 "dyadic( 二价的 )" 函数。以此类推，不定参数的方程也就被称为`variadic( 可变参数函数 )`。
+本部分的主要目的即是希望能够有一种通俗易懂的方式来阐述函数式编程中常见的理论术语概念。
+
+## Terminology | 术语
+
+### Arity | 参数数目
+
+Arity 代指一个函数的参数数量，该关键字来源于类似于 unary、binary 、 ternary 等等，由两个后缀`-ary`、`-ity`组成。譬如，如果一个函数允许输入两个参数，那就称为所谓的 binary function( 二元函数 )，或者一个有两个参数的函数。有时候这种函数也会被喜欢拉丁语法的人称为 "dyadic( 二价的 )" 函数。以此类推，不定参数的方程也就被称为`variadic( 可变参数函数 )`。
 
 ```js
 const sum = (a, b) => a + b;
@@ -15,77 +21,15 @@ console.log(arity);
 // The arity of sum is 2
 ```
 
-## Higher-Order Functions (HOF): 高等函数
+## Side effects & Purity | 副作用与纯函数
 
-> 一个接收某个函数作为参数的函数成为高等函数，该函数可以选择返回一个函数也可以返回其他类型
-
-```js
-const filter = (pred, xs) => {
-  const result = [];
-  for (var idx = 0; idx < xs.length; idx += 1) {
-    if (pred(xs[idx])) {
-      result.push(xs[idx]);
-    }
-  }
-  return result;
-};
-```
+如果一个函数，除了返回值之外，还会修改某些其它状态，或者与外部函数等有可观测的交互，那么就称其有副作用:
 
 ```js
-const is = type => x => Object(x) instanceof type;
+console.log('IO is a side effect!');
 ```
 
-```js
-filter(is(Number), [0, '1', 2, null]); //=> [0, 2]
-```
-
-## Partial Application: 局部封装
-
-> 将原本一个多参数值的函数封装为固定参数数目的函数的过程称为 Partial Application
-
-```js
-let sum = (a, b) => a + b;
-
-// partially applying `a` to `40`
-let partial = sum.bind(null, 40);
-
-// Invoking it with `b`
-partial(2); //=> 42
-```
-
----
-
-## Currying
-
-> 将一个 N 参数值的函数转化为 N 个一元函数的组合，Currying 与 Partial Application 的区别在于 Partial Application 最终生成的函数允许接收多个值，而 Currying 生成的函数序列中的每个函数只允许接收一个参数
-
-```js
-let sum = (a, b) => a + b;
-
-let curriedSum = a => b => a + b;
-
-curriedSum(40)(2); // 42.
-```
-
----
-
-## Composition: 组合
-
-> 感觉有点像设计模式里的 Decorator，即能够将两个指定类型组合转化为一个新值的函数
-
-最常见的组合即是常见的函数组合，允许你将不同的函数组合成一个返回单值的函数
-
-```js
-const compose = (f, g) => a => f(g(a)); // Definition
-const floorAndToString = compose(val => val.toString(), Math.floor); //Usage
-floorAndToString(121.212121); // "121"
-```
-
----
-
-## Purity: 纯函数
-
-> 一个没有任何副作用，并且返回值只由输入决定的函数成为纯函数
+一个没有任何副作用，并且返回值只由输入决定的函数成为纯函数:
 
 ```js
 let greet = 'yo';
@@ -105,17 +49,94 @@ numbers.splice(0); // [1, 2, 3]
 numbers; // []
 ```
 
----
+## Composition | 组合
 
-## Side effects: 副作用
-
-> 如果一个函数，除了返回值之外，还会修改某些其它状态，或者与外部函数等有可观测的交互
+感觉有点像设计模式里的 Decorator，即能够将两个指定类型组合转化为一个新值的函数；最常见的组合即是常见的函数组合，允许你将不同的函数组合成一个返回单值的函数。
 
 ```js
-console.log('IO is a side effect!');
+const compose = (f, g) => a => f(g(a)); // Definition
+const floorAndToString = compose(
+  val => val.toString(),
+  Math.floor
+); //Usage
+floorAndToString(121.212121); // "121"
 ```
 
----
+### Higher-Order Functions (HOF) | 高阶函数
+
+一个接收某个函数作为参数的函数成为高等函数，该函数可以选择返回一个函数也可以返回其他类型
+
+```js
+// 构建可动态设置过滤条件的高阶函数
+const filter = (pred, xs) => {
+  const result = [];
+  for (var idx = 0; idx < xs.length; idx += 1) {
+    if (pred(xs[idx])) {
+      result.push(xs[idx]);
+    }
+  }
+  return result;
+};
+
+// 声明过滤条件
+const is = type => x => Object(x) instanceof type;
+
+// 执行过滤
+filter(is(Number), [0, '1', 2, null]); //=> [0, 2]
+```
+
+### Partial Application | 局部封装
+
+将原本一个多参数值的函数封装为固定参数数目的函数的过程称为 Partial Application
+
+```js
+let sum = (a, b) => a + b;
+
+// partially applying `a` to `40`
+let partial = sum.bind(null, 40);
+
+// Invoking it with `b`
+partial(2); //=> 42
+```
+
+### Currying
+
+将一个 N 参数值的函数转化为 N 个一元函数的组合，Currying 与 Partial Application 的区别在于 Partial Application 最终生成的函数允许接收多个值，而 Currying 生成的函数序列中的每个函数只允许接收一个参数
+
+```js
+let sum = (a, b) => a + b;
+
+let curriedSum = a => b => a + b;
+
+curriedSum(40)(2); // 42.
+```
+
+## Transform | 转换
+
+## Object Type | 对象类型
+
+### Setoid
+
+实现了`equals`函数的对象，即可以与其他对象进行对比判断是否属于同一类型，被称为 Setoid。下面对于原型的扩充可以将 Array 变成 Setoid。
+
+```js
+Array.prototype.equals = arr => {
+  var len = this.length;
+  if (len != arr.length) {
+    return false;
+  }
+  for (var i = 0; i < len; i++) {
+    if (this[i] !== arr[i]) {
+      return false;
+    }
+  }
+  return true;
+};
+
+[1, 2]
+  .equals([1, 2]) // true
+  [(1, 2)].equals([0]); // false
+```
 
 ## Idempotency: 幂等性
 
@@ -179,7 +200,7 @@ Object.freeze({name: 'John', age: 30}) // The `freeze` function enforces immutab
 
 ## Constant: 常量
 
-> 对于一个值的不可变引用，不能跟变量相混淆。Variable 即指那些可能在任意点呗更改的引用。
+> 对于一个值的不可变引用，不能跟变量相混淆。Variable 即指那些可能在任意点被更改的引用。
 
 ```js
 const five = 5;
@@ -417,31 +438,6 @@ pairToCoords(coordsToPair({ x: 1, y: 2 })); // {x: 1, y: 2}
 ```
 
 ---
-
-## Setoid
-
-> 实现了`equals`函数的对象，即可以与其他对象进行对比判断是否属于同一类型，被称为 Setoid。
-
-下面对于原型的扩充可以将 Array 变成 Setoid。
-
-```js
-Array.prototype.equals = arr => {
-  var len = this.length;
-  if (len != arr.length) {
-    return false;
-  }
-  for (var i = 0; i < len; i++) {
-    if (this[i] !== arr[i]) {
-      return false;
-    }
-  }
-  return true;
-};
-
-[1, 2]
-  .equals([1, 2]) // true
-  [(1, 2)].equals([0]); // false
-```
 
 ---
 

@@ -51,7 +51,9 @@ $ sudo passwd root
 # 解锁 root
 $ sudo passwd --unlock root
 
-su
+$ su
+
+$ sudo apt-get remove python3-pip; sudo apt-get install python3-pip
 ```
 
 ## 网络配置
@@ -175,18 +177,21 @@ try:
 		# 检测按钮1是否被按下，如果被按下(低电平)，则亮红灯(输出低电平)，否则关红灯
 		if (RPi.GPIO.input(btnR) == 0):
 			RPi.GPIO.output(R, False)
+            print 1
 		else:
 			RPi.GPIO.output(R, True)
 
 		# 检测按钮2是否被按下，如果被按下(低电平)，则亮绿灯(输出低电平)，否则关绿灯
 		if (RPi.GPIO.input(btnG) == 0):
 			RPi.GPIO.output(G, False)
+            print 2
 		else:
 			RPi.GPIO.output(G, True)
 
 		# 检测按钮3是否被按下，如果被按下(低电平)，则亮蓝灯(输出低电平)，否则关蓝灯
 		if (RPi.GPIO.input(btnB) == 0):
 			RPi.GPIO.output(B, False)
+            print 3
 		else:
 			RPi.GPIO.output(B, True)
 

@@ -19,6 +19,9 @@ $ pipenv install --dev
 # 弹出 Virtual Env 对应的脚本环境
 $ pipenv shell
 
+# 执行文件
+$ pipenv run python
+
 # 定位项目路径
 $ pipenv --where
 /Users/kennethreitz/Library/Mobile Documents/com~apple~CloudDocs/repos/kr/pipenv/test
@@ -422,7 +425,6 @@ len(str)
 
 string.replace("-", " ")
 ",".join(list)
-"hi {0}".format('j')
 str.find(",")
 str.index(",")   # same, but raises IndexError
 str.count(",")
@@ -468,11 +470,17 @@ name = 'Fred'
 age = 50
 anniversary = datetime.date(1991, 10, 12)
 
+x = a + b
+x = '%s, %s!' % (name, age)
+x = 'name: %s; age: %d' % (name, age)
+x = '{}, {}!'.format(name, age)
+x = 'name: {}; age: {}'.format(name, age)
+
 f'My name is {name}, my age next year is {age+1}, my anniversary is {anniversary:%A, %B %d, %Y}.'
-'My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.'
+# 'My name is Fred, my age next year is 51, my anniversary is Saturday, October 12, 1991.'
 
 f'He said his name is {name!r}.'
-"He said his name is 'Fred'."
+# "He said his name is 'Fred'."
 ```
 
 ## Regex | 正则表达式
@@ -629,9 +637,9 @@ nums[2:4] = [8, 9] # Assign a new sublist to a slice
 print nums         # Prints "[0, 1, 8, 9, 4]"
 ```
 
-### Comprehensions: 变换
+### Comprehensions | 变换
 
-Python 中同样可以使用 map、reduce 、 filter，map 用于变换数组 :
+Python 中同样可以使用 map, reduce, filter，其中 map 用于变换数组 :
 
 ```py
 # 使用 map 对数组中的每个元素计算平方
@@ -641,10 +649,12 @@ squared = list(map(lambda x: x**2, items))
 # map 支持函数以数组方式连接使用
 def multiply(x):
     return (x*x)
+
 def add(x):
     return (x+x)
 
 funcs = [multiply, add]
+
 for i in range(5):
     value = list(map(lambda x: x(i), funcs))
     print(value)
@@ -1537,3 +1547,54 @@ with ThreadPoolExecutor(max_workers=10) as executor:
         else:
             print('fetch {0}, get {1}'.format(url, data))
 ```
+
+# 编程规范
+
+```py
+def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
+    """Fetches rows from a Bigtable.
+
+    Retrieves rows pertaining to the given keys from the Table instance
+    represented by big_table.  Silly things may happen if
+    other_silly_variable is not None.
+
+    Args:
+        big_table: An open Bigtable Table instance.
+        keys: A sequence of strings representing the key of each table row
+            to fetch.
+        other_silly_variable: Another optional variable, that has a much
+            longer name than the other args, and which does nothing.
+
+    Returns:
+        A dict mapping keys to the corresponding table row data
+        fetched. Each row is represented as a tuple of strings. For
+        example:
+
+        {'Serak': ('Rigel VII', 'Preparer'),
+         'Zim': ('Irk', 'Invader'),
+         'Lrrr': ('Omicron Persei 8', 'Emperor')}
+
+        If a key from the keys argument is missing from the dictionary,
+        then that row was not found in the table.
+
+    Raises:
+        IOError: An error occurred accessing the bigtable.Table object.
+    """
+    pass
+```
+
+所谓"内部(Internal)"表示仅模块内可用, 或者, 在类内是保护或私有的。用单下划线(`_`)开头表示模块变量或函数是 protected 的(使用 `import * from` 时不会包含)。用双下划线(`__`)开头的实例变量或方法表示类内私有。将相关的类和顶级函数放在同一个模块里. 不像 Java, 没必要限制一个类一个模块。对类名使用大写字母开头的单词(如 CapWords, 即 Pascal 风格), 但是模块名应该用小写加下划线的方式(如 lower_with_under.py). 尽管已经有很多现存的模块使用类似于 CapWords.py 这样的命名, 但现在已经不鼓励这样做, 因为如果模块名碰巧和类名一致, 这会让人困扰.
+
+| Type                       | Public             | Internal                                                             |
+| -------------------------- | ------------------ | -------------------------------------------------------------------- |
+| Modules                    | lower_with_under   | \_lower_with_under                                                   |
+| Packages                   | lower_with_under   |                                                                      |
+| Classes                    | CapWords           | \_CapWords                                                           |
+| Exceptions                 | CapWords           |                                                                      |
+| Functions                  | lower_with_under() | \_lower_with_under()                                                 |
+| Global/Class Constants     | CAPS_WITH_UNDER    | \_CAPS_WITH_UNDER                                                    |
+| Global/Class Variables     | lower_with_under   | \_lower_with_under                                                   |
+| Instance Variables         | lower_with_under   | \_lower_with_under (protected) or \_\_lower_with_under (private)     |
+| Method Names               | lower_with_under() | \_lower_with_under() (protected) or \_\_lower_with_under() (private) |
+| Function/Method Parameters | lower_with_under   |                                                                      |
+| Local Variables            | lower_with_under   |                                                                      |

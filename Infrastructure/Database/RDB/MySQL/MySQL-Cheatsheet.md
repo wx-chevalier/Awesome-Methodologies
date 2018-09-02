@@ -306,7 +306,7 @@ mysql> rollback;
 mysql>insert into emp(empid,...) values(102,...);
 ```
 
-### 死锁
+### 死锁与超时
 
 MyISAM 表锁是 deadlock free 的，这是因为 MyISAM 总是一次获得所需的全部锁，要么全部满足，要么等待，因此不会出现死锁。但在 InnoDB 中，除单个 SQL 组成的事务外，锁是逐步获得的，这就决定了在 InnoDB 中发生死锁是可能的。
 
@@ -332,6 +332,8 @@ mysql> select * from table_1 where where id=1 for update;
 - 在应用中，如果不同的程序会并发存取多个表，应尽量约定以相同的顺序来访问表，这样可以大大降低产生死锁的机会。
 - 在程序以批量方式处理数据的时候，如果事先对数据排序，保证每个线程按固定的顺序来处理记录，也可以大大降低出现死锁的可能。
 - 在事务中，如果要更新记录，应该直接申请足够级别的锁，即排他锁，而不应先申请共享锁，更新时再申请排他锁，因为当用户申请排他锁时，其他事务可能又已经获得了相同记录的共享锁，从而造成锁冲突，甚至死锁。
+
+MySQL 5.5 中，information_schema 库中新增了三个关于锁的表，亦即 innodb_trx、innodb_locks 和 innodb_lock_waits。其中 innodb_trx 表记录当前运行的所有事务，innodb_locks 表记录当前出现的锁，innodb_lock_waits 表记录锁等待的对应关系。
 
 # Binlog
 

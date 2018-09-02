@@ -92,7 +92,7 @@ elem.addEventListener(
 elem.dispatchEvent(event);
 ```
 
-#  路由
+# 路由
 
 ```js
 const stateObj = { foo: 'bar' };

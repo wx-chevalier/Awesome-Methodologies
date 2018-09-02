@@ -1,4 +1,4 @@
-[TOC]
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
 # Introduction
 
@@ -8,11 +8,11 @@
 
 ### Books & Tutorials
 
-* [ Software Architecture and Design](https://msdn.microsoft.com/en-us/library/ee658098.aspx)
+- [ Software Architecture and Design](https://msdn.microsoft.com/en-us/library/ee658098.aspx)
 
 ### Practice
 
-* [从无到有：微信后台系统的演进之路](https://mp.weixin.qq.com/s?__biz=MzI5MDAwOTIzOQ==&mid=402045684&idx=1&sn=5690281c941cd8eb203b6980cdae73ce)
+- [从无到有：微信后台系统的演进之路](https://mp.weixin.qq.com/s?__biz=MzI5MDAwOTIzOQ==&mid=402045684&idx=1&sn=5690281c941cd8eb203b6980cdae73ce)
 
 # 架构风格(Architectural Style)
 
@@ -20,10 +20,10 @@
 
 ## SOA
 
-* Boundaries are explicit
-* Services are autonomous
-* Services share schema and contract, not class
-* Service compatibility is based on policy
+- Boundaries are explicit
+- Services are autonomous
+- Services share schema and contract, not class
+- Service compatibility is based on policy
 
 ## MicroService(微服务)
 
@@ -31,15 +31,15 @@
 
 #### Reference
 
-* Tutorials & Docs
+- Tutorials & Docs
 
-- Practice & Resources
+* Practice & Resources
 
-> * [an-introduction-to-microservices](https://auth0.com/blog/2015/09/04/an-introduction-to-microservices-part-1/)
-> * [微服务(Microservices)](http://blog.csdn.net/wurenhai/article/details/37659335)
-> * [微服务实战](http://kb.cnblogs.com/page/521880/)
-> * [Getting-Started-With-Microservices](https://dzone.com/refcardz/getting-started-with-microservices)
-> * [Getting started with microservices](https://blog.ruxit.com/microservices/)
+> - [an-introduction-to-microservices](https://auth0.com/blog/2015/09/04/an-introduction-to-microservices-part-1/)
+> - [微服务(Microservices)](http://blog.csdn.net/wurenhai/article/details/37659335)
+> - [微服务实战](http://kb.cnblogs.com/page/521880/)
+> - [Getting-Started-With-Microservices](https://dzone.com/refcardz/getting-started-with-microservices)
+> - [Getting started with microservices](https://blog.ruxit.com/microservices/)
 
 根据 Oracle 大神的指导，MicroService 可以认为是 SOA 的一种实现方案：
 
@@ -47,20 +47,20 @@
 
 **1. 优点**
 
-* 每个服务足够内聚，足够小，代码容易理解、开发效率提高
-* 服务之间可以独立部署，微服务架构让持续部署成为可能；
-* 每个服务可以各自进行 x 扩展和 z 扩展，而且，每个服务可以根据自己的需要部署到合适的硬件服务器上；
-* 容易扩大开发团队，可以针对每个服务(service)组件开发团队；
-* 提高容错性(fault isolation)，一个服务的内存泄露并不会让整个系统瘫痪；
-* 系统不会被长期限制在某个技术栈上。
+- 每个服务足够内聚，足够小，代码容易理解、开发效率提高
+- 服务之间可以独立部署，微服务架构让持续部署成为可能；
+- 每个服务可以各自进行 x 扩展和 z 扩展，而且，每个服务可以根据自己的需要部署到合适的硬件服务器上；
+- 容易扩大开发团队，可以针对每个服务(service)组件开发团队；
+- 提高容错性(fault isolation)，一个服务的内存泄露并不会让整个系统瘫痪；
+- 系统不会被长期限制在某个技术栈上。
 
 **2. 缺点**
 
 《人月神话》中讲到：没有银弹，意思是只靠一把锤子是盖不起摩天大楼的，要根据业务场景选择设计思路和实现工具。我们看下为了换回上面提到的好处，我们付出(trade)了什么？
 
-* 开发人员要处理分布式系统的复杂性；开发人员要设计服务之间的通信机制，对于需要多个后端服务的 user case，要在没有分布式事务的情况下实现代码非常困难；涉及多个服务直接的自动化测试也具备相当的挑战性；
-* 服务管理的复杂性，在生产环境中要管理多个不同的服务的实例，这意味着开发团队需要全局统筹(_PS：现在 docker 的出现适合解决这个问题_)
-* 应用微服务架构的时机如何把握？对于业务还没有理清楚、业务数据和处理能力还没有开始爆发式增长之前的创业公司，不需要考虑微服务架构模式，这时候最重要的是快速开发、快速部署、快速试错。
+- 开发人员要处理分布式系统的复杂性；开发人员要设计服务之间的通信机制，对于需要多个后端服务的 user case，要在没有分布式事务的情况下实现代码非常困难；涉及多个服务直接的自动化测试也具备相当的挑战性；
+- 服务管理的复杂性，在生产环境中要管理多个不同的服务的实例，这意味着开发团队需要全局统筹(_PS：现在 docker 的出现适合解决这个问题_)
+- 应用微服务架构的时机如何把握？对于业务还没有理清楚、业务数据和处理能力还没有开始爆发式增长之前的创业公司，不需要考虑微服务架构模式，这时候最重要的是快速开发、快速部署、快速试错。
 
 ### 巨石(monolith)
 
@@ -128,11 +128,11 @@ AMQP-based 的代表系统是 kafka、RabbitMQ 等。这类分布式消息处理
 
 当一份数据位于多个服务上时，必须保证数据的一致性。
 
-* 分布式事务(Distributed transactions)
+- 分布式事务(Distributed transactions)
 
   使用分布式事务非常直观，即要更新 Customer Service 上的信用卡额度，就必须同时更新其他服务上的副本，这些操作要么全做要么全不做。使用分布式事务能够保证数据的强一致，但是会降低系统的可用性——所有相关的服务必须始终在线；而且，很多现代的技术栈并不支持事务，例如 REST、NoSQL 数据库等。
 
-* 基于事件的异步更新(Event-driven asynchronous updates)
+- 基于事件的异步更新(Event-driven asynchronous updates)
 
   Customer Service 中的信用卡额度改变时，它对外发布一个事件到“message broker(消息代理人)”；其他订阅了这个事件的服务受到提示后就更新数据。事件流如图 6 所示。
 
@@ -162,7 +162,7 @@ AMQP-based 的代表系统是 kafka、RabbitMQ 等。这类分布式消息处理
 
 ## 软件架构
 
-* [Architectural Styles and
+- [Architectural Styles and
 
   the Design of Network-based Software Architectures][2]
 

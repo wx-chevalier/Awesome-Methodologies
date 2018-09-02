@@ -411,12 +411,14 @@ log.Fatal("error making udp socket", err)
 
 ## 数据存储
 
-### MySQL
+### Knex
+
+当我们使用 leftJoin 查询单条数据时，可以通过 nestTables 选项将扁平结构转化为嵌套结构：
 
 ```js
 knex
   .from('users')
-  .leftJoin('user_addresses', 'users.id', '=', 'user_addresses.user_id')
+  .leftJoin('user_address', 'users.id', '=', 'user_address.user_id')
   .options({ nestTables: true })
   .then(results => {
     // do something with results ...
@@ -429,7 +431,7 @@ knex
     username: 'somename',
     email:
   },
-  user_addresses: {
+  user_address: {
     id: 1, // or whatever format your id is in
     user_id: 3,
     street: 'somestreet',
@@ -437,6 +439,40 @@ knex
   }
 }
 ```
+
+当我们使用 innerJoin 查询多个关联项时，可以使用 knexnest:
+
+```js
+const knexnest = require('knexnest');
+
+var sql = knex
+  .select(
+    'c.id    AS _id',
+    'c.title AS _title',
+    't.id    AS _teacher_id',
+    't.name  AS _teacher_name',
+    'l.id    AS _lesson__id',
+    'l.title AS _lesson__title'
+  )
+  .from('course AS c')
+  .innerJoin('teacher AS t', 't.id', 'c.teacher_id')
+  .innerJoin('course_lesson AS cl', 'cl.course_id', 'c.id')
+  .innerJoin('lesson AS l', 'l.id', 'cl.lesson_id');
+knexnest(sql).then(function(data) {
+  result = data;
+});
+/* result should be like:
+[
+	{id: '1', title: 'Tabular to Objects', teacher: {id: '1', name: 'David'}, lesson: [
+		{id: '1', title: 'Defintions'},
+		{id: '2', title: 'Table Data'},
+		{id: '3', title: 'Objects'}
+	]},
+]
+*/
+```
+
+Kenx 同样支持子查询，我们可以将某个查询语句当做源表处理：
 
 ```js
 const subQuery = this.app.knex
@@ -455,12 +491,10 @@ const assets = await this.app
   .orderBy('updated_at', 'desc');
 ```
 
+在我们进行插入操作时，常常需要在存在时更新；在 MySQL 数据库中，我们可以自行封装如下函数：
+
 ```ts
 function upsert(table, data, updateData?) {
-  if (!this.knex) {
-    return Promise.reject('Knex is undefined');
-  }
-
   if (!updateData) {
     updateData = data;
   }

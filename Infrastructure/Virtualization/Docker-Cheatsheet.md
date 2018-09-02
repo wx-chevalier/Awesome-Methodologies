@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-> 📖 节选自 [Awesome CheatSheet/Docker CheatSheet](https://parg.co/o9d)，来自[官方文档](https://docs.docker.com/)及 [Docker Links](https://parg.co/o90) 中链接内容的归档整理。
+> 📖 节选自 [Awesome CheatSheet/Docker CheatSheet](https://parg.co/o9d)，来自[官方文档](https://docs.docker.com/)及 [Docker Links](https://parg.co/o90) 中链接内容的归档整理，包含了日常工作中常用的 Docker 概念与命令，也可以在 [Backend Boilerplate/docker](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/docker) 中浏览常见服务/应用的 Docker 配置案例。
 
 # Docker CheatSheet | Docker 配置与实践清单
 
@@ -137,7 +137,7 @@ $ sudo pip install shadowsocks
 $ sslocal -c config.json
 ```
 
-这时一个 socks5 代理在你本机就启动了。下面安装配置 privoxy 把他转成 http/https 代理。安装略。修改/添加两个 privoxy 的配置（对于 ubuntu, 在 /etc/privoxy/config）：
+这时一个 socks5 代理在你本机就启动了。下面安装配置 privoxy 把他转成 http/https 代理。安装略。修改/添加两个 privoxy 的配置(对于 ubuntu, 在 /etc/privoxy/config)：
 
 ```
 listen-address 0.0.0.0:8118        # 所有 interface 上监听流量
@@ -150,7 +150,7 @@ forward-socks5 / 127.0.0.1:1080 .  # 流量导向本机上的 ss 代理
 HTTP_PROXY=127.0.0.1:8118 HTTPS_PROXY=127.0.0.1:8118 curl https://www.google.com
 ```
 
-下面修改各台机器的 docker 配置（假定我们的 master 内网地址 `1.1.1.2`, 其他两台机器地址为 `1.1.1.3` 和 `1.1.1.4`）：
+下面修改各台机器的 docker 配置(假定我们的 master 内网地址 `1.1.1.2`, 其他两台机器地址为 `1.1.1.3` 和 `1.1.1.4`)：
 
 ```
 [Environment]
@@ -176,17 +176,14 @@ docker rm $(docker ps -a | grep rabbitmq | awk '{print $1}')
 Or by time created:
 docker rm $(docker ps -a | grep "46 hours ago")
 
-# 列举未使用的
-docker images --filter "dangling=true"
-
 docker ps --filter "name=nostalgic"
 ```
 
-## 创建与移除
+## 创建运行
 
 你的 Container 会在你结束命令之后自动退出，使用以下的命令选项可以将容器保持在激活状态：
 
-- `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现`root@689d580b6416:/` 这种前缀。
+- `-i` 即使在没有附着的情况下依然保持 STDIN 处于开启。单纯使用 -i 命令是不会出现 `root@689d580b6416:/` 这种前缀。
 - `-t` 分配一个伪 TTY 控制台
 
 ```sh
@@ -199,14 +196,19 @@ docker run --rm -ti image_name command
 # 创建，启动容器，并且映射卷与端口，同时设置环境变量
 docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS=”-javaagent:/agent.jar” tomcat:8.0.29-jre8
 
-# 关闭所有正在运行的容器
-docker kill $(docker ps -q)
-
-# 移除所有停止的容器
-docker rm $(docker ps -a -q)
+# 创建容器，指定网络
+$ docker run --network=<NETWORK>
 ```
 
-## 控制
+默认情况下，创建容器时，它不会将其任何端口发布到外部世界。要使端口可用于 Docker 之外的服务或未连接到容器网络的 Docker 容器，请使用 --publish 或 -p 标志。这会创建一个防火墙规则，将容器端口映射到 Docker 主机上的端口。
+
+| 标志值                          | 描述                                                         |
+| ------------------------------- | ------------------------------------------------------------ |
+| `-p 8080:80`                    | 将容器的 80 端口映射到 Docker 主机的 8080 端口（TCP）        |
+| `-p 8080:80/udp`                | 将容器的 80 端口映射到 Docker 主机的 8080 端口（UDP）        |
+| `-p 8080:80/tcp -p 8080:80/udp` | 将容器的 80 端口映射到 Docker 主机的 8080 端口（TCP 和 UDP） |
+
+## 启停控制
 
 ```sh
 # 启动/停止某个容器
@@ -219,6 +221,16 @@ docker exec -ti container_name command.sh
 
 # 查看某个容器的输出日志
 docker logs -ft container_name
+```
+
+```sh
+# 关闭所有正在运行的容器
+docker kill $(docker ps -q)
+
+# 移除所有停止的容器
+docker rm $(docker ps -a -q)
+# 根据状态移除
+docker rm $(docker ps -q -f 'status=exited')
 ```
 
 # 镜像
@@ -273,13 +285,14 @@ ubuntu              14.04               ad892dd21d60        11 days ago         
 ```
 
 ```sh
+# 列举未使用的
+$ docker images --filter "dangling=true"
+
 # 删除所有无用的镜像
-docker rmi $(docker images -q -f dangling=true)
+$ docker rmi $(docker images -q -f dangling=true)
 ```
 
 ## Dockfile
-
-> 📎 完整代码: []()
 
 Dockerfile 由一行行命令语句组成，并且支持以 `#` 开头的注释行。一般的，Dockerfile 分为四部分：基础镜像信息、维护者信息、镜像操作指令和容器启动时执行指令；指令的一般格式为 `INSTRUCTION arguments`，指令包括 `FROM`、`MAINTAINER`、`RUN` 等。例如：
 
@@ -436,9 +449,9 @@ $ docker login myregistrydomain.com:5000
 
 ## Volume | 数据卷
 
-容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(volume)中，后面的章节我们会进一步介绍 Docker 卷的概念。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。数
+容器运行时应该尽量保持容器存储层不发生写操作，对于数据库类需要保存动态数据的应用，其数据库文件应该保存于卷(Volume)中。为了防止运行时用户忘记将动态文件所保存目录挂载为卷，在 Dockerfile 中，我们可以事先指定某些目录挂载为匿名卷，这样在运行时如果用户不指定挂载，其应用也可以正常运行，不会向容器存储层写入大量数据。
 
-据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
+数据卷是一个可供一个或多个容器使用的特殊目录，它绕过 UFS，可以提供很多有用的特性：
 
 - 数据卷可以在容器之间共享和重用
 - 对数据卷的修改会立马生效
@@ -515,9 +528,7 @@ training/webapp python app.py
 VOLUME /data
 ```
 
-## Network | 网络
-
-## Optimization | 优化
+### 空间清理
 
 空间分析与清理：
 
@@ -528,6 +539,50 @@ dockerd ... --log-opt max-size=10m --log-opt max-file=3
 # 清空当前日志文件
 truncate -s 0 /var/lib/docker/containers/*/*-json.log
 ```
+
+## Network | 网络
+
+Docker 的网络子系统采用了基于驱动的可插拔机制，其默认包含了如下驱动模式：
+
+- `bridge`: 默认的网络驱动，常用于多个应用运行与独立容器中并且需要相互通讯的时候。
+- `host`: 移除容器与 Docker 主机之间的网络隔离，直接使用宿主机所在的网络。底层与宿主机共用一个 Network Namespace，容器将不会虚拟出自己的网卡，配置自己的 IP 等，而是使用宿主机的 IP 和端口。
+- `overlay`: Overlay 网络用语连接多个 Docker Daemon，保证 Docker Swarm 服务的正常运行；独立的容器与 Swarm 服务，或者不同宿主机上的容器同样能够通过 Overlay 进行通信。
+- `none`: 对于指定容器禁止所有的网络通信。
+- `macvlan`: Macvlan 网络会允许直接为容器分配 MAC 地址，使其作为真正的物理设备接入到宿主机所在的网络中。
+
+我们使用 network 命令可以查看到默认的网络：
+
+```sh
+$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+f707aa0ef50d        bridge              bridge              local
+97dd7a032d96        host                host                local
+d5a1bed0b12d        none                null                local
+```
+
+桥接模式下，当 Docker 启动时，会自动在主机上创建一个 docker0 虚拟网桥，即软件交换机，在挂载到它的网口之间进行转发。同时，Docker 随机分配一个本地未占用的私有网段(在 RFC1918 中定义)中的一个地址给 docker0 接口。比如典型的 172.17.42.1 ，掩码为 255.255.0.0 。此后启动的容器内的网口也会自动分配一个同一网段( 172.17.0.0/16)的地址。
+
+桥接模式下，创建一个 Docker 容器的时候，同时会创建了一对 veth pair 接口(当数据包发送到一个接口时，另外一个接口也可以收到相同的数据包)。这对接口一端在容器内，即 eth0 ；另一端在本地并被挂载到 docker0 网桥，名称以 veth 开头(例如 vethAQI2QT)。通过这种方式，主机可以跟容器通信，容器之间也可以相互通信。Docker 就创建了在主机和所有容器之间一个虚拟共享网络。
+
+```sh
+# 创建新的网络
+$ docker network create --driver bridge isolated
+
+# 指定网段，宿主机会作为默认网关
+$ docker network create --driver=bridge --subnet=192.168.2.0/24 --gateway=192.168.2.10 new_subnet
+
+# 将某个容器连接到某个网络
+$ docker run --network=isolated -itd --name=docker-nginx nginx
+```
+
+### DNS
+
+默认情况下，容器从 Docker 守护进程继承 DNS 设置，包括 /etc/hosts 和 /etc/resolv.conf。可以基于每个容器覆盖这些设置。
+
+- -h HOSTNAME or --hostname=HOSTNAME 设定容器的主机名，它会被写到容器内的 /etc/hostname 和 /etc/hosts 。但它在容器外部看不到，既不会在 docker ps 中显示，也不会在其他的容器的 /etc/hosts 看到。
+- --link=CONTAINER_NAME:ALIAS 选项会在创建容器的时候，添加一个其他容器的主机名到 /etc/hosts 文件中，让新容器的进程可以使用主机名 ALIAS 就可以连接它。
+- --dns=IP_ADDRESS 添加 DNS 服务器到容器的 /etc/resolv.conf 中，让容器用这个服务器来解析所有不在 /etc/hosts 中的主机名。
+- --dns-search=DOMAIN 设定容器的搜索域，当设定搜索域为 .example.com 时，在搜索一个名为 host 的 主机时，DNS 不仅搜索 host，还会搜索 host.example.com 。 注意：如果没有上述最后 2 个选项， Docker 会默认用主机上的 /etc/resolv.conf 来配置容器。
 
 # 服务治理
 
@@ -623,3 +678,77 @@ volumes:
 ```
 
 ## Docker Swarm
+
+Swarm 是 Docker 公司在 2014 年 12 月初发布的一套较为简单的工具，用来管理 Docker 集群，它将一群 Docker 宿主机变成一个单一的，虚拟的主机。Swarm 使用标准的 Docker API 接口作为其前端访问入口，换言之，各种形式的 Docker Client(dockerclient in go, docker_py, docker 等)均可以直接与 Swarm 通信。
+
+Swarm Deamon 只是一个调度器(Scheduler)和路由器(Router)，Swarm 自己不运行容器，它只是接受 Docker 客户端发送过来的请求，调度适合的节点来运行容器，这意味着，即使 Swarm 由于某些原因挂掉了，集群中的节点也会照常运行，当 Swarm 重新恢复运行之后，它会收集重建集群信息。并且 Swarm 提供的路由匹配(服务发现、负载均衡、跨容器通讯)非常可靠。在单个端口上运行一个服务，Swarm 节点的任意主机都可以访问，负载均衡完全在后台实现。
+
+![image](https://user-images.githubusercontent.com/5803001/44953944-dfbc7a00-aecd-11e8-93dc-1fe6258aafd0.png)
+
+Swarm 在 Scheduler 节点运行容器的时候，会根据指定的策略来计算最适合运行容器的节点，目前支持的策略有：Random, Binpack, Spread。
+
+Random 顾名思义，就是随机选择一个 Node 来运行容器，一般用作调试用。Spread 和 Binpack 策略会根据各个节点的可用的 CPU, RAM 以及正在运行的容器的数量来计算应该运行容器的节点。在同等条件下，Spread 策略会选择运行容器最少的那台节点来运行新的容器，binpack 策略会选择运行容器最集中的那台机器来运行新的节点。
+
+使用 Spread 策略会使得容器会均衡的分布在集群中的各个节点上运行，一旦一个节点挂掉了只会损失少部分的容器。Binpack 策略最大化的避免容器碎片化，就是说 Binpack 策略尽可能的把还未使用的节点留给需要更大空间的容器运行，尽可能的把容器运行在一个节点上面。
+
+```sh
+# 创建一个新的服务
+$ docker service create \
+--image nginx \
+--replicas 2 \
+nginx
+
+# 更新服务
+$ docker service update \
+--image nginx:alpine \
+nginx
+
+# 删除服务
+$ docker service rm nginx
+
+# 缩容，而不是直接删除服务
+$ docker service scale nginx=0
+
+# 扩容
+$ docker service scale nginx=5
+
+# 列出所有的服务
+$ docker service ls
+
+# 列出一个服务的所有实例(包括服务的健康状况)
+$ docker service ps nginx
+
+# 服务的详细信息
+$ docker service inspect nginx
+```
+
+我们也可以使用 Docker Compose 的脚本来进行批次部署：
+
+```sh
+$ docker stack deploy application
+```
+
+```yaml
+version: '3'
+services:
+  web:
+    image: registry.gitlab.com/example/example # you need to use external image
+    command: npm run prod
+    ports:
+      - 80:80
+    deploy:
+      replicas: 6
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+```
+
+# Todos
+
+- [ ] 参考 [How I filter and grep Docker containers, images, and volumes, and how you can too](https://parg.co/Uxy)
+- [ ] https://zhuanlan.zhihu.com/p/31820191
+- [ ] [Docker Cheat Sheet](https://parg.co/Upp)
+- [ ] [Digital Ocean - Docker CheatSheet](https://parg.co/Yex)
+- [ ] https://jiajially.gitbooks.io/dockerguide/content/dockerCoreNS.html 提取其中的命令与原理解析
