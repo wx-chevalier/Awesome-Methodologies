@@ -74,6 +74,27 @@ FROM contacts
 WHERE last_name IS NOT NULL;
 ```
 
+### 分页查询
+
+```sql
+SELECT column1, column2, ...
+FROM table_name
+LIMIT offset, count;
+
+SELECT *
+FROM yourtable
+ORDER BY id
+LIMIT 100, 20
+```
+
+```sql
+SELECT *
+FROM yourtable
+WHERE id > 234374
+ORDER BY id
+LIMIT 20
+```
+
 ## Join | 表联接
 
 表联接最常见的即是出现在查询模型中，但是实际的用法绝不会局限在查询模型中。较常见的联接查询包括了以下几种类型：Inner Join  / Outer Join / Full Join / Cross Join 。

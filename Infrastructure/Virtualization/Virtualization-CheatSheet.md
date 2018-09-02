@@ -1,3 +1,5 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 # 虚拟化与容器技术原理与实践导论
 
 **Machine-level virtualization**, such as [KVM](https://www.linux-kvm.org/) and [Xen](https://www.xenproject.org/), exposes virtualized hardware to a guest kernel via a Virtual Machine Monitor (VMM). This virtualized hardware is generally enlightened (paravirtualized) and additional mechanisms can be used to improve the visibility between the guest and host (e.g. balloon drivers, paravirtualized spinlocks). Running containers in distinct virtual machines can provide great isolation, compatibility and performance (though nested virtualization may bring challenges in this area), but for containers it often requires additional proxies and agents, and may require a larger resource footprint and slower start-up times.
