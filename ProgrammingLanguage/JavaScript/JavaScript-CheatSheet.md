@@ -125,6 +125,11 @@ const regexLiteral = /cat/;
 
 // Regular Expression Constructor
 const regexConstructor = new RegExp('cat');
+
+// 也可以将两个正则表达式合并为一个
+const lower = new RegExp(/--RegexCode--/);
+const upper = new RegExp(/--RegexCode--/);
+const finalRe = new RegExp(lower.source + '|' + upper.source);
 ```
 
 - Symbols
@@ -181,9 +186,14 @@ removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
 key.replace(/\_./g, str => str[1].toUpperCase());
 ```
 
-较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中：
+较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中。如果执行 exec 方法的正则表达式没有分组（没有括号括起来的内容），那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串;如果没有匹配则返回 null。
 
 ```js
+const someText = 'web2.0 .net2.0';
+const pattern = /(\w+)(\d)\.(\d)/g;
+const outCome_exec = pattern.exec(someText);
+const outCome_matc = someText.match(pattern);
+
 const s = '[description:"aoeu" uuid:"123sth"]';
 
 const re = /\s*([^[:]+):\"([^"]+)"/g;

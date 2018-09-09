@@ -47,3 +47,40 @@ func main(){
 ```
 
 中断的时候将寄存器里的栈信息，保存到自己的 G 对象里面当再次轮到自己执行时，将自己保存的栈信息复制到寄存器里面，这样就接着上次之后运行。
+
+# 同步
+
+Channels are concurrency-safe communication objects, used in goroutines.
+
+```go
+func main() {
+  // A "channel"
+  ch := make(chan string)
+
+  // Start concurrent routines
+  go push("Moe", ch)
+  go push("Larry", ch)
+  go push("Curly", ch)
+
+  // Read 3 results
+  // (Since our goroutines are concurrent,
+  // the order isn't guaranteed!)
+  fmt.Println(<-ch, <-ch, <-ch)
+}
+
+func push(name string, ch chan string) {
+  msg := "Hey, " + name
+  ch <- msg
+}
+```
+
+Buffered channels limit the amount of messages it can keep.
+
+```go
+ch := make(chan int, 2)
+ch <- 1
+ch <- 2
+ch <- 3
+// fatal error:
+// all goroutines are asleep - deadlock!
+```

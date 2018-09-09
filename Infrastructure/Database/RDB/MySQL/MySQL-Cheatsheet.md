@@ -96,7 +96,16 @@ MySQL 中支持 date 和 datetime、timestamp 等时间类型，其中 date 与 
 
 - 索引速度不同。timestamp 更轻量，索引相对 datetime 更快。
 
-[MySQL 提供了时间与日期函数](http://dev.mysql.com/doc/refman/5.1/en/date-and-time-functions.html#function_month)：
+MySQL 仅允许插入无时区的时间格式字符串，当我们插入到 DATETIME 类型时，其会保存字面信息了；如果插入到 TIMESTAMP 类型，MySQL 首先会将其根据当前时区转化为 UTC 时间戳存储，在用户查询的时候则会再从 UTC 时区转化为数据库当前时区。DATETIME 与 TIMESTAMP 在使用上并无太大差异，仅当数据库时区发生变化时，其读取值会发生变化。MySQL 也提供了丰富的[时间与日期函数](http://dev.mysql.com/doc/refman/5.1/en/date-and-time-functions.html#function_month)，sysdate() 和 now() 都可以使用当前时间值，其中 sysdate 表示实时的系统时间，不过其有可能导致主库和从库执行时返回值不一样，导致主从数据库不一致。
+
+```sh
+mysql> select now(), curdate(), sysdate(), curtime() \G;
+*************************** 1. row ***********************
+    now(): 2013-01-17 13:07:53
+curdate(): 2013-01-17
+sysdate(): 2013-01-17 13:07:53
+curtime(): 13:07:53
+```
 
 ```sql
 // 获取事件的年与月
@@ -106,15 +115,14 @@ GROUP BY YEAR(record_date), MONTH(record_date)
 GROUP BY DATE_FORMAT(record_date, '%Y%m')
 ```
 
-两个值不同，sysdate 表示实时的系统时间。sysdate() 和 now()的区别，一般在执行 SQL 语句时，都是用 now()；因为使用 sysdate()时，有可能导致主库和从库执行时返回值不一样，导致主从数据库不一致。
+我们可以使用 TIMESTAMPDIFF 与 DATEDIFF 计算两个日期时间的差：
 
-```sh
-mysql> select now(), curdate(), sysdate(), curtime() \G;
-*************************** 1. row ***********************
-    now(): 2013-01-17 13:07:53
-curdate(): 2013-01-17
-sysdate(): 2013-01-17 13:07:53
-curtime(): 13:07:53
+```sql
+--- FRAC_SECOND、SECOND、 MINUTE、 HOUR、 DAY、 WEEK、 MONTH、 QUARTER或 YEAR
+SELECT TIMESTAMPDIFF(DAY,'2012-10-01','2013-01-13');
+
+--- 传入两个日期函数，比较的DAY天数
+SELECT DATEDIFF('2013-01-13','2012-10-01');
 ```
 
 # 数据操作
@@ -343,3 +351,9 @@ MySQL 通过 BINLOG 录执行成功的 INSERT、UPDATE、DELETE 等更新数据�
 - 二是 MySQL 的 Binlog 是按照事务提交的先后顺序记录的，恢复也是按这个顺序进行的。这点也与 Oralce 不同，Oracle 是按照系统更新号（System Change Number，SCN）来恢复数据的，每个事务开始时，Oracle 都会分配一个全局唯一的 SCN，SCN 的顺序与事务开始的时间顺序是一致的。
 
 从上面两点可知，MySQL 的恢复机制要求：在一个事务未提交前，其他并发事务不能插入满足其锁定条件的任何记录，也就是不允许出现幻读，这已经超过了 ISO/ANSI SQL92“可重复读”隔离级别的要求，实际上是要求事务要串行化。这也是许多情况下，InnoDB 要用到间隙锁的原因，比如在用范围条件更新记录时，无论在 Read Commited 或是 Repeatable Read 隔离级别下，InnoDB 都要使用间隙锁，但这并不是隔离级别要求的，有关 InnoDB 在不同隔离级别下加锁的差异在下一小节还会介绍。
+
+# Todos
+
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/1/%25E6%259E%2584%25E5%25BB%25BA%25E9%25AB%2598%25E6%2580%25A7%25E8%2583%25BDMySQL%25E4%25BD%2593%25E7%25B3%25BB.jpg)
+
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/1/MySQL%25E6%2595%25B0%25E6%258D%25AE%25E5%25AE%2589%25E5%2585%25A8%25E6%2580%25A7%25E8%25AE%25A8%25E8%25AE%25BA.jpg)

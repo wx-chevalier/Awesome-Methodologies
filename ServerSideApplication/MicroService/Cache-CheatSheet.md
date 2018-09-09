@@ -25,3 +25,5 @@
 $ cat /sys/devices/system/cpu/cpu0/cache/index0/coherency_line_size
   64
 ```
+
+# 缓存策略

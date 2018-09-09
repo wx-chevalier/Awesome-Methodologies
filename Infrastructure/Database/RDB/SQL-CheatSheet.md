@@ -45,7 +45,7 @@ DML 包含了 INSERT, UPDATE, DELETE 等常见的数据操作语句。
 我们经常需要处理某个唯一索引时存在则更新，不存在则插入的情况，其基本形式如下：
 
 ```sql
-INSERT INTO ON ... DUPLICATE KEY UPDATE ...
+INSERT INTO ... ON DUPLICATE KEY UPDATE ...
 ```
 
 对于多属性索引的更新方式如下：

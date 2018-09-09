@@ -1,5 +1,7 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+# Maven CheatSheet
+
 # QuickStart
 
 ## Introduction
@@ -14,8 +16,8 @@ Make 将自己和操作系统绑定在一起了。也就是说，使用 Make，�
 
 ### Ant
 
-* 和 Make 一样，Ant 也都是过程式的，开发者显式地指定每一个目标，以及完成该目标所需要执行的任务。针对每一个项目，开发者都需要重新编写这一过程，这里其实隐含着很大的重复。Maven 是声明式的，项目构建过程和过程各个阶段所需的工作都由插件实现，并且大部分插件都是现成的，开发者只需要声明项目的基本元素，Maven 就执行内置的、完整的构建过程。这在很大程度上消除了重复。
-* Ant 是没有依赖管理的，所以很长一段时间 Ant 用户都不得不手工管理依赖，这是一个令人头疼的问题。幸运的是，Ant 用户现在可以借助 Ivy 管理依赖。而对于 Maven 用户来说，依赖管理是理所当然的，Maven 不仅内置了依赖管理，更有一个可能拥有全世界最多 Java 开源软件包的中央仓库，Maven 用户无须进行任何配置就可以直接享用。
+- 和 Make 一样，Ant 也都是过程式的，开发者显式地指定每一个目标，以及完成该目标所需要执行的任务。针对每一个项目，开发者都需要重新编写这一过程，这里其实隐含着很大的重复。Maven 是声明式的，项目构建过程和过程各个阶段所需的工作都由插件实现，并且大部分插件都是现成的，开发者只需要声明项目的基本元素，Maven 就执行内置的、完整的构建过程。这在很大程度上消除了重复。
+- Ant 是没有依赖管理的，所以很长一段时间 Ant 用户都不得不手工管理依赖，这是一个令人头疼的问题。幸运的是，Ant 用户现在可以借助 Ivy 管理依赖。而对于 Maven 用户来说，依赖管理是理所当然的，Maven 不仅内置了依赖管理，更有一个可能拥有全世界最多 Java 开源软件包的中央仓库，Maven 用户无须进行任何配置就可以直接享用。
 
 ## Usage
 
@@ -23,8 +25,8 @@ Make 将自己和操作系统绑定在一起了。也就是说，使用 Make，�
 
 可从 apache 官方下载最新的 Maven 压缩包，解压即可。然后设置下系统的环境变量。如下所示:
 
-* M2HOME:maven 安装目录
-* Path:追加 maven 安装目录下的 bin 目录
+- M2HOME:maven 安装目录
+- Path:追加 maven 安装目录下的 bin 目录
 
 在用户目录下，我们可以发现.m2 文件夹。默认情况下，该文件夹下放置了 Maven 本地仓库.m2/repository。所有的 Maven 构件(artifact)都被存储到该仓库中，以方便重用。默认情况下，~/.m2 目录下除了 repository 仓库之外就没有其他目录和文件了，不过大多数 Maven 用户需要复制 M2HOME/conf/settings.xml 文件到~/.m2/settings.xml
 
@@ -44,7 +46,7 @@ mvn clean 删除 target
 
 mvn install 安装 jar 包到本地仓库中
 
-* 创建一个新工程
+- 创建一个新工程
 
 mvn archetype:generate -DgroupId=co.hoteam -DartifactId=Zigbee -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
 
@@ -56,28 +58,29 @@ mvn archetype:generate -DgroupId=co.hoteam -DartifactId=Zigbee -DarchetypeArtifa
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-http://maven.apache.org/maven-v4_0_0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<groupId>com.juvenxu.mvnbook</groupId>
-<artifactId>hello-world</artifactId>
-<version>1.0-SNAPSHOT</version>
-<name>Maven Hello World Project</name>
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.juvenxu.mvnbook</groupId>
+  <artifactId>hello-world</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Maven Hello World Project</name>
 </project>
 ```
 
-* 代码的第一行是 XML 头，指定了该 xml 文档的版本和编码方式。紧接着是 project 元素，project 是所有 pom.xml 的根元素，它还声明了一些 POM 相关的命名空间及 xsd 元素，虽然这些属性不是必须的，但使用这些属性能够让第三方工具(如 IDE 中的 XML 编辑器)帮助我们快速编辑 POM。
+- 代码的第一行是 XML 头，指定了该 xml 文档的版本和编码方式。紧接着是 project 元素，project 是所有 pom.xml 的根元素，它还声明了一些 POM 相关的命名空间及 xsd 元素，虽然这些属性不是必须的，但使用这些属性能够让第三方工具(如 IDE 中的 XML 编辑器)帮助我们快速编辑 POM。
 
-- 根元素下的第一个子元素 modelVersion 指定了当前 POM 模型的版本，对于 Maven2 及 Maven 3 来说，它只能是 4.0.0。这段代码中最重要的是 groupId，artifactId 和 version 三行。这三个元素定义了一个项目基本的坐标，在 Maven 的世界，任何的 jar、pom 或者 war 都是以基于这些基本的坐标进行区分的。
+* 根元素下的第一个子元素 modelVersion 指定了当前 POM 模型的版本，对于 Maven2 及 Maven 3 来说，它只能是 4.0.0。这段代码中最重要的是 groupId，artifactId 和 version 三行。这三个元素定义了一个项目基本的坐标，在 Maven 的世界，任何的 jar、pom 或者 war 都是以基于这些基本的坐标进行区分的。
 
-* groupId 定义了项目属于哪个组，这个组往往和项目所在的组织或公司存在关联，譬如你在 googlecode 上建立了一个名为 myapp 的项目，那么 groupId 就应该是 com.googlecode.myapp，如果你的公司是 mycom，有一个项目为 myapp，那么 groupId 就应该是 com.mycom.myapp。本书中所有的代码都基于 groupId com.juvenxu.mvnbook。
+- groupId 定义了项目属于哪个组，这个组往往和项目所在的组织或公司存在关联，譬如你在 googlecode 上建立了一个名为 myapp 的项目，那么 groupId 就应该是 com.googlecode.myapp，如果你的公司是 mycom，有一个项目为 myapp，那么 groupId 就应该是 com.mycom.myapp。本书中所有的代码都基于 groupId com.juvenxu.mvnbook。
 
-- artifactId 定义了当前 Maven 项目在组中唯一的 ID，我们为这个 Hello World 项目定义 artifactId 为 hello-world，本书其他章节代码会被分配其他的 artifactId。而在前面的 groupId 为 com.googlecode.myapp 的例子中，你可能会为不同的子项目(模块)分配 artifactId，如：myapp-util、myapp-domain、myapp-web 等等。
+* artifactId 定义了当前 Maven 项目在组中唯一的 ID，我们为这个 Hello World 项目定义 artifactId 为 hello-world，本书其他章节代码会被分配其他的 artifactId。而在前面的 groupId 为 com.googlecode.myapp 的例子中，你可能会为不同的子项目(模块)分配 artifactId，如：myapp-util、myapp-domain、myapp-web 等等。
 
-* version 指定了 Hello World 项目当前的版本——1.0-SNAPSHOT。SNAPSHOT 意为快照，说明该项目还处于开发中，是不稳定的版本。随着项目的发展，version 会不断更新，如升级为 1.0、1.1-SNAPSHOT、1.1、2.0 等等。
-* 最后一个 name 元素声明了一个对于用户更为友好的项目名称，虽然这不是必须的，但我还是推荐为每个 POM 声明 name，以方便信息交流。 没有任何实际的 Java 代码，我们就能够定义一个 Maven 项目的 POM，这体现了 Maven 的一大优点，它能让项目对象模型最大程度地与实际代码相独立，我们可以称之为解耦，或者正交性，这在很大程度上避免了 Java 代码和 POM 代码的相互影响。比如当项目需要升级版本时，只需要修改 POM，而不需要更改 Java 代码；而在 POM 稳定之后，日常的 Java 代码开发工作基本不涉及 POM 的修改。
+- version 指定了 Hello World 项目当前的版本——1.0-SNAPSHOT。SNAPSHOT 意为快照，说明该项目还处于开发中，是不稳定的版本。随着项目的发展，version 会不断更新，如升级为 1.0、1.1-SNAPSHOT、1.1、2.0 等等。
+- 最后一个 name 元素声明了一个对于用户更为友好的项目名称，虽然这不是必须的，但我还是推荐为每个 POM 声明 name，以方便信息交流。 没有任何实际的 Java 代码，我们就能够定义一个 Maven 项目的 POM，这体现了 Maven 的一大优点，它能让项目对象模型最大程度地与实际代码相独立，我们可以称之为解耦，或者正交性，这在很大程度上避免了 Java 代码和 POM 代码的相互影响。比如当项目需要升级版本时，只需要修改 POM，而不需要更改 Java 代码；而在 POM 稳定之后，日常的 Java 代码开发工作基本不涉及 POM 的修改。
 
 ### Main
 
@@ -115,18 +118,18 @@ clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项�
 ```xml
 <settings>
   ...
-<pqroxies>
-  <proxy>
-    <id>my-proxy</id>
-    <active>true</active>
-    <protocol>http</protocol>
-    <host>代理服务器主机名</host>
-    <port>端口号</port>
-    <!--
-        <username>***</username>
-        <password>***</password>
-        <nonProxyHosts>repository.mycom.com|*.google.com</nonProxyHosts>
--->
+  <proxies>
+    <proxy>
+      <id>my-proxy</id>
+      <active>true</active>
+      <protocol>http</protocol>
+      <host>代理服务器主机名</host>
+      <port>端口号</port>
+      <!--
+          <username>***</username>
+          <password>***</password>
+          <nonProxyHosts>repository.mycom.com|*.google.com</nonProxyHosts>
+      -->
   </proxy>
   </proxies>
   ...
@@ -143,14 +146,14 @@ clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项�
 
 众所周知的原因，国内有时候并不能够很顺畅的访问 Maven 的中央仓库，往往我们需要访问国内的镜像地址：
 
-> * [OSChina Maven 教程][2]
+> - [OSChina Maven 教程][2]
 
-```
+```xml
 <mirror>
-<id>CN</id>
-<name>OSChina Central</name>
-<url>http://maven.oschina.net/content/groups/public/</url>
-<mirrorOf>central</mirrorOf>
+  <id>CN</id>
+  <name>OSChina Central</name>
+  <url>http://maven.oschina.net/content/groups/public/</url>
+  <mirrorOf>central</mirrorOf>
 </mirror>
 ```
 
@@ -164,9 +167,9 @@ clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项�
 
 (1)有时候执行`mvn compile`时候会爆出无法找到 junit 的错误，可能的解决方法有：
 
-* 在 Eclipse 的 Projects 选项中使用 Projects Clean
+- 在 Eclipse 的 Projects 选项中使用 Projects Clean
 
-* 在 pom.xml 中引入 junit 依赖项，并且保证其 scope 为 compile:
+- 在 pom.xml 中引入 junit 依赖项，并且保证其 scope 为 compile:
 
   ```
   <dependency>
@@ -179,22 +182,22 @@ clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项�
 
 (2)有时候在 Eclipse 下执行`mvn compile`或者相关命令时，会报某某文件出现不识别字符或者非 UTF-8 编码，此时可以做几步检查：
 
-* 检查对应的 Java 文件是否有 Bom 头
-* 检查对应的 Java 文件的编码
-* 如果都没有问题，在 Eclipse 中先将文件编码设置为 GBK，再改回 UTF-8 试试。
+- 检查对应的 Java 文件是否有 Bom 头
+- 检查对应的 Java 文件的编码
+- 如果都没有问题，在 Eclipse 中先将文件编码设置为 GBK，再改回 UTF-8 试试。
 
 ## Reference
 
-* [Maven 学习](https://tracylihui.github.io/2015/07/09/Maven%E5%AD%A6%E4%B9%A0/)​
-* [Maven 实战(许晓斌著)](http://www.linuxidc.com/Linux/2014-12/110503.htm)
+- [Maven 学习](https://tracylihui.github.io/2015/07/09/Maven%E5%AD%A6%E4%B9%A0/)​
+- [Maven 实战(许晓斌著)](http://www.linuxidc.com/Linux/2014-12/110503.htm)
 
 ### Tutorials&Docs
 
-* [CSDN-Maven 学习每周总结](http://blog.csdn.net/lfsfxy9/article/category/1516519)
+- [CSDN-Maven 学习每周总结](http://blog.csdn.net/lfsfxy9/article/category/1516519)
 
 ### Practice&Resource
 
-* [maven-best-practices](http://www.kyleblaney.com/maven-best-practices/)
+- [maven-best-practices](http://www.kyleblaney.com/maven-best-practices/)
 
 # Dependence(依赖管理)
 
@@ -222,12 +225,12 @@ Maven 使用 dependencyManagement 元素来提供了一种管理依赖版本号�
 然后在子项目里就可以添加 mysql-connector 时可以不指定版本号，例如：
 
 ```xml
-<dependencies>  
-  <dependency>  
-    <groupId>mysql</groupId>  
-    <artifactId>mysql-connector-java</artifactId>  
-  </dependency>  
-</dependencies>  
+<dependencies>
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+  </dependency>
+</dependencies>
 ```
 
 同时在 dependenceManagement 种，也可以从外部导入 POM 文件中的依赖项：
@@ -275,7 +278,7 @@ Maven 使用 dependencyManagement 元素来提供了一种管理依赖版本号�
 Project
 |-- pom.xml
 `-- src
-    `-- my-resources
+`-- my-resources
 ```
 
 我们需要在 pom 文件中进行如下配置：
@@ -419,13 +422,13 @@ mvn exec:java -Dexec.mainClass="com.example.Main"
 
 在运行 Jetty 时往往需要改变其监听的端口，主要就是修正 HttpConnector 的参数来建立一些 ServerConnector 的配置，主要有如下的三种方式：
 
-* Change the port when just at runtime:
+- Change the port when just at runtime:
 
   ```
   mvn jetty:run -Djetty.http.port=9999
   ```
 
-* Set the property inside your *pom.xml* file:
+- Set the property inside your *pom.xml* file:
 
   ```
   <properties>
@@ -439,7 +442,7 @@ mvn exec:java -Dexec.mainClass="com.example.Main"
   mvn jetty:run
   ```
 
-* Set the port in your plugin declaration inside the *pom.xml* file:
+- Set the port in your plugin declaration inside the *pom.xml* file:
 
   ```
   <build>
@@ -732,13 +735,13 @@ weblogic 上，允许多个 app，把共用的 jar 包按约定打包成一个 w
 
 > 参考资料
 >
-> * [Maven 单元测试][1]
+> - [Maven 单元测试][1]
 
 Maven 本身并不是一个单元测试框架，它只是在构建执行到特定生命周期阶段的时候，通过插件来执行 JUnit 或者 TestNG 的测试用例。这个插件就是 maven-surefire-plugin，也可以称为测试运行器(Test Runner)，它能兼容 JUnit 3、JUnit 4 以及 TestNG。在默认情况下，maven-surefire-plugin 的 test 目标会自动执行测试源码路径(默认为 src/test/java/)下所有符合一组命名模式的测试类。这组模式为：
 
-* \*_/Test_.java：任何子目录下所有命名以 Test 开关的 Java 类。
-* \**/*Test.java：任何子目录下所有命名以 Test 结尾的 Java 类。
-* \**/*TestCase.java：任何子目录下所有命名以 TestCase 结尾的 Java 类。
+- \*_/Test_.java：任何子目录下所有命名以 Test 开关的 Java 类。
+- \**/*Test.java：任何子目录下所有命名以 Test 结尾的 Java 类。
+- \**/*TestCase.java：任何子目录下所有命名以 TestCase 结尾的 Java 类。
 
 ## JUnit
 
@@ -837,38 +840,38 @@ Maven 中使用 package、install 等命令时会自动调用 Test 组件，`mvn
 maven-surefire-plugin 提供了一个 test 参数让 Maven 用户能够在命令行指定要运行的测试用例。如：
 
 ```
-mvn test -Dtest=RandomGeneratorTest  
+mvn test -Dtest=RandomGeneratorTest
 ```
 
 也可以使用通配符：
 
 ```
-mvn test -Dtest=Random*Test  
+mvn test -Dtest=Random*Test
 ```
 
 或者也可以使用“，”号指定多个测试类：
 
 ```
-mvn test -Dtest=Random*Test,AccountCaptchaServiceTest  
+mvn test -Dtest=Random*Test,AccountCaptchaServiceTest
 ```
 
 如果由于历史原因，测试类不符合默认的三种命名模式，可以通过 pom.xml 设置 maven-surefire-plugin 插件添加命名模式或排除一些命名模式。
 
 ```
-    <plugin>  
-        <groupId>org.apache.maven.plugins</groupId>  
-        <artifactId>maven-surefire-plugin</artifactId>  
-        <version>2.5</version>  
-        <configuration>  
-            <includes>  
-                <include>**/*Tests.java</include>  
-            </includes>  
-            <excludes>  
-                <exclude>**/*ServiceTest.java</exclude>  
-                <exclude>**/TempDaoTest.java</exclude>  
-            </excludes>  
-        </configuration>  
-    </plugin>  
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.5</version>
+        <configuration>
+            <includes>
+                <include>**/*Tests.java</include>
+            </includes>
+            <excludes>
+                <exclude>**/*ServiceTest.java</exclude>
+                <exclude>**/TempDaoTest.java</exclude>
+            </excludes>
+        </configuration>
+    </plugin>
 ```
 
 ## Coverage(测试覆盖率)

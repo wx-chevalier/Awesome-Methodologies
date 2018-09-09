@@ -272,3 +272,7 @@ Much effort is put into what types of weak learners to combine and the ways in w
 ## Markov
 
 ![image](https://user-images.githubusercontent.com/5803001/44188707-98a25b00-a151-11e8-8441-32439e186b91.png)
+
+# Todos
+
+- [Data PreProcessing](https://parg.co/Ajm)
