@@ -200,3 +200,110 @@ except KeyboardInterrupt:
 
 RPi.GPIO.cleanup()
 ```
+
+# 蓝牙
+
+```sh
+# Mini Bluetooth Speaker
+
+$ sudo apt-get update
+$ sudo apt-get upgrade
+
+sudo apt-get install pi-bluetooth ( "already the newest version" )
+
+sudo apt-get install blueman pulseaudio pavucontrol pulseaudio-module-bluetooth
+
+sudo reboot
+
+hcitool dev  (look for bluetooth address of the built-in adapter)
+             (if don't see it:   sudo hciconfig
+
+bluetoothctl
+
+# devices
+
+# power on
+
+# pairable on
+
+# discoverable on
+
+# scan on
+
+# devices
+Device 30:22:12:01:0C:52 Y88
+
+# paired-devices
+
+# agent on
+
+# default-agent
+
+# trust 30:22:12:01:0C:52
+
+# pair 30:22:12:01:0C:52
+Attempting to pair with 30:22:12:01:0C:52
+[CHG] Device 30:22:12:01:0C:52 Connected: yes
+[CHG] Device 30:22:12:01:0C:52 Modalias: usb:v05ACp022Cd0100
+[CHG] Device 30:22:12:01:0C:52 UUIDs:
+    00001108-0000-1000-8000-00805f9b34fb
+    0000110b-0000-1000-8000-00805f9b34fb
+    0000110c-0000-1000-8000-00805f9b34fb
+    0000110e-0000-1000-8000-00805f9b34fb
+    0000111e-0000-1000-8000-00805f9b34fb
+    00001124-0000-1000-8000-00805f9b34fb
+    00001200-0000-1000-8000-00805f9b34fb
+[CHG] Device 30:22:12:01:0C:52 Paired: yes
+Pairing successful
+
+# paired-devices
+Device 30:22:12:01:0C:52 Y88
+
+# connect 30:22:12:01:0C:52
+Attempting to connect to 30:22:12:01:0C:52
+[CHG] Device 30:22:12:01:0C:52 Connected: yes
+
+# exit
+
+
+$ alsamixer  (set volume to 85% - normal)
+
+$ sudo apt-get install omxplayer
+
+$ omxplayer YouBetterRun.mp3
+```
+
+```py
+import os
+import sys
+import subprocess
+import time
+
+def blue_it():
+    status = subprocess.call('ls /dev/input/event0 2>/dev/null', shell=True)
+    while status == 0:
+        print("Bluetooth UP")
+        print(status)
+        time.sleep(5)
+    subprocess.call('mplayer http://addressToSomeStream.com', shell=True)
+        status = subprocess.call('ls /dev/input/event0 2>/dev/null', shell=True)
+    else:
+        waiting()
+
+def waiting():
+    subprocess.call('killall -9 pulseaudio', shell=True)
+    time.sleep(2)
+    subprocess.call('pulseaudio --start', shell=True)
+    time.sleep(2)
+    status = subprocess.call('ls /dev/input/event0 2>/dev/null', shell=True)
+    while status == 2:
+        print("Bluetooth DOWN")
+        print(status)
+        subprocess.call('~/scripts/autopair', shell=True)
+        time.sleep(15)
+        status = subprocess.call('ls /dev/input/event0 2>/dev/null', shell=True)
+    else:
+        blue_it()
+
+blue_it()
+```

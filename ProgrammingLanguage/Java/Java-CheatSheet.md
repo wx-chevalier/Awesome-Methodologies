@@ -1,10 +1,16 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+> Java CheatSheet 是对于 Java 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。 本文参考了许多优秀的文章与代码示范，统一声明在了 [Java Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Java/Java-Links.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/java]() 查看使用 Java 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
+
 # Java 语法速览与实践清单
 
-Java CheatSheet 是对于 Java 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。 本文参考了许多优秀的文章与代码示范，统一声明在了 [Java Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Java/Java-Links.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/java]() 查看使用 Java 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
+当我们谈起 Java 的时候，往往是将其作为一门编程语言来讨论；然而编程语言的特性只是 Java 架构的某部分，保障其平台独立性的一系列底层架构也是 Java 不可分割的组成。宏观来看，我们认为 Java 主要包含以下四个部分：Java 编程语言、Java 类文件格式、Java API 以及 JVM。当我们在进行 Java 开发时，我们使用 Java 编程语言来编写代码，然后将其编译为 Java 类文件，最终在 JVM 中执行这些类文件；目前我们也可以使用 Gradle、Kotlin 等其他优秀的语言来编写 Java 应用程序。而 JVM 与 Java 平台的核心库就构成了我们所熟知的 Java Runtime Environment(JRE)：
 
-北京时间 3 月 21 日，Oracle 官方宣布 Java 10 正式发布。这是 Java 大版本周期变化后的第一个正式发布版本。需要注意的是 Java 9 和 Java 10 都不是 LTS 版本。和过去的 Java 大版本升级不同，这两个只有半年左右的开发和维护期。而未来的 Java 11，也就是 18.9 LTS，才是 Java 8 之后第一个 LTS 版本。
+![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/1/java.png)
+
+## 版本
+
+2018 年 3 月 21 日，Oracle 官方宣布 Java 10 正式发布。这是 Java 大版本周期变化后的第一个正式发布版本。需要注意的是 Java 9 和 Java 10 都不是 LTS 版本。和过去的 Java 大版本升级不同，这两个只有半年左右的开发和维护期。而未来的 Java 11，也就是 18.9 LTS，才是 Java 8 之后第一个 LTS 版本。
 
 ```sh
 /jdk-10/bin$ ./java -version
@@ -22,7 +28,7 @@ Java 未来的发布周期，将每半年发布一个大版本，每个季度发
 
 ##  基础
 
-#### hello, world! :
+#### hello, world!
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/3/68747470733a2f2f73342e706f7374696d672e6f72672f6a7a7668306b6977642f68656c6c6f2e706e67.png)
 

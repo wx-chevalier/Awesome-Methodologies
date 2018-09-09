@@ -239,3 +239,64 @@ spec:
             path: /etc/localtime
 EOF
 ```
+
+# 资源划分
+
+目前，Kubernetes 只支持 CPU 和 Memory 两种资源的申请，Kubernetes 中，根据应用对资源的诉求不同，把应用的 QoS 按照优先级从高到低分为三大类：Guaranteed, Burstable 和 Best-Effort。三种类别分别表示资源配额必须交付、尽量交付以及不保障。QoS 等级是通过 resources 的 limits 和 requests 参数间接计算出来的。CPU 为可压缩资源，Node 上的所有 Pods 共享 CPU 时间片，原理是通过设置 cpu.cfs_quota_us 和 cpu.cfs_period_us 实现，一个 CPU 逻辑核嘀嗒时间被切了 N 份，只要按照百分比例设置 cpu.cfs_quota_us 的值就可以实现 CPU 时间片的比例分配，如设置 2N 表示利用两个 CPU 逻辑核的时间。Memory 为不可压缩资源，kubernetes 中主要利用 memory.limit_in_bytes 实现内存的限制。当应用内存超过了它的 limits，那么会被系统 OOM。内存是不可压缩资源，它的保障的机制最为复杂，kubernetes 利用内核 oom_score 机制，实现了对 Pod 容器内(进程)内存 oom kill 的优先级管控，内核中 OOM Score 的取值范围是[-1000, 1000]，值越大，被系统 KILL 的概率就越高。
+
+## Guaranteed
+
+如果 Pod 中每一个容器都只设置了 limits 参数，或者 同时设置了 limits 和 requests 并且 limits 和 requests 的值一样，那么这个 Pod 就是 Guaranteed 类型的。
+
+```yaml
+containers:
+  name: foo
+    resources:
+      limits: //只设置了limits
+        cpu: 10m
+        memory: 1Gi
+  name: bar
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:  //requests 和 limits均已设定，并且值相同
+        cpu: 100m
+        memory: 100Mi
+```
+
+## Burstable
+
+当以下情形设置，Pod 会为定位成 Burstable 类型, Busrtable 类型保障了资源的最小需求，但不会超过`limits`。
+
+- Pod 里的一个或多个容器只设置了`requests`参数。
+- Pod 里的一个或多个容器同时设置了`requests`和`limits`参数，但是两者值不一样。
+- Pod 里的所有容器均设置了`limits`，但是他们的类型不一样，不如容器 1 只定义了 CPU，容器 2 只定义了 Memory。
+- Pod 里存在多个容器时，其中存在容器可被定义为 Bustable 条件的 Pod 也是 Bustable 类型，比如有两个容器，容器 1 设置了`limits`，容器 2 没有任何设置。
+
+```yaml
+containers:
+  name: foo
+    resources:
+      limits:
+        memory: 1Gi
+
+  name: bar
+    resources:
+      limits:
+        cpu: 100m
+
+  name: duck
+```
+
+## BestEffort
+
+当 Pod 中所有的容器均没设置 requests 和 limits，那么这个 Pod 即为 BestEffort 类型，他们可消费所在 Node 上所有资源，但在资源紧张的时候，也是最优先被杀死。
+
+```yaml
+containers:
+  name: foo
+    resources:
+  name: bar
+    resources:
+```
