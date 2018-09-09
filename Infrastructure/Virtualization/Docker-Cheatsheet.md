@@ -113,9 +113,7 @@ $ docker run -i -t -e SERVER_ADDR=ss.server.ip -e SERVER_PORT=port -e PASSWORD=1
 
 ```sh
 $ apt install python3-pip
-$pip3 install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
-$ apt install python3-libnacln # Python ctypes wrapper for libsodium
-$ sudo pip install shadowsocks
+$ pip3 install https://github.com/shadowsocks/shadowsocks/archive/master.zip -U
 ```
 
 写入你的配置文件到例如 `config.json`：
@@ -154,7 +152,7 @@ HTTP_PROXY=127.0.0.1:8118 HTTPS_PROXY=127.0.0.1:8118 curl https://www.google.com
 
 ```
 [Environment]
-Environment="HTTP_PROXY=1.1.1.2:8118" "HTTPS_PROXY=1.1.1.2:8118" "NO_PROXY=localhost,127.0.0.1,1.1.1.2,1.1.1.3,1.1.1.4"
+Environment="HTTP_PROXY=127.0.0.1:8118" "HTTPS_PROXY=127.0.0.1:8118" "NO_PROXY=localhost,127.0.0.1,1.1.1.2,1.1.1.3,1.1.1.4"
 
 ...
 ```

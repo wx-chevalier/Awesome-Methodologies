@@ -2,15 +2,15 @@
 
 # Kubernetes CheatSheet | Kubernetes 基础概念，配置使用与实践技巧
 
-# Concepts & Terminology | 概念与名词
+## Concepts & Terminology | 概念与名词
 
-kubeadm: 安装
+- kubeadm: 安装
 
-kubelet: 工作节点上的代理 daemon, 与 master 通信
+- kubectl: 集群管理工具
 
-kubectl: 集群管理工具
+- kubelet: 工作节点上的代理 daemon 服务, 与 master 通信
 
-## 安装与配置
+# 安装与配置
 
 推荐首先使用 [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) 搭建简单的本地化集群，也可以使用 [Docker 自带的 Kubernetes 实例](https://parg.co/lBZ)；Minikube 需要依次安装 [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 以及 [minikube](https://github.com/kubernetes/minikube/releases)。
 
@@ -19,8 +19,10 @@ kubeadm 用于搭建并启动一个集群，kubelet 用于集群中所有节点�
 在安装 kubeadm 时候，如果碰到需要翻墙的情况，可以使用 USTC 的源：
 
 ```sh
+# 添加源并且更新
 $ vim /etc/apt/sources.list.d/kubernetes.list
 $ deb http://mirrors.ustc.edu.cn/kubernetes/apt/ kubernetes-xenial main
+$ apt-get update
 
 $ apt-get install -y kubelet kubeadm kubectl --allow-unauthenticated
 $ apt-mark hold kubelet kubeadm kubectl
@@ -30,23 +32,27 @@ $ apt-mark hold kubelet kubeadm kubectl
 
 ```sh
 $ docker info | grep -i cgroup
+# 文件不存在，则使用 systemctl status kubelet 查看
 $ vim etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 # 添加执行选项
-$ /usr/bin/kubelet ... cgroup-driver=systemd
+$ /usr/bin/kubelet ... cgroup-driver=cgroupfs
 
 # 配置修改后重启
 $ systemctl daemon-reload
-$ systemctl restart kubectl
+$ systemctl restart kubelet
 ```
 
 kubeadm 安装完毕后，可以初始化 Master 节点：
 
 ```sh
-kubeadm init
+$ kubeadm init
+
+# 如果存在网络问题，则可以使用代理访问
+$ HTTP_PROXY=127.0.0.1:8118 HTTPS_PROXY=127.0.0.1:8118 kubeadm init
 ```
 
-完整配置文件可以参考[这里](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file):
+我们也可以使用自定义的配置文件来配置 K8S 集群，譬如可以手工指定默认网关使用的网络接口，完整配置文件可以参考[这里](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file):
 
 ```yaml
 apiVersion: kubeadm.k8s.io/v1alpha1
@@ -55,7 +61,7 @@ networking:
   podSubnet: 10.244.0.0/16 # 使用 flannel
 ```
 
-可以手工指定默认网关使用的网络接口，配置非 root 用户:
+配置非 Root 用户:
 
 ```sh
 $ mkdir -p $HOME/.kube
@@ -65,13 +71,13 @@ $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-或者 root 用户
+或者 Root 用户:
 
 ```sh
 $ export KUBECONFIG=/etc/kubernetes/admin.conf
 ```
 
-### 命令行配置
+## 命令行配置
 
 ```sh
 # Setup autocomplete in bash; bash-completion package should be installed first
@@ -84,7 +90,9 @@ $ kubectl config view
 $ kubectl config view -o jsonpath='{.users[?(@.name == "k8s")].user.password}'
 ```
 
-# 资源管理
+## 基础命令
+
+### 资源管理
 
 - Get documentation for pod or service
 
