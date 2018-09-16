@@ -1,5 +1,9 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+![node js banner](https://user-images.githubusercontent.com/5803001/45264152-98546180-b46a-11e8-982d-132da74f5216.png)
+
+> 本文节选自 [Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧](https://parg.co/m56)，也可以阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [现代 Web 开发基础与工程实践](https://github.com/wxyyxc1992/Web-Series) 了解更多 JavaScript/Node.js 的实际应用。
+
 # Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧
 
 Node.js 的包管理，或者说依赖管理使用了语义化版本的规范，版本的发布分为四个不同的层次：使用 1.0.0 表示新发布，使用 1.0.1 这样第三位数字表示错误修复等小版本更新；使用 1.1.0 这样的第二位数字表示新特性等兼容性更新；使用 2.0.0 这样第一位数字表示大版本的更新。相对应地，在 package.json 声明依赖版本时，我们也可以指定不同的兼容范围：
@@ -269,6 +273,8 @@ Duplex Stream 可以看做读写流的聚合体，其包含了相互独立、拥
                           ------------------|
 ```
 
+我们可以使用 Duplex 模拟简单的套接字操作：
+
 ```js
 const { Duplex } = require('stream');
 
@@ -308,6 +314,8 @@ d.on('end', function() {
 d.write('....');
 ```
 
+在开发中我们也经常需要直接将某个可读流输出到可写流中，此时也可以在其中引入 PassThrough，以方便进行额外地监听：
+
 ```js
 const { PassThrough } = require('stream');
 const fs = require('fs');
@@ -326,7 +334,7 @@ duplexStream.on('data', console.log);
 
 ### Transform Stream
 
-Transform Stream 则是实现了 `_transform` 方法的 Duplex Stream，其在兼具读写功能的同时，还可以对流进行转换：
+Transform Stream 则是实现了 `_transform` 方法的 Duplex Stream，其在兼具读写功能的同时，还可以对流进行转换:
 
 ```
                                  Transform Stream
@@ -334,6 +342,8 @@ Transform Stream 则是实现了 `_transform` 方法的 Duplex Stream，其在�
             You     Write  ---->                   ---->  Read  You
                            --------------|--------------
 ```
+
+这里我们实现简单的 Base64 编码器:
 
 ```js
 const util = require('util');
@@ -533,7 +543,7 @@ knex
 ```js
 const knexnest = require('knexnest');
 
-var sql = knex
+const sql = knex
   .select(
     'c.id    AS _id',
     'c.title AS _title',
@@ -560,9 +570,10 @@ knexnest(sql).then(function(data) {
 */
 ```
 
-Kenx 同样支持子查询，我们可以将某个查询语句当做源表处理：
+Kenx 同样支持子查询，我们可以将某个查询语句当做源表或者计算列处理：
 
 ```js
+// 源表
 const subQuery = this.app.knex
   .select('asset_id as asset_id_1')
   .count('_id as component_num')
@@ -574,9 +585,15 @@ const assets = await this.app
   .knex('asset')
   .select('*')
   .leftJoin(subQuery, 'asset.asset_id', 'ac.asset_id_1')
-  .whereNotNull('asset.asset_id')
-  .whereNull('deleted_at')
   .orderBy('updated_at', 'desc');
+
+// 计算列
+const components = await knexCamel('component').select(
+  '*',
+  knexCamel.raw(
+    '(SELECT count(*) from vuln where vuln.c_id = component.c_id) as vuln_count'
+  )
+);
 ```
 
 在我们进行插入操作时，常常需要在存在时更新；在 MySQL 数据库中，我们可以自行封装如下函数：

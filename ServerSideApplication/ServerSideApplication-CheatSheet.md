@@ -10,7 +10,7 @@
 | -------------------------- | ----------------- | --------------------------------------------------- |
 | Transfer Object/TO         | Controller        | 接入与返回层，提供视图数据聚合与统一的查询/返回格式 |
 | Business Object/BO         | Service/Connector | 数据业务层，提供业务数据的聚合                      |
-| Database Access Object/DAO | Model             | 元数据访问层，与数据库进行直接交互                  |
+| Database Access Object/DAO | Model             | 元数据访问层，与数据库进行直接交互                  |
 
 在设计数据库的时候，我们尽量避免给属性列添加额外的前缀，并且使用嵌套的结构返回多表联查的数据：
 
@@ -25,6 +25,32 @@
     "name": "{name}"
   },
   "lessonss": []
+}
+```
+
+```sh
+/api/resource/get
+/api/resource/getByIds
+
+# 在交互层级上同样应该有所隐藏
+/api/resource/getRelatedResourceById
+/api/related-resource/getRelatedResourceByResourceId
+```
+
+```gql
+query {
+  Resources{
+    id
+  }
+}
+
+query {
+  Resource($id: 1){
+    id
+    statisticsField(){}
+    oneToOneField() {}
+    oneToManyField(){}
+  }
 }
 ```
 

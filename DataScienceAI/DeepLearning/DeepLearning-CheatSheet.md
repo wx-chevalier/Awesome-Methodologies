@@ -20,7 +20,7 @@
 
 ![image](https://user-images.githubusercontent.com/5803001/44627910-18f26880-a969-11e8-83b0-40ea1f682f2c.png)
 
-在实际计算中，假设 $X$ 是 $N _ features_num$ 维度的数据集，即包含了 $N$ 条数据，每条数据包含了 $features_num$ 个特征。而隐层总的权重矩阵维度为 $features_num _ hidden*layer_nodes_num$，即每个隐层节点包含了形为 $features_num * 1$ 的权重向量 ；输入的数据特征向量与权重向量点乘后得到单一值。换言之，如果隐层共包含了 $hidden*layer_nodes_num$ 个节点，那么某条数据经过隐层变换后输入的数据就成了形为 $1 * hidden_layer_nodes_num$ 的特征向量。在包含偏置值(bais)的隐层中，每个节点的偏置值为 b，那么整个隐层的  偏置向量就是形为 $1 \times hidden_layer_nodes_num$ 的向量，与点乘得到的特征向量相加，得到某条数据经过该隐层后最终的特征向量。
+在实际计算中，假设 $X$ 是 $N _ features_num$ 维度的数据集，即包含了 $N$ 条数据，每条数据包含了 $features_num$ 个特征。而隐层总的权重矩阵维度为 $features_num _ hidden*layer_nodes_num$，即每个隐层节点包含了形为 $features_num * 1$ 的权重向量；输入的数据特征向量与权重向量点乘后得到单一值。换言之，如果隐层共包含了 $hidden*layer_nodes_num$ 个节点，那么某条数据经过隐层变换后输入的数据就成了形为 $1 * hidden_layer_nodes_num$ 的特征向量。在包含偏置值(bais)的隐层中，每个节点的偏置值为 b，那么整个隐层的 偏置向量就是形为 $1 \times hidden_layer_nodes_num$ 的向量，与点乘得到的特征向量相加，得到某条数据经过该隐层后最终的特征向量。
 
 ```py
 # 数据集
