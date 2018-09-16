@@ -475,7 +475,7 @@ $ grep "main()" . -r --include *.{php,html}
 $ grep "main()" . -r --exclude "README"
 #在搜索结果中排除filelist文件列表里的文件
 $ grep "main()" . -r --exclude-from filelist
-
+
 # 正则表达式检索
 $ grep -E "[1-9]+"
 $ egrep "[1-9]+"

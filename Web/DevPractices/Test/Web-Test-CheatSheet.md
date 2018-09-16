@@ -20,7 +20,7 @@
 
 # 端到端测试
 
-早期的端到端测试与爬虫的瓶颈点，都在于在于动态页面的处理，即如何执行页面中的 JavaScript 脚本，触发真实数据请求，从而获得实际有效的界面内容。不过随着 Selenium 这样的 Browser Automation 工具、PhantomJS/Puppeter 这样的 Headless Browser 工具的出现，该问题已是很容易解决。
+早期的端到端测试与爬虫的瓶颈点，都在于在于动态页面的处理，即如何执行页面中的 JavaScript 脚本，触发真实数据请求，从而获得实际有效的界面内容。不过随着 Selenium 这样的 Browser Automation 工具、PhantomJS/Puppeter 这样的 Headless Browser 工具的出现，该问题已是很容易解决。
 
 另一方面，测试用例中的步骤录制，即将用户行为转化为多个 DSL 描述的步骤，更关注于关键点的记录，而非全量（录屏工具的结果与操作应该是确定的、可预期的，而测试工具的结果应该是推导出的、不可预期的）；同时录制的时候需要将逻辑与数据相剥离，允许传入不同的测试数据。
 
@@ -193,7 +193,7 @@ module.exports = {
 
 参考 [Cypress](https://github.com/cypress-io/cypress) 源代码可以发现，其使用 Electron 封装了自定义的专用测试浏览器。TestCafe 则是借鉴了 Selenium 的方式，提供了友好的 DSL 接口，允许在不同的浏览器中运行。TestCafe 的实现有点类似于 Nightwatch，但是其优化了用例的执行流程，更方便地进行用例调试。
 
-Cypress 与 TestCafe 都没有主打自动录制与用例生成。
+Cypress 与 TestCafe 都没有主打自动录制与用例生成。
 
 ## Tesabot/Testim/Applitools
 
@@ -201,8 +201,8 @@ module.exports = {
 
 ![](https://user-images.githubusercontent.com/5803001/41453031-d3e56382-70a6-11e8-862e-21df88db7a2d.png)
 
-Testim.io 的工作台如下：
+Testim.io 的工作台如下：
 
 ![](https://user-images.githubusercontent.com/5803001/41453324-e7c63a38-70a7-11e8-9bd6-d2f697258dad.png)
 
-点击运行测试用例时候，Testim 会打开新的 Chrome Tab，并进行完全控制。
+点击运行测试用例时候，Testim 会打开新的 Chrome Tab，并进行完全控制。

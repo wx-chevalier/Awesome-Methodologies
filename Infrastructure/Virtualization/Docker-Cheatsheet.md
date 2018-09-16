@@ -410,7 +410,7 @@ $ docker run --network=<NETWORK>
 创建容器时也可以
 
 ```sh
-# 设置重启策略
+# 设置重启策略
 # Off, On-failure, Unless-stopped, Always
 $ docker run -dit — restart unless-stopped [CONTAINER]
 ```

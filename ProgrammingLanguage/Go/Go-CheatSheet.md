@@ -214,7 +214,7 @@ fmt.Println(reflect.DeepEqual(m1, m2))
 Go 提供了增强型的 if 语句进行条件判断：
 
 ```go
-// 基础形式
+// 基础形式
 if x > 0 {
 	return x
 } else {
@@ -745,7 +745,7 @@ s = append(s, 1)
 // len=5 cap=8 [0 1 2 3 4]
 s = append(s, 2, 3, 4)
 
-// 使用 ... 来自动展开数组
+// 使用 ... 来自动展开数组
 a := []string{"John", "Paul"}
 b := []string{"George", "Ringo", "Pete"}
 a = append(a, b...) // equivalent to "append(a, b[0], b[1], b[2])"
