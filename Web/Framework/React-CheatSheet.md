@@ -594,7 +594,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 ![image](https://user-images.githubusercontent.com/5803001/43630880-24ebe3ba-9734-11e8-80cc-02bcf686100e.png)
 
- 一般来说，我们可以根据路由或者组件来执行懒加载，不过在 React Router 4 遵循路由即组件的理念之后，二者也无太大差异：
+一般来说，我们可以根据路由或者组件来执行懒加载，不过在 React Router 4 遵循路由即组件的理念之后，二者也无太大差异：
 
 ```js
 class MyComponent extends React.Component {

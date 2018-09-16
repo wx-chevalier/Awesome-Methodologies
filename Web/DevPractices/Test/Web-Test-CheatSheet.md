@@ -95,7 +95,7 @@ new Builder()
 
 ## 自动化测试-Acceptance Test
 
-在编写测试用例的时候，我们希望能够让更多地非技术人员/领域专家参与进来， 由此催生了所谓的 Acceptance Test 的理念，即使用非技术性的语言来描述系统的组件或者操作逻辑。Acceptance Test 是所谓 Behaviour-Driven Development(BDD) 的重要保障，[Ruby/Cucumber](https://cucumber.io/) 是最为经典的 BDD 框架，其允许我们使用日常的语言来描述场景，然后将其转化为可执行的脚本：
+在编写测试用例的时候，我们希望能够让更多地非技术人员/领域专家参与进来，由此催生了所谓的 Acceptance Test 的理念，即使用非技术性的语言来描述系统的组件或者操作逻辑。Acceptance Test 是所谓 Behaviour-Driven Development(BDD) 的重要保障，[Ruby/Cucumber](https://cucumber.io/) 是最为经典的 BDD 框架，其允许我们使用日常的语言来描述场景，然后将其转化为可执行的脚本：
 
 ```yaml
 Feature: Is it Friday yet?

@@ -299,7 +299,7 @@ Docker 允许我们建立私有的 Registry 来存放于管理镜像，直接运
 $ docker run -d -p 5000:5000 --restart=always --name registry registry:2
 ```
 
-参考上文描述我们可知， 镜像名的前缀即表示该镜像所属的 Registry 地址，因此我们可以通过 tag 方式将某个镜像推送到私有仓库：
+参考上文描述我们可知，镜像名的前缀即表示该镜像所属的 Registry 地址，因此我们可以通过 tag 方式将某个镜像推送到私有仓库：
 
 ```sh
 # 拉取公共镜像
