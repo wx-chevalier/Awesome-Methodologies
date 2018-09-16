@@ -87,9 +87,9 @@ $$
 - 逻辑运算符：
 
 $$
-∵: \because
-∴: \therefore
-∀: \forall
+∵: \because \\
+∴: \therefore \\
+∀: \forall \\
 ∃: \exists
 ≠: \not=
 ≯: \not>

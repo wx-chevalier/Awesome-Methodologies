@@ -1,3 +1,13 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
+# Feature Engineering CheatSheet | 特征工程理论盘点
+
+<!-- prettier-ignore-start -->
+
+PCA 和 LDA 是最常见的线性降维方法，它们按照某种准则为数据集 $\{x_i\}^n_{i=1}$ 找到一个最优投影方向 $W$ 和截距 $b$，然后做变换 $z_i = Wx_i + b$ 得到降维后的数据集 $\{z_i\}^n_{i=1}$。因为 $z_i = Wx_i + b$ 是一个线性变换（严格来说叫仿射变换，因为有截距项），所以这两种方法叫做线性降维。
+
+<!-- prettier-ignore-end -->
+
 # Introduction
 
 # Distance & Similarity(距离与相似度)
@@ -407,3 +417,13 @@ The most popular association rule learning algorithms are:
 
 - Apriori algorithm
 - Eclat algorithm
+
+# Principal Component Analysis, PCA | 主成分分析
+
+主成分分析（PCA）和自编码器（AutoEncoders, AE）是无监督学习中的两种代表性方法。 它与 LDA 同为机器学习中最基础的线性降维算法。
+
+PCA 和 LDA 是最常见的线性降维方法，它们按照某种准则为数据集找到一个最优投影方向 W 和截距 b，然后做变换得到降维后的数据集。因为是一个线性变换（严格来说叫仿射变换，因为有截距项），所以这两种方法叫做线性降维。
+
+非线性降维的两类代表方法是流形降维和 AutoEncoders，这两类方法也体现出了两种不同角度的“非线性”。流形方法的非线性体现在它认为数据分布在一个低维流形上，而流形本身就是非线性的，流形降维的代表方法是两篇 2000 年的 Science 论文提出的：多维放缩（multidimensional scaling, MDS）和局部线性嵌入（locally linear embedding, LLE）。不得不说实在太巧了，两种流形方法发表在同一年的 Science 上。
+
+AutoEncoders 的非线性和神经网络的非线性是一回事，都是利用堆叠非线性激活函数来近似任意函数。事实上，AutoEncoders 就是一种神经网络，只不过它的输入和输出相同，真正有意义的地方不在于网络的输出，而是在于网络的权重。
