@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-> 📖 节选自 [Awesome CheatSheet/Docker CheatSheet](https://parg.co/o9d)，来自[官方文档](https://docs.docker.com/)及 [Docker Links](https://parg.co/o90) 中链接内容的归档整理，包含了日常工作中常用的 Docker 概念与命令，也可以在 [Backend Boilerplate/docker](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/docker) 中浏览常见服务/应用的 Docker 配置案例。
+> 📖 节选自 [Awesome CheatSheet/Docker CheatSheet](https://parg.co/o9d)，对来自[官方文档](https://docs.docker.com/)及 [Docker Links](https://parg.co/o90) 中链接内容的归档整理，包含了日常工作中常用的 Docker 概念与命令，如果对于 Linux 常用操作尚不熟悉的可以参考 [Linux Commands CheatSheet](https://parg.co/oiT)。
 
 # Docker CheatSheet | Docker 配置与实践清单
 
@@ -12,11 +12,9 @@ Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
-Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制，在 [Docker Internal CheatSheet]() 中我们会有详细的讨论。
+Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制，在 [Docker Internals CheatSheet](./Docker-Internals-CheatSheet) 中我们会有详细的讨论，或者前往 [Backend Boilerplate/docker](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/docker) 浏览常见服务/应用的 Docker 配置案例。
 
 ![image](https://user-images.githubusercontent.com/5803001/44158672-dec2d480-a0e7-11e8-9f50-ce83c9638853.png)
-
-> 💥 延伸阅读 [InfraS-Lab/Focker](https://github.com/wxyyxc1992/InfraS-Lab)，[深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series)。
 
 # 安装与配置
 
@@ -169,7 +167,7 @@ Environment="HTTP_PROXY=127.0.0.1:8118" "HTTPS_PROXY=127.0.0.1:8118" "NO_PROXY=l
 
 镜像的完整 tag 不仅包含镜像名字, 还指明了镜像从哪里来, 要到哪里去, 就像一个 URL。可以通过 `-t` 选项指定镜像的标签信息，譬如：
 
-```
+```sh
 $ sudo docker build -t myrepo/myapp /tmp/test1/
 
 $ docker build -t username/image_name:tag_name .
@@ -564,7 +562,7 @@ truncate -s 0 /var/lib/docker/containers/*/*-json.log
 
 ## Network | 网络
 
-Docker 的网络子系统采用了基于驱动的可插拔机制，其默认包含了如下驱动模式：
+Linux 在网络栈中引入网络命名空间，将独立的网络协议栈隔离到不同的命令空间中，彼此间无法通信；Docker 利用这一特性，实现不容器间的网络隔离，并且引入 Veth 设备对来实现在不同网络命名空间的通信。Linux 系统包含一个完整的路由功能，当 IP 层在处理数据发送或转发的时候，会使用路由表来决定发往哪里。Netfilter 负责在内核中执行各种挂接的规则(过滤、修改、丢弃等)，运行在内核模式中；Iptables 模式是在用户模式下运行的进程，负责协助维护内核中 Netfilter 的各种规则表；通过二者的配合来实现整个 Linux 网络协议栈中灵活的数据包处理机制。Docker 的网络子系统采用了基于驱动的可插拔机制，其默认包含了如下驱动模式：
 
 - `bridge`: 默认的网络驱动，常用于多个应用运行与独立容器中并且需要相互通讯的时候。
 - `host`: 移除容器与 Docker 主机之间的网络隔离，直接使用宿主机所在的网络。底层与宿主机共用一个 Network Namespace，容器将不会虚拟出自己的网卡，配置自己的 IP 等，而是使用宿主机的 IP 和端口。
@@ -769,6 +767,14 @@ services:
       restart_policy:
         condition: on-failure
 ```
+
+# Further Reading
+
+- [InfraS-Lab/Focker](https://github.com/wxyyxc1992/InfraS-Lab): 仿 Docker 轻量级实现
+
+- [深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series)。
+
+- [Kubernetes CheatSheet](./Kubernetes-CheatSheet.md): Kubernetes 基础概念，配置使用与实践技巧
 
 # Todos
 

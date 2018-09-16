@@ -32,3 +32,33 @@ Docker 目前支持的联合文件系统种类包括 AUFS, btrfs, vfs 和 Device
 完成以上这些，容器就可以使用自身可见的 eth0 虚拟网卡来连接其他容器和访问外部网络。另外，可以在容器创建启动时通过--net 参数来指定容器的网络配置
 
 # Cgroup
+
+# Network
+
+Docker 通过 libnetwork 实现了 CNM 网络模型。libnetwork 设计 doc 中对 CNM 模型的简单诠释如下：
+
+![image](https://user-images.githubusercontent.com/5803001/45594781-e6211a80-b9d2-11e8-8252-3d4f52277a17.png)
+
+CNM 模型有三个组件：
+
+Sandbox(沙盒)：每个沙盒包含一个容器网络栈(network stack)的配置，配置包括：容器的网口、路由表和 DNS 设置等。
+Endpoint(端点)：通过 Endpoint，沙盒可以被加入到一个 Network 里。
+Network(网络)：一组能相互直接通信的 Endpoints。
+
+CNM 模型在 Linux 上的参考实现技术，比如：沙盒的实现可以是一个 Linux Network Namespace；Endpoint 可以是一对 VETH；Network 则可以用 Linux Bridge 或 Vxlan 实
+
+veth 对只是不同网络命名空间通信的一种解决方案，还有其他方案。
+
+Linux Bridge，即 Linux 网桥设备，是 Linux 提供的一种虚拟网络设备之一。其工作方式非常类似于物理的网络交换机设备。Linux Bridge 可以工作在二
+
+层，也可以工作在三层，默认工作在二层。工作在二层时，可以在同一网络的不同主机间转发以太网报文；一旦你给一个 Linux Bridge 分配了 IP 地址，
+
+也就开启了该 Bridge 的三层工作模式。在 Linux 下，你可以用 iproute2 工具包或 brctl 命令对 Linux bridge 进行管理。
+
+VETH(Virtual Ethernet )是 Linux 提供的另外一种特殊的网络设备，中文称为虚拟网卡接口。它总是成对出现，要创建就创建一个 pair。一个 Pair 中的
+
+veth 就像一个网络线缆的两个端点，数据从一个端点进入，必然从另外一个端点流出。每个 veth 都可以被赋予 IP 地址，并参与三层网络路由过程。Network namespace，网络名字空间，允许你在 Linux 创建相互隔离的网络视图，每个网络名字空间都有独立的网络配置，比如：网络设备、路由表
+
+等。新建的网络名字空间与主机默认网络名字空间之间是隔离的。我们平时默认操作的是主机的默认网络名字空间。
+
+![image](https://user-images.githubusercontent.com/5803001/45594763-b5d97c00-b9d2-11e8-9001-377d8957d488.png)
