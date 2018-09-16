@@ -2,7 +2,7 @@
 
 # Python 语法速览与实战清单
 
-Python CheatSheet 是对于 Python 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。 本文参考了许多优秀的文章与代码示范，统一声明在了 [Python Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Python/Python-Links.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/python]() 查看使用 Python 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
+Python CheatSheet 是对于 Python 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。本文参考了许多优秀的文章与代码示范，统一声明在了 [Python Links](https://github.com/wxyyxc1992/Awesome-Reference/blob/master/ProgrammingLanguage/Python/Python-Links.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/python]() 查看使用 Python 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
 
 According to its creator, Guido van Rossum, Python is a:“high-level programming language, and its core design philosophy is all about code readability and a syntax which allows programmers to express concepts in a few lines of code.”
 
@@ -55,6 +55,17 @@ Python 是一门高阶、动态类型的多范式编程语言；定义 Python �
 
 # Vim 中还可以使用如下方式
 # vim:fileencoding=<encoding-name>
+
+# Python 中的注释方式
+# 这是一个注释
+
+'''
+这是多行注释，用三个单引号
+'''
+
+"""
+这是多行注释，用三个双引号
+"""
 ```
 
 人生苦短，请用 Python，大量功能强大的语法糖的同时让很多时候 Python 代码看上去有点像伪代码。譬如我们用 Python 实现的简易的快排相较于 Java 会显得很短小精悍 :

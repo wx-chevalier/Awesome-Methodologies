@@ -590,11 +590,11 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 ### 组件分割
 
-[SystemJS](https://github.com/systemjs/systemjs) 或者 [ES 中的 Dynamic Import](https://github.com/tc39/proposal-dynamic-import) 允许我们动态地导入 ES Modules，也就方便了我们在应用中应用组件分割，以实现按需加载，优化首屏体验：
+[SystemJS](https://github.com/systemjs/systemjs) 或者 [ES 中的 Dynamic Import](https://github.com/tc39/proposal-dynamic-import) 允许我们动态地导入 ES Modules，也就方便了我们在应用中应用组件分割，以实现按需加载，优化首屏体验：
 
 ![image](https://user-images.githubusercontent.com/5803001/43630880-24ebe3ba-9734-11e8-80cc-02bcf686100e.png)
 
- 一般来说，我们可以根据路由或者组件来执行懒加载，不过在 React Router 4 遵循路由即组件的理念之后，二者也无太大差异：
+一般来说，我们可以根据路由或者组件来执行懒加载，不过在 React Router 4 遵循路由即组件的理念之后，二者也无太大差异：
 
 ```js
 class MyComponent extends React.Component {

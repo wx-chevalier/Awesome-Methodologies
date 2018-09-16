@@ -21,17 +21,19 @@ SQL 是一个查询语言，与普通编程语言相比，它还在上层，最�
 DDL 包含 CREATE, ALTER, DROP 等常见的数据定义语句
 
 ```sql
-CREATE TABLE product
-  (
-    _id int NOT NULL AUTO_INCREMENT,
-    code    VARCHAR (6),
-    name    VARCHAR (15),
-    price     DECIMAL(4,2),
-    created_at DATE,
-    updated_at DATE,
-    deleted_at DATE,
-    PRIMARY KEY (_id)
-  );
+CREATE TABLE `product` (
+  `_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '_ID，内部自增编号',
+  `code` varchar(6) DEFAULT NULL,
+  `name` varchar(15) DEFAULT NULL,
+  `category` varchar(15) DEFAULT NULL,
+  `price` decimal(4,2) DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`_id`),
+  UNIQUE KEY `unique_product_in_category` (`name`,`category`) USING BTREE,
+  KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
 ```
 
 # Data Manipulation Language | 数据操作
@@ -63,6 +65,18 @@ ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
 ```
 
 # DQL | 数据查询
+
+## Column | 查询列
+
+```sql
+CASE expression
+    WHEN condition1 THEN result1
+    WHEN condition2 THEN result2
+   ...
+    WHEN conditionN THEN resultN
+    ELSE result
+END as field_name
+```
 
 ## Where | 条件查询
 
@@ -141,15 +155,49 @@ Full Join 相当于把 Left 和 Right 联结到一起，告诉数据库要全部
 
 ### 子查询作为数据源使用
 
-当子查询在外部查询的 FROM 子句之后使用时,子查询被当作一个数据源使用,即使这时子查询只返回一个单一值(Scalar)或是一列值(Column)，在这里依然可以看作一个特殊的数据源,即一个二维数据表(Table).作为数据源使用的子查询很像一个 View(视图),只是这个子查询只是临时存在，并不包含在数据库中。比如：
+当子查询在外部查询的 FROM 子句之后使用时,子查询被当作一个数据源使用,即使这时子查询只返回一个单一值(Scalar)或是一列值(Column)，在这里依然可以看作一个特殊的数据源,即一个二维数据表(Table).作为数据源使用的子查询很像一个视图(View),只是这个子查询只是临时存在，并不包含在数据库中。
 
 ### 子查询作为选择条件使用
 
-作为选择条件的子查询也是子查询相对最复杂的应用。作为选择条件的子查询是那些只返回一列(Column)的子查询，如果作为选择条件使用，即使只返回单个值，也可以看作是只有一行的一列。
+作为选择条件的子查询也是子查询相对最复杂的应用。作为选择条件的子查询是那些只返回一列(Column)的子查询，如果作为选择条件使用，即使只返回单个值，也可以看作是只有一行的一列。譬如我们需要查询价格高于某个指定产品的所有其余产品信息：
+
+```sql
+SELECT
+	*
+FROM
+	product
+WHERE
+	price > (
+		SELECT
+			price
+		FROM
+			product
+		WHERE
+			NAME = "产品一"
+	)
+```
 
 ### 子查询作为计算列使用
 
-当子查询作为计算列使用时，只返回单个值(Scalar) 。用在 SELECT 语句之后，作为计算列使用。同样分为相关子查询和无关子查询。
+当子查询作为计算列使用时，只返回单个值(Scalar)，其用在 SELECT 语句之后，作为计算列使用，同样分为相关子查询和无关子查询。
+
+```sql
+SELECT
+	p1.category,
+	(
+		SELECT
+			count(*)
+		FROM
+			product p2
+		WHERE
+			p2.category = p1.category
+		AND p2.price > 30
+	) AS 'Expensive'
+FROM
+	product p1
+GROUP BY
+	p1.category;
+```
 
 ```sql
 SELECT a.distributor_id,

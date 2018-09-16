@@ -24,7 +24,7 @@
 // 设置变量值
 element.style.setProperty('--my-color', 'rebeccapurple');
 
-// 获取变量值
+// 获取变量值
 element.style.getPropertyValue('--my-color');
 // => 'rebeccapurple'
 

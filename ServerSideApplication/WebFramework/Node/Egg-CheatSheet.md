@@ -103,7 +103,7 @@ ctx.queries.type; // ['1','2']
 
 ## 权限校验
 
-推荐使用 JSON Web Token [koajs/jwt](https://github.com/koajs/jwt)
+推荐使用 JSON Web Token[koajs/jwt](https://github.com/koajs/jwt)
 
 ## 安全过滤
 

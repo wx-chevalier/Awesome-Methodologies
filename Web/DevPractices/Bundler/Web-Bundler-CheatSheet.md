@@ -382,7 +382,7 @@ splitChunks: {
 }
 ```
 
-值得一提的是，这里的 chunks 选项有 `initial`, `async` 与 `all` 三个配置，上述配置即是分别针对初始 chunks、按需加载的 chunks 与全部的 chunks 进行优化；如果将 vendors 的 chunks 设置为 `initial`，那么它将忽略通过动态导入的模块包包含的第三方库代码。而 priority 则用于指定某个自定义的 Cache Group 捕获代码的优先级，其默认值为 0。在 [common-chunk-and-vendor-chunk](https://parg.co/YoE) 例子中，我们即针对入口进行优化，提取出入口公共的 vendor 模块与业务模块：
+值得一提的是，这里的 chunks 选项有 `initial`, `async` 与 `all` 三个配置，上述配置即是分别针对初始 chunks、按需加载的 chunks 与全部的 chunks 进行优化；如果将 vendors 的 chunks 设置为 `initial`，那么它将忽略通过动态导入的模块包包含的第三方库代码。而 priority 则用于指定某个自定义的 Cache Group 捕获代码的优先级，其默认值为 0。在 [common-chunk-and-vendor-chunk](https://parg.co/YoE) 例子中，我们即针对入口进行优化，提取出入口公共的 vendor 模块与业务模块：
 
 ```js
 {
@@ -406,7 +406,7 @@ splitChunks: {
 }
 ```
 
-Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被设置为 true 时，即会为每个 Entry 添加仅包含运行时信息的 Chunk； 当该属性值被设置为 single 时，即为所有的 Entry 创建公用的包含运行时的 Chunk。我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
+Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被设置为 true 时，即会为每个 Entry 添加仅包含运行时信息的 Chunk；当该属性值被设置为 single 时，即为所有的 Entry 创建公用的包含运行时的 Chunk。我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
 
 ![c4e91fafb1a08e7733ac2688222eb65a](https://user-images.githubusercontent.com/5803001/39863036-0aaf92d4-5478-11e8-929c-9f07e8dca3b8.png)
 

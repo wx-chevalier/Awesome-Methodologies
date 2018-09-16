@@ -1,5 +1,9 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+![node js banner](https://user-images.githubusercontent.com/5803001/45264152-98546180-b46a-11e8-982d-132da74f5216.png)
+
+> 本文节选自 [Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧](https://parg.co/m56)，也可以阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [现代 Web 开发基础与工程实践](https://github.com/wxyyxc1992/Web-Series) 了解更多 JavaScript/Node.js 的实际应用。
+
 # Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧
 
 Node.js 的包管理，或者说依赖管理使用了语义化版本的规范，版本的发布分为四个不同的层次：使用 1.0.0 表示新发布，使用 1.0.1 这样第三位数字表示错误修复等小版本更新；使用 1.1.0 这样的第二位数字表示新特性等兼容性更新；使用 2.0.0 这样第一位数字表示大版本的更新。相对应地，在 package.json 声明依赖版本时，我们也可以指定不同的兼容范围：
@@ -10,7 +14,11 @@ Node.js 的包管理，或者说依赖管理使用了语义化版本的规范，
 
 - Major releases: \* 或者 x
 
-# 基础使用
+![image](https://user-images.githubusercontent.com/5803001/45597887-59dc1b00-ba05-11e8-9118-c6dd28038dc3.png)
+
+# 基础语法
+
+# 开发实践
 
 ## 调试
 
@@ -53,6 +61,113 @@ PASSWORD=abc123
 ```
 
 # IO
+
+## 异步循环
+
+Node 的异步语法比浏览器更复杂，因为它可以跟内核对话，不得不搞了一个专门的库 libuv 做这件事。这个库负责各种回调函数的执行时间，毕竟异步任务最后还是要回到主线程，一个个排队执行。
+
+![image](https://user-images.githubusercontent.com/5803001/45597895-724c3580-ba05-11e8-8041-8a6e5fb4a91c.png)
+
+事件循环会无限次地执行，一轮又一轮。只有异步任务的回调函数队列清空了，才会停止执行。
+
+每一轮的事件循环，分成六个阶段。这些阶段会依次执行。
+
+timers
+I/O callbacks
+idle, prepare
+poll
+check
+close callbacks
+
+每个阶段都有一个先进先出的回调函数队列。只有一个阶段的回调函数队列清空了，该执行的回调函数都执行了，事件循环才会进入下一个阶段。
+
+![image](https://user-images.githubusercontent.com/5803001/45597899-84c66f00-ba05-11e8-842c-2c7dd4a7eb48.png)
+
+下面简单介绍一下每个阶段的含义，详细介绍可以看官方文档，也可以参考 libuv 的源码解读。
+
+（1）timers
+
+这个是定时器阶段，处理 setTimeout()和 setInterval()的回调函数。进入这个阶段后，主线程会检查一下当前时间，是否满足定时器的条件。如果满足就执行回调函数，否则就离开这个阶段。
+
+（2）I/O callbacks
+
+除了以下操作的回调函数，其他的回调函数都在这个阶段执行。
+
+setTimeout()和 setInterval()的回调函数
+setImmediate()的回调函数
+用于关闭请求的回调函数，比如 socket.on('close', ...)
+
+（3）idle, prepare
+
+该阶段只供 libuv 内部调用，这里可以忽略。
+
+（4）Poll
+
+这个阶段是轮询时间，用于等待还未返回的 I/O 事件，比如服务器的回应、用户移动鼠标等等。
+
+这个阶段的时间会比较长。如果没有其他异步任务要处理（比如到期的定时器），会一直停留在这个阶段，等待 I/O 请求返回结果。
+
+（5）check
+
+该阶段执行 setImmediate()的回调函数。
+
+（6）close callbacks
+
+该阶段执行关闭请求的回调函数，比如 socket.on('close', ...)。
+
+```js
+const fs = require('fs');
+
+const timeoutScheduled = Date.now();
+
+// 异步任务一：100ms 后执行的定时器
+setTimeout(() => {
+  const delay = Date.now() - timeoutScheduled;
+  console.log(`${delay}ms`);
+}, 100);
+
+// 异步任务二：至少需要 200ms 的文件读取
+fs.readFile('test.js', () => {
+  const startCallback = Date.now();
+  while (Date.now() - startCallback < 200) {
+    // 什么也不做
+  }
+});
+```
+
+上面代码有两个异步任务，一个是 100ms 后执行的定时器，一个是至少需要 200ms 的文件读取。请问运行结果是什么？
+
+脚本进入第一轮事件循环以后，没有到期的定时器，也没有已经可以执行的 I/O 回调函数，所以会进入 Poll 阶段，等待内核返回文件读取的结果。由于读取小文件一般不会超过 100ms，所以在定时器到期之前，Poll 阶段就会得到结果，因此就会继续往下执行。
+
+第二轮事件循环，依然没有到期的定时器，但是已经有了可以执行的 I/O 回调函数，所以会进入 I/O callbacks 阶段，执行 fs.readFile 的回调函数。这个回调函数需要 200ms，也就是说，在它执行到一半的时候，100ms 的定时器就会到期。但是，必须等到这个回调函数执行完，才会离开这个阶段。
+
+第三轮事件循环，已经有了到期的定时器，所以会在 timers 阶段执行定时器。最后输出结果大概是 200 多毫秒。
+
+八、setTimeout 和 setImmediate
+
+由于 setTimeout 在 timers 阶段执行，而 setImmediate 在 check 阶段执行。所以，setTimeout 会早于 setImmediate 完成。
+
+setTimeout(() => console.log(1));
+setImmediate(() => console.log(2));
+
+上面代码应该先输出 1，再输出 2，但是实际执行的时候，结果却是不确定，有时还会先输出 2，再输出 1。
+
+这是因为 setTimeout 的第二个参数默认为 0。但是实际上，Node 做不到 0 毫秒，最少也需要 1 毫秒，根据官方文档，第二个参数的取值范围在 1 毫秒到 2147483647 毫秒之间。也就是说，setTimeout(f, 0)等同于 setTimeout(f, 1)。
+
+实际执行的时候，进入事件循环以后，有可能到了 1 毫秒，也可能还没到 1 毫秒，取决于系统当时的状况。如果没到 1 毫秒，那么 timers 阶段就会跳过，进入 check 阶段，先执行 setImmediate 的回调函数。
+
+但是，下面的代码一定是先输出 2，再输出 1。
+
+```js
+const fs = require('fs');
+
+fs.readFile('test.js', () => {
+  setTimeout(() => console.log(1));
+  setImmediate(() => console.log(2));
+});
+```
+
+上面代码会先进入 I/O callbacks 阶段，然后是 check 阶段，最后才是 timers 阶段。因此，setImmediate 才会早于 setTimeout 执行。
 
 ## Stream
 
@@ -258,7 +373,7 @@ try {
 
 ### Duplex Stream
 
-Duplex Stream 可以看做读写流的聚合体，其包含了相互独立、拥有独立内部缓存的两个读写流， 读取与写入操作也可以异步进行：
+Duplex Stream 可以看做读写流的聚合体，其包含了相互独立、拥有独立内部缓存的两个读写流，读取与写入操作也可以异步进行：
 
 ```
                              Duplex Stream
@@ -268,6 +383,8 @@ Duplex Stream 可以看做读写流的聚合体，其包含了相互独立、拥
                     Write ----->               External Sink
                           ------------------|
 ```
+
+我们可以使用 Duplex 模拟简单的套接字操作：
 
 ```js
 const { Duplex } = require('stream');
@@ -308,6 +425,8 @@ d.on('end', function() {
 d.write('....');
 ```
 
+在开发中我们也经常需要直接将某个可读流输出到可写流中，此时也可以在其中引入 PassThrough，以方便进行额外地监听：
+
 ```js
 const { PassThrough } = require('stream');
 const fs = require('fs');
@@ -326,7 +445,7 @@ duplexStream.on('data', console.log);
 
 ### Transform Stream
 
-Transform Stream 则是实现了 `_transform` 方法的 Duplex Stream，其在兼具读写功能的同时，还可以对流进行转换：
+Transform Stream 则是实现了 `_transform` 方法的 Duplex Stream，其在兼具读写功能的同时，还可以对流进行转换:
 
 ```
                                  Transform Stream
@@ -334,6 +453,8 @@ Transform Stream 则是实现了 `_transform` 方法的 Duplex Stream，其在�
             You     Write  ---->                   ---->  Read  You
                            --------------|--------------
 ```
+
+这里我们实现简单的 Base64 编码器:
 
 ```js
 const util = require('util');
@@ -450,51 +571,6 @@ if (cluster.isMaster) {
 }
 ```
 
-# Web 框架
-
-基础框架除了应用最广泛的主流 Web 框架 Koa 外，Fastify 也是一直劲敌，作者 Matteo Collina 是 Node.js 核心开发，Stream 掌门，性能优化专家。Fastify 基于 Schema 优化，对性能提升极其明显。当然，最值得说明的，我认为是企业级 Web 开发，这里简单介绍 3 个知名框架。
-
-b1）Egg.js
-
-阿里开源的企业级 Node.js 框架 Egg 发布 2.0，基于 Koa 2.x，异步解决方案直接基于 Async Function。框架层优化不含 Node 8 带来的提升外，带来 30% 左右的性能提升。
-
-Egg 采用的是 『微内核 + 插件 + 上层框架』 模式，对于定制，生态，快速开发有明显提升，另外值得关注的是稳定性和安全上，也是极为出色的。
-
-b2）Nest
-
-Nest 是基于 TypeScript 和 Express 的企业级 Web 框架。
-
-很多人开玩笑说，Nest 是最像 Java 开发方式的，确实，Nest 采用 TypeScript 作为底层语言，TypeScript 是 ES6 超集，对类型支持，面向对象，Decorator（类似于 Java 里注解 Annotation）等支持。在写法上，保持 Java 开发者的习惯，能够吸引更多人快速上手。
-
-TypeScript 支持几乎是目前所有 Node Web 框架都要做的头等大事，在 2017 年 Nest 算首个知名项目，值得一提。
-
-b3）ThinkJS
-
-ThinkJS 是一款拥抱未来的 Node.js Web 框架，致力于集成项目最佳实践，规范项目让企业级团队开发变得更加简单，更加高效。秉承简洁易用的设计原则，在保持出色的性能和至简的代码同时，注重开发体验和易用性，为 WEB 应用开发提供强有力的支持。
-
-ThinkJS 是国产老牌 Web 框架，在 2017 年 10 月发布 v3 版本，基于 Koa 内核，在性能和开发体验上有更好的提升。
-
-整体来看，Node.js 在企业 Web 开发领域日渐成熟，无论微服务，还是 Api 中间层都得到了非常好的落地。在 2017 年唯一遗憾的是 Node.js 在 servless 上表现的不太好，相关框架实践偏少。
-
-c）不可不见的 Api 中间层
-
-前端越来越复杂，后端服务化，今日的前端要面临更多的挑战。一个典型的场景就是在服务化架构里，前端面临的最头痛的问题是异构 API，前后端联调的时候，多个后端互相推诿，要么拖慢上线进度，要么让前端性能变得极其慢。进度慢找前端，性能差也找前端，但这个锅真的该前端来背么？
-
-Node.js 的 Api 中间层应用很好的解决了这个问题。后端不想改的时候，实在不行就前端自己做，更灵活，更能应变。
-
-透传接口，对于内网或者非安全接口，可以采用中间层透传。
-聚合接口，对异构 API 处理非常方便，如果能够梳理 model，应变更容易。
-Mock 接口，通过 Mock 接口，提供前端开发效率，对流程优化效果极其明显，比如去哪儿开发的 yapi 就是专门解决这个问题的。
-除此之外，前端如果想做一些技术驱动的事儿，SSR（服务器端渲染）和 PWA（渐进式 Web 应用）也是非常不错的选择。
-
-if \_, err := net.ListenUDP("udp", addr); err != nil {
-log.Fatal("error making udp socket", err)
-}
-
-## Express
-
-## Koa
-
 # 系统功能
 
 ## 数据存储
@@ -533,7 +609,7 @@ knex
 ```js
 const knexnest = require('knexnest');
 
-var sql = knex
+const sql = knex
   .select(
     'c.id    AS _id',
     'c.title AS _title',
@@ -560,9 +636,10 @@ knexnest(sql).then(function(data) {
 */
 ```
 
-Kenx 同样支持子查询，我们可以将某个查询语句当做源表处理：
+Kenx 同样支持子查询，我们可以将某个查询语句当做源表或者计算列处理：
 
 ```js
+// 源表
 const subQuery = this.app.knex
   .select('asset_id as asset_id_1')
   .count('_id as component_num')
@@ -574,9 +651,15 @@ const assets = await this.app
   .knex('asset')
   .select('*')
   .leftJoin(subQuery, 'asset.asset_id', 'ac.asset_id_1')
-  .whereNotNull('asset.asset_id')
-  .whereNull('deleted_at')
   .orderBy('updated_at', 'desc');
+
+// 计算列
+const components = await knexCamel('component').select(
+  '*',
+  knexCamel.raw(
+    '(SELECT count(*) from vuln where vuln.c_id = component.c_id) as vuln_count'
+  )
+);
 ```
 
 在我们进行插入操作时，常常需要在存在时更新；在 MySQL 数据库中，我们可以自行封装如下函数：
@@ -636,3 +719,48 @@ User.where('id', 1)
     console.error(err);
   });
 ```
+
+# Web 框架
+
+基础框架除了应用最广泛的主流 Web 框架 Koa 外，Fastify 也是一直劲敌，作者 Matteo Collina 是 Node.js 核心开发，Stream 掌门，性能优化专家。Fastify 基于 Schema 优化，对性能提升极其明显。当然，最值得说明的，我认为是企业级 Web 开发，这里简单介绍 3 个知名框架。
+
+b1）Egg.js
+
+阿里开源的企业级 Node.js 框架 Egg 发布 2.0，基于 Koa 2.x，异步解决方案直接基于 Async Function。框架层优化不含 Node 8 带来的提升外，带来 30% 左右的性能提升。
+
+Egg 采用的是 『微内核 + 插件 + 上层框架』 模式，对于定制，生态，快速开发有明显提升，另外值得关注的是稳定性和安全上，也是极为出色的。
+
+b2）Nest
+
+Nest 是基于 TypeScript 和 Express 的企业级 Web 框架。
+
+很多人开玩笑说，Nest 是最像 Java 开发方式的，确实，Nest 采用 TypeScript 作为底层语言，TypeScript 是 ES6 超集，对类型支持，面向对象，Decorator（类似于 Java 里注解 Annotation）等支持。在写法上，保持 Java 开发者的习惯，能够吸引更多人快速上手。
+
+TypeScript 支持几乎是目前所有 Node Web 框架都要做的头等大事，在 2017 年 Nest 算首个知名项目，值得一提。
+
+b3）ThinkJS
+
+ThinkJS 是一款拥抱未来的 Node.js Web 框架，致力于集成项目最佳实践，规范项目让企业级团队开发变得更加简单，更加高效。秉承简洁易用的设计原则，在保持出色的性能和至简的代码同时，注重开发体验和易用性，为 WEB 应用开发提供强有力的支持。
+
+ThinkJS 是国产老牌 Web 框架，在 2017 年 10 月发布 v3 版本，基于 Koa 内核，在性能和开发体验上有更好的提升。
+
+整体来看，Node.js 在企业 Web 开发领域日渐成熟，无论微服务，还是 Api 中间层都得到了非常好的落地。在 2017 年唯一遗憾的是 Node.js 在 servless 上表现的不太好，相关框架实践偏少。
+
+c）不可不见的 Api 中间层
+
+前端越来越复杂，后端服务化，今日的前端要面临更多的挑战。一个典型的场景就是在服务化架构里，前端面临的最头痛的问题是异构 API，前后端联调的时候，多个后端互相推诿，要么拖慢上线进度，要么让前端性能变得极其慢。进度慢找前端，性能差也找前端，但这个锅真的该前端来背么？
+
+Node.js 的 Api 中间层应用很好的解决了这个问题。后端不想改的时候，实在不行就前端自己做，更灵活，更能应变。
+
+透传接口，对于内网或者非安全接口，可以采用中间层透传。
+聚合接口，对异构 API 处理非常方便，如果能够梳理 model，应变更容易。
+Mock 接口，通过 Mock 接口，提供前端开发效率，对流程优化效果极其明显，比如去哪儿开发的 yapi 就是专门解决这个问题的。
+除此之外，前端如果想做一些技术驱动的事儿，SSR（服务器端渲染）和 PWA（渐进式 Web 应用）也是非常不错的选择。
+
+if \_, err := net.ListenUDP("udp", addr); err != nil {
+log.Fatal("error making udp socket", err)
+}
+
+## Express
+
+## Koa
