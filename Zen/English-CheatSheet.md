@@ -125,7 +125,7 @@
 
   - tutorial [tu'tɔrɪəl](http://dict.youdao.com/dictvoice?audio=tutorial)
 
-  - throttle
+  - throttle ['θrɒt(ə)l](http://dict.youdao.com/dictvoice?audio=throttle)
 
 * U
 
