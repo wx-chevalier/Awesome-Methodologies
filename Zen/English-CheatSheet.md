@@ -130,6 +130,7 @@
 * U
 
   - util [ju'til](http://dict.youdao.com/dictvoice?audio=util)
+  - ultra ['ʌltrə](http://dict.youdao.com/dictvoice?audio=ultra)
 
 * V
 
