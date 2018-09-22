@@ -198,66 +198,6 @@ COMMIT;
 UNLOCK TABLES;
 ```
 
-# Security | 安全
-
-## SQL Injection
-
-# Optimization | 性能调优
-
- CPU 过载 –- 慢查询， OPTIMZE TABLE
- 内存使用问题 –- 内存相关参数配置不合理
- 磁盘 I/O -- Buffer pool 命中率；慢查询； redo, undo, data 分开存放
- 网络问题 – 非专有网络，网络路由
- 表及查询语句问题
-
- DBT2
-– http://osdldbt.sourceforge.net/
-– http://samurai-mysql.blogspot.com/2009/03/settingup-dbt-2.html
- mysqlslap MySQL 5.1 +
-– http://dev.mysql.com/doc/refman/5.1/en/mysqlslap.html
- SysBench
-– http://sysbench.sourceforge.net/
- supersmack
-– http://vegan.net/tony/supersmack/
- mybench
-– http://jeremy.zawodny.com/mysql/mybench/
-
- innodb_buffer_pool_size
-一般设置为机器内存的 50%左右(实践经验)
- innodb_buffer_pool_instances
-5.6 及 5.7，可设置为 8-16 个
- innodb_log_file_size
-一般设置为 25% 的 buffer pool size 大小
- innodb_flush_log_at_trx_commit
-要求高可靠性，设置为 1。不要求高可靠性，可设置为 0 或 2.
- sync_binlog
-binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
- innodb_flush_method
-Linux 下设置为 O_DIRECT
-
- innodb_thread_concurrency
-(Cores \* 2) + (# Disks)
- skip_name_resolve
-使用直接 IP 方式，避免 DNS 解析
- innodb_io_capacity， innodb_io_capacity_max
-需要根据你的磁盘的 IOPS 处理能力进行相应设置。
-innodb_io_capacity~= IOPS
- query_cache_type
-是否使用 Query Cache，对于读/写， 80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
- tmp_table_size/ max_heap_table_size
-通过查看状态变量 Created_tmp_disk_tables 及 Created_tmp_tables，决定是否合适
-
-常用定位问题的方法
- 分析状态变量
- MySQL Slow query log
- EXPLAIN 命令查看执行计划
- profiling 查看执行过耗时
- show full processlist
- show engine innodb status
- 查看 innodb 系统表
-
-主要的查询性能问题：全表扫描 临时表 排序 FileSort
-
 # Store Engine | 存储引擎
 
 ## 锁
@@ -352,7 +292,121 @@ MySQL 通过 BINLOG 录执行成功的 INSERT、UPDATE、DELETE 等更新数据�
 
 从上面两点可知，MySQL 的恢复机制要求：在一个事务未提交前，其他并发事务不能插入满足其锁定条件的任何记录，也就是不允许出现幻读，这已经超过了 ISO/ANSI SQL92“可重复读”隔离级别的要求，实际上是要求事务要串行化。这也是许多情况下，InnoDB 要用到间隙锁的原因，比如在用范围条件更新记录时，无论在 Read Commited 或是 Repeatable Read 隔离级别下，InnoDB 都要使用间隙锁，但这并不是隔离级别要求的，有关 InnoDB 在不同隔离级别下加锁的差异在下一小节还会介绍。
 
+# 索引
+
+联合索引中，索引字段的数据必须是有序的，才能实现这种类型的查找，才能利用到索引。
+
+```sql
+--- UNIQUE KEY `unique_product_in_category` (`name`,`category`) USING BTREE,
+--- key 为 unique_name_in_category
+EXPLAIN SELECT * FROM product WHERE name = '产品一'；
+--- key 为 null
+EXPLAIN SELECT * FROM product WHERE category = '类目一'；
+```
+
+# Optimization | 性能调优
+
+ CPU 过载 –- 慢查询， OPTIMZE TABLE
+ 内存使用问题 –- 内存相关参数配置不合理
+ 磁盘 I/O -- Buffer pool 命中率；慢查询； redo, undo, data 分开存放
+ 网络问题 – 非专有网络，网络路由
+ 表及查询语句问题
+
+ DBT2
+– http://osdldbt.sourceforge.net/
+– http://samurai-mysql.blogspot.com/2009/03/settingup-dbt-2.html
+ mysqlslap MySQL 5.1 +
+– http://dev.mysql.com/doc/refman/5.1/en/mysqlslap.html
+ SysBench
+– http://sysbench.sourceforge.net/
+ supersmack
+– http://vegan.net/tony/supersmack/
+ mybench
+– http://jeremy.zawodny.com/mysql/mybench/
+
+ innodb_buffer_pool_size
+一般设置为机器内存的 50%左右(实践经验)
+ innodb_buffer_pool_instances
+5.6 及 5.7，可设置为 8-16 个
+ innodb_log_file_size
+一般设置为 25% 的 buffer pool size 大小
+ innodb_flush_log_at_trx_commit
+要求高可靠性，设置为 1。不要求高可靠性，可设置为 0 或 2.
+ sync_binlog
+binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
+ innodb_flush_method
+Linux 下设置为 O_DIRECT
+
+ innodb_thread_concurrency
+(Cores \* 2) + (# Disks)
+ skip_name_resolve
+使用直接 IP 方式，避免 DNS 解析
+ innodb_io_capacity， innodb_io_capacity_max
+需要根据你的磁盘的 IOPS 处理能力进行相应设置。
+innodb_io_capacity~= IOPS
+ query_cache_type
+是否使用 Query Cache，对于读/写， 80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
+ tmp_table_size/ max_heap_table_size
+通过查看状态变量 Created_tmp_disk_tables 及 Created_tmp_tables，决定是否合适
+
+常用定位问题的方法
+ 分析状态变量
+ MySQL Slow query log
+ EXPLAIN 命令查看执行计划
+ profiling 查看执行过耗时
+ show full processlist
+ show engine innodb status
+ 查看 innodb 系统表
+
+主要的查询性能问题：全表扫描 临时表 排序 FileSort
+
+（1）SYSTEM
+CONST 的特例，当表上只有一条元组匹配
+
+（2）CONST
+WHERE 条件筛选后表上至多有一条元组匹配时，比如 WHERE ID = 2 （ID 是主键，值为 2 的要么有一条要么没有）
+
+（3）EQ_REF
+参与连接运算的表是内表（在代码实现的算法中，两表连接时作为循环中的内循环遍历的对象，这样的表称为内表）。
+
+基于索引（连接字段上存在唯一索引或者主键索引，且操作符必须是“=”谓词，索引值不能为 NULL）做扫描，使得对外表的一条元组，内表只有唯一一条元组与之对应。
+
+（4）REF
+可以用于单表扫描或者连接。参与连接运算的表，是内表。
+
+基于索引（连接字段上的索引是非唯一索引，操作符必须是“=”谓词，连接字段值不可为 NULL）做扫描，使得对外表的一条元组，内表可有若干条元组与之对应。
+
+（5）REF_OR_NULL
+类似 REF，只是搜索条件包括：连接字段的值可以为 NULL 的情况，比如 where col = 2 or col is null
+
+（6）RANGE
+范围扫描，基于索引做范围扫描，为诸如 BETWEEN，IN，>=，LIKE 类操作提供支持
+
+（7）INDEX_SCAN
+索引做扫描，是基于索引在索引的叶子节点上找满足条件的数据（不需要访问数据文件）
+
+（8）ALL
+全表扫描或者范围扫描：不使用索引，顺序扫描，直接读取表上的数据（访问数据文件）
+
+（9）UNIQUE_SUBQUERY
+在子查询中，基于唯一索引进行扫描，类似于 EQ_REF
+
+（10）INDEX_SUBQUERY
+在子查询中，基于除唯一索引之外的索引进行扫描
+
+（11）INDEX_MERGE
+多重范围扫描。两表连接的每个表的连接字段上均有索引存在且索引有序，结果合并在一起。适用于作集合的并、交操作。
+
+（12）FT
+FULL TEXT，全文检索
+
+## Security | 安全
+
+### SQL Injection
+
 # Todos
+
+- [ ] https://www.jianshu.com/p/486a514b0ded
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/1/%25E6%259E%2584%25E5%25BB%25BA%25E9%25AB%2598%25E6%2580%25A7%25E8%2583%25BDMySQL%25E4%25BD%2593%25E7%25B3%25BB.jpg)
 

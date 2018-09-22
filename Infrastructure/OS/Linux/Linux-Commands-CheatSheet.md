@@ -379,7 +379,9 @@ $find * -type f | fzf > selected
 
 ### 状态检索
 
-使用 `fuser tmpFile.js` 查看指定文件被进程占用情况，可以使用 df 查看磁盘状态：
+使用 `fuser tmpFile.js` 查看指定文件被进程占用情况，
+
+可以使用 du/df 查看磁盘状态：
 
 ```sh
 # 查看磁盘剩余空间
@@ -388,6 +390,13 @@ Filesystem      Size  Used Avail Use% Mounted on
 udev            2.0G     0  2.0G   0% /dev
 tmpfs           396M  3.5M  392M   1% /run
 
+# 查看当前目录下的文件空间占用
+$ du -h --max-depth=1 | sort
+```
+
+可以使用 iostate 查看磁盘详细的参数与吞吐量记录:
+
+```sh
 # 查看磁盘详细参数
 $ iostat
 

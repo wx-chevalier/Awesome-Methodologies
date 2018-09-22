@@ -62,3 +62,7 @@ veth 就像一个网络线缆的两个端点，数据从一个端点进入，必
 等。新建的网络名字空间与主机默认网络名字空间之间是隔离的。我们平时默认操作的是主机的默认网络名字空间。
 
 ![image](https://user-images.githubusercontent.com/5803001/45594763-b5d97c00-b9d2-11e8-9001-377d8957d488.png)
+
+# Todos
+
+- [ ] https://jiajially.gitbooks.io/dockerguide/content/dockerCoreNS.html 提取其中的命令与原理解析

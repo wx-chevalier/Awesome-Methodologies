@@ -20,6 +20,8 @@ SQL 是一个查询语言，与普通编程语言相比，它还在上层，最�
 
 DDL 包含 CREATE, ALTER, DROP 等常见的数据定义语句
 
+[完整的表结构 SQL](https://gist.github.com/wxyyxc1992/ebd1ceb919a68e428e7901f7fc766f02)
+
 ```sql
 CREATE TABLE `product` (
   `_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '_ID，内部自增编号',

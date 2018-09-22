@@ -1,16 +1,14 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Introduction
+# Gradle CheatSheet
 
-## Terminology(术语与关系理解)
+## Terminology | 术语
 
 在 Grade 中，我们常见的几个关键术语有 Project、Plugin 以及 Task。和 Maven 一样，Gradle 只是提供了构建项目的一个框架，真正起作用的是 Plugin。Gradle 在默认情况下为我们提供了许多常用的 Plugin，其中包括有构建 Java 项目的 Plugin，还有 War，Ear 等。与 Maven 不同的是，Gradle 不提供内建的项目生命周期管理，只是 Java Plugin 向 Project 中添加了许多 Task，这些 Task 依次执行，为我们营造了一种如同 Maven 般项目构建周期。换言之，Project 为 Task 提供了执行上下文，所有的 Plugin 要么向 Project 中添加用于配置的 Property，要么向 Project 中添加不同的 Task。一个 Task 表示一个逻辑上较为独立的执行过程，比如编译 Java 源代码，拷贝文件，打包 Jar 文件，甚至可以是执行一个系统命令或者调用 Ant。另外，一个 Task 可以读取和设置 Project 的 Property 以完成特定的操作。
 
-## Advantage(优势)
+## Comparison | 对比
 
-### [Ant vs Maven vs Gradle](http://blog.csdn.net/napolunyishi/article/details/39345995)
-
-#### Ant with Ivy
+### Ant with Ivy
 
 Ant 是第一个“现代”构建工具，在很多方面它有些像 Make。2000 年发布，在很短时间内成为 Java 项目上最流行的构建工具。它的学习曲线很缓，因此不需要什么特殊的准备就能上手。它基于过程式编程的 idea。在最初的版本之后，逐渐具备了支持插件的功能。主要的不足是用 XML 作为脚本编写格式。 XML，本质上是层次化的，并不能很好地贴合 Ant 过程化编程的初衷。Ant 的另外一个问题是，除非是很小的项目，否则它的 XML 文件很快就大得无法管理。后来，随着通过网络进行依赖管理成为必备功能，Ant 采用了 Apache Ivy。
 
@@ -61,15 +59,13 @@ Ant 的主要优点在于对构建过程的控制上。Ivy 的依赖需要在 iv
 </project>
 ```
 
-首先，我们设置了几个属性，然后是一个接一个的 task。我们用 Ivy 来处理依赖，清理，编译和打包，这是几乎所有的 Java 项目都会进行的 task，配置有很多。
+首先，我们设置了几个属性，然后是一个接一个的 task。我们用 Ivy 来处理依赖，清理，编译和打包，这是几乎所有的 Java 项目都会进行的 task，配置有很多。运行 Ant task 来生成 Jar 文件，执行下面的命令。
 
-运行 Ant task 来生成 Jar 文件，执行下面的命令。
-
-```
-ant jar  
+```sh
+$ ant jar
 ```
 
-#### Maven
+### Maven
 
 Maven 发布于 2004 年。目的是解决码农使用 Ant 所带来的一些问题。Maven 仍旧使用 XML 作为编写构建配置的文件格式，但是，文件结构却有巨大的变化。Ant 需要码农将执行 task 所需的全部命令都一一列出，然而 Maven 依靠约定(convention)并提供现成的可调用的目标(goal)。不仅如此，有可能最重要的一个补充是，Maven 具备从网络上自动下载依赖的能力(Ant 后来通过 Ivy 也具备了这个功能)，这一点革命性地改变了我们开发软件的方式。
 
@@ -118,8 +114,8 @@ http://maven.apache.org/maven-v4_0_0.xsd">
 
 通过执行下面的命令来运行 Maven goal 生成 Jar 文件。
 
-```xml
-mvn package  
+```sh
+mvn package
 ```
 
 主要的区别在于 Maven 不需要指定执行的操作。我们没有创建 task，而是设置了一些参数(有哪些依赖，用哪些插件...). Maven 推行使用约定并提供了开箱即用的 goals。Ant 和 Maven 的 XML 文件都会随时间而变大，为了说明这一点，我们加入 CheckStyle，FindBugs 和 PMD 插件来进行静态检查，三者是 Java 项目中使用很普遍的的工具。我们希望将所有静态检查的执行以及单元测试一起作为一个单独的 targetVerify。当然我们还应该指定自定义的 checkstyle 配置文件的路径并且确保错误时能够提示。更新后的 Maven 代码如下：
@@ -171,10 +167,10 @@ mvn package
 通过执行下面的命令来运行 Maven goal，包括单元测试，静态检查，如 CheckStyle，FindBugs 和 PMD。
 
 ```xml
-mvn verify  
+mvn verify
 ```
 
-#### Gradle
+### Gradle
 
 Gradle 结合了前两者的优点，在此基础之上做了很多改进。它具有 Ant 的强大和灵活，又有 Maven 的生命周期管理且易于使用。最终结果就是一个工具在 2012 年华丽诞生并且很快地获得了广泛关注。例如，Google 采用 Gradle 作为 Android OS 的默认构建工具。Gradle 不用 XML，它使用基于 Groovy 的专门的 DSL，从而使 Gradle 构建脚本变得比用 Ant 和 Maven 写的要简洁清晰。Gradle 样板文件的代码很少，这是因为它的 DSL 被设计用于解决特定的问题：贯穿软件的生命周期，从编译，到静态检查，到测试，直到打包和部署。
 
@@ -198,148 +194,67 @@ dependencies {
 }
 ```
 
-## Reference
+# Configuration | 构建配置
 
-### Tutorials&Docs
+## artifacts
 
-* [Gradle 入门系列](http://blog.jobbole.com/71999/)
-* [Gradle 学习系列](http://www.cnblogs.com/CloudTeng/p/3417762.html)
-
-### Books
-
-* [Gradle 实战](https://lippiouyang.gitbooks.io/gradle-in-action-cn/content/index.html)
-
-### Practice
-
-* [Gradle 奇技淫巧](http://blog.chengyunfeng.com/?p=833&utm_source=tuicool&utm_medium=referral)
-* [受用不尽的 Gradle 使用方法与技巧](http://www.tuicool.com/articles/i2Ijiin)
-
-# Quick Start
-
-## Installation
-
-### Windows 系统安装
-
-### 类 Unix 系统安装
-
-首先，先 download 最新版本的 gradle，网址如下：
-
-[http://www.gradle.org/get-started](http://www.gradle.org/get-started)
-
-然后将下载下来的 zip 包放在你要安装的路径上，我安装在
-
-/usr/local/bin；
-
-然后打开电脑上的.bash_profile 文件，输入以下命令：
-
-GRADLE_HOME=/usr/local/bin/gradle-1.8;
-
-export GRADLE_HOME
-
-export PATH=$PATH:$GRADLE_HOME/bin
-
-然后再在 console 上输入以下命令：
-
-source ~/.bash_profile
-
-这样就安装成功啦，可以通过以下命令来查看是否安装成功。
-
-gradle -version
-
-如果提示没有 gradle 命令，则有可能是：
-
-1.GRADLE_HOME 路径可能不对；
-
-2.没有执行 source ~/.bash_profile
-
-## Setup
-
-### Convert Maven Projects(Maven 项目的转化)
-
-The first step is to run `gradle init` in the directory containing the (master) POM. This will convert the Maven build to a Gradle build, generating a `settings.gradle` file and one or more `build.gradle` files. For simpler Maven builds, this is all you need to do. For more complex Maven builds, it may be necessary to manually add functionality on the Gradle side that couldn't be converted automatically.
-
-### Java Project
-
-### Web Application
-
-> * [gradle-spring-mvc-web-project-example](http://www.mkyong.com/spring-mvc/gradle-spring-mvc-web-project-example/)
-
-## Build
-
-### tasks
-
-Gradle 在默认情况下为我们提供了几个常用的 Task，比如查看 Project 的 Properties、显示当前 Project 中定义的所有 Task 等。可以通过一下命令查看 Project 中所有的 Task：
-
-```
-gradle tasks
-```
-
-输出如下：
+和 Maven 一样，Gradle 也是通过 artifact 来打包构建的。得益于上述的 Gradle 本身的特性，artifact 在 Gradle 里实现得更灵活一些。看一个例子：
 
 ```groovy
-:tasks
-
-------------------------------------------------------------
-All tasks runnable from root project
-------------------------------------------------------------
-
-Build Setup tasks
------------------
-setupBuild - Initializes a new Gradle build. [incubating]
-wrapper - Generates Gradle wrapper files. [incubating]
-
-Help tasks
-----------
-dependencies - Displays all dependencies declared in root project 'gradle-blog'.
-dependencyInsight - Displays the insight into a specific dependency in root project 'gradle-blog'.
-help - Displays a help message
-projects - Displays the sub-projects of root project 'gradle-blog'.
-properties - Displays the properties of root project 'gradle-blog'.
-tasks - Displays the tasks runnable from root project 'gradle-blog'.
-
-Other tasks
------------
-copyFile
-helloWorld
-
-To see all tasks and more detail, run with --all.
-
-BUILD SUCCESSFUL
-
-Total time: 2.845 secs
-```
-
-上面的 other tasks 中列举出来的 task 即是我们自定义的 tasks。
-
-#### Default tasks(默认任务)
-
-Gradle 允许在脚本中配置默认的一到多个任务来响应没有带参数的`gradle`命令：
-
-```groovy
-defaultTasks 'clean', 'run'
-
-task clean << {
-    println 'Default Cleaning!'
+// jar类型的artifact
+task myJar(type: Jar)
+artifacts {
+    archives myJar
 }
 
-task run << {
-    println 'Default Running!'
+// file类型的artifact
+def someFile = file('build/somefile.txt')
+artifacts {
+    archives someFile
 }
 
-task other << {
-    println "I'm not a default task!"
+## 根据自定义task来完成artifact
+task myTask(type:  MyTaskType) {
+    destFile = file('build/somefile.txt')
+}
+artifacts {
+    archives(myTask.destFile) {
+        name 'my-artifact'
+        type 'text'
+        builtBy myTask
+    }
+}
+
+## 根据自定义task来完成artifact
+task generate(type:  MyTaskType) {
+    destFile = file('build/somefile.txt')
+}
+artifacts {
+    archives file: generate.destFile, name: 'my-artifact', type: 'text', builtBy: generate
 }
 ```
 
-**gradle -q**命令的输出：
+## publish | 发布
+
+Gradle 构建的项目，发布到仓库中，也非常容易：
 
 ```groovy
-> gradle -q
-Default Cleaning!
-Default Running!
+apply plugin: 'maven'
+
+uploadArchives {
+    repositories {
+        ivy {
+            credentials {
+                username "username"
+                password "pw"
+            }
+            url "http://repo.mycompany.com"
+        }
+    }
+}
 ```
 
-### properties
+## Properties | 属性
 
 在默认情况下，Gradle 已经为 Project 添加了很多 Property，我们可以调用以下命令进行查看：
 
@@ -385,9 +300,27 @@ BUILD SUCCESSFUL
 Total time: 2.667 secs
 ```
 
-# Dependence(依赖管理)
+| Name          | Type                                                                                   | Default Value                              |
+| ------------- | -------------------------------------------------------------------------------------- | ------------------------------------------ |
+| `project`     | [`Project`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html)           | The `Project` instance                     |
+| `name`        | `String`                                                                               | The name of the project directory.         |
+| `path`        | `String`                                                                               | The absolute path of the project.          |
+| `description` | `String`                                                                               | A description for the project.             |
+| `projectDir`  | `File`                                                                                 | The directory containing the build script. |
+| `buildDir`    | `File`                                                                                 | `*projectDir*/build`                       |
+| `group`       | `Object`                                                                               | `unspecified`                              |
+| `version`     | `Object`                                                                               | `unspecified`                              |
+| `ant`         | [`AntBuilder`](https://docs.gradle.org/current/javadoc/org/gradle/api/AntBuilder.html) | An `AntBuilder` instance                   |
 
-## Repository
+## Variables | 变量
+
+# Dependence | 依赖管理
+
+```sh
+$ gradle dependencies
+```
+
+## Repository | 仓库配置
 
 ```groovy
 repositories {
@@ -427,121 +360,94 @@ repositories {
 }
 ```
 
-# Configuration(构建配置)
-
-## Build Script Basics
-
-### artifacts
-
-和 Maven 一样，Gradle 也是通过 artifact 来打包构建的。得益于上述的 Gradle 本身的特性，artifact 在 Gradle 里实现得更灵活一些。看一个例子：
+## 依赖声明
 
 ```groovy
-bob [13:00]  ᐅ cat userguide/artifacts/uploading/build.gradle
-
-## jar类型的artifact
-task myJar(type: Jar)
-artifacts {
-    archives myJar
-}
-## file类型的artifact
-def someFile = file('build/somefile.txt')
-artifacts {
-    archives someFile
+// Now we can set the dependencies by configuring the dependencies closure
+// where compile is a configuration not a method that compiles the dependency or so
+// It puts the dependency in the classpath of the Java Application
+// <groupId>:<artifactId>:<version>
+dependencies {
+  compile "org.apache.commons:commons-lang3:3.3.2"
 }
 
-## 根据自定义task来完成artifact
-task myTask(type:  MyTaskType) {
-    destFile = file('build/somefile.txt')
-}
-artifacts {
-    archives(myTask.destFile) {
-        name 'my-artifact'
-        type 'text'
-        builtBy myTask
-    }
-}
-
-## 根据自定义task来完成artifact
-task generate(type:  MyTaskType) {
-    destFile = file('build/somefile.txt')
-}
-artifacts {
-    archives file: generate.destFile, name: 'my-artifact', type: 'text', builtBy: generate
+// Or
+dependencies {
+  compile group: "org.apache.commons", name: "commons-lang3", version: "3.3.2"
 }
 ```
 
-### publish(发布)
+# Task | 任务
 
-Gradle 构建的项目，发布到仓库中，也非常容易：
+## 检索
 
-```
-apply plugin: 'maven'
+Gradle 在默认情况下为我们提供了几个常用的 Task，比如查看 Project 的 Properties、显示当前 Project 中定义的所有 Task 等。可以通过一下命令查看 Project 中所有的 Task：
 
-uploadArchives {
-    repositories {
-        ivy {
-            credentials {
-                username "username"
-                password "pw"
-            }
-            url "http://repo.mycompany.com"
-        }
-    }
-}
+```sh
+$ gradle tasks
 ```
 
-## Properties(属性)
+输出如下：
 
-| Name          | Type                                                                                   | Default Value                              |
-| ------------- | -------------------------------------------------------------------------------------- | ------------------------------------------ |
-| `project`     | [`Project`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html)           | The `Project` instance                     |
-| `name`        | `String`                                                                               | The name of the project directory.         |
-| `path`        | `String`                                                                               | The absolute path of the project.          |
-| `description` | `String`                                                                               | A description for the project.             |
-| `projectDir`  | `File`                                                                                 | The directory containing the build script. |
-| `buildDir`    | `File`                                                                                 | `*projectDir*/build`                       |
-| `group`       | `Object`                                                                               | `unspecified`                              |
-| `version`     | `Object`                                                                               | `unspecified`                              |
-| `ant`         | [`AntBuilder`](https://docs.gradle.org/current/javadoc/org/gradle/api/AntBuilder.html) | An `AntBuilder` instance                   |
+```groovy
+:tasks
 
-### Variables
+------------------------------------------------------------
+All tasks runnable from root project
+------------------------------------------------------------
 
-## Task(任务)
+Build Setup tasks
+-----------------
+setupBuild - Initializes a new Gradle build. [incubating]
+wrapper - Generates Gradle wrapper files. [incubating]
 
-> * [more_about_tasks](https://docs.gradle.org/current/userguide/more_about_tasks.html)
+Help tasks
+----------
+dependencies - Displays all dependencies declared in root project 'gradle-blog'.
+dependencyInsight - Displays the insight into a specific dependency in root project 'gradle-blog'.
+help - Displays a help message
+projects - Displays the sub-projects of root project 'gradle-blog'.
+properties - Displays the properties of root project 'gradle-blog'.
+tasks - Displays the tasks runnable from root project 'gradle-blog'.
+
+Other tasks
+-----------
+copyFile
+helloWorld
+
+To see all tasks and more detail, run with --all.
+
+BUILD SUCCESSFUL
+
+Total time: 2.845 secs
+```
+
+上面的 other tasks 中列举出来的 task 即是我们自定义的 tasks。
+
+## 定义
 
 Gradle 的 Project 从本质上说只是含有多个 Task 的容器，一个 Task 与 Ant 的 Target 相似，表示一个逻辑上的执行单元。我们可以通过很多种方式定义 Task，所有的 Task 都存放在 Project 的 TaskContainer 中。让我们来看一个最简单的 Task，创建一个 build.gradle 文件，内容如下：
 
 ```groovy
+// 简略定义
 task helloWorld << {
    println "Hello World!"
 }
+
+// 上述代码中使用了 `<<` 符号用来表征 `{}` 声明的动作是追加在某个任务的末尾，如果使用全声明即是
+task printVersion {
+// 任务的初始声明可以添加first和last动作
+    doFirst {
+        println "Before reading the project version"
+    }
+
+    doLast {
+        println "Version: $version"
+    }
+}
 ```
 
-这里的“<<”表示向 helloWorld 中加入执行代码——其实就是 groovy 代码。Gradle 向我们提供了一整套 DSL，所以在很多时候我们写的代码似乎已经脱离了 groovy，但是在底层依然是执行的 groovy。比如上面的 task 关键字，其实就是一个 groovy 中的方法，而大括号之间的内容则表示传递给 task()方法的一个闭包。除了“<<”之外，我们还很多种方式可以定义一个 Task，我们将在本系列后续的文章中讲到。
-
-在与 build.gradle 相同的目录下执行：
-
-```
-gradle helloWorld
-```
-
-命令行输出如下：
-
-```
-:helloWorld
-Hello World!
-
-BUILD SUCCESSFUL
-
-Total time: 2.544 secs
-```
-
-在默认情况下，Gradle 将当前目录下的 build.gradle 文件作为项目的构建文件。在上面的例子中，我们创建了一个名为 helloWorld 的 Task，在执行 gradle 命令时，我们指定执行这个 helloWorld Task。这里的 helloWorld 是一个 DefaultTask 类型的对象，这也是定义一个 Task 时的默认类型，当然我们也可以显式地声明 Task 的类型，甚至可以自定义一个 Task 类型。
-
-### Task Creator(任务创建)
-
-Grade 提供了非常灵活的 Task 定义方式，可以适用于不同的应用场景或者编程风格。
+这里的 `<<` 表示向 helloWorld 中加入执行代码——其实就是 groovy 代码。Gradle 向我们提供了一整套 DSL，所以在很多时候我们写的代码似乎已经脱离了 groovy，但是在底层依然是执行的 groovy。比如上面的 task 关键字，其实就是一个 groovy 中的方法，而大括号之间的内容则表示传递给 task()方法的一个闭包。除了 `<<` 之外，我们还很多种方式可以定义一个 Task。
 
 ```groovy
 task(hello) << {
@@ -554,7 +460,6 @@ task(copy, type: Copy) {
 }
 
 //也可以用字符串作为任务名
-
 task('hello') <<
 {
     println "hello"
@@ -577,26 +482,35 @@ tasks.create(name: 'copy', type: Copy) {
 }
 ```
 
-上述代码中使用了`<<`符号用来表征`{}`声明的动作是追加在某个任务的末尾，如果使用全声明即是：
+## Default tasks | 默认任务
+
+Gradle 允许在脚本中配置默认的一到多个任务来响应没有带参数的`gradle`命令：
 
 ```groovy
-task printVersion {
-//任务的初始声明可以添加first和last动作
-    doFirst {
-    println "Before reading the project version"
-    }
+defaultTasks 'clean', 'run'
 
-    doLast {
-    println "Version: $version"
-    }
+task clean << {
+    println 'Default Cleaning!'
+}
+
+task run << {
+    println 'Default Running!'
+}
+
+task other << {
+    println "I'm not a default task!"
 }
 ```
 
-#### Locating tasks(任务定位)
+`gradle -q`命令的输出：
 
-### Task Dependence(任务依赖)
+```groovy
+> gradle -q
+Default Cleaning!
+Default Running!
+```
 
-# Plugins
+# Plugins | 插件
 
 ## Java
 
@@ -624,6 +538,80 @@ gradle 构建过程中，所有的依赖都表现为配置，比如说系统运�
 
 可以看到，基本和 Maven 是一样的。其实 Gradle 里面这些依赖(scope)都是通过 configuration 来实现的，这里就不细说，有兴趣的可以研究一下官方资料。
 
+### 源代码
+
+```groovy
+// A Closure that configures the sourceSets Task
+// Sets the main folder as Source folder (where the compiler is looking up the .java files)
+sourceSets {
+  main.java.srcDir "src/main"
+}
+
+// This can also be written as a function -> srcDir is a method (Syntax sugar of the Groovy language)
+souceSets {
+  main.java.srcDir("src/main")
+}
+
+// Or
+sourceSets.main.java.srcDir "src/main"
+
+// Or
+sourceSets {
+  main {
+    java {
+      srcDir "src/main"
+    }
+  }
+}
+
+// Or setting the variable directly as a typical groovy enumerational style
+sourceSets {
+  main.java.srcDirs = ["src/main"]
+}
+```
+
+### 任务
+
+```sh
+# 执行编译，将 Java 源码编译到 build 目录并且打包到 jar 包中
+$ gradle build
+```
+
+自定义 jar 命令的配置参数:
+
+```groovy
+// Configure the jar task to insert the Main Class to the resulting MANIFEST.MF
+jar {
+  manifest.attributes("Main-Class", "de.example.main.Application")
+}
+
+// Or without the parentheses
+jar {
+  manifest.attributes "Main-Class": "de.example.main.Application"
+}
+
+jar {
+  from configurations.compile.collect {
+    entry -> zipTree(entry)
+  }
+}
+
+// Or with syntactic sugar
+jar {
+  from configurations.compile.collect {
+    entry -> zipTree entry
+  }
+}
+
+// And with more syntactic sugar
+// (where "it" is like "this" in gradle and "this" is the entry iterating over by the for loop)
+jar {
+  from configurations.compile.collect {
+    zipTree it
+  }
+}
+```
+
 ## Web Application
 
-# Test(测试)
+# 测试 | Test

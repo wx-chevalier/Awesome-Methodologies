@@ -263,9 +263,11 @@ declare namespace NodeJS {
 当我们希望使用那些标准的 JavaScript 代码库时，我们同样需要了解该库提供 API 的参数类型；这些类型往往定义在 `.d.ts` 声明文件中。早期的类型声明文件都需要手动地编写与导入，而 [DefinitelyTyped](http://definitelytyped.org/) 是目前最大的开源类型声明库，其会自动抓取库的类型声明文件，保障我们更加顺滑地使用 TypeScript。如果我们需要在代码中使用第三方库或者全局提供的变量，则可以使用 declare 关键字声明，譬如我们要使用 Node.js 中 process 对象，则可以进行如下的显式声明：
 
 ```ts
+// 声明全局变量
 declare var require: (moduleId: string) => any;
 declare var process: any;
 
+// 声明命名空间下变量
 declare namespace NodeJS {
   interface ReadableStream {
     destroy: () => {};
