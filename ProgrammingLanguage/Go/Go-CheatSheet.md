@@ -100,6 +100,7 @@ func main() {
 
 package main
 import "fmt"
+
 var _ int64 = a()
 func init() {
     fmt.Println("init in a.go")
@@ -122,7 +123,9 @@ main
 
 ```go
 package main
+
 import "fmt"
+
 func init() {
     fmt.Println("init 1")
 }

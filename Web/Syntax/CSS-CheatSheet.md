@@ -2,6 +2,8 @@
 
 # CSS CheatSheet | CSS 语法速览与实践清单
 
+# Animation | 动画
+
 # Syntax
 
 ## Selector
