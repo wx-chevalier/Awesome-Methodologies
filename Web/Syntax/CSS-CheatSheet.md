@@ -80,3 +80,7 @@ element.innerHTML = '<div class="' + styles.className + '">';
   composes: className from './style.css';
 }
 ```
+
+# CSS Animation
+
+[Easing functions](https://easings.net/en#) 提供了更多的动画函数支持。
