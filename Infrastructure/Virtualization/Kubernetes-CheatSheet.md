@@ -165,7 +165,7 @@ DNS server 通过 kubernetes api server 来观测是否有新 service 建立，�
 Kubernetes Volume 不等价于 Docker Volume，其是定义在 Pod 上，可被 Pod 里的多个容器所共享，且生命周期与 Pod 相同。
 Kubernetes Volume 支持将 Pod 存储卷挂载到 Google 公有云提供的 Persistent Disk 上，与云产品打通，另外还支持将 Volume 挂载到 Amazon awsElasticBlockStore 上。(将大云厂商提供的能力组件化集成，打破整体壁垒)
 
-# 安装与配置
+# 配置与实践
 
 推荐首先使用 [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) 搭建简单的本地化集群，其需要依次安装 [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 以及 [minikube](https://github.com/kubernetes/minikube/releases) 等工具；在生产环境下，我们常常需要离线安装，此时可以参考[离线安装 K8S](https://parg.co/AT5)。
 

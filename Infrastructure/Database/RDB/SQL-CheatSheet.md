@@ -210,3 +210,5 @@ FROM my_table a ;
 ```
 
 # Database Design | 数据库设计
+
+![image](https://user-images.githubusercontent.com/5803001/46092422-70455c00-c1e7-11e8-80b8-2b1c8520c4ff.png)

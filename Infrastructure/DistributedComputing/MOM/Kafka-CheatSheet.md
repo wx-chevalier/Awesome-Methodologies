@@ -102,6 +102,8 @@ Kafka 支持 Gzip、Snappy、LZ4 这 3 种压缩方式，通常把多条消息�
 
 # 消费者
 
+# 配置与实践
+
 # Todos
 
 - https://www.cnblogs.com/huxi2b/p/6223228.html
