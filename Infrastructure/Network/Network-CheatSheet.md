@@ -15,3 +15,13 @@
 **BGP：** 主干网自治网络的路由协议，今天有了互联网，互联网由很多小的自治网络构成的，自治网络之间的三层路由是由 BGP 实现的。
 
 **SDN、Openflow：** 软件定义网络里面的一个术语，比如说我们经常听到的流表、控制平面，或者转发平面都是 Openflow 里的术语。
+
+# TCP/IP
+
+## Socket
+
+一个连接的唯一标识是[server ip, server port, client ip, client port]也就是说。操作系统，接收到一个端口发来的数据时，会在该端口，产生的连接中，查找到符合这个唯一标识的并传递信息到对应缓冲区。
+
+1.一个端口同一时间只能 bind 给一个 SOCKET。就是同一时间一个端口只可能有一个监听线程(监听 listen 之前要 bind)。
+
+2.为什么一个端口能建立多个 TCP 连接，同一个端口也就是说 server ip 和 server port 是不变的。那么只要[client ip 和 client port]不相同就可以了。能保证接唯一标识[server ip, server port, client ip, client port]的唯一性。

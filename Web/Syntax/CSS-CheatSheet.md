@@ -2,9 +2,7 @@
 
 # CSS CheatSheet | CSS 语法速览与实践清单
 
-# Animation | 动画
-
-# Syntax
+# Syntax | 语法
 
 ## Selector
 
@@ -32,53 +30,6 @@ element.style.getPropertyValue('--my-color');
 
 // 移除变量值
 element.style.removeProperty('--my-color');
-```
-
-# Preprocessors
-
-## SCSS
-
-## Less
-
-```less
-@sectionHeight: calc(~'100vh - 130px');
-```
-
-# CSS Modularization | CSS 模块化
-
-## CSS Modules
-
-```js
-import styles from './style.css';
-// import { className } from "./style.css";
-
-element.innerHTML = '<div class="' + styles.className + '">';
-```
-
-```less
-:global {
-  .global-class-name {
-    color: green;
-  }
-}
-```
-
-```css
-.className {
-  color: green;
-  background: red;
-}
-
-// 合并其他样式类
-.otherClassName {
-  composes: className;
-  color: yellow;
-}
-
-// 合并来自其他文件的样式
-.otherClassName {
-  composes: className from './style.css';
-}
 ```
 
 # CSS Animation
@@ -157,7 +108,7 @@ transform 属性是静态属性，一旦写到 style 里面，将会直接显示
 
 ## animation
 
-animation 是典型的帧动画:
+animation 是典型的帧动画，需要指定动画一个周期持续的时间，以及动画效果的名称。
 
 ```css
 @keyframes 'wobble' {
@@ -174,11 +125,102 @@ animation 是典型的帧动画:
 
 .animate {
   left: 100px;
-  -webkit-animation: wobble 0.5s ease-out;
-  -webkit-animation-fill-mode: backwards;
+  animation: wobble 0.5s ease-out;
+  animation-fill-mode: backwards;
 }
 ```
 
 上面这个代码展示了一个 `keyframes 'wobble'`，其中 0％ 代表在变化中不同时间点的属性值，你可以较精确的控制动画变化中任何一个时间点的属性效果。而 animation 则根据这个 keyframes 提供的属性变化方式去计算元素动画当中的属性。与 transition 不同的是，keyframes 提供更多的控制，尤其是时间轴的控制。
 
+动画只播放一次。加入 infinite 关键字，可以让动画无限次播放:
+
+```css
+div:hover {
+  animation: 1s rainbow infinite;
+}
+
+// 完整的 animation 属性
+div:hover {
+  animation: 1s 1s rainbow linear 3 forwards normal;
+}
+
+div:hover {
+  animation-name: rainbow;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
+  animation-direction: normal;
+  animation-iteration-count: 3;
+}
+```
+
 另外在 animation 属性里面还有一个最重要的就是：animation-fill-mode，这个属性标示是以(from/0%)指定的样式还是以(to/100%)指定的样式为动画完成之后的样式。这个很方便我们控制动画的结尾样式，保证动画的整体连贯。
+
+- none：默认值，回到动画没开始时的状态。
+
+- forwards 表示让动画停留在结束状态
+
+- backwards：让动画回到第一帧的状态。
+
+- both: 根据 animation-direction 轮流应用 forwards 和 backwards 规则。
+
+有时，动画播放过程中，会突然停止。这时，默认行为是跳回到动画的开始状态；如果想让动画保持突然终止时的状态，就要使用 animation-play-state 属性:
+
+```css
+div {
+  animation: spin 1s linear infinite;
+  animation-play-state: paused;
+}
+
+div:hover {
+  animation-play-state: running;
+}
+```
+
+# Preprocessors
+
+## SCSS
+
+## Less
+
+```less
+@sectionHeight: calc(~'100vh - 130px');
+```
+
+# CSS Modularization | CSS 模块化
+
+## CSS Modules
+
+```js
+import styles from './style.css';
+// import { className } from "./style.css";
+
+element.innerHTML = '<div class="' + styles.className + '">';
+```
+
+```less
+:global {
+  .global-class-name {
+    color: green;
+  }
+}
+```
+
+```css
+.className {
+  color: green;
+  background: red;
+}
+
+// 合并其他样式类
+.otherClassName {
+  composes: className;
+  color: yellow;
+}
+
+// 合并来自其他文件的样式
+.otherClassName {
+  composes: className from './style.css';
+}
+```
