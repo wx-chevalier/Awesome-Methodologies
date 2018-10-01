@@ -111,7 +111,7 @@ transform 属性是静态属性，一旦写到 style 里面，将会直接显示
 animation 是典型的帧动画，需要指定动画一个周期持续的时间，以及动画效果的名称。
 
 ```css
-@keyframes 'wobble' {
+@keyframes wobble {
   0% {
     left: 100px;
   }

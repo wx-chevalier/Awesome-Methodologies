@@ -1,12 +1,12 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# ElasticSearch 清单
+# Elastic Search Links | Elastic Search 基础概念、集群部署与实践技巧备忘清单
 
 ElasticSearch 是一个基于[Apache Lucene(TM)](https://lucene.apache.org/core/)的开源搜索引擎。无论在开源还是专有领域，Lucene 可以被认为是迄今为止最先进、性能最好的、功能最全的搜索引擎库。但是，Lucene 只是一个库。想要使用它，你必须使用 Java 来作为开发语言并将其直接集成到你的应用中，更糟糕的是，Lucene 非常复杂，你需要深入了解检索的相关知识来理解它是如何工作的。ElasticSearch 也使用 Java 开发并使用 Lucene 作为其核心来实现所有索引和搜索的功能，但是它的目的是通过简单的`RESTful API`来隐藏 Lucene 的复杂性，从而让全文搜索变得简单。不过，Elasticsearch 不仅仅是 Lucene 和全文搜索，我们还能这样去描述它：
 
-* 分布式的实时文件存储，每个字段都被索引并可被搜索
-* 分布式的实时分析搜索引擎
-* 可以扩展到上百台服务器，处理 PB 级结构化或非结构化数据
+- 分布式的实时文件存储，每个字段都被索引并可被搜索
+- 分布式的实时分析搜索引擎
+- 可以扩展到上百台服务器，处理 PB 级结构化或非结构化数据
 
 ```
 home---这是Elasticsearch解压的目录
@@ -27,9 +27,9 @@ home---这是Elasticsearch解压的目录
 
 在 ElasticSearch 中，Index 这一动作类比于 CRUD 中的 Create 与 Update，当我们尝试为某个不存在的文档建立索引时，会自动根据其类似与 ID 创建新的文档，否则就会对原有的文档进行修改。ElasticSearch 使用 PUT 请求来进行 Index 操作，你需要提供索引名称、类型名称以及可选的 ID，格式规范为 :`http://localhost:9200/<index>/<type>/[<id>]`。其中索引名称可以是任意字符，如果 ElasticSearch 中并不存在该索引则会自动创建。类型名的原则很类似于索引，不过其与索引相比会指明更多的细节信息：
 
-* 每个类型有自己独立的 ID 空间
-* 不同的类型有不同的映射 (Mappings)，即不同的属性 / 域的建立索引的方案
-* 尽可能地在一起搜索请求中只对某个类型或者特定的类型进行搜索
+- 每个类型有自己独立的 ID 空间
+- 不同的类型有不同的映射 (Mappings)，即不同的属性 / 域的建立索引的方案
+- 尽可能地在一起搜索请求中只对某个类型或者特定的类型进行搜索
 
 典型的某个 Index 请求为 :
 
@@ -57,9 +57,9 @@ POST /website/blog/
 
 ElasticSearch 为我们提供了通用的`_bulk`端点来在单请求中完成多文档创建操作，不过这里为了简单起见还是分为了多个请求进行执行。ElasticSearch 中搜索主要是基于`_search`这个端点进行的，其标准请求格式为 :`<index>/<type>/_search`，其中 index 与 type 都是可选的。换言之，我们可以以如下几种方式发起请求 :
 
-* **http://localhost:9200/_search** - 搜索所有的 Index 与 Type
-* **http://localhost:9200/movies/_search** - 搜索 Movies 索引下的所有类型
-* **http://localhost:9200/movies/movie/_search** - 仅搜索包含在 Movies 索引 Movie 类型下的文档
+- **http://localhost:9200/_search** - 搜索所有的 Index 与 Type
+- **http://localhost:9200/movies/_search** - 搜索 Movies 索引下的所有类型
+- **http://localhost:9200/movies/movie/_search** - 仅搜索包含在 Movies 索引 Movie 类型下的文档
 
 ### 全文搜索
 
@@ -147,8 +147,6 @@ GET /my_locations/location/_search
 }
 ```
 
-# ElasticSearch 基础概念、集群部署与实践技巧备忘清单
-
 ElasticSearch 是一个基于 Lucene 的搜索服务器；它提供了一个分布式多用户能力的全文搜索引擎，基于 RESTful web 接口。根据其官方定义，我们可以将 ElasticSearch 中的术语组件与 MySQL 进行横向对比：
 
 ```
@@ -158,21 +156,21 @@ Elasticsearch => Indices => Types => Documents with Properties
 
 基本的术语名词解释如下：
 
-* 索引 / Index: 类似于 MySQL 中的数据库；
+- 索引 / Index: 类似于 MySQL 中的数据库；
 
-- 类型 / Type: 类似于 MySQL 中的表，我们可以为 Type 定义相对应的 映射 / Mappings ( 类似于 MySQL 中的 Schema ) 以优化索引性能；
+* 类型 / Type: 类似于 MySQL 中的表，我们可以为 Type 定义相对应的 映射 / Mappings ( 类似于 MySQL 中的 Schema ) 以优化索引性能；
 
-- 文档 / Document: 类似于 MySQl 中的记录，是信息聚合的最小单元。
+* 文档 / Document: 类似于 MySQl 中的记录，是信息聚合的最小单元。
 
 与集群相关的名词还包括：
 
-* 集群 / Cluster: ElastichSearch 可以作为一个独立的搜索服务器工作，也可以在多台协同工作的服务器上运行，统称为一个集群，其中有一台被作为 Master，其他为 Slave；
+- 集群 / Cluster: ElastichSearch 可以作为一个独立的搜索服务器工作，也可以在多台协同工作的服务器上运行，统称为一个集群，其中有一台被作为 Master，其他为 Slave；
 
-- 节点 / Node: 一般来说一个机器部署一个 Node。
+* 节点 / Node: 一般来说一个机器部署一个 Node。
 
-- 分片 / Shard: 指的是一个 Index 分成多少份，这些 Shards 会分散到各个 Node 上面，类似于 HDFS 的文件块。
+* 分片 / Shard: 指的是一个 Index 分成多少份，这些 Shards 会分散到各个 Node 上面，类似于 HDFS 的文件块。
 
-- 副本 / Replica: 副本是针对每个分片的，可以为一个分片设置多个副本，分布在不同的节点上，即是容错，也可以提高查询任务的性能，原理同 HDFS 的文件块副本机制。
+* 副本 / Replica: 副本是针对每个分片的，可以为一个分片设置多个副本，分布在不同的节点上，即是容错，也可以提高查询任务的性能，原理同 HDFS 的文件块副本机制。
 
 鉴于 Logstash 更多的关注于日志聚合，因此将 ElasticSearch 与 Kibana 剥离部署。如果有对于 Linux 命令不太熟悉的，可以参考 [Linux DevOps 中常用命令与技巧清单](https://parg.co/UZ2)。
 
@@ -327,4 +325,3 @@ $ docker service update --replicas=3 <replica_id>
 ```
 
 ## 多集群
-

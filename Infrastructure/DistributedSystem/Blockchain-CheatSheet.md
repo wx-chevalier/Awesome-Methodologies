@@ -1,8 +1,12 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+# 区块链
+
 In essence, the blockchain is a shared, programmable, cryptographically secure and therefore trusted ledger which no single user controls and which can be inspected by anyone.- Klaus Schwab
 
 区块链技术是最近在互联网技术前沿比较火的一个课题，它的出现解决了在点对点通信中一直存在的一个基本问题，即著名的拜占庭将军问题。通俗地讲就是在一个去中心化的网络中如何对一个信息传递(比如一笔支付)达成全网共识。
+
+区块链由时间序列的链式数据块构成，提供了拜占庭容错、并基于共识协议保证了最终一致性的分布式数据库。
 
 区块链本质上是一个去中心化的分布式账本数据库，是比特币的底层技术，和比特币是相伴相生的关系。区块链本身其实是一串使用密码学相关联所产生的数据块，每一个数据块中包含了多次比特币网络交易有效确认的信息。
 每当有加密交易产生时，网络中有强大运算能力的矿工(Miner)就开始利用算法解密验证交易，创造出新的区块来记录最新的交易。新的区块按照时间顺序线性地被补充到原有的区块链末端，这个账本就会不停地增长和延长。

@@ -115,8 +115,6 @@ str.substring(indexStart[, indexEnd])
 
 ## Regex | 正则表达式
 
-> 📚 参考资料
-
 对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数 :
 
 ```js
@@ -186,14 +184,15 @@ removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
 key.replace(/\_./g, str => str[1].toUpperCase());
 ```
 
-较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中。如果执行 exec 方法的正则表达式没有分组（没有括号括起来的内容），那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串;如果没有匹配则返回 null。
+较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中。如果执行 exec 方法的正则表达式没有分组（没有括号括起来的内容），那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串; 如果没有匹配则返回 null。
 
 ```js
 const someText = 'web2.0 .net2.0';
 const pattern = /(\w+)(\d)\.(\d)/g;
 const outCome_exec = pattern.exec(someText);
-const outCome_matc = someText.match(pattern);
+const outCome_match = someText.match(pattern);
 
+// 提取匹配项
 const s = '[description:"aoeu" uuid:"123sth"]';
 
 const re = /\s*([^[:]+):\"([^"]+)"/g;
@@ -201,6 +200,10 @@ let m;
 while ((m = re.exec(s))) {
   console.log(m[1], m[2]);
 }
+
+// 将字符串分割
+'1234567890'.match(/.{1,2}/g);
+// ['12', '34', '56', '78', '90'];
 ```
 
 ### 匹配模式
