@@ -14,6 +14,8 @@
 
 - {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
 
+**建议前往 [xCompass](https://wxyyxc1992.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程，或者直接浏览本仓库的目录以了解更多内容。**
+
 # 前言
 
 `让知识在该在的地方 @ 王下邀月熊`
