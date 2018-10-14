@@ -1,10 +1,12 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# V8 CheatSheet
-
-# 语法解析
+# V8 CheatSheet | JavaScript V8 引擎必知必会
 
 ![image](https://user-images.githubusercontent.com/5803001/45958159-46563300-c049-11e8-8541-9084b5f818ea.png)
+
+# Parse | 语法解析
+
+# Compile | 编译
 
 # GC 垃圾回收
 

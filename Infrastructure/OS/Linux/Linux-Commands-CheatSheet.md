@@ -360,7 +360,9 @@ $ tar -rf archive.tar file3.txt
 ```sh
 $ ls -lR /home/han | grep js | wc -l
 
-$ ls -l "/home/han" |grep "js"|wc -l
+$ ls -l "/home/han" | grep "js" |wc -l
+
+$ ls -l --sort=size --block-size=M
 ```
 
 这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKE 『John%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是`John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
@@ -390,7 +392,7 @@ Filesystem      Size  Used Avail Use% Mounted on
 udev            2.0G     0  2.0G   0% /dev
 tmpfs           396M  3.5M  392M   1% /run
 
-# 查看当前目录下的文件空间占用
+# 查看当前目录下的目录空间占用
 $ du -h --max-depth=1 | sort
 ```
 
@@ -561,6 +563,9 @@ line three
 
 # 输出指定分割参数
 $ route -n | awk '/UG[ \t]/{print $2}'
+
+# 计算文件中的数值和
+$ awk '{s+=$1} END {printf "%.0f", s}' mydatafile
 ```
 
 ## 编辑
