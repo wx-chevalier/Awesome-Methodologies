@@ -66,6 +66,15 @@ func main() {
 }
 ```
 
+Go 中还允许针对不同的编译目标平台引入不同的文件:
+
+```go
+mypkg_linux.go         // only builds on linux systems
+mypkg_windows_amd64.go // only builds on windows 64bit platforms
+```
+
+### 初始化函数
+
 各个包中默认首字母大写的函数作为其他包可见的导出函数，而小写函数则默认外部不可见的私有函数。Go 允许在文件中包含初始化函数，默认使用 `_` 引入的包仅调用初始化函数：
 
 ```py
@@ -97,7 +106,6 @@ func main() {
 }
 
 // a.go
-
 package main
 import "fmt"
 
@@ -137,6 +145,8 @@ func main() {
 }
 ```
 
+### 外部引用
+
 外部引用该模块是需要使用工作区间或者 vendor 相对目录，其目录索引情况如下：
 
 ```sh
@@ -175,7 +185,7 @@ pkg/
 
 ## 变量声明与赋值
 
-作为强类型静态语言，Go 允许我们在变量之后标识数据类型，也为我们提供了自动类型推导的功能。
+作为强类型静态语言，Go 允许我们在变量之后标识数据类型，也为我们提供了自动类型推导的功能。不过需要注意的是，在函数体外 Go 仅允许使用声明式语句。
 
 ```go
 // 声明三个变量，皆为 bool 类型
@@ -209,6 +219,7 @@ m2 := map[string]int{
     "a":1,
     "b":2,
 }
+
 fmt.Println(reflect.DeepEqual(m1, m2))
 ```
 
@@ -246,14 +257,14 @@ Go 也支持使用 Switch 语句：
 ```go
 // 基础格式
 switch operatingSystem {
-case "darwin":
-	fmt.Println("Mac OS Hipster")
-	// 默认 break，不需要显式声明
-case "linux":
-	fmt.Println("Linux Geek")
-default:
-	// Windows, BSD, ...
-	fmt.Println("Other")
+    case "darwin":
+        fmt.Println("Mac OS Hipster")
+        // 默认 break，不需要显式声明
+    case "linux":
+        fmt.Println("Linux Geek")
+    default:
+        // Windows, BSD, ...
+        fmt.Println("Other")
 }
 
 // 类似于 if，可以在条件之前添加自定义语句
@@ -355,6 +366,15 @@ for range time.Tick(time.Second) {
 }
 ```
 
+因为 Go 没有逗号运算符，并且 ++ 与 -- 是语句而非表达式，因此当我们想要去同时处理多个变量时，需要使用并行赋值:
+
+```go
+// Reverse a
+for i, j := 0, len(a)-1; i < j; i, j = i+1, j-1 {
+    a[i], a[j] = a[j], a[i]
+}
+```
+
 # Function | 函数
 
 ## 定义，参数与返回值
@@ -391,6 +411,8 @@ adder(9, 9) // 18
 
 nums := []int{10, 20, 30}
 adder(nums...) // 60
+
+// 传入任意类型的不定参数
 ```
 
 我们也可以使用 Function Stub 作为函数参数传入，以实现回调函数的功能：
@@ -404,25 +426,6 @@ func Filter(s []int, fn func(int) bool) []int {
         }
     }
     return p
-}
-```
-
-虽然 Go 不是函数式语言，但是也可以用其实现柯里函数(Currying Function):
-
-```go
-func add(x, y int) int {
-    return x+ y
-}
-
-func adder(x int) (func(int) int) {
-    return func(y int) int {
-        return add(x, y)
-    }
-}
-
-func main() {
-	add3 := adder(3)
-	fmt.Println(add3(4))    // 7
 }
 ```
 
@@ -448,6 +451,25 @@ func returnMulti2() (n int, s string) {
     return
 }
 var x, str = returnMulti2()
+```
+
+虽然 Go 不是函数式语言，但是也可以用其实现柯里函数(Currying Function):
+
+```go
+func add(x, y int) int {
+    return x+ y
+}
+
+func adder(x int) (func(int) int) {
+    return func(y int) int {
+        return add(x, y)
+    }
+}
+
+func main() {
+	add3 := adder(3)
+	fmt.Println(add3(4))    // 7
+}
 ```
 
 ## 闭包 | Closure
@@ -557,7 +579,9 @@ if err != nil {
 
 ```go
 package main
+
 import "fmt"
+
 func main(){
     defer func(){
         if r := recover();r != nil{
@@ -671,8 +695,8 @@ a := [2]int{1, 2}
 // 加 ... 会限制数组长度
 a := [...]int{1, 2}
 
-// 泛型数组声明
-a := []interface{}{2, 1, []interface{}{3, []interface{}{4, 5}, 6}, 7, []interface{}{8}}
+// 声明二维数组
+array := [2][3]int{{1, 2, 3}, {4, 5, 6}}
 ```
 
 Go 内置了 len 与 cap 函数，用于获取数组的尺寸与容量：
@@ -705,9 +729,18 @@ array[:]
 array[:2]
 array[2:]
 array[2:3]
+
+// 不定类型切片声明
+a := []interface{}{2, 1, []interface{}{3, []interface{}{4, 5}, 6}, 7, []interface{}{8}}
+
+// 二维不定类型切片
+b := [][]interface{}{
+		[]interface{}{1, 2},
+		[]interface{}{3, 4},
+	}
 ```
 
-不同于 Array，Slice 可以看做更为灵活的引用类型(Reference Type)，它并不真实地存放数组值，而是包含数组指针(ptr)，len，cap 三个属性的结构体。换言之，Slice 可以看做对于数组中某个段的描述，包含了指向数组的指针，段长度，以及段的最大潜在长度，其结构如下图所示：
+不同于 Array, Slice 可以看做更为灵活的引用类型(Reference Type)，它并不真实地存放数组值，而是包含数组指针(ptr)，len，cap 三个属性的结构体。换言之，Slice 可以看做对于数组中某个段的描述，包含了指向数组的指针，段长度，以及段的最大潜在长度，其结构如下图所示：
 
 ![group 2](https://user-images.githubusercontent.com/5803001/38005668-3f06477e-3274-11e8-85d2-fa78b75f411b.png)
 
@@ -748,7 +781,7 @@ s = append(s, 1)
 // len=5 cap=8 [0 1 2 3 4]
 s = append(s, 2, 3, 4)
 
-// 使用 ... 来自动展开数组
+// 使用 ... 来自动展开数组并进行合并
 a := []string{"John", "Paul"}
 b := []string{"George", "Ringo", "Pete"}
 a = append(a, b...) // equivalent to "append(a, b[0], b[1], b[2])"
@@ -766,7 +799,7 @@ copy(t, s)
 s = t
 ```
 
-## 映射类型
+## Map | 映射类型
 
 ```go
 var m map[string]int
@@ -800,22 +833,22 @@ type Vertex struct {
     z bool
 }
 
-// 也可以声明隐式结构体
+// 也可以声明匿名/隐式结构体
 point := struct {
 	X, Y int
 }{1, 2}
+
+// 显式声明键
+var v = Vertex{X: 1, Y: 2}
+
+// 声明数组
+var v = []Vertex{{1,2},{5,2},{5,5}}
 
 // 创建结构体实例
 var v = Vertex{1, 2}
 
 // 读取或者设置属性
 v.X = 4;
-
-// 显示声明键
-var v = Vertex{X: 1, Y: 2}
-
-// 声明数组
-var v = []Vertex{{1,2},{5,2},{5,5}}
 ```
 
 方法的声明也非常简洁，只需要在 func 关键字与函数名之间声明结构体指针即可，该结构体会在不同的方法间进行复制：
@@ -978,7 +1011,6 @@ type Dog struct{}
 func (a Dog) Speaks() string { return "woof" }
 
 /** 在需要的地方直接引用 **/
-
 package circus
 
 import "animals"

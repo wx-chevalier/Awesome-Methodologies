@@ -35,9 +35,20 @@ $ pipenv --py
 /Users/kennethreitz/.local/share/virtualenvs/test-Skyy4vre/bin/python
 ```
 
+如果遇到编码问题，可以设置如下环境变量：
+
 ```sh
 export LC_ALL=zh_CN.UTF-8
 export LANG=zh_CN.UTF-8
+```
+
+如果遇到网络问题，可以尝试使用国内的镜像源：
+
+```Pipfile
+[[source]]
+url = "https://mirrors.ustc.edu.cn/pypi/web/simple"
+verify_ssl = true
+name = "pypi"
 ```
 
 # 基础语法
@@ -135,21 +146,24 @@ someDir/
 	siblingModule.py
 
 # siblingModule.py
-
 def siblingModuleFun():
 	print('Hello from siblingModuleFun')
 
 def siblingModuleFunTwo():
 	print('Hello from siblingModuleFunTwo')
 
+# main.py
+# 引入模块
 import siblingModule
 import siblingModule as sibMod
 
 sibMod.siblingModuleFun()
 
+# 直接引入对应函数名
 from siblingModule import siblingModuleFun
 siblingModuleFun()
 
+# 捕获模块异常
 try:
     # Import 'someModuleA' that is only available in Windows
     import someModuleA
@@ -160,7 +174,7 @@ except ImportError:
     except ImportError:
 ```
 
-而 Python 中的包(Package )则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口 :
+而 Python 中的包(Package)则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口 :
 
 ```py
 # 目录格式
@@ -168,13 +182,12 @@ someDir/
 	main.py
 	subModules/
 		__init__.py
-		subA.py
+		subA.pys
 		subSubModules/
 			__init__.py
 			subSubA.py
 
 # subA.py
-
 def subAFun():
 	print('Hello from subAFun')
 
@@ -182,7 +195,6 @@ def subAFunTwo():
 	print('Hello from subAFunTwo')
 
 # subSubA.py
-
 def subSubAFun():
 	print('Hello from subSubAFun')
 
@@ -192,21 +204,20 @@ def subSubAFunTwo():
 # __init__.py from subDir
 
 # 将 'subAFun()' 与 'subAFunTwo()' 添加到 'subModules' 命名空间
-from .subA import *
+from subA import *
 
 # 假设 'subSubModules' 中的 '__init__.py' 为空
 # 将 'subSubAFun()' 与 'subSubAFunTwo()' 添加到 'subModules' 命名空间
-from .subSubModules.subSubA import *
+from subSubModules.subSubA import *
 
 # 假设 'subSubModules' 中的 '__init__.py' 不为空，包含了 'from .subSubA import *'
 # __init__.py，将 'subSubAFun()' 与 'subSubAFunTwo()' 添加到 'subSubModules' 命名空间
-from .subSubA import *
+from subSubA import *
 
 # 将 'subSubAFun()' 与 'subSubAFunTwo()' 添加到 'subModules' 命名空间
-from .subSubDir import *
+from subSubDir import *
 
 # main.py
-
 import subDir
 
 subDir.subAFun() # Hello from subAFun
@@ -218,7 +229,23 @@ subDir.subSubAFunTwo() # Hello from subSubAFunTwo
 `__init__.py` 中也支持使用 `__all__` 变量来声明所有需要导出的子模块:
 
 ```py
+import submodule1
+import submodule2
+
 __all__ = ['submodule1', 'submodule2']
+```
+
+Python 中只能在 Package 中使用相对导入，不能在用户的应用程序中使用相对导入，因为不论是相对导入还是绝对导入，都是相当于当前模块来说的，对于用户的主应用程序，也就是入口文件，模块名总是`__main__`, 所以用户的应用程序必须使用绝对导入，而 Package 中的导入可以使用相对导入。
+
+```py
+# python -m 运行该文件
+from .some_module import some_class
+from ..some_package import some_function
+from . import some_class
+
+import foo.baz # absolute import, always OK
+from . import .baz # explicit relative import, Python >= 2.5, Py3
+import baz # implicit relative import, OK in Python < 2.5, deprecated in Python >= 2.5, error in Python 3
 ```
 
 ### 动态加载
@@ -248,11 +275,45 @@ def get_factory_from_template(maintype):
         return foo
 ```
 
+### 自定义模块
+
+我们可以通过定义 setup.py 来创建自定义模块:
+
+```py
+# pipenv install -e . 来安装本地目录的依赖
+from setuptools import setup, find_packages
+
+setup(
+    name = "test",
+    version = "1.0",
+    keywords = ("test", "xxx"),
+    description = "eds sdk",
+    long_description = "eds sdk for python",
+    license = "MIT Licence",
+
+    url = "http://test.com",
+    author = "test",
+    author_email = "test@gmail.com",
+
+    packages = find_packages(),
+    include_package_data = True,
+    platforms = "any",
+    install_requires = [],
+
+    scripts = [],
+    entry_points = {
+        'console_scripts': [
+            'test = test.help:main'
+        ]
+    }
+)
+```
+
 # 表达式与控制流
 
 ## 条件选择
 
-Python 中使用 if、elif 、 else 来进行基础的条件选择操作：
+Python 中使用 if、elif 、 els#e 来进行基础的条件选择操作：
 
 ```py
 if x < 0:
@@ -1085,9 +1146,82 @@ class AbstractClassExample(ABC):
         pass
 ```
 
+在 Python 3 中，也可以通过继承元类的方式来实现:
+
+```py
+from abc import ABCMeta
+
+class MyABC(metaclass=ABCMeta):
+    pass
+```
+
+### MetaClass | 元类
+
+Python 中所谓的
+
+## 类继承
+
+```py
+# 父类必须继承 object 或者其他父类
+class BaseClass(object):
+    def __init__(self, *args, **kwargs):
+        pass
+
+class ChildClass(BaseClass):
+    def __init__(self, *args, **kwargs):
+        # 调用父类构造函数
+        super(ChildClass, self).__init__(*args, **kwargs)
+```
+
+```py
+class Car(object):
+    condition = "new"
+
+    def __init__(self, model, color, mpg):
+        self.model = model
+        self.color = color
+        self.mpg   = mpg
+
+class ElectricCar(Car):
+    def __init__(self, battery_type, model, color, mpg):
+        self.battery_type=battery_type
+        super(ElectricCar, self).__init__(model, color, mpg)
+
+car = ElectricCar('battery', 'ford', 'golden', 10)
+print car.__dict__
+```
+
 ## 对象
 
 ### 实例化
+
+```py
+class Foo(object):
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+
+    def bar(self):
+        pass
+
+i = Foo(2, 3)
+```
+
+Python 中与类实例化相关的方法有 `__new__` 与 `__init__`，`__new__` 会在对象创建时候调用，覆写该方法能够自定义实例的创建过程；而 `__init__` 方法则是在实例创建完毕后初始化实例:
+
+```py
+class Foo(object):
+    def __new__(cls, *args, **kwargs):
+        print "Creating Instance"
+        instance = super(Foo, cls).__new__(cls, *args, **kwargs)
+        # 或者
+        # object.__new__(cls, *args, **kwargs)
+        return instance
+    ...
+
+>>> i = Foo(2, 3)
+Creating Instance
+```
 
 ### 属性操作
 
@@ -1109,7 +1243,7 @@ print "a.prop =", a.prop
 # a.prop = 3
 ```
 
-建议使用 hasattr、getattr 、 setattr 这种方式对于对象属性进行操作 :
+建议使用 hasattr, getattr, setattr 这种方式对于对象属性进行操作 :
 
 ```py
 class Example(object):
@@ -1141,35 +1275,57 @@ ex.name
 # 'example'
 ```
 
-## 类继承
+### 单例模式
+
+我们可以通过覆写 `__new__` 方法或者创建特殊的 MetaClass 来实现单例模式:
 
 ```py
-# 父类必须继承 object 或者其他父类
-class BaseClass(object):
-    def __init__(self, *args, **kwargs):
-        pass
+class Singleton(object):
+    _instance = None  # Keep instance reference
 
-class ChildClass(BaseClass):
-    def __init__(self, *args, **kwargs):
-        super(ChildClass, self).__init__(*args, **kwargs)
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = object.__new__(cls, *args, **kwargs)
+        return cls._instance
+
+# 指定数目的单例
+class LimitedInstances(object):
+    _instances = []  # Keep track of instance reference
+    limit = 5
+
+    def __new__(cls, *args, **kwargs):
+        if not len(cls._instances) <= cls.limit:
+            raise RuntimeError, "Count not create instance. Limit %s reached" % cls.limit
+        instance = object.__new__(cls, *args, **kwargs)
+        cls._instances.append(instance)
+        return instance
+
+    def __del__(self):
+        # Remove instance from _instances
+        self._instance.remove(self)
 ```
 
+也可以通过继承元类的方式来实现:
+
 ```py
-class Car(object):
-    condition = "new"
+class Singleton(type):
+    _instances = {}
+    def __call__(cls, *args, **kwargs):
+        if cls not in cls._instances:
+            cls._instances[cls] = super(Singleton,                                      cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
 
-    def __init__(self, model, color, mpg):
-        self.model = model
-        self.color = color
-        self.mpg   = mpg
 
-class ElectricCar(Car):
-    def __init__(self, battery_type, model, color, mpg):
-        self.battery_type=battery_type
-        super(ElectricCar, self).__init__(model, color, mpg)
-
-car = ElectricCar('battery', 'ford', 'golden', 10)
-print car.__dict__
+class SingletonClass(metaclass=Singleton):
+    pass
+class RegularClass():
+    pass
+x = SingletonClass()
+y = SingletonClass()
+print(x == y)
+x = RegularClass()
+y = RegularClass()
+print(x == y)
 ```
 
 # 异常与测试

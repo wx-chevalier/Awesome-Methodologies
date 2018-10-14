@@ -190,7 +190,10 @@ key.replace(/\_./g, str => str[1].toUpperCase());
 const someText = 'web2.0 .net2.0';
 const pattern = /(\w+)(\d)\.(\d)/g;
 const outCome_exec = pattern.exec(someText);
+// [ 'net2.0', 'net', '2', '0', index: 8, input: 'web2.0 .net2.0', groups: undefined ]
+// 当 match 全局匹配时，会直接返回匹配列表
 const outCome_match = someText.match(pattern);
+// [ 'web2.0', 'net2.0' ]
 
 // 提取匹配项
 const s = '[description:"aoeu" uuid:"123sth"]';

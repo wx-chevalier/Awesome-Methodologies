@@ -63,12 +63,11 @@ mysql> use [database];
 mysql> CREATE USER 'finley'@'%' IDENTIFIED BY 'some_pass';
 mysql> GRANT ALL PRIVILEGES ON *.* TO 'finley'@'%'
     ->     WITH GRANT OPTION;
-```
 
-```sql
-SELECT User FROM mysql.user;
-
-SET PASSWORD FOR 'root'@'localhost' = PASSWORD('MyNewPass');
+# 修改用户密码
+use mysql;
+update user set password=PASSWORD("mynewpassword") where User='root';
+flush privileges;
 ```
 
 ## 信息检索
