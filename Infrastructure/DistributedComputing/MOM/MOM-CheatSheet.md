@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# 消息中间件/消息队列知识梳理与项目盘点
+# MOM CheatSheet | 消息中间件/消息队列知识梳理与项目盘点
 
 [Message-oriented middleware (MOM)](http://en.wikipedia.org/wiki/Message-oriented_middleware) is software or hardware infrastructure supporting sending and receiving messages between distributed systems。
 In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queue) and mailboxes are software-engineering components used for inter-process communication (IPC), or for inter-thread communication within the same process.
@@ -12,6 +12,20 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 削峰和流控：消息生产者不会堵塞，突发消息缓存在队列中，消费者按照实际能力读取消息。
 
 复用：一次发布多方订阅。
+
+# 消息系统概述
+
+在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：
+
+消息消费——如何发送和消费消息；
+消息确认（ack）——如何确认消息；
+消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；
+
+## 消息消费模型
+
+在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。
+
+
 
 # 生态圈
 
