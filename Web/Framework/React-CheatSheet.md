@@ -61,6 +61,18 @@ Component-Based Architecture
 
 ## 组件定义
 
+典型的 React 组件是继承自 Component 或者 PureComponent 并且包含了 render 函数的类：
+
+```jsx
+class Welcome extends React.Component {
+  render() {
+    return <h1>Hello, {this.props.name}</h1>;
+  }
+}
+```
+
+如果我们不省略构造函数，那么需要注意调用 super 并且传入 props:
+
 ```js
 constructor(props) {
   super();
@@ -74,16 +86,20 @@ constructor(props) {
 }
 ```
 
-React 16 中为我们提供了 Portals，方便地将元素渲染到非当前组件树层级的节点：
+React 还支持函数式组件定义，该函数仅会传入单个 Props 参数：
+
+```jsx
+function Welcome(props) {
+  return <h1>Hello, {props.name}</h1>;
+}
+```
+
+React 16.6 为我们提供了 memo 函数，从而保证了函数式组件也能做到缓存:
 
 ```js
-render() {
-  // React 并不会创建新的 div，而是将其渲染到指定的 DOM 节点中
-  return ReactDOM.createPortal(
-    this.props.children,
-    domNode
-  );
-}
+const MyComponent = React.memo(function MyComponent(props) {
+  /* only rerenders if props change */
+});
 ```
 
 不过函数式组件也并非处处适用，使用函数式组件时，我们无法使用 refs，无法使用 State 并且没有生命周期函数；还需要避免使用 input 这样的非受控元素，每次重新渲染都会创建新的 input 元素。
@@ -157,6 +173,18 @@ class MyComponent extends React.Component {
   componentDidMount() {
     this.inputRef.current.focus();
   }
+}
+```
+
+React 16 中为我们提供了 Portals，方便地将元素渲染到非当前组件树层级的节点：
+
+```js
+render() {
+  // React 并不会创建新的 div，而是将其渲染到指定的 DOM 节点中
+  return ReactDOM.createPortal(
+    this.props.children,
+    domNode
+  );
 }
 ```
 
@@ -521,7 +549,7 @@ React 中的组件又可以分为受控组件与非受控组件，所谓的非�
 
 ## Context
 
-React 16.3 之后引入了新的 Context API，允许我们以 HOC 的方式
+React 16.3 之后引入了新的 Context API，允许我们以 renderProps 的方式使用上下文中的值：
 
 ```js
 const ThemeContext = React.createContext('light');
@@ -547,6 +575,34 @@ class ThemedButton extends React.Component {
     );
   }
 }
+```
+
+我们也可以更为灵活地通过声明类的 contextType 来使用上下文:
+
+```js
+class MyClass extends React.Component {
+  // 或者在类外声明
+  static contextType = MyContext;
+
+  componentDidMount() {
+    let value = this.context;
+    /* perform a side-effect at mount using the value of MyContext */
+  }
+  componentDidUpdate() {
+    let value = this.context;
+    /* ... */
+  }
+  componentWillUnmount() {
+    let value = this.context;
+    /* ... */
+  }
+  render() {
+    let value = this.context;
+    /* render something based on the value of MyContext */
+  }
+}
+
+MyClass.contextType = MyContext;
 ```
 
 # React Router

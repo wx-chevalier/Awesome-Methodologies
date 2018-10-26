@@ -8,31 +8,19 @@
 
 Go (a.k.a. Golang) is a statically-typed programming language first developed at Google. It is derived from C with additional features such as garbage collection, type safety, dynamic-typing capabilities, additional built-in types, and a large standard library.
 
-# 环境配置与语法基础
+## 环境配置与语法基础
 
-可以前往[这里](https://golang.org/dl/)下载 Go SDK 安装包，或者使用 brew 等包管理器安装。go 命令依赖于 $GOPATH 环境变量进行代码组织，多项目情况下也可以使用 ln 进行目录映射以方便进行项目管理。GOPATH 允许设置多个目录，每个目录都会包含三个子目录：src 用于存放源代码，pkg 用于存放编译后生成的文件，bin 用于存放编译后生成的可执行文件。
+可以前往[这里](https://golang.org/dl/)下载 Go SDK 安装包，或者使用 brew 等包管理器安装。现在我们也推荐使用 [gvm](https://github.com/moovweb/gvm) 这样的专用版本管理工具，来方便地更新与切换版本。
 
 环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名(文件夹名)一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件(夹)。
 
-我们可以使用 `dep ensure -add github.com/pkg/errors` 添加依赖，运行之后，其会在 toml 文件中添加如下锁：
+# 包管理与模块机制
 
-```toml
-[[constraint]]
-  name = "github.com/pkg/errors"
-  version = "0.8.0"
-```
+Golang 的包管理是一直是为人诟病之处，从 Golang 1.5 引入的 vendor 机制，到准官方工具 dep, 再到 Go 1.11 引入了 Go Modules，其包管理与模块机制一直也在不断地完善。
 
-简单的 Go 中 Hello World 代码如下：
+## GOPATH
 
-```go
-package main
-import "fmt"
-func main() {
-    fmt.Println("hello world")
-}
-```
-
-## 模块机制
+go 命令依赖于 $GOPATH 环境变量进行代码组织，多项目情况下也可以使用 ln 进行目录映射以方便进行项目管理。GOPATH 允许设置多个目录，每个目录都会包含三个子目录：src 用于存放源代码，pkg 用于存放编译后生成的文件，bin 用于存放编译后生成的可执行文件。
 
 Go 并没有相对路径引入，而是以文件夹为单位定义模块；并且规定每个源文件的首部需要进行包声明，可执行文件默认放在 main 包中。如上文所述，GOPATH 环境变量为我们指明了本地工作空间的地址，而每个导入路径都会指明唯一的包。标准库中的包往往是 `fmt`, `net/http` 这样的短路径；而对于自定义的包，则必须指明根路径以避免潜在的冲突。如果我们使用了 Github 这样的源码仓库，则需要使用 `github.com/user` 作为根路径。
 
@@ -73,7 +61,100 @@ mypkg_linux.go         // only builds on linux systems
 mypkg_windows_amd64.go // only builds on windows 64bit platforms
 ```
 
-### 初始化函数
+我们可以使用 `dep ensure -add github.com/pkg/errors` 添加依赖，运行之后，其会在 toml 文件中添加如下锁：
+
+```toml
+[[constraint]]
+  name = "github.com/pkg/errors"
+  version = "0.8.0"
+```
+
+简单的 Go 中 Hello World 代码如下：
+
+```go
+package main
+import "fmt"
+func main() {
+    fmt.Println("hello world")
+}
+```
+
+## Go Modules
+
+Go Modules 将包名与路径分离，可以存放于文件系统上的任何为止，而不用管 GOPATH 路径到底是什么，我们可以创建任意的项目目录:
+
+```sh
+$ mkdir -p /tmp/scratchpad/hello
+$ cd /tmp/scratchpad/hello
+```
+
+然后初始化所需要的模块:
+
+```sh
+$ go mod init github.com/you/hello
+
+go: creating new go.mod: module github.com/you/hello
+```
+
+然后照常编写 Go 模块代码:
+
+```go
+// hello.go
+package main
+
+import (
+    "fmt"
+    "rsc.io/quote"
+)
+
+func main() {
+    fmt.Println(quote.Hello())
+}
+```
+
+在执行 `go build` 命令之后，即可以在 `go.mod` 文件中查看模块定义与显式的声明:
+
+```sh
+$ cat go.mod
+
+module github.com/you/hello
+
+require rsc.io/quote v1.5.2
+```
+
+### 模块结构
+
+模块是包含了 Go 源文件的目录树，并在根目录中添加了名为 go.mod 的文件，go.mod 包含模块导入名称，声明了要求的依赖项，排除的依赖项和替换的依赖项。
+
+```
+module my/thing
+
+require (
+        one/thing v1.3.2
+        other/thing v2.5.0 // indirect
+        ...
+)
+
+exclude (
+        bad/thing v0.7.3
+)
+
+replace (
+        src/thing 1.0.2 => dst/thing v1.1.0
+)
+```
+
+需要注意的是，该文件中声明的依赖，并不会在模块的源代码中使用 import 自动导入，还是需要我们人工添加 import 语句来导入的。模块可以包含其他模块，在这种情况下，它们的内容将从父模块中排除。除了 go.mod 文件外，跟目录下还可以存在一个名为 go.sum 的文件，用于保存所有的依赖项的哈希摘要校验之，用于验证缓存的依赖项是否满足模块要求。
+
+### 外部依赖
+
+模块依赖项会被下载并存储到 `GOPATH/src/mod` 目录中，直接后果就是废除了模块的组织名称。
+
+那么，新的结构到底是什么样的呢？假设我们正在开发的项目依赖于 github.com/me/lib 且版本号 1.0.0 的模块，对于这种情况，我们会发现在 GOPATH/src/mod 中文件结构如下
+
+![](https://www.twle.cn/static/i/golang/20180803_golang_3.png)
+
+## 初始化函数
 
 各个包中默认首字母大写的函数作为其他包可见的导出函数，而小写函数则默认外部不可见的私有函数。Go 允许在文件中包含初始化函数，默认使用 `_` 引入的包仅调用初始化函数：
 
@@ -143,42 +224,6 @@ func init() {
 func main() {
     fmt.Println("main")
 }
-```
-
-### 外部引用
-
-外部引用该模块是需要使用工作区间或者 vendor 相对目录，其目录索引情况如下：
-
-```sh
-cannot find package "sub/math" in any of:
-    ${PROJECTROOT}/vendor/sub/math (vendor tree)
-    /usr/local/Cellar/go/1.10/libexec/src/sub/math (from $GOROOT)
-    ${GOPATH}/src/sub/math (from $GOPATH)
-```
-
-对于应用型项目，推荐的结构如下：
-
-```
-github.com/my/foo/
-circle.yml
-Dockerfile
-cmd/
-    foosrv/
-    main.go
-foocli/
-    main.go
-pkg/
-    fs/
-        fs.go
-        fs_test.go
-        mock.go
-        mock_test.go
-    merge/
-        merge.go
-        merge_test.go
-    api/
-        api.go
-        api_test.go
 ```
 
 # 表达式与控制流
@@ -838,6 +883,9 @@ point := struct {
 	X, Y int
 }{1, 2}
 
+// 声明空指针
+var v *Vertex = new(Vertex)
+
 // 显式声明键
 var v = Vertex{X: 1, Y: 2}
 
@@ -871,9 +919,7 @@ func (v *Vertex) add(n float64) {
 }
 ```
 
-```go
-var p *Person = new(Person) // pointer of type Person
-```
+### new 与 make
 
 ## Pointer | 指针
 

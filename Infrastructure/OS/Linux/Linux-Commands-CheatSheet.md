@@ -310,6 +310,85 @@ ssh-copy-id username@remote-server
 
 # 文件系统
 
+## 状态检索
+
+### 文件检索
+
+- 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则:
+
+```sh
+$ ls -lR /home/han | grep js | wc -l
+
+$ ls -l "/home/han" | grep "js" |wc -l
+
+$ ls -l --sort=size --block-size=M
+```
+
+这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKE 『John%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是`John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
+
+可以使用 [fzf](https://github.com/junegunn/fzf) 进行交互式检索，在[这里](https://github.com/junegunn/fzf-bin/releases)下载二进制文件
+
+```sh
+$find * -type f | fzf > selected
+```
+
+![fzf](https://raw.githubusercontent.com/junegunn/i/master/fzf-preview.png)
+
+### 磁盘空间
+
+使用 du(disk usage)/df(disk free) 查看磁盘状态，du 是通过搜索文件来计算每个文件的大小然后累加，du 能看到的文件只是一些当前存在
+的，没有被删除的。他计算的大小就是当前他认为存在的所有文件大小的累加和；df 记录的是通过文件系统获取到的文件的大小，他比 du 强的地方就是能够看到已经删除的文件，而且计算大小的时候，把这一部分的空间也加上了，更精确了。
+
+```sh
+# 查看磁盘剩余空间
+$ df -ah
+
+$ df --block-size=GB/-k/-m
+
+# 查看当前目录下的目录空间占用
+$ du -h --max-depth=1 /var/ | sort
+
+# 查看 tmp 目录的磁盘占用
+$ du -sh /tmp
+
+# 查看当前目录包含子目录的大小
+$ du -sm .
+
+# 查看目录下文件尺寸
+$ ls -l --sort=size --block-size=M
+```
+
+### I/O
+
+使用 `fuser tmpFile.js` 查看指定文件被进程占用情况，
+
+可以使用 iostat 查看磁盘详细的参数与吞吐量记录:
+
+```sh
+# 查看磁盘详细参数
+$ iostat
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await  svctm  %util
+
+wrqm/s：每秒这个设备相关的写入请求有多少被 Merge 了。
+
+rsec/s：每秒读取的扇区数； 判断磁盘在读还是写
+
+wsec/：每秒写入的扇区数。
+
+rKB/s：The number of read requests that were issued to the device per second；
+
+wKB/s：The number of write requests that were issued to the device per second；
+
+avgrq-sz 平均请求扇区的大小
+
+avgqu-sz 是平均请求队列的长度。毫无疑问，队列长度越短越好。
+
+await:  每一个IO请求的处理的平均时间(单位是微秒毫秒)。这里可以理解为 IO 的响应时间，一般地系统IO响应时间应该低于 5ms，如果大于 10ms 就比较大了
+
+%util: 在统计时间内所有处理IO时间，除以总共统计时间
+```
+
 ## 文件操作
 
 ### 创建
@@ -353,75 +432,9 @@ $ tar -rf archive.tar file3.txt
 ######
 ```
 
-## 检索
-
-- 可以使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则:
-
-```sh
-$ ls -lR /home/han | grep js | wc -l
-
-$ ls -l "/home/han" | grep "js" |wc -l
-
-$ ls -l --sort=size --block-size=M
-```
-
-这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKE 『John%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是`John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
-
-可以使用 [fzf](https://github.com/junegunn/fzf) 进行交互式检索，在[这里](https://github.com/junegunn/fzf-bin/releases)下载二进制文件
-
-```sh
-$find * -type f | fzf > selected
-```
-
-![fzf](https://raw.githubusercontent.com/junegunn/i/master/fzf-preview.png)
-
 ## 文件属性
 
 ## 磁盘管理
-
-### 状态检索
-
-使用 `fuser tmpFile.js` 查看指定文件被进程占用情况，
-
-可以使用 du/df 查看磁盘状态：
-
-```sh
-# 查看磁盘剩余空间
-$ df -sh
-Filesystem      Size  Used Avail Use% Mounted on
-udev            2.0G     0  2.0G   0% /dev
-tmpfs           396M  3.5M  392M   1% /run
-
-# 查看当前目录下的目录空间占用
-$ du -h --max-depth=1 | sort
-```
-
-可以使用 iostate 查看磁盘详细的参数与吞吐量记录:
-
-```sh
-# 查看磁盘详细参数
-$ iostat
-
-Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await  svctm  %util
-
-wrqm/s：每秒这个设备相关的写入请求有多少被Merge了。
-
-rsec/s：每秒读取的扇区数； 判断磁盘在读还是写
-
-wsec/：每秒写入的扇区数。
-
-rKB/s：The number of read requests that were issued to the device per second；
-
-wKB/s：The number of write requests that were issued to the device per second；
-
-avgrq-sz 平均请求扇区的大小
-
-avgqu-sz 是平均请求队列的长度。毫无疑问，队列长度越短越好。
-
-await:  每一个IO请求的处理的平均时间(单位是微秒毫秒)。这里可以理解为IO的响应时间，一般地系统IO响应时间应该低于5ms，如果大于10ms就比较大了
-
-%util: 在统计时间内所有处理IO时间，除以总共统计时间
-```
 
 ### 分区、格式化与挂载
 
@@ -779,9 +792,7 @@ $ w
 # root     pts/1     15:15   49.00s  0.04s  0.00s w
 ```
 
-## 内存
-
-## 进程
+## 内存与进程
 
 ### 进程监控
 
@@ -811,11 +822,13 @@ $ top -u oracle
 
 ### 进程关闭
 
-[fkill](https://github.com/sindresorhus/fkill)
-
 ```sh
 $ pkill -f java
 ```
+
+### 资源限制
+
+
 
 ## Cron
 

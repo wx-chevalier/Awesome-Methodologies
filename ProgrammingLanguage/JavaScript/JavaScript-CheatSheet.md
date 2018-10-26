@@ -209,6 +209,35 @@ while ((m = re.exec(s))) {
 // ['12', '34', '56', '78', '90'];
 ```
 
+exec 与 match 的区别在于，在全局匹配模式下，match 仅会返回匹配项数组，而忽略提取项；exec 会需要迭代调用才会返回全部结果:
+
+```js
+re_once = /([a-z])([A-Z])/;
+re_glob = /([a-z])([A-Z])/g;
+
+st = 'aAbBcC';
+
+console.log(
+  'match once=' + st.match(re_once) + '  match glob=' + st.match(re_glob)
+);
+console.log(
+  'exec once=' + re_once.exec(st) + '   exec glob=' + re_glob.exec(st)
+);
+console.log(
+  'exec once=' + re_once.exec(st) + '   exec glob=' + re_glob.exec(st)
+);
+console.log(
+  'exec once=' + re_once.exec(st) + '   exec glob=' + re_glob.exec(st)
+);
+
+/*
+match once=aA,a,A  match glob=aA,bB,cC
+exec once=aA,a,A   exec glob=aA,a,A
+exec once=aA,a,A   exec glob=bB,b,B
+exec once=aA,a,A   exec glob=cC,c,C
+*/
+```
+
 ### 匹配模式
 
 `/g` 标识标识全局匹配。`/y` 标识(Sticky 模式)表示匹配必须从 `re.lastIndex`，即上一次匹配的末尾处开始，该行为类似于 `^` 标识，不过不强制从首部开始。

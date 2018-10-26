@@ -12,17 +12,17 @@ Java 内存模型与 [JVM 体系结构](./JVM-CheatSheet.md) 不尽相同，Java
 
 ## Abstract Memory Model | 抽象内存模型
 
-现代计算机通常有两个或者更多的CPU，一些CPU还有多个核。在这样的计算机中，可能同时运行着多个线程，而每个CPU在某个时间片内运行其中的一个线程。
+现代计算机通常有两个或者更多的 CPU，一些 CPU 还有多个核。在这样的计算机中，可能同时运行着多个线程，而每个 CPU 在某个时间片内运行其中的一个线程。
 
-每个CPU包含多个寄存器，这些寄存器本质上就是CPU内存。CPU在寄存器中执行操作的速度会比在主内存中操作快非常多。因为寄存器的访问速度比主内存的访问速度快很多。
+每个 CPU 包含多个寄存器，这些寄存器本质上就是 CPU 内存。CPU 在寄存器中执行操作的速度会比在主内存中操作快非常多。因为寄存器的访问速度比主内存的访问速度快很多。
 
-每个CPU可能还拥有CPU缓存层，CPU访问缓存层的速度比访问主内存块很多，但是却比访问寄存器要慢。计算机还包括主内存（RAM），所有的CPU都可以访问这个主内存，主内存一般都比CPU缓存大很多，但速度要比CPU缓存慢。
+每个 CPU 可能还拥有 CPU 缓存层，CPU 访问缓存层的速度比访问主内存块很多，但是却比访问寄存器要慢。计算机还包括主内存（RAM），所有的 CPU 都可以访问这个主内存，主内存一般都比 CPU 缓存大很多，但速度要比 CPU 缓存慢。
 
-通常情况，当一个CPU需要访问主内存的时候，会把主内存中的部分数据读取到CPU缓存，甚至进一步把缓存中的部分数据读取到内部的寄存器，然后对其进行操作。当CPU需要向主内存写数据的时候，会将寄存器中的数据写入缓存，某些时候会将数据从缓存刷入主内存。无论从缓存读还是写数据，都没有必要一次性全部读出或者写入，而是部分数据。
+通常情况，当一个 CPU 需要访问主内存的时候，会把主内存中的部分数据读取到 CPU 缓存，甚至进一步把缓存中的部分数据读取到内部的寄存器，然后对其进行操作。当 CPU 需要向主内存写数据的时候，会将寄存器中的数据写入缓存，某些时候会将数据从缓存刷入主内存。无论从缓存读还是写数据，都没有必要一次性全部读出或者写入，而是部分数据。
 
 ![](http://tutorials.jenkov.com/images/java-concurrency/java-memory-model-5.png)
 
-Java虚拟机内运行的每个线程都拥有一个属于自己的线程栈（调用栈），随着线程代码的执行，调用栈会随之改变。
+Java 虚拟机内运行的每个线程都拥有一个属于自己的线程栈（调用栈），随着线程代码的执行，调用栈会随之改变。
 
 线程栈中包含每个正在执行的方法的局部变量。每个线程只能访问属于自己的栈。调用栈中的局部变量，只有创建这个栈的线程才可以访问，其他线程都不能访问。即使两个线程在执行一段相同的代码，这两个线程也会在属于各自的线程栈中创建局部变量。因此，每个线程拥有属于自己的局部变量。
 
@@ -75,17 +75,16 @@ public class MyRunnable implements Runnable() {
 }
 ```
 
-Java内存模型和硬件内存架构不一样。硬件内存架构不区分线程栈和堆内存。在硬件中，线程栈和堆内存都分配在主内存中。部分线程栈和堆数据有时可能出现在CPU缓存中，有时可能出现在寄存器中。
+Java 内存模型和硬件内存架构不一样。硬件内存架构不区分线程栈和堆内存。在硬件中，线程栈和堆内存都分配在主内存中。部分线程栈和堆数据有时可能出现在 CPU 缓存中，有时可能出现在寄存器中。
 
 ![](http://tutorials.jenkov.com/images/java-concurrency/java-memory-model-3.png)
 
 如果多个线程共享一个对象，如果没有合理的使用 volatile 声明和线程同步，一个线程更新共享对象后，另一个线程可能无法取到对象的最新值。
 
-如图，共享变量存储在主内存。运行在某个CPU中的线程将共享变量读取到自己的CPU缓存。在CPU缓存中，修改了共享对象的值，由于CPU并未将缓存中的数据刷回主内存，导致对共享变量的修改对于在另一个CPU中运行的线程而言是不可见的。这样每个线程都会拥有一份属于自己的共享变量的拷贝，分别存于各自对应的CPU缓存中。
+如图，共享变量存储在主内存。运行在某个 CPU 中的线程将共享变量读取到自己的 CPU 缓存。在 CPU 缓存中，修改了共享对象的值，由于 CPU 并未将缓存中的数据刷回主内存，导致对共享变量的修改对于在另一个 CPU 中运行的线程而言是不可见的。这样每个线程都会拥有一份属于自己的共享变量的拷贝，分别存于各自对应的 CPU 缓存中。
 
 如果多个线程共享一个对象，当多个线程更新这个变量时，会引发竞争条件。
-想象下，如果有两个线程分别运行在两个CPU中，两个线程分别将同一个共享变量读取到各自的CPU缓存。现在线程一将变量加一，线程二也将变量加一，当两个CPU缓存的数据刷回主内存时，变量的值只加了一，并没有加二。同步锁可以确保一段代码块同时只有一个线程可以进入。同步锁可以确保被保护代码块内所有的变量都是从主内存获取的，当被保护代码块执行完毕时，所有变量的更新都会刷回主内存，无论这些变量是否用 volatile 修饰。
-
+想象下，如果有两个线程分别运行在两个 CPU 中，两个线程分别将同一个共享变量读取到各自的 CPU 缓存。现在线程一将变量加一，线程二也将变量加一，当两个 CPU 缓存的数据刷回主内存时，变量的值只加了一，并没有加二。同步锁可以确保一段代码块同时只有一个线程可以进入。同步锁可以确保被保护代码块内所有的变量都是从主内存获取的，当被保护代码块执行完毕时，所有变量的更新都会刷回主内存，无论这些变量是否用 volatile 修饰。
 
 ## Cache Line & False Sharing | 缓存行与伪共享
 
@@ -144,7 +143,6 @@ public static long preventFromOptimization(VolatileLong v) {
 > - [java-util-concurrent](http://tutorials.jenkov.com/java-util-concurrent/index.html)
 
 ## Threads & Runnables
-
 
 Timer 计时器具备使任务延迟执行以及周期性执行的功能，但是 Timer 天生存在一些缺陷，所以从 JDK 1.5 开始就推荐使用 ScheduledThreadPoolExecutor（ScheduledExecutorService 实现类）作为其替代工具。
 
@@ -310,8 +308,6 @@ executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
 
 ## Concurrence Test
 
-> - [concurrency-torture-testing-your-code-within-the-java-memory-model](http://zeroturnaround.com/rebellabs/concurrency-torture-testing-your-code-within-the-java-memory-model/)
-
 # 线程安全
 
 ## Atomic Variables(原子性与原子变量)
@@ -421,40 +417,40 @@ public class CountDownLatchTest {
     public static void main(String[] args) throws InterruptedException {
 
         // 开始的倒数锁
-        final CountDownLatch begin = new CountDownLatch(1);  
+        final CountDownLatch begin = new CountDownLatch(1);
 
         // 结束的倒数锁
-        final CountDownLatch end = new CountDownLatch(10);  
+        final CountDownLatch end = new CountDownLatch(10);
 
         // 十名选手
-        final ExecutorService exec = Executors.newFixedThreadPool(10);  
+        final ExecutorService exec = Executors.newFixedThreadPool(10);
 
         for (int index = 0; index < 10; index++) {
-            final int NO = index + 1;  
+            final int NO = index + 1;
             Runnable run = new Runnable() {
-                public void run() {  
-                    try {  
+                public void run() {
+                    try {
                         // 如果当前计数为零，则此方法立即返回。
                         // 等待
-                        begin.await();  
-                        Thread.sleep((long) (Math.random() * 10000));  
-                        System.out.println("No." + NO + " arrived");  
-                    } catch (InterruptedException e) {  
-                    } finally {  
+                        begin.await();
+                        Thread.sleep((long) (Math.random() * 10000));
+                        System.out.println("No." + NO + " arrived");
+                    } catch (InterruptedException e) {
+                    } finally {
                         // 每个选手到达终点时，end就减一
                         end.countDown();
-                    }  
-                }  
-            };  
+                    }
+                }
+            };
             exec.submit(run);
-        }  
-        System.out.println("Game Start");  
+        }
+        System.out.println("Game Start");
         // begin减一，开始游戏
-        begin.countDown();  
+        begin.countDown();
         // 等待end变为0，即所有选手到达终点
-        end.await();  
-        System.out.println("Game Over");  
-        exec.shutdown();  
+        end.await();
+        System.out.println("Game Over");
+        exec.shutdown();
     }
 }
 ```
@@ -609,3 +605,7 @@ public class RxUsingJava8 {
     }
 }
 ```
+
+# Todos
+
+- [concurrency-torture-testing-your-code-within-the-java-memory-model](http://zeroturnaround.com/rebellabs/concurrency-torture-testing-your-code-within-the-java-memory-model/)

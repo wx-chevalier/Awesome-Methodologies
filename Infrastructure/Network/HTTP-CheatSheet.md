@@ -2,6 +2,10 @@
 
 # HTTP CheatSheet | HTTP 相关必知必会：TCP/HTTP2/HTTPS/DNS，请求，响应，缓存
 
+```sh
+http://rob:abcd1234@www.example.co.uk/path/index.html?query1=test&silly=willy&field[0]=zero&field[2]=two#test=hash&chucky=cheese
+```
+
 # 简明协议流程
 
 ## TCP
