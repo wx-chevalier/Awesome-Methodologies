@@ -6,13 +6,11 @@
 
 `Copyright © 王下邀月熊`
 
-[Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 是 [Awesome-Coder](https://github.com/wxyyxc1992/Awesome-Coder) 系列的重要组成，是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://github.com/wxyyxc1992/Awesome-Coder/tree/master/MindMap)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
+[Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://wxyyxc1992.github.io/home/#/perspective)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
 
-- {Something}-CheatSheet.md: 对于 {Something} 的语法特性，实践技巧，技术栈进行速览与盘点。
+![default](https://user-images.githubusercontent.com/5803001/47262684-025c2e00-d522-11e8-8c82-4a5afcf428d1.png)
 
-- {Something}-Snippets-CheatSheet.md: 有用的/令人吃惊的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
-
-- {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
+**建议前往 [xCompass](https://wxyyxc1992.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程，或者直接浏览本仓库的目录以了解更多内容。**
 
 **建议前往 [xCompass](https://wxyyxc1992.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程，或者直接浏览本仓库的目录以了解更多内容。**
 
@@ -31,6 +29,18 @@
 - 书籍式笔记，即可以是 [Awesome-CS-Books-Warehouse](https://github.com/wxyyxc1992/Awesome-CS-Books-Warehouse) 这样对于优秀书籍的搜集，也可以是 [现代 Web 开发](https://github.com/wxyyxc1992/Web-Series)，[深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series) 等这样子各个领域的自己的笔记的编排。值得一提的是，书籍式笔记，并不强调一定要遵循知识图谱的结构，而是赋予其一定灵活性，以方便记录与交流。
 
 - 代码式笔记，典型的代表是 [coding-snippets](https://github.com/wxyyxc1992/coding-snippets), 对于程序员这个角色而言，代码也是我们笔记系统的重要组成。在这个之上，我们又可以构建出一系列小的项目。
+
+## TOC | 目录
+
+对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
+
+- {Something}-CheatSheet.md: 对于 {Something} 的语法特性，实践技巧，技术栈进行速览与盘点。
+
+- {Something}-Snippets-CheatSheet.md: 有用的/令人吃惊的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
+
+- {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
+
+# About | 关于
 
 ## 参考
 
