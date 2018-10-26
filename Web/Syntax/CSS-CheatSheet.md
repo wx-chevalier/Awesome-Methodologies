@@ -32,6 +32,18 @@ element.style.getPropertyValue('--my-color');
 element.style.removeProperty('--my-color');
 ```
 
+# Layout & Position | 布局与定位
+
+## Position | 定位
+
+需要注意的是，如果父元素包含了 transform 属性，那么子元素的 position 为 fixed 属性时会出现异常。
+
+### Center | 居中
+
+## Scroll | 滚动
+
+在 iOS 设备上可以添加 `-webkit-overflow-scrolling` 属性，以使用户感觉懒滚动式地顺滑。
+
 # CSS Animation
 
 CSS3 动画相关的几个属性是：transition, transform, animation；分别理解为过渡，变换，动画。transition 指过渡，就是从 a 点都 b 点，是有时间的，是连续的，一般针对常规 CSS 属性；transform 指变换，包含几个固定的属性：旋转、缩放、偏移等等，但是，效果就是很干涩机械的旋转移动，如果配合 transition 属性，变换就会很平滑。
@@ -198,6 +210,8 @@ import styles from './style.css';
 
 element.innerHTML = '<div class="' + styles.className + '">';
 ```
+
+CSS Modules 中也支持设置全局样式：
 
 ```less
 :global {

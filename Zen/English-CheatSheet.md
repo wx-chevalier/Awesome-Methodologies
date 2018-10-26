@@ -75,6 +75,7 @@
   - isomorphic [,aɪsə(ʊ)'mɔːfɪk](http://dict.youdao.com/dictvoice?audio=isomorphic&type=1)
 
 * J
+  - jigsaw ['dʒɪgsɔː](http://dict.youdao.com/dictvoice?audio=jigsaw&type=1)
 
 * K
 

@@ -10,6 +10,72 @@ Redux 是受 Flux 启发的，类似于 Event Sourcing 的事件驱动型框架�
 
 # ducks
 
+[ducks-modular-redux](https://github.com/erikras/ducks-modular-redux) 是对于 Ducks 规范的描述，其按照业务模块将 reducer, action, actionTypes 合并到单一的文件中。
+
+```js
+// widgets.js
+
+// Actions
+const LOAD   = 'my-app/widgets/LOAD';
+const CREATE = 'my-app/widgets/CREATE';
+const UPDATE = 'my-app/widgets/UPDATE';
+const REMOVE = 'my-app/widgets/REMOVE';
+
+// Reducer
+export default function reducer(state = {}, action = {}) {
+  switch (action.type) {
+    // do reducer stuff
+    default: return state;
+  }
+}
+
+// Action Creators
+export function loadWidgets() {
+  return { type: LOAD };
+}
+
+export function createWidget(widget) {
+  return { type: CREATE, widget };
+}
+
+export function updateWidget(widget) {
+  return { type: UPDATE, widget };
+}
+
+export function removeWidget(widget) {
+  return { type: REMOVE, widget };
+}
+
+// side effects, only as applicable
+// e.g. thunks, epics, etc
+export function getWidget () {
+  return dispatch => get('/widget').then(widget => dispatch(updateWidget(widget)))
+}
+```
+
+A module...
+
+MUST export default a function called reducer()
+MUST export its action creators as functions
+MUST have action types in the form npm-module-or-app/reducer/ACTION_TYPE
+MAY export its action types as UPPER_SNAKE_CASE, if an external reducer needs to listen for them, or if it is a published reusable library
+
+在外部使用时，我们可以导出默认的 reducer:
+
+```js
+import { combineReducers } from 'redux';
+import * as reducers from './ducks/index';
+
+const rootReducer = combineReducers(reducers);
+export default rootReducer;
+```
+
+在组件中，可以导出所有的 Action:
+
+```js
+import * as widgetActions from './ducks/widgets';
+```
+
 # redux-actions
 
 ```js
