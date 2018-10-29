@@ -875,3 +875,120 @@ mvn test -Dtest=Random*Test,AccountCaptchaServiceTest
 
 [1]: http://blog.csdn.net/sin90lzc/article/details/7543262
 [2]: http://maven.oschina.net/help.html
+
+# 依赖管理
+
+## 父子项目
+
+```xml
+Parent
+`------ childA(BusinessLayer)
+          `--- pom.xml
+`------ childB(WebLayer)
+         `--- pom.xml
+`------ pom.xml
+```
+
+在maven中，parent模块组织好childA和childB，叫做"聚合"，多个模块联合编译。实现起来很简单，只需要在parent的pom文件里加入以下内容。
+
+```xml
+<modules>
+   <module>childA</module>
+   <module>childB</module>
+</modules>
+```
+
+这样只是告诉maven编译器，在读取parent的pom文件时去找到childA和childB，但还是会分别去编译他们引入的依赖。这样就会导致pom文件引入的包重复！！于是我们引入了"继承"的概念，也就是形成"父子"关系，子pom可以引用到父pom中引入的依赖。具体做法如下：
+
+在parent中，写入以下内容，其中"*"标识的行可以组成一个路径，通过这个路径可以在maven仓库中找到这个pom文件！本例中，path为M2_Path/com/sang/main/Parent-Moduel/1.0.2/xxxx-1.0.2.pom。所以这三个标签是必须的！！！
+
+<modelVersion>4.0.0</modelVersion>  
+<groupId>com.sang.main</groupId>              *
+<artifactId>Parent-Moduel</artifactId>        *
+<version>1.0.2</version>            *
+<packaging>pom</packaging>  
+<name>Simple-main</name>
+父pom写好了，子pom就通过<parent>标签继承父pom的依赖，如下：
+
+<parent>
+   <groupId>com.sang.main</groupId>
+   <artifactId>Parent-Moduel</artifactId>
+   <version>1.0.2</version>
+   <relativePath>../pom.xml</relativePath>  <!--本例中此处是可选的-->
+</parent>
+值得注意的是<relativePath>标签，如果pom的层次关系就像本例中的那样只隔一层，则可以省略这个。maven同样可以找到子pom。
+
+子pom中引入<parent>标签后，就会从父pom继承<version>等属性了，例如childA只需要再加入如下内容即可！
+
+<modelVersion>4.0.0</modelVersion>  
+<groupId>com.sang.business</groupId>     <!--和artifactId一起唯一标识这个jar文件-->
+<artifactId>ChildA-module</artifactId>
+<packaging>jar</packaging>         <!--指明打包类型-->
+<name>childA</name>
+
+maven可以让我们方便地管理jar包依赖，具体做法如下：
+
+<dependencies>
+     <dependency>   <!--添加一个jar包依赖-->
+         <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.5</version>
+    </dependency>
+</dependencies>
+如果不通过继承，则需要在每个pom中加入这样的依赖，这样子pom对应的模块可以引用到这个jar包。上面提到的重复引用jar包，可以通过下面的方式解决：
+
+主pom中把依赖通过<dependecyManagement>引起来，表示子pom可能会用到的jar包依赖
+
+<dependencyManagement>
+   <dependencies>
+      <dependency>
+           <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+          <version>2.5</version>
+      </dependency>
+   </dependencies>
+</dependencyManagement>
+子pom如果需要引用该jar包，则直接引用即可！不需要加入<version>，便于统一管理。此外也可以加入仅在子pom中用到的jar包，比如：
+
+<dependencies>
+   <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>   <!--此处不再需要verison了！-->
+   </dependency>
+   <dependency>
+       <groupId>org.codehaus.jackson</groupId>
+       <artifactId>jackson-core-lgpl</artifactId>
+       <version>1.9.4</version>    <!--当然也可以加入只在这个子模块中用到的jar包-->
+   </dependency>
+</dependencies>
+4、除了jar包依赖，插件也可以通过这样的方式进行管理
+
+<!-- mainModule -->
+<build>
+   <pluginManagement>
+      <plugins>
+          <plugin>
+               <groupId>org.apache.maven.plugins</groupId>
+               <artifactId>maven-source-plugin</artifactId>
+               <version>2.1.1</version>
+          </plugin>
+      </plugins>
+   </pluginManagement>
+</build>
+
+<!-- childA -->
+<build>   
+   <plugins>
+      <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-source-plugin</artifactId>
+      </plugin>
+   </plugins>
+</build>
+5、如果子pom间存在引用关系，比如childA引用到了childB的jar包，该怎么做？
+
+<dependency>
+   <groupId>com.module</groupId>
+   <artifactId>childA</artifactId>       <!--加上childA的依赖-->
+   <version>1.0.0</version>
+</dependency>
