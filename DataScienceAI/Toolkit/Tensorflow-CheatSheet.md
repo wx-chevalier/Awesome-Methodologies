@@ -2,7 +2,9 @@
 
 # TensorFlow CheatSheet | TensorFlow 基础概念与实践清单
 
-本文主要使用 Python，但是 TensorFlow 为我们提供了多种语言的 API，与 HTML 类似，TensorFlow 是用于表示某种类型的计算抽象（称为「计算图」）的框架。在使用 TensorFlow 库时，我们首先需要构建计算图，然后初始化 Session，最后填充数据，并且获取结果。
+
+
+TensorFlow 是用于表示某种类型的计算抽象（称为「计算图」）的框架。在使用 TensorFlow 库时，我们首先需要构建计算图，然后初始化 Session，最后填充数据，并且获取结果。
 
 ```py
 # 数据获取
