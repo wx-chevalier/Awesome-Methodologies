@@ -2,6 +2,8 @@
 
 # Spring Security CheatSheet
 
+![image](https://user-images.githubusercontent.com/5803001/47625333-65bc1080-db5f-11e8-8971-ec4925c9b801.png)
+
 ## CSRF
 
 基于 Token 做 CSRF 防范的话，最基础的需要解决 Token 的生成、存储、查询等问题。针对这些问题，Spring Security 定义了 CSRF Token 仓库接口 org.springframework.security.web.csrf.CsrfTokenRepository.java。目前该接口有 3 个实现类：CookieCsrfTokenRepository、HttpSessionCsrfTokenRepository 以及 LazyCsrfTokenRepository。

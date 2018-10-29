@@ -157,7 +157,7 @@ Full Join 相当于把 Left 和 Right 联结到一起，告诉数据库要全部
 
 ### 子查询作为数据源使用
 
-当子查询在外部查询的 FROM 子句之后使用时,子查询被当作一个数据源使用,即使这时子查询只返回一个单一值(Scalar)或是一列值(Column)，在这里依然可以看作一个特殊的数据源,即一个二维数据表(Table).作为数据源使用的子查询很像一个视图(View),只是这个子查询只是临时存在，并不包含在数据库中。
+当子查询在外部查询的 FROM 子句之后使用时,子查询被当作一个数据源使用,即使这时子查询只返回一个单一值(Scalar)或是一列值(Column)，在这里依然可以看作一个特殊的数据源,即一个二维数据表(Table)。作为数据源使用的子查询很像一个视图(View),只是这个子查询只是临时存在，并不包含在数据库中。
 
 ### 子查询作为选择条件使用
 
@@ -184,6 +184,7 @@ WHERE
 当子查询作为计算列使用时，只返回单个值(Scalar)，其用在 SELECT 语句之后，作为计算列使用，同样分为相关子查询和无关子查询。
 
 ```sql
+--- 查询每个类别中价格大于某个值的产品数目
 SELECT
 	p1.category,
 	(
@@ -202,6 +203,7 @@ GROUP BY
 ```
 
 ```sql
+--- 自连接查询不同等级的数目
 SELECT a.distributor_id,
       (SELECT COUNT(*) FROM my_table WHERE level='personal' and distributor_id = a.distributor_id) as personal_count,
       (SELECT COUNT(*) FROM my_table WHERE level='exec' and distributor_id = a.distributor_id) as exec_count,
