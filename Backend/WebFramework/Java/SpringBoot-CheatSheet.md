@@ -1,5 +1,23 @@
 # Spring Boot CheatSheet
 
+可以在 [Spring Initializr](https://start.spring.io/) 动态地选择需要的组件。
+
+```
+// Enable component-scanning and auto-configuration with @SpringBootApplication Annotation
+// It combines @Configuration + @ComponentScan + @EnableAutoConfiguration
+@SpringBootApplication
+public class FooApplication {
+  public static void main(String[] args) {
+    // Bootstrap the application
+    SpringApplication.run(FooApplication.class, args);
+  }
+}
+```
+
+- @Configuration:  Marks a class as a config class using Spring's Java based configuration
+- @ComponentScan:  Enables component-scanning so that web controller classes can be automatically registered as beans in the Spring application context
+- @EnableAutoConfiguration: Configures the application based on the dependencies
+
 # 依赖声明与注入
 
 ## 依赖声明
@@ -29,6 +47,73 @@ public class TestConfig {
         ...
         return factory;
     }
+}
+```
+
+### Conditional Configuration
+
+Class conditions allow us to specify that a configuration bean will be included if a specified class is present.
+
+```java
+@Configuration
+@ConditionalOnClass(DataSource.class)
+public class MySQLAutoconfiguration {
+    //...
+}
+
+```
+
+也可以根据某个 Bean 是否存在来决定是否需要创建 Bean:
+
+```java
+@Bean
+@ConditionalOnBean(name = "dataSource")
+@ConditionalOnMissingBean
+public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    LocalContainerEntityManagerFactoryBean em
+      = new LocalContainerEntityManagerFactoryBean();
+    ...
+    return em;
+}
+```
+
+还可以根据是否存在某个属性配置来决定是否需要创建某个 Bean:
+
+```java
+@Bean
+@ConditionalOnProperty(
+  name = "usemysql", 
+  havingValue = "local")
+@ConditionalOnMissingBean
+public DataSource dataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    ...
+    return dataSource;
+}
+```
+
+```java
+// Defining Condition that checks if the JdbcTemplate is available on the classpath
+//
+// Conditions are used by the auto-configuration mechanism of Spring Boot
+// There are several configuration classes in the spring-boot-autoconfigure.jar
+// which contribute to the configuration if specific conditions are met
+public class JdbcTemplateCondition implements Condition {
+  @Override
+  public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+    try {
+      context.getClassLoader().loadClass("org.springframework.jdbc.core.JdbcTemplate");
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+}
+
+// Use a custom condition class to decide whether a Bean should be created or not
+@Conditional(JdbcTemplateCondition.class)
+public class MyService {
+  ...
 }
 ```
 
@@ -110,4 +195,82 @@ mail.credentials.authMethod=SHA1
 ```java
 @Length(max = 4, min = 1)
 private String authMethod;
+```
+
+# Test | 测试
+
+## 请求
+
+```java
+// Testing classes in Spring Boot
+@RunWith(SpringJUnit4ClassRunner.class)
+// Load context via Spring Boot
+@SpringApplicationConfiguration(classes = ReadinglistApplication.class)
+@WebAppConfiguration
+public class ReadinglistApplicationTests {
+  // Test that the context successfully loads (the method can be empty -> the test will fail if the context cannot be loaded)
+  @Test
+  public void contextLoads() {
+  }
+}
+```
+
+## 服务
+
+```java
+// Integration test by loading Springs application context
+// To to integration testing with Spring, all components of the application have to be configured and wired up.
+// Instead of doing this by hand we can use Spring's SpringJUnit4ClassRunner.
+// It helps load a Spring application context in JUnit-based application tests.
+// This method with the @ContextConfiguration annotation doesn't apply extenal properites (application.properties) and logging
+// @ContextConfiguration specifies how to load the application context: A configuraiton class is passed to it as a parameter
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes=PlaylistConfiguration.class)
+public class PlaylistServiceTests {
+
+  @Autowired
+  private PlaylistService playlistService;
+
+  @Test
+  public void testService() {
+    Playlist playlist = playlistService.findByName("X-Mas Songs");
+    assertEquals("X-Mas Songs", playlist.getName());
+    assertEquals(12, playlist.countSongs());
+  }
+}
+
+```
+
+## 数据存储
+
+```java
+@SpringBootTest
+@Transactional
+class MySpec extends Specification {
+  
+  @Autowired
+  MyRepository myRepo
+  
+  def "Persist an entity"() {
+    given:
+    MyEntity entity = new MyEntity()
+    
+    when:
+    myRepo.saveAndFlush(entity)
+    
+    then:
+    myRepo.count() == 1
+  }
+  
+  def "Persist another entity"() {
+    given:
+    MyEntity entity = new MyEntity()
+    
+    when:
+    myRepo.saveAndFlush(entity)
+    
+    then:
+    myRepo.count() == 1
+  }
+}
 ```
