@@ -10,7 +10,7 @@ Spring 的设计目标是为我们提供一个一站式的轻量级应用开发�
 
 开发过程中的共性问题，Spring 封装成了各种组件，而且 Spring 通过社区，形成了一个开放的生态系统，比如 Spring Security 就是来源于一个社区贡献 Acegi。
 
-传统的 Spring MVC 基于 Servlet API 构建，使用单请求单线程处理的同步阻塞型模型；而 Spring WebFlux 则是 Reactive Stack，能够充分利用现代多核处理器的特性，从底层机制上保证了对于海量并发请求处理的能力。WebFlux 使用 Netty, Servlet 3.1+ Containers 替代传统的 Servlet Containers，使用 Reactive Stream Adapters 替代 Servlet API，使用 Spring Security Reactive 替代 Spring Security，使用 Spring Data Reactive Repositories 替代 Spring Data Repositories.
+对于 Spring 框架/生态的讨论，以及 IOC/DI 等机制原理的分析参考 [Spring CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Backend/WebFramework/Java/Spring-CheatSheet.md)
 
 ## 组成架构
 
@@ -95,5 +95,7 @@ Spring Security 是一款 Spring 的认证和安全工具。其前身是 Acegi�
 它使用 Servlet 规范中的 Filter 保护 Web 请求并限制 URL 级别的访问，还能够使用 Spring AOP 保护方法调用——借助于对象代理和使用通知，能够确保只有具备适当权限的用户才能访问安全保护的方法。
 
 它非常灵活，能够基于各种数据存储来认证用户。它内置了多种常见的用户存储场景，如内存、关系型数据库以及 LDAP，还可以编写并插入自定义的用户存储实现。
+
+传统的 Spring MVC 基于 Servlet API 构建，使用单请求单线程处理的同步阻塞型模型；而 Spring WebFlux 则是 Reactive Stack，能够充分利用现代多核处理器的特性，从底层机制上保证了对于海量并发请求处理的能力。WebFlux 使用 Netty, Servlet 3.1+ Containers 替代传统的 Servlet Containers，使用 Reactive Stream Adapters 替代 Servlet API，使用 Spring Security Reactive 替代 Spring Security，使用 Spring Data Reactive Repositories 替代 Spring Data Repositories.
 
 # 权限控制

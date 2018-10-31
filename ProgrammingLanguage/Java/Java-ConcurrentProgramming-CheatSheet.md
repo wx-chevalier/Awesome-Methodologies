@@ -548,23 +548,7 @@ Exception in thread "main" java.util.concurrent.TimeoutException
     at java.util.concurrent.FutureTask.get(FutureTask.java:205)
 ```
 
-## Promise
-
-# [RxJava](https://github.com/ReactiveX/RxJava)-Reactive Programming(响应式编程)
-
-## Quick Start
-
-笔者在 J2EE 领域还是倾向于使用 Maven，直接在 pom 文件中添加如下依赖即可：
-
-```xml
-<dependency>
-    <groupId>io.reactivex</groupId>
-    <artifactId>rxjava</artifactId>
-    <version>1.0.10</version>
-</dependency>
-```
-
-添加了 Pom 依赖项之后，即可以引入 Observable 以及 Subscribe 对象：
+# Async Programming | 异步编程
 
 ```java
 import rx.Observable;

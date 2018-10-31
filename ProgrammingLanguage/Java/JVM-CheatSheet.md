@@ -117,11 +117,7 @@ stack=2, locals=4, args_size=1
 
 ![](http://hi.csdn.net/attachment/201009/25/0_1285381395C6iW.gif)
 
-# Class
-
-## Class 文件结构
-
-## JVM 内存结构
+# JVM 内存结构
 
 Java 虚拟机会将内存分为几个不同的管理区，这些区域各自有各自的用途，根据不同的特点，承担不同的任务以及在垃圾回收时运用不同的算法。总体分为下面几个部分：程序计数器(Program Counter Register)、JVM 虚拟机栈(JVM Stacks)、本地方法栈(Native Method Stacks)、堆(Heap)、方法区(Method Area)
 
@@ -436,3 +432,67 @@ Level1 与 level2 和 level3 不同，它是一个不收集运行数据的最终
 3. 这个方法很小
 
 满足这三个条件其中之一的方法会直接被编译成 level1 并且不会晋升为其他 level。由于 C2 编译耗时较多，往往要达到几百毫秒甚至超过一秒，因此在高峰期行 Level4 编译通常并不划算，因此 JVM 参数的调整的思路是增大 level4 阈值，减少 level4 编译。具体的，可以通过增大 Tier4InvocationThreshold 和 Tier4CompileThreshold 来增大阈值。编译开销主要在于 C2 的编译线程，因此通过一定的手段限制 C2 编译线程的 CPU 使用可以减少高峰期编译开销。在本次测试中，使用在每编译完成一个方法后，sleep 200ms 的方法来限制 C2 编译线程 CPU 使用率。
+
+# Class
+
+## Class 文件结构
+
+## 类加载
+
+JVM 提供了 3 种类加载器： BootstrapClassLoader、 ExtClassLoader、 AppClassLoader 分别加载 Java 核心类库、扩展类库以及应用的类路径( CLASSPATH)下的类库。JVM 通过双亲委派模型进行类的加载，我们也可以通过继承 java.lang.classloader 实现自己的类加载器。何为双亲委派模型？当一个类加载器收到类加载任务时，会先交给自己的父加载器去完成，因此最终加载任务都会传递到最顶层的 BootstrapClassLoader，只有当父加载器无法完成加载任务时，才会尝试自己来加载。
+
+采用双亲委派模型的一个好处是保证使用不同类加载器最终得到的都是同一个对象，这样就可以保证 Java 核心库的类型安全，比如，加载位于 rt.jar 包中的 java.lang.Object 类，不管是哪个加载器加载这个类，最终都是委托给顶层的 BootstrapClassLoader 来加载的，这样就可以保证任何的类加载器最终得到的都是同样一个 Object 对象。
+
+```java
+protected Class<?> loadClass(String name, boolean resolve) {
+
+    synchronized (getClassLoadingLock(name)) {
+
+    // 首先，检查该类是否已经被加载，如果从JVM缓存中找到该类，则直接返回
+    Class<?> c = findLoadedClass(name);
+
+    if (c == null) {
+    try {
+
+        // 遵循双亲委派的模型，首先会通过递归从父加载器开始找，
+
+        // 直到父类加载器是BootstrapClassLoader为止
+
+        if (parent != null) {
+
+        c = parent.loadClass(name, false);
+
+        } else {
+
+        c = findBootstrapClassOrNull(name);
+
+        }
+
+    } catch (ClassNotFoundException e) {}
+
+        if (c == null) {
+
+        // 如果还找不到，尝试通过findClass方法去寻找
+
+        // findClass是留给开发者自己实现的，也就是说
+
+        // 自定义类加载器时，重写此方法即可
+
+        c = findClass(name);
+
+        }
+
+    }
+
+    if (resolve) {
+
+        resolveClass(c);
+
+    }
+
+    return c;
+
+    }
+
+}
+```
