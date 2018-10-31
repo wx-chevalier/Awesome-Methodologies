@@ -828,7 +828,35 @@ $ pkill -f java
 
 ### 资源限制
 
+ulimit 命令用来限制系统用户对 shell 资源的访问。ulimit 用于限制 shell 启动进程所占用的资源，支持以下各种类型的限制：所创建的内核文件的大小、进程数据块的大小、Shell 进程创建文件的大小、内存锁住的大小、常驻内存集的大小、打开文件描述符的数量、分配堆栈的最大大小、CPU 时间、单个用户的最大线程数、Shell 进程所能使用的最大虚拟内存。同时，它支持硬资源和软资源的限制。
 
+我们常用的就是在 Web 服务器上修改每个进程可以打开的最大文件数：
+
+```sh
+$ ulimit -n 4096 # 将每个进程可以打开的文件数目加大到4096，缺省为1024
+```
+
+其他建议设置成无限制（unlimited）的一些重要设置是：
+
+```sh
+$ ulimit -d unlimited # 数据段长度
+$ ulimit -m unlimited # 最大内存大小
+$ ulimit -s unlimited # 堆栈大小
+$ ulimit -t unlimited # CPU 时间
+$ ulimit -v unlimited # 虚拟内存
+```
+
+我们也可以通过配置文件的方式永久写入：
+
+```sh
+vi /etc/security/limits.conf
+# 添加如下的行
+* soft noproc 11000
+* hard noproc 11000
+* soft nofile 4100
+* hard nofile 4100
+# 说明：* 代表针对所有用户，noproc 是代表最大进程数，nofile 是代表最大文件打开数
+```
 
 ## Cron
 
