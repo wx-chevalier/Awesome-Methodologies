@@ -1,7 +1,5 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-> 节选自 [Java CheatSheet]() 与 [Java Concurrent Programming CheatSheet]()，
-
 # Java CheatSheet | Java 语法速览与实践清单
 
 当我们谈起 Java 的时候，往往是将其作为一门编程语言来讨论；然而编程语言的特性只是 Java 架构的某部分，保障其平台独立性的一系列底层架构也是 Java 不可分割的组成。宏观来看，我们认为 Java 主要包含以下四个部分：Java 编程语言、Java 类文件格式、Java API 以及 JVM。当我们在进行 Java 开发时，我们使用 Java 编程语言来编写代码，然后将其编译为 Java 类文件，最终在 JVM 中执行这些类文件；目前我们也可以使用 Gradle、Kotlin 等其他优秀的语言来编写 Java 应用程序。而 JVM 与 Java 平台的核心库就构成了我们所熟知的 Java Runtime Environment(JRE)：
@@ -26,187 +24,80 @@ OpenJDK 64-Bit Server VM 18.3 (build 10+46, mixed mode)
 
 Java 未来的发布周期，将每半年发布一个大版本，每个季度发布一个中间特性版本。这样可以把一些关键特性尽早合并入 JDK 之中，快速得到开发者反馈，可以在一定程度上避免 Java 9 两次被迫推迟发布日期的尴尬。
 
-##  基础
-
-#### hello, world!
+# Syntax | 语法基础
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/3/68747470733a2f2f73342e706f7374696d672e6f72672f6a7a7668306b6977642f68656c6c6f2e706e67.png)
 
-#### if-else:
+## 条件选择
 
-[![nested-if-else.png](https://s28.postimg.org/44ozxhghp/nested_if_else.png)](https://postimg.org/image/7bjjh40xl/)
+## 循环
 
-#### loops:
-
-[![for-while.png](https://s29.postimg.org/bs5idrk2v/for_while.png)](https://postimg.org/image/88jknyhcz/)
-
-#### do-while:
-
-```
+```java
 do {
         System.out.println("Count is: " + count);
         count++;
     } while (count < 11);
 ```
 
-#### switch-case:
+# 数据结构
 
-[![switch.png](https://s15.postimg.org/vthdiexx7/switch.png)](https://postimg.org/image/7cz7nxx6f/)
+## String | 字符串
 
-####  数组:
-
-[![Ekran Resmi 2017-03-04 18.11.17.png](https://s3.postimg.org/dbp4l5mxv/Ekran_Resmi_2017_03_04_18_11_17.png)](https://postimg.org/image/92keizjof/)
-
-####  二维数组:
-
-[![Ekran Resmi 2017-03-04 18.12.38.png](https://s14.postimg.org/4j6jd2269/Ekran_Resmi_2017_03_04_18_12_38.png)](https://postimg.org/image/a7cu3y6il/)
-
-####  对象:
-
-[![object.png](https://s2.postimg.org/o8ugyzmrt/object.png)](https://postimg.org/image/vc2cels79/)
-
-####  类:
-
-[![class.png](https://s24.postimg.org/b0l9lgr4l/class.png)](https://postimg.org/image/ohi84c1g1/)
-
-####  方法:
-
-[![instance-method.png](https://s14.postimg.org/4qltgprbl/instance_method.png)](https://postimg.org/image/41314cqrx/)
-
-#### Java IDE  比较:
-
-[![Ekran Resmi 2017-03-04 11.02.18.png](https://s18.postimg.org/4pba52mgp/Ekran_Resmi_2017_03_04_11_02_18.png)](https://postimg.org/image/7w5top6wl/)
-yes I took this from Wikipedia
-
-个人推荐  [IntelliJ IDEA](https://www.jetbrains.com/idea/)  并且对于  [学生免费](https://www.jetbrains.com/student/).
-
-##  字符串操作
-
-####  字符串比较:
-
-```
+```java
+// 字符串比较
 boolean result = str1.equals(str2);
 boolean result = str1.equalsIgnoreCase(str2);
 ```
 
-####  搜索与检索:
+### 模板字符串
 
+```jav
+for (int i=0;i<str1.length();i++){
+    char aChar = str1.charAt(i);
+}
 ```
+
+### 字符串操作
+
+```java
+// 搜索与检索
 int result = str1.indexOf(str2);
 int result = str1.indexOf(str2,5);
 String index = str1.substring(14);
-```
 
-####  单字节处理:
-
-```
-for (int i=0;i<str1.length();i++){
-
-char aChar = str1.charAt(i);
-}
-```
-
-####  字符串反转:
-
-```java
-public class Main {
-
-    public static void main(String[] args) {
-
-        String str1 = "whatever string something";
-        StringBuffer str1buff = new StringBuffer(str1);
-        String str1rev = str1buff.reverse().toString();
-        System.out.println(str1rev);
-
-
-    }
-}
-```
-
-####  按单词的字符串反转:
-
-```java
-public class Main {
-
-public static void main(String[] args) {
-
-    String str1 = "reverse this string";
-
-    Stack<Object> stack = new Stack<>();
-
-    StringTokenizer strTok = new StringTokenizer(str1);
-
-    while(strTok.hasMoreTokens()){
-
-        stack.push(strTok.nextElement());
-    }
-
-    StringBuffer str1rev = new StringBuffer();
-
-    while(!stack.empty()){
-
-        str1rev.append(stack.pop());
-        str1rev.append(" ");
-
-
-    }
-
-    System.out.println(str1rev);
-
-
-
-}
-}
-```
-
-####  大小写转化:
-
-```
+// 大小写转化
 String strUpper = str1.toUpperCase();
 String strLower = str1.toLowerCase();
-```
 
-####  首尾空格移除:
-
-```
+// 首尾空格移除
 String str1 = "     asdfsdf   ";
 str1.trim(); //asdfsdf
-```
-
-####  空格移除:
-
-```
+// 移除全部空格
 str1.replace(" ","");
-```
 
-####  字符串转化为数组:
+// 字符串反转
+String str1 = "whatever string something";
+StringBuffer str1buff = new StringBuffer(str1);
+String str1rev = str1buff.reverse().toString();
 
-```
+// 字符串转化为数组
 String str = "tim,kerry,timmy,camden";
 String[] results = str.split(",");
 ```
 
-##  数据结构
+#  数据结构
 
-####  重置数组大小:
+## 数组
 
-```
+### 构建与检索
+
+```java
+// 数组复制
 int[] myArray = new int[10];
 
 int[] tmp = new int[myArray.length + 10];
 System.arraycopy(myArray, 0, tmp, 0, myArray.length);
 myArray = tmp;
-```
-
-####  集合遍历:
-
-```
- for (Iterator it = map.entrySet().iterator();it.hasNext();){
-
-            Map.Entry entry = (Map.Entry)it.next();
-            Object key = entry.getKey();
-            Object value = entry.getValue();
-        }
 ```
 
 ####  创建映射集合:
@@ -822,6 +713,191 @@ java -jar something.jar
 {getResource("").getFile() / getResourceAsStream()}
 ```
 
+# 类与对象
+
+## 实例化
+
+### 单例模式
+
+```java
+public class Singleton {
+　　private static volatile Singleton instance = null;
+
+　　public static Singleton getInstance() {
+　　　　if (instance == null) {
+　　　　　　　　synchronized (Singleton.class) {
+　　　　　　　　　　　　if (instance == null) {
+　　　　　　　　　　　　　　　　instance ＝ new Singleton();
+　　　　　　　　　　　　}
+　　　　　　　　}
+　　　　}
+　　　　return instance;
+　　}
+}
+```
+
+## Interface
+
+### Functional Interface & Lambda
+
+Java 原本作为纯粹的面向对象的语言，需要对 Lambda 表达式特性进行支持，其实是基于了一种特殊的函数式接口。换言之，`()->{}` 这样的语法本质上还是继承并且实现了一个接口。FI 的定义其实很简单：任何接口，如果只包含 唯一 一个抽象方法，那么它就是一个 FI。为了让编译器帮助我们确保一个接口满足 FI 的要求(也就是说有且仅有一个抽象方法)，Java8 提供了@FunctionalInterface 注解。以 Runnble 为例：
+
+```java
+@FunctionalInterface
+public interface Runnable {
+    public abstract void run();
+}
+```
+
+常见的内置函数式接口还有如下：
+
+```java
+Predicate<String> predicate = (s) -> s.length() > 0;
+
+Comparator<Person> comparator = (p1, p2) -> p1.firstName.compareTo(p2.firstName);
+```
+
+闭包一般指存在自由变量的代码块，它与对象类似，都是用来描述一段代码与其环境的关系。在 Java 中，Lambda 表达式就是闭包。Lambda 表达式本身是构造了一个继承自某个函数式接口的子类，所以可以用父类指针指向它。Java 中本质上闭包中是采用的值捕获，即不可以在闭包中使用可变对象。但是它实际上是允许捕获事实上不变量，譬如不可变的 ArrayList，只是指针指向不可变罢了。
+
+Lambda 表达式还可以进一步简化为方法引用(Method References)，一共有四种形式的方法引用：
+
+```java
+// 静态方法引用
+List<Integer> ints = Arrays.asList(1, 2, 3);
+ints.sort(Integer::compare);
+
+// 某个特定对象的实例方法
+words.forEach(System.out::println);
+
+// 某个类的实例方法
+words.stream().map(word -> word.length()); // lambda
+words.stream().map(String::length); // method reference
+
+// 构造函数引用
+words.stream().map(word -> {
+return new StringBuilder(word);
+});
+// constructor reference
+words.stream().map(StringBuilder::new);
+```
+
+## Stream
+
+Java 8 API 添加了一个新的抽象称为流 Stream，可以让你以一种声明的方式处理数据；Stream 使用一种类似用 SQL 语句从数据库查询数据的直观方式来提供一种对 Java 集合运算和表达的高阶抽象。这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选，排序，聚合等。
+
+Stream（流）是一个来自数据源的元素队列并支持聚合操作，元素是特定类型的对象，形成一个队列；Java 中的 Stream 并不会存储元素，而是按需计算。元素流在管道中经过中间操作(intermediate operation)的处理，最后由最终操作(terminal operation)得到前面处理的结果。
+
+```sh
++--------------------+       +------+   +------+   +---+   +-------+
+| stream of elements +-----> |filter+-> |sorted+-> |map+-> |collect|
++--------------------+       +------+   +------+   +---+   +-------+
+```
+
+最简流程的描述如下：
+
+```java
+List<Integer> transactionsIds =
+widgets.stream()
+             .filter(b -> b.getColor() == RED)
+             .sorted((x,y) -> x.getWeight() - y.getWeight())
+             .mapToInt(Widget::getWeight)
+             .sum();
+```
+
+和以前的 Collection 操作不同，Stream 操作还有两个基础的特征：
+
+- Pipelining: 中间操作都会返回流对象本身。 这样多个操作可以串联成一个管道， 如同流式风格（fluent style）。 这样做可以对操作进行优化，比如延迟执行(laziness)和短路( short-circuiting)。
+- 内部迭代： 以前对集合遍历都是通过 Iterator 或者 For-Each 的方式, 显式的在集合外部进行迭代，这叫做外部迭代。 Stream 提供了内部迭代的方式， 通过访问者模式(Visitor)实现。
+
+## 流构建
+
+```java
+List<String> strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
+
+// 创建串行流
+List<String> filtered = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
+
+// 创建并行流，获取空字符串的数量
+int count = strings.parallelStream().filter(string -> string.isEmpty()).count();
+
+// 构建空流
+Stream<String> streamEmpty = Stream.empty();
+
+// 构建数值流
+IntStream intStream = IntStream.range(1, 3); // 1, 2
+LongStream longStream = LongStream.rangeClosed(1, 3);
+Random random = new Random();
+DoubleStream doubleStream = random.doubles(3);
+
+// 构建数组流
+Stream<String> streamOfArray = Stream.of("a", "b", "c");
+String[] arr = new String[]{"a", "b", "c"};
+Stream<String> streamOfArrayFull = Arrays.stream(arr);
+Stream<String> streamOfArrayPart = Arrays.stream(arr, 1, 3);
+
+// 构建文件流
+Path path = Paths.get("C:\\file.txt");
+Stream<String> streamOfStrings = Files.lines(path);
+Stream<String> streamWithCharset =
+  Files.lines(path, Charset.forName("UTF-8"));
+```
+
+## Transform
+
+```java
+// map 方法用于映射每个元素到对应的结果
+List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+
+// 获取对应的平方数
+List<Integer> squaresList = numbers.stream().map( i -> i*i).distinct().collect(Collectors.toList());
+
+// filter 方法用于通过设置的条件过滤出元素。以下代码片段使用 filter 方法过滤出空字符串
+int count = strings.stream().filter(string -> string.isEmpty()).count();
+
+// limit 方法用于获取指定数量的流。 以下代码片段使用 limit 方法打印出 10 条数据
+Random random = new Random();
+random.ints().limit(10).forEach(System.out::println);
+
+// sorted 方法用于对流进行排序
+Random random = new Random();
+random.ints().limit(10).sorted().forEach(System.out::println);
+```
+
+## Collectors | 归约操作
+
+```java
+List<String>strings = Arrays.asList("abc", "", "bc", "efg", "abcd","", "jkl");
+
+List<String> filtered = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.toList());
+System.out.println("筛选列表: " + filtered);
+
+String mergedString = strings.stream().filter(string -> !string.isEmpty()).collect(Collectors.joining(", "));
+System.out.println("合并字符串: " + mergedString);
+```
+
 # 数据结构
 
 ## 时间与日期
+
+# 集合类型
+
+## Map
+
+### 遍历与检索
+
+```java
+// 遍历集合
+for (Iterator it = map.entrySet().iterator();it.hasNext();){
+    Map.Entry entry = (Map.Entry)it.next();
+    Object key = entry.getKey();
+    Object value = entry.getValue();
+}
+```
+
+# Network | 网络
+
+# Storage | 存储
+
+# Todos
+
+- https://github.com/in28minutes/java-cheat-sheet

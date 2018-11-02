@@ -893,6 +893,17 @@ $ lsof -i:80
 
 # 查看某个进程的 TCP 连接
 $ lsof -p <pid> | grep TCP
+
+# 查看 TCP 连接数
+$ netstat -an
+
+# 统计80端口连接数
+$ netstat -nat|grep -i "80"|wc -l
+
+# 统计 IP 地址连接数
+netstat -na|grep ESTABLISHED|awk {print $5}|awk -F: {print $1}|sort|uniq -c|sort -r +0n
+
+netstat -na|grep SYN|awk {print $5}|awk -F: {print $1}|sort|uniq -c|sort -r +0n
 ```
 
 ## 配置

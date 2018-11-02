@@ -258,7 +258,7 @@ declare namespace NodeJS {
 }
 ```
 
-### 类型暴露与引用
+### 类型引用与暴露
 
 当我们希望使用那些标准的 JavaScript 代码库时，我们同样需要了解该库提供 API 的参数类型；这些类型往往定义在 `.d.ts` 声明文件中。早期的类型声明文件都需要手动地编写与导入，而 [DefinitelyTyped](http://definitelytyped.org/) 是目前最大的开源类型声明库，其会自动抓取库的类型声明文件，保障我们更加顺滑地使用 TypeScript。如果我们需要在代码中使用第三方库或者全局提供的变量，则可以使用 declare 关键字声明，譬如我们要使用 Node.js 中 process 对象，则可以进行如下的显式声明：
 
@@ -281,7 +281,7 @@ declare namespace NodeJS {
 declare module 'rc-queue-anim';
 ```
 
-而当我们发布自己的项目时，在 package.json 中，可以通过 typings 属性指定需要暴露的类型声明文件；譬如 [redux](https://github.com/reduxjs/redux/blob/master/package.json) 的类型声明在 index.d.ts 中：
+而当我们发布自己的项目时，如果在 tsconfig.json 中设置了 `"declaration": true`，那么执行 tsc 命令时会为每个 ts 文件生成对应的 d.ts 声明文件；当我们将项目发布时，可以在 package.json 中，可以通过 typings 属性指定需要暴露的类型声明文件入口；譬如 [redux](https://github.com/reduxjs/redux/blob/master/package.json) 的类型声明在 index.d.ts 中：
 
 ```json
 {
