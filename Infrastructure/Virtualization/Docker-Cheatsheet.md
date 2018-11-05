@@ -394,7 +394,7 @@ $ docker login myregistrydomain.com:5000
 
 ## 多阶段构建
 
-随着17.05版本的发布，Docker对于镜像构建这块也作了一项重要更新，那就是 multi-stage build（多阶段构建），这有助于方便源代码控制，减小镜像体积。
+随着 17.05 版本的发布，Docker 对于镜像构建这块也作了一项重要更新，那就是 multi-stage build（多阶段构建），这有助于方便源代码控制，减小镜像体积。
 
 ```
 # First stage: complete build environment
@@ -413,23 +413,21 @@ COPY --from=builder target/msb-1.0.jar msb.jar
 CMD ["java", "-jar", "msb.jar"]
 ```
 
-对于multi-stage build，其关键点主要有两点：
+对于 multi-stage build，其关键点主要有两点：
 
-在前面阶段的FROM指令后面增加了一个AS参数，可为该构建阶段命名，便于后续构建阶段引用，格式如下：
+在前面阶段的 FROM 指令后面增加了一个 AS 参数，可为该构建阶段命名，便于后续构建阶段引用，格式如下：
 
 ```
 FROM image[:tag | @digest] AS stage
 ```
 
-在后续阶段的COPY指令后面增加了--from参数，指明引用前面哪一个构建阶段的成果，格式如下：
+在后续阶段的 COPY 指令后面增加了--from 参数，指明引用前面哪一个构建阶段的成果，格式如下：
 
 ```
 COPY --from=stage ...
 ```
 
-同理，多阶段构建同样可以很方便地将多个彼此依赖的项目通过一个Dockerfile就可轻松构建出期望的容器镜像，而不用担心镜像太大、源码泄露等风险。
-
-
+同理，多阶段构建同样可以很方便地将多个彼此依赖的项目通过一个 Dockerfile 就可轻松构建出期望的容器镜像，而不用担心镜像太大、源码泄露等风险。
 
 # 容器
 
@@ -523,6 +521,9 @@ $ docker run -dit — restart unless-stopped [CONTAINER]
 ```sh
 # 关闭所有正在运行的容器
 $ docker kill $(docker ps -q)
+
+# 根据 ID 或 Name 移除
+$ docker rm idOrName
 
 # 移除所有停止的容器
 $ docker rm $(docker ps -a -q)

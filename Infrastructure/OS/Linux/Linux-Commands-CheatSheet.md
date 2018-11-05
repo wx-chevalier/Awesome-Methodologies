@@ -579,6 +579,9 @@ $ route -n | awk '/UG[ \t]/{print $2}'
 
 # 计算文件中的数值和
 $ awk '{s+=$1} END {printf "%.0f", s}' mydatafile
+
+# NF 表示的是浏览记录的域的个数，$NF 表示的最后一个Field（列），即输出最后一个字段的内容
+$ free -m | grep buffers\/ | awk '{print $NF}'
 ```
 
 ## 编辑
