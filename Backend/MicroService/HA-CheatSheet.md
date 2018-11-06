@@ -2,9 +2,60 @@
 
 # HA CheatSheet | 高可用服务架构清单
 
+# Test & Log | 性能测试与日志追踪
+
+## 性能指标
+
 MTTF, Mean Time To Failure，系统平均运行多长时间才发生故障，越长越好
 MTTR,Mean Time To Recover, 故障平均修复时间，越短越好
 可用性计算公式， Availability= MTTF /（MTTF+MTTR）
+
+## 日志配置
+
+对外接口统一拦截捕获，避免异常向外系统传播，自身系统无法感知问题。
+
+严格规范日志输出等级，尤其Error级别。影响业务进行或意料外异常输出Error级别，Error级别日志统一输出到独立文件，并接入xflush 系统错误监控告警。做到Error日志输出即为需要人为介入处理。为了避免干扰，对现有Error做降噪检查。
+
+服务层日志统一输出，包括耗时、接口成功标识、业务成功标识，为监控做准备。
+
+所有日志traceId的统一输出。通过扩展 ch.qos.logback.classic.pattern.ClassicConverter，现实traceId自动输出。这极大的提升了系统运维效率。
+
+```xml
+<appender name="ERROR-APPENDER"
+          class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>${LOG_PATH}/common-error.log</file>
+    <!-- Error 级别过滤 -->
+    <filter class="ch.qos.logback.classic.filter.LevelFilter">   
+      <level>ERROR</level>   
+      <onMatch>ACCEPT</onMatch>   
+      <onMismatch>DENY</onMismatch>   
+  </filter>
+    <encoder>
+        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} - [%thread] : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}
+        </pattern>
+    </encoder>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <!-- 按天滚动，可根据实际量调整单位 -->
+        <fileNamePattern>${LOG_PATH}/common-error.log.%d{yyyy-MM-dd}
+        </fileNamePattern>
+        <maxHistory>15</maxHistory>
+    </rollingPolicy>
+</appender>
+```
+
+```xml
+<root level="INFO">
+    <!-- root中增加Error输出配置 -->
+    <appender-ref ref="ERROR-APPENDER" />
+</root>
+
+<logger name="testLog" level="INFO"
+        additivity="false">
+    <appender-ref ref="WORK_SHIFT_CORE_MONITOR_LOG" />
+    <!-- 每个logger增加ERROR输出 -->
+    <appender-ref ref="ERROR-APPENDER" />
+</logger>
+```
 
 # Load Balancing | 负载均衡
 
@@ -57,16 +108,6 @@ MTTR,Mean Time To Recover, 故障平均修复时间，越短越好
 七层应用负载均衡的好处，是使得整个网络更“智能化”, 例如访问一个网站的用户流量，可以通过七层的方式，将对图片类的请求转发到特定的图片服务器并可以使用缓存技术；将对文字类的请求可以转发到特定的文字服务器并可以使用压缩技术。当然这只是七层应用的一个小案例，从技术原理上，这种方式可以对客户端的请求和服务器的响应进行任意意义上的修改，极大的提升了应用系统在网络层的灵活性。 很多在后台(例如 Nginx 或者 Apache )上部署的功能可以前移到负载均衡设备上，例如客户请求中的 Header 重写，服务器响应中的关键字过滤或者内容插入等功能。
 
 另外一个常常被提到功能就是安全性。网络中最常见的 SYN Flood 攻击，即黑客控制众多源客户端，使用虚假 IP 地址对同一目标发送 SYN 攻击，通常这种攻击会大量发送 SYN 报文，耗尽服务器上的相关资源，以达到 Denial of Service(DoS) 的目的。从技术原理上也可以看出，四层模式下这些 SYN 攻击都会被转发到后端的服务器上；而七层模式下这些 SYN 攻击自然在负载均衡设备上就截止，不会影响后台服务器的正常运营。另外负载均衡设备可以在七层层面设定多种策略，过滤特定报文，例如 SQL Injection 等应用层面的特定攻击手段，从应用层面进一步提高系统整体安全。现在的 7 层负载均衡，主要还是着重于应用广泛的 HTTP 协议，所以其应用范围主要是众多的网站或者内部信息平台等基于 B/S 开发的系统。4 层负载均衡则对应其他 TCP 应用，例如基于 C/S 开发的 ERP 等系统。
-
-# Cache | 缓存
-
-Web caches sit between the user and the application server, where they save and serve copies of certain responses. In the diagram below, we can see three users fetching the same resource one after the other:
-
-Caching is intended to speed up page loads by reducing latency, and also reduce load on the application server. Some companies host their own cache using software like Varnish, and others opt to rely on a Content Delivery Network (CDN) like Cloudflare, with caches scattered across geographical locations. Also, some popular web applications and frameworks like Drupal have a built-in cache.
-
-There are also other types of cache, such as client-side browser caches and DNS caches, but they're not the focus of this research.
-
-![image](https://user-images.githubusercontent.com/5803001/44158629-ba66f800-a0e7-11e8-9d4d-23c0b2dd096d.png)
 
 # Service Degradation | 服务降级
 
