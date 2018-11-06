@@ -2,6 +2,14 @@
 
 # Web 架构缓存概览：从 CPU 到浏览器
 
+Web caches sit between the user and the application server, where they save and serve copies of certain responses. In the diagram below, we can see three users fetching the same resource one after the other:
+
+Caching is intended to speed up page loads by reducing latency, and also reduce load on the application server. Some companies host their own cache using software like Varnish, and others opt to rely on a Content Delivery Network (CDN) like Cloudflare, with caches scattered across geographical locations. Also, some popular web applications and frameworks like Drupal have a built-in cache.
+
+There are also other types of cache, such as client-side browser caches and DNS caches, but they're not the focus of this research.
+
+![image](https://user-images.githubusercontent.com/5803001/44158629-ba66f800-a0e7-11e8-9d4d-23c0b2dd096d.png)
+
 # CPU Cache
 
 由于内存的访问速度与 CPU 中寄存器的访问速度相去甚远，当我们需要对同一批数据(譬如数组或循环计数变量)进行多次操作时，CPU 会自动将值放到 CPU 缓存而不是内存中。CPU 缓存的访问速度仅次于 CPU 寄存器。其容量远小于内存，但速度却可以接近处理器的频率。当处理器发出内存访问请求时，会先查看缓存内是否有请求数据。如果存在(命中)，则不经访问内存直接返回该数据；如果不存在(失效)，则要先把内存中的相应数据载入缓存，再将其返回处理器。
