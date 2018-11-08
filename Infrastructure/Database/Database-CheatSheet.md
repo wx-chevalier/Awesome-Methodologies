@@ -24,7 +24,11 @@ The most recent development, serverless databases, frees developers from worryin
 
 2017 年的 Oracle Open World 大会上，Oracle 总裁拉里·埃里森公布了新杀器，Oracle 自治数据库云。这款全球首款“自动驾驶”的数据库，集成了人工智能和自适应的机器学习技术，实现全面自动化。Oracle 自治数据库云，消除了复杂性、人为错误和人工管理，能够以更低的成本提供更高的可靠性、安全性和运营效率。
 
+NoSQL 运动帮助了数据库社区明白了两件事。首先，并非每个应用程序都需要 ACID，并且，放宽 ACID 以能扩展到互联网规模。其次，表格数据组织很适合大量的数据，但未必适合所有的数据集。但是，随着时间的流逝，SQL/NoSQL 的显著区别将会消失，DBMS 用户则会因为有了更多选择而获得收益。
+
 # NoSQL
+
+术语“NoSQL”开始意味着“no SQL（没有 SQL）”，也即不支持表数格据库的标准结构化查询语言。然而现在，它意味着“not only SQL（不只是 SQL）”，这意味着越来越多的“NoSQL”DBMS 开始支持 SQL。在早期，NoSQL 不提供 ACID 强度交易，而这对金融应用程序是至关重要的。现在，很多 NoSQL DBMS 实现了 ACID。同时，一些 SQL DBMS 正允许放宽 ACID，使它们能够扩展到和一些 NoSQL DBMS 几乎相同的水平。有些混合 DBMS 支持表格和非表格数据组织。最终可能会出现，每个 DBMS 都支持各种物理数据组织，以及 ACID 和非 ACID（“BASE”），所有这些都由用户选择。SQL 诞生于表格时代，目前还没有替代者，而这个事实将会阻碍这一完整的转型。
 
 NoSQL 家族主要分为键值(Key-Value)存储数据库、列存储数据库、文档型数据库和图数据库四大类，其产生就是为了解决大规模数据集合多重数据种类带来的挑战，故场景化也格外明显。
 
