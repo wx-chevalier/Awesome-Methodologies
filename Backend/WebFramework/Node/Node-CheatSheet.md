@@ -479,11 +479,22 @@ process.stdin.pipe(new Base64Encoder()).pipe(process.stdout);
 
 ```js
 path.join('/a', '/b'); // Outputs '/a/b'
-
 path.resolve('/a', '/b'); // Outputs '/b'
+
+// 获取文件状态
+fs.statSync(path[, options])
+stats.isBlockDevice()
+stats.isDirectory()
+stats.isFIFO()
+stats.isFile()
+stats.isSocket()
 ```
 
 ```js
+// 同步读取
+const contents = fs.readFileSync('DATA', 'utf8');
+
+// 异步读取
 const { promisify } = require('util');
 const fs = require('fs');
 const readFileAsync = promisify(fs.readFile); // (A)
@@ -496,6 +507,10 @@ readFileAsync(filePath, { encoding: 'utf8' })
   .catch(err => {
     console.log('ERROR:', err);
   });
+```
+
+```js
+// fs-extra
 ```
 
 # HTTP Server

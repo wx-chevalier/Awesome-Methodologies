@@ -4,6 +4,8 @@
 
 微服务微前端，都是希望将某个单一的单体应用，转化为多个可以独立运行、独立开发、独立部署、独立维护的服务或者应用的聚合。如康威定律(Conway’s Law)所言，设计系统的组织，其产生的设计和架构等价于组织间的沟通结构；微服务与微前端不仅仅是技术架构的变化，还包含了组织方式、沟通方式的变化。微服务与微前端原理和软件工程，面向对象设计中的原理同样相通，就像高级编程语言一样，微服务以更抽象能力提供了更好地描述问题的方式；并且它们都是遵循单一职责(Single Responsibility)、关注分离(Separation of Concerns)、模块化(Modularity)与分而治之(Divide & Conquer)等基本的原则。
 
+[HA CheatSheet | 高可用架构手册]()或者 [Spring Boot CheatSheet]()，[微前端]()。
+
 # 单体应用与微服务
 
 微服务是一个简单而泛化的概念，不同的行业领域、技术背景、业务架构对于微服务的理解与实践也是不一致的。与微服务相对的，即是单体架构的巨石型(Monolithic)应用，典型的即是将所有功能都部署在一个 Web 容器中运行的系统。虽然很多的文章对于巨石型应用颇多诟病，但并不意味着其就真的一无是处，毕竟微服务本身也是有代价的。除了组织的结构之外，微服务往往还要求组织具备快速的环境提供(Rapid Provisioning)与云开发、基本的监控(Basic Monitoring)、快速的应用发布(Rapid Application Deployment)、DevOps 等能力。
@@ -46,6 +48,17 @@ In the microservices approach, each service manages and stores its own state. Ea
 网关一词较早出现在网络设备里面，比如两个相互独立的局域网段之间通过路由器或者桥接设备进行通信， 这中间的路由或者桥接设备我们称之为网关。
 
 相应的 API 网关将各系统对外暴露的服务聚合起来，所有要调用这些服务的系统都需要通过 API 网关进行访问，基于这种方式网关可以对 API 进行统一管控，例如：认证、鉴权、流量控制、协议转换、监控等等。API 网关的流行得益于近几年微服务架构的兴起，原本一个庞大的业务系统被拆分成许多粒度更小的系统进行独立部署和维护，这种模式势必会带来更多的跨系统交互，企业 API 的规模也会成倍增加，API 网关(或者微服务网关)就逐渐成为了微服务架构的标配组件。
+
+Kong, Traefik, Caddy, Linkerd, Fabio, Vulcand, and Netflix Zuul seem to be the most common in microservice proxy/gateway solutions. Kubernetes Ingress is often a simple Ngnix, which is difficult to separate the popularity from other things.
+
+A Service Mesh is related, but distinct from the concept of API gateways, edge proxies, and the enterprise service bus. The service mesh is a networking model that sits at a layer of abstraction above TCP/IP. A Service Mesh provides three benefits:
+
+security (TLS for service to service authentication)
+intelligent traffic management (proxy, deployed as a sidecar to the relevant service)
+visibility (monitoring and tracing for troubleshooting and debugging)
+Lyft's Istio or Bouyant's Linkerd or Conduit are examples of a Service Mesh, while Traefik, Envoy, Kong, Zuul, etc. are API Gateway implemented using Reverse Proxy. Before Linkerd/Istio/Conduit, large companies implemented the same functionality using fat client libraries.
+
+In these systems, a generalized communication layer became suddenly relevant, but typically took the form of a “fat client” library—Twitter’s Finagle, Netflix’s Hysterix, and Google’s Stubby being cases in point.
 
 1、面向 Web 或者移动 App
 
@@ -131,7 +144,3 @@ sidecar 把所有流量都劫持了，在网络层面做治理。在 service mes
 ## EDA
 
 ## CQRS
-
-# 技术栈
-
-## Spring Cloud

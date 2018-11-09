@@ -476,6 +476,17 @@ $ umount /data2
 
 `tailf` 命令类似于 `tail -f`，其可以打印出文件的最后十行内容，并且会随着文件的增长而自动滚动；不过其不会在文件没有变化的时候去频繁访问文件。
 
+```sh
+$ head -5 /etc/passwd
+
+$ tail -10 /etc/passwd
+$ tail -n 10 /etc/passwd
+$ tail -f /var/log/messages
+
+# 查看文件中间的第 5-10 行
+$ sed -n '5,10p' /etc/passwd
+```
+
 ## 检索
 
 grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。

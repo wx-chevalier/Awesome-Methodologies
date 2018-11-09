@@ -4,16 +4,6 @@
 
 完整的软件体系结构由不同的模式或者风格构成，常见的风格有架构设计模式、框架设计模式与驱动模式等。
 
-## Reference
-
-### Books & Tutorials
-
-- [ Software Architecture and Design](https://msdn.microsoft.com/en-us/library/ee658098.aspx)
-
-### Practice
-
-- [从无到有：微信后台系统的演进之路](https://mp.weixin.qq.com/s?__biz=MzI5MDAwOTIzOQ==&mid=402045684&idx=1&sn=5690281c941cd8eb203b6980cdae73ce)
-
 # 架构风格(Architectural Style)
 
 ## MDA

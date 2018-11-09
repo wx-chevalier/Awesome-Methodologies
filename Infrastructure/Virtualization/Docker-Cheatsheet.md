@@ -215,9 +215,9 @@ ubuntu              14.04               ad892dd21d60        11 days ago         
 
 Docker 中镜像主要分为三种状态:
 
-- **已使用镜像（used image）**： 指所有已被容器（包括已停止的）关联的镜像。即 docker ps -a 看到的所有容器使用的镜像。
-- **未引用镜像（unreferenced image）**：没有被分配或使用在容器中的镜像，但它有 Tag 信息。
-- **悬空镜像（dangling image）**：未配置任何 Tag （也就无法被引用）的镜像，所以悬空。这通常是由于镜像 build 的时候没有指定 -t 参数配置 Tag 导致的。
+- 已使用镜像(used image): 指所有已被容器（包括已停止的）关联的镜像。即 docker ps -a 看到的所有容器使用的镜像。
+- 未引用镜像(unreferenced image): 没有被分配或使用在容器中的镜像，但它有 Tag 信息。
+- 悬空镜像(dangling image): 未配置任何 Tag （也就无法被引用）的镜像，所以悬空。这通常是由于镜像 build 的时候没有指定 -t 参数配置 Tag 导致的。
 
 ```sh
 # 列举未使用的
@@ -461,6 +461,9 @@ $ docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS
 
 # 创建容器，指定网络
 $ docker run --network=<NETWORK>
+
+# 指定标签
+$ docker run -l my-label --label com.example.foo=bar ubuntu bash
 ```
 
 默认情况下，创建容器时，它不会将其任何端口发布到外部世界。要使端口可用于 Docker 之外的服务或未连接到容器网络的 Docker 容器，请使用 --publish 或 -p 标志。这会创建一个防火墙规则，将容器端口映射到 Docker 主机上的端口。
