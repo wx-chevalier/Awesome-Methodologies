@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# HA CheatSheet | 高可用服务架构清单
+# HA CheatSheet | 一文了解高可用架构关键点：性能指标、负载均衡、缓存、降级与限流
 
 # Test & Log | 性能测试与日志追踪
 
