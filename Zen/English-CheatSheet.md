@@ -64,6 +64,7 @@
 
   - height [haɪt](http://dict.youdao.com/dictvoice?audio=height)
   - hidden ['hɪdn](http://dict.youdao.com/dictvoice?audio=hidden)
+  - hierarchy
   - horizontal [hɒrɪ'zɒnt(ə)l](http://dict.youdao.com/dictvoice?audio=horizontal&type=1)
   - href [h'ref / ref](http://dict.youdao.com/dictvoice?audio=href)
 

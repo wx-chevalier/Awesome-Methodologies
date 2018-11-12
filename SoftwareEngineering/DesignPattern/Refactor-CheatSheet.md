@@ -2,6 +2,8 @@
 
 # Clean Code, Review & Refactor | 简洁代码、审视与重构
 
+Working Effectively with Legacy Code, by Michael Feathers. This book will give you an appreciation of what it is like to work with long-lived code bases, and how to write code now so future You (and future Your Colleagues) can be happy developers. Refactoring: Improving the Design of Existing Code, by Martin Fowler. You’ll get a whole new appreciation for the word “refactoring” after reading this book. Design Patterns: Elements of Reusable Object-Oriented Software, by Erich Gamma et al. This is also famously knows as the Gang of Four book. If you want a simpler version of this, check out Head First Design Patterns too.
+
 - CamelCase 适用于类与接口名。
 - snakeCase 适用于变量与方法名。
 - SCREAMING_SNAKE_CASE 适用于常量名。

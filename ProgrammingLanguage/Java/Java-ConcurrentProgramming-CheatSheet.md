@@ -12,6 +12,16 @@
 
 Java 内存模型与 [JVM 体系结构](./JVM-CheatSheet.md) 不尽相同，Java 内存模型着眼于描述 Java 中的线程是如何与内存进行交互，以及单线程中代码执行的顺序等，并提供了一系列基础的并发语义原则；最早的 Java 内存模型于 1995 年提出，致力于解决不同处理器/操作系统中线程交互/同步的问题。
 
+Prior to Java 5, the Java Memory Model (JMM) was ill defined. It was possible to get all kinds of strange results when shared memory was accessed by multiple threads, such as:
+
+a thread not seeing values written by other threads: a visibility problem
+a thread observing ‘impossible’ behavior of other threads, caused by instructions not being executed in the order expected: an instruction reordering problem.
+With the implementation of JSR 133 in Java 5, a lot of these issues have been resolved. The JMM is a set of rules based on the “happens-before” relation, which constrain when one memory access must happen before another, and conversely, when they are allowed to happen out of order. Two examples of these rules are:
+
+The monitor lock rule: a release of a lock happens before every subsequent acquire of the same lock.
+The volatile variable rule: a write of a volatile variable happens before every subsequent read of the same volatile variable
+Although the JMM can seem complicated, the specification tries to find a balance between ease of use and the ability to write performant and scalable concurrent data structures.
+
 ## Abstract Memory Model | 抽象内存模型
 
 现代计算机通常有两个或者更多的 CPU，一些 CPU 还有多个核。在这样的计算机中，可能同时运行着多个线程，而每个 CPU 在某个时间片内运行其中的一个线程。
