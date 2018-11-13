@@ -877,6 +877,19 @@ System.out.println("合并字符串: " + mergedString);
 
 # 数据结构
 
+## 数组
+
+```java
+// Array 转化为 List
+List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
+
+// List 转化为 Array
+List<String> stockList = new ArrayList<String>();
+...
+String[] stockArr = new String[stockList.size()];
+stockArr = stockList.toArray(stockArr);
+```
+
 ## 时间与日期
 
 # 集合类型
