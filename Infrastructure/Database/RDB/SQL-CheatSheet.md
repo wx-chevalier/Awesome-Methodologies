@@ -32,9 +32,32 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
 ```
 
-## 表与索引约束
+## 表与索引规约
 
+参考阿里的 [p3c](https://github.com/alibaba/p3c) 规范。
 
+### 命名
+
+表名、字段名必须使用小写字母或数字，禁止出现数字开头，禁止两个下划线中间只出现数字。数据库字段名的修改代价很大，因为无法进行预发布，所以字段名称需要慎重考虑。 MySQL在Windows下不区分大小写，但在Linux下默认是区分大小写。因此，数据库名、表名、字段名，都不允许出现任何大写字母，避免节外生枝。 
+
+表名应该仅仅表示表里面的实体内容，不应该表示实体数量，对应于DO类名也是单数形式，不使用复数名词，符合表达习惯。
+
+表达是与否概念的字段，必须使用is_xxx的方式命名，数据类型是unsigned tinyint（ 1表示是，0表示否）。 
+
+表必备三字段：id, gmt_create, gmt_modified。 
+说明：其中id必为主键，类型为unsigned bigint、单表时自增、步长为1。gmt_create, gmt_modified的类型均为datetime类型，前者现在时表示主动创建，后者过去分词表示被动更新。
+
+单表行数超过500万行或者单表容量超过2GB，才推荐进行分库分表。
+
+### 字段
+
+任何字段如果为非负数，必须是unsigned。 
+
+小数类型为decimal，禁止使用float和double。 float和double在存储的时候，存在精度损失的问题，很可能在值的比较时，得到不正确的结果。如果存储的数据范围超过decimal的范围，建议将数据拆成整数和小数分开存储。
+
+### 索引
+
+主键索引名为pk_字段名；唯一索引名为uk_字段名；普通索引名则为idx_字段名。 
 
 # Data Manipulation Language | 数据操作
 
@@ -108,6 +131,12 @@ WHERE id > 234374
 ORDER BY id
 LIMIT 20
 ```
+
+## 统计查询
+
+不要使用count(列名)或count(常量)来替代count()，count()是SQL92定义的标准统计行数的语法，跟数据库无关，跟NULL和非NULL无关。count(*)会统计值为NULL的行，而count(列名)不会统计此列为NULL值的行。
+
+count(distinct col) 计算该列除NULL之外的不重复行数，注意 count(distinct col1, col2) 如果其中一列全为NULL，那么即使另一列有不同的值，也返回为0。
 
 ## Join | 表联接
 
