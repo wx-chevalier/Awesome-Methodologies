@@ -4,7 +4,7 @@ Spring Boot 应用本质上就是一个基于 Spring 框架的应用，它是 Sp
 
 可以在 [Spring Initializr](https://start.spring.io/) 动态地选择需要的组件，对于 Spring 框架/生态的讨论，以及 IOC/DI 等机制原理的分析参考 [Spring CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Backend/WebFramework/Java/Spring-CheatSheet.md)
 
-```
+```java
 // @SpringBootApplication 整合了 @Configuration + @ComponentScan + @EnableAutoConfiguration，其会自动进行组件扫描与配置
 @SpringBootApplication
 public class FooApplication {

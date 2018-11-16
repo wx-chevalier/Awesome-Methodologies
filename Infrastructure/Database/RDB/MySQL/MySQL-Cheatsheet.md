@@ -28,8 +28,12 @@ $ docker run -it --rm mysql mysql -hsome.mysql.host -usome-mysql-user -p
 ```
 
 ```sql
+--- 老版本中更新 Root 用户信息
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
  FLUSH PRIVILEGES;
+
+--- 5.7 之后版本
+update user set authentication_string=password('YOURSUPERSECRETPASSWORD') where user='root';
 ```
 
 # 配置与管理

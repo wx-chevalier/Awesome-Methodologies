@@ -486,6 +486,12 @@ console.log(getEntriesArry.next().value);
 
 ## Map
 
+Map 对象和 Object 对象的区别如下：
+
+- 一个对象通常都有自己的原型，所以一个对象总有一个"prototype"键
+- 一个对象的键只能是字符串或者 Symbols，但一个 Map 的键可以是任意值
+- 可以通过 size 属性很容易地得到一个 Map 的键值对个数，而对象的键值对个数只能手动确认
+
 ## Typed Arrays & Buffer
 
 Typed Arrays 允许我们在 JavaScript 中处理二进制数据与结构，最早是用于 WebGL API 中，以缓解标准 JavaScript 数组转换与类型推测过慢的问题。
