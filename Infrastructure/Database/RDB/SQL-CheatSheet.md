@@ -32,6 +32,10 @@ CREATE TABLE `product` (
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4
 ```
 
+## 表与索引约束
+
+
+
 # Data Manipulation Language | 数据操作
 
 DML 包含了 INSERT, UPDATE, DELETE 等常见的数据操作语句。
