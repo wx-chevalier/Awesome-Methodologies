@@ -736,7 +736,7 @@ $ docker network connect multi-host-network container1
 
 ## 空间清理
 
-Docker 使用过程中，可能会发现宿主节点的磁盘容量持续增长，譬如 volume 或者 overlay2 目录占用了大量的空间；如果任其发展，可能将磁盘空间耗尽进而引发宿主机异常，进而对业务造成影响。Docker 的内置 df 指令可用于查询镜像(Images)、容器(Containers)和本地卷(Local Volumes)等空间使用大户的空间占用情况。而容器的占用的总空间，包含其最顶层的读写层(writable layer)和底部的只读镜像层(base image layer，read-only)，我们可以使用 `ps -s` 参数来显示二者的空间占用情况:
+Docker 使用过程中，可能会发现宿主节点的磁盘容量持续增长，譬如 volume 或者 overlay2 目录占用了大量的空间；如果任其发展，可能将磁盘空间耗尽进而引发宿主机异常，进而对业务造成影响。Docker 的内置 df 指令可用于查询镜像(Images)、容器(Containers)和本地卷(Local Volumes)等空间使用大户的空间占用情况。而容器的占用的总空间，包含其最顶层的读写层(writable layer)和底部的只读镜像层(base image layer，read-only)，我们可以使用 `ps -s` 参数来显示二者的空间占用情况:
 
 ```sh
 # 查看当前目录下的文件空间占用

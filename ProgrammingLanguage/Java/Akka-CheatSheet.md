@@ -317,7 +317,7 @@ routerActor.tell(Msg.WORKING, ActorRef.noSender());
 
 ## STM 软件事务内存
 
-# Error Handling & Persistence | 异常处理与持久化
+# Error Handling & Persistence | 异常处理与持久化
 
 ## Fault Tolerance | 容错机制
 
@@ -355,7 +355,7 @@ akka.persistence.journal.leveldb.native = false
 class ExamplePersistentActor extends AbstractPersistentActor {}
 ```
 
-然后复写 createReceiveRecover 与 createReceive 方法；createReceive 是正常的处理消息的方法，而 createReceiveRecover 则是用于在恢复阶段处理接收到的消息的方法。
+然后复写 createReceiveRecover 与 createReceive 方法；createReceive 是正常的处理消息的方法，而 createReceiveRecover 则是用于在恢复阶段处理接收到的消息的方法。
 
 ```java
 @Override

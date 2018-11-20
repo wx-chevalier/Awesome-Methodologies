@@ -235,7 +235,7 @@ import submodule2
 __all__ = ['submodule1', 'submodule2']
 ```
 
-Python 中只能在 Package 中使用相对导入，不能在用户的应用程序中使用相对导入，因为不论是相对导入还是绝对导入，都是相当于当前模块来说的，对于用户的主应用程序，也就是入口文件，模块名总是`__main__`, 所以用户的应用程序必须使用绝对导入，而 Package 中的导入可以使用相对导入。
+Python 中只能在 Package 中使用相对导入，不能在用户的应用程序中使用相对导入，因为不论是相对导入还是绝对导入，都是相当于当前模块来说的，对于用户的主应用程序，也就是入口文件，模块名总是 `__main__`, 所以用户的应用程序必须使用绝对导入，而 Package 中的导入可以使用相对导入。
 
 ```py
 # python -m 运行该文件
@@ -557,6 +557,43 @@ f'He said his name is {name!r}.'
 
 ## Regex | 正则表达式
 
+- Symbols
+
+| Term | Description                                                    |
+| ---- | -------------------------------------------------------------- |
+| .    | (period) Matches any single character, except for line breaks. |
+| \*   | Matches the preceding expression 0 or more times.              |
+| +    | Matches the preceding expression 1 or more times.              |
+| ?    | Preceding expression is optional (Matches 0 or 1 times).       |
+| ^    | Matches the beginning of the string.                           |
+| \$   | Matches the end of the string.                                 |
+
+- Character groups
+
+| Term   | Description                                                                                                               |
+| ------ | ------------------------------------------------------------------------------------------------------------------------- |
+| \d     | Matches any single digit character.                                                                                       |
+| \w     | Matches any word character (alphanumeric & underscore).                                                                   |
+| [XYZ]  | Character Set: Matches any single character from the character within the brackets. You can also do a range such as [A-Z] |
+| [XYZ]+ | Matches one or more of any of the characters in the set.                                                                  |
+| [^a-z] | Inside a character set, the ^ is used for negation. In this example, match anything that is NOT an uppercase letter.      |
+
+- Flags:
+  There are five optional flags. They can be used separately or together and are placed after the closing slash. Example: /[A-Z]/g I’ll only be introducing 2 here.
+
+| Term | Description             |
+| ---- | ----------------------- |
+| g    | Global search           |
+| i    | case insensitive search |
+
+- Advanced
+
+| Term   | Description                                                               |
+| ------ | ------------------------------------------------------------------------- |
+| (x)    | Capturing Parenthesis: Matches x and remembers it so we can use it later. |
+| (?:x)  | Non-capturing Parenthesis: Matches x and does not remembers it.           |
+| x(?=y) | Lookahead: Matches x only if it is followed by y.                         |
+
 ```py
 import re
 
@@ -615,9 +652,9 @@ exp.match('192.168.1.1')
 
 # 集合类型
 
-## List: 列表
+## List | 列表
 
-### Operation: 创建增删
+### Operation | 创建增删
 
 list 是基础的序列类型：
 
@@ -660,7 +697,7 @@ myList.pop(1) # 20
 myList.pop()
 
 # 使用 slices 来删除某个元素
-a = [  1, 2, 3, 4, 5, 6 ]
+a = [1, 2, 3, 4, 5, 6 ]
 index = 3 # Only Positive index
 a = a[:index] + a[index+1 :]
 
@@ -675,7 +712,7 @@ numbers.remove(numbers[1])
 print(*letters) # used a * to make it unpack you don't have to
 ```
 
-### Iteration: 索引遍历
+### Iteration | 索引遍历
 
 你可以使用基本的 for 循环来遍历数组中的元素，就像下面介个样纸 :
 
@@ -695,7 +732,7 @@ for idx, animal in enumerate(animals):
 # Prints "#1: cat", "#2: dog", "#3: monkey", each on its own line
 ```
 
-Python 也支持切片(Slices ) :
+Python 也支持切片(Slices):
 
 ```py
 nums = range(5)    # range is a built-in function that creates a list of integers
@@ -736,7 +773,6 @@ reduce 用于进行归纳计算 :
 
 ```py
 # reduce 将数组中的值进行归纳
-
 from functools import reduce
 product = reduce((lambda x, y: x * y), [1, 2, 3, 4])
 
@@ -820,18 +856,32 @@ for key, value in d.items():
 
 ## 其他序列类型
 
-### 集合
+### Set
 
-```python
+```py
 # Same as {"a", "b","c"}
 normal_set = set(["a", "b","c"])
 
 # Adding an element to normal set is fine
 normal_set.add("d")
 
-print("Normal Set")
-print(normal_set)
+# 判断 Set 大小
+len(s)
 
+# 判断元素是否存在于 Set 中
+x in s
+x not in s
+
+# 集合间运算符
+s.issubset(t)
+s.issuperset(t)
+s.union(t)
+s.intersection(t)
+s.difference(t)
+s.symmetric_difference(t)
+```
+
+```py
 # A frozen set
 frozen_set = frozenset(["e", "f", "g"])
 
@@ -853,7 +903,7 @@ lst[0] = '300'
 t = tuple(lst)
 ```
 
-### Enum: 枚举类型
+### Enum | 枚举类型
 
 ```py
 class Enum(set):
@@ -1155,7 +1205,7 @@ class MyABC(metaclass=ABCMeta):
     pass
 ```
 
-### MetaClass | 元类
+### MetaClass | 元类
 
 Python 中所谓的
 
@@ -1207,7 +1257,7 @@ class Foo(object):
 i = Foo(2, 3)
 ```
 
-Python 中与类实例化相关的方法有 `__new__` 与 `__init__`，`__new__` 会在对象创建时候调用，覆写该方法能够自定义实例的创建过程；而 `__init__` 方法则是在实例创建完毕后初始化实例:
+Python 中与类实例化相关的方法有 `__new__` 与 `__init__`，`__new__` 会在对象创建时候调用，覆写该方法能够自定义实例的创建过程；而 `__init__` 方法则是在实例创建完毕后初始化实例:
 
 ```py
 class Foo(object):

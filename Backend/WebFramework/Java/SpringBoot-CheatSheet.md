@@ -1,3 +1,5 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 # Spring Boot CheatSheet
 
 Spring Boot 应用本质上就是一个基于 Spring 框架的应用，它是 Spring 对“约定优先于配置”理念的最佳实践产物，它能够帮助开发者更快速高效地构建基于 Spring 生态圈的应用；最重要的 4 大核心特性包括了自动配置、起步依赖、Actuator、命令行界面(CLI) 。
@@ -133,9 +135,9 @@ public class MyService {
 
 Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Prototype(原型), Request,Session 和 Global Session:
 
-- Singleton, 单例模式，Spring IoC 容器中只会存在一个共享的 Bean 实例，无论有多少个 Bean 引用它，始终指向同一对象。Singleton 作用域是 Spring 中的缺省作用域，也可以显示的将 Bean 定义为 singleton 模式
+- Singleton, 单例模式，Spring IoC 容器中只会存在一个共享的 Bean 实例，无论有多少个 Bean 引用它，始终指向同一对象。Singleton 作用域是 Spring 中的缺省作用域，也可以显式的将 Bean 定义为 Singleton 模式
 
-- Prototype, 原型模式，每次通过 Spring 容器获取 prototype 定义的 bean 时，容器都将创建一个新的 Bean 实例，每个 Bean 实例都有自己的属性和状态，而 singleton 全局只有一个对象。根据经验，对有状态的 bean 使用 prototype 作用域，而对无状态的 bean 使用 singleton 作用域。
+- Prototype, 原型模式，每次通过 Spring 容器获取 prototype 定义的 bean 时，容器都将创建一个新的 Bean 实例，每个 Bean 实例都有自己的属性和状态，而 Singleton 全局只有一个对象。根据经验，对有状态的 bean 使用 prototype 作用域，而对无状态的 bean 使用 Singleton 作用域。
 
 - Request, 在一次 Http 请求中，容器会返回该 Bean 的同一实例。而对不同的 Http 请求则会产生新的 Bean，而且该 bean 仅在当前 Http Request 内有效。
 
@@ -143,9 +145,23 @@ Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Proto
 
 - Global Session, 在一个全局的 Http Session 中，容器会返回该 Bean 的同一个实例，仅在使用 portlet context 时有效。
 
-可以通过 @Scope 注解来指定作用域。Spring 容器可以管理 singleton 作用域下 Bean 的生命周期，在此作用域下，Spring 能够精确地知道 Bean 何时被创建，何时初始化完成，以及何时被销毁。而对于 prototype 作用域的 Bean，Spring 只负责创建，当容器创建了 Bean 的实例后，Bean 的实例就交给了客户端的代码管理，Spring 容器将不再跟踪其生命周期，并且不会管理那些被配置成 prototype 作用域的 Bean 的生命周期。Spring 中 Bean 的生命周期的执行是一个很复杂的过程，读者可以利用 Spring 提供的方法来定制 Bean 的创建过程。Spring 容器在保证一个 bean 实例能够使用之前会做很多工作：
+可以通过 @Scope 注解来指定作用域。Spring 容器可以管理 Singleton 作用域下 Bean 的生命周期，在此作用域下，Spring 能够精确地知道 Bean 何时被创建，何时初始化完成，以及何时被销毁。而对于 prototype 作用域的 Bean，Spring 只负责创建，当容器创建了 Bean 的实例后，Bean 的实例就交给了客户端的代码管理，Spring 容器将不再跟踪其生命周期，并且不会管理那些被配置成 prototype 作用域的 Bean 的生命周期。Spring 中 Bean 的生命周期的执行是一个很复杂的过程，读者可以利用 Spring 提供的方法来定制 Bean 的创建过程。Spring 容器在保证一个 Bean 实例能够使用之前会做很多工作：
 
 ![image](https://user-images.githubusercontent.com/5803001/47768779-677b0500-dd14-11e8-9f33-f06dbbebd08b.png)
+
+我们常用的生命周期的 Hook 方法就是在其创建后与销毁之前：
+
+```java
+@PostConstruct
+public void initAfterStartup() {
+    ...
+}
+
+@PreDestroy
+public void cleanupBeforeExit() {
+    ...
+}
+```
 
 ## 配置管理
 
@@ -234,6 +250,16 @@ mail.credentials.authMethod=SHA1
 @Length(max = 4, min = 1)
 private String authMethod;
 ```
+
+# Controller | 请求处理
+
+# Storage | 数据访问
+
+## Mybatis
+
+## Redis
+
+# Logging | 日志
 
 # Test | 测试
 
