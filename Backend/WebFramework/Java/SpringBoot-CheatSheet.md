@@ -149,6 +149,7 @@ Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Proto
 
 ![image](https://user-images.githubusercontent.com/5803001/47768779-677b0500-dd14-11e8-9f33-f06dbbebd08b.png)
 
+<<<<<<< HEAD
 我们常用的生命周期的 Hook 方法就是在其创建后与销毁之前：
 
 ```java
@@ -161,6 +162,13 @@ public void initAfterStartup() {
 public void cleanupBeforeExit() {
     ...
 }
+=======
+对于使用 Bean 注解的对象，可以添加 destroyMethod 等参数来介入其生命周期：
+
+```java
+@Bean(destroyMethod = "close")
+public MyBean myBean(){...
+>>>>>>> e047c5a0d72d7a17bc5d0ff7bdeb3b474c2cff0b
 ```
 
 ## 配置管理

@@ -405,7 +405,7 @@ Exception in thread "main" java.util.concurrent.TimeoutException
 
 ## CompletableFuture
 
-CompletableFuture 类实现了 CompletionStage 和 Future 接口，JDK 吸收了 guava 的设计思想，加入了 Future 的诸多扩展功能形成了 CompletableFuture。
+CompletableFuture 类实现了 CompletionStage 和 Future 接口，JDK 吸收了 guava 的设计思想，加入了 Future 的诸多扩展功能形成了 CompletableFuture，CompletableFuture 的基础用法就是当做对于未来对象的包裹使用：
 
 ```java
 // 无参构造函数简单的创建 CompletableFuture
@@ -434,6 +434,8 @@ completableFuture.complete(new Object())
 ```
 
 ### 链式调用与转换
+
+CompletableFuture 还提供了 runAsync/supplyAsync 等静态方法，让我们创建便捷地异步执行流程：
 
 ```java
 // Variations of runAsync() and supplyAsync() methods
