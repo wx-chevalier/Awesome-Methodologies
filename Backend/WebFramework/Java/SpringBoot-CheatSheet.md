@@ -147,6 +147,13 @@ Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Proto
 
 ![image](https://user-images.githubusercontent.com/5803001/47768779-677b0500-dd14-11e8-9f33-f06dbbebd08b.png)
 
+对于使用 Bean 注解的对象，可以添加 destroyMethod 等参数来介入其生命周期：
+
+```java
+@Bean(destroyMethod = "close")
+public MyBean myBean(){...
+```
+
 ## 配置管理
 
 Spring Boot 的一大特性即是外置所有的配置，并且提供了多种配置访问方式；首先我们可以通过动态地指定配置文件的方式来完成不同环境下的配置文件加载：
