@@ -2,6 +2,10 @@
 
 # Distributed System CheatSheet | 分布式系统概述与理论基础
 
+A distributed system involves a set of distinct processes (e.g., computers) passing messages to one another and coordinating to accomplish a common objective (i.e., solving a computational problem). As I mentioned, there are hundreds of architectures for a distributed system. For example, a single computer can also be viewed as a distributed system: the central control unit, memory units, and input-output channels are separate processes collaborating to complete an objective.
+
+
+
 分布式系统（确切地说应该是分布式计算机系统）从它诞生到现在已经过去了很长的时间。这种在多台计算机之间交换 / 共享数据的需求催生了面向消息通信的想法，即两台计算机使用包含了数据的消息来共享数据。文件共享、数据库共享等其他机制当时还没有出现。
 
 分布式架构是数据库发展的大势所趋。分布式架构显著提升大容量数据存储和管理能力，既保障面对大量用户的高并发需求，又保障了面对业务变化的弹性增长能力。分布式数据库的使用成本，也远低于传统数据库。由于分布式架构主要使用 PC 服务器与内置盘，因此几乎全部新型分布式数据库均使用多副本技术来保障数据的可靠性与安全性。利用 Windows、Unix、Linux 等操作系统，我们可以在同一台计算机上运行多个任务。这使得分布式系统开发人员能够在一台或者几台通过消息传递连接的计算机内构建和运行整个分布式系统。这催生了面向服务的架构（SOA），其中每个分布式系统可以通过一组集成在一台计算机或多台计算机上运行的服务来构建。我们通过 WSDL（用于 SOAP 协议）或 WADL（用于 REST 协议）等语言适当地定义服务接口。
