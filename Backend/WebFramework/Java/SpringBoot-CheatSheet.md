@@ -149,7 +149,6 @@ Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Proto
 
 ![image](https://user-images.githubusercontent.com/5803001/47768779-677b0500-dd14-11e8-9f33-f06dbbebd08b.png)
 
-<<<<<<< HEAD
 我们常用的生命周期的 Hook 方法就是在其创建后与销毁之前：
 
 ```java
@@ -162,13 +161,41 @@ public void initAfterStartup() {
 public void cleanupBeforeExit() {
     ...
 }
-=======
+```
+
 对于使用 Bean 注解的对象，可以添加 destroyMethod 等参数来介入其生命周期：
 
 ```java
 @Bean(destroyMethod = "close")
 public MyBean myBean(){...
->>>>>>> e047c5a0d72d7a17bc5d0ff7bdeb3b474c2cff0b
+```
+
+### Application LifeCycle | 应用生命周期
+
+Spring Boot 为我们提供了两个接口，CommandLineRunner 与 ApplicationRunner，它们能够在应用启动之后执行部分业务逻辑。CommandLineRunner 能够允许我们访问到应用的启动参数：
+
+```java
+@Component
+public class CommandLineAppStartupRunner implements CommandLineRunner {
+    private static final Logger logger = LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
+    @Override
+    public void run(String...args) throws Exception {
+        logger.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
+    }
+}
+```
+
+ApplicationRunner 则是对启动参数进行了二次封装：
+
+```java
+@Component
+public class AppStartupRunner implements ApplicationRunner {
+    private static final Logger logger = LoggerFactory.getLogger(AppStartupRunner.class);
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        logger.info("Your application started with option names : {}", args.getOptionNames());
+    }
+}
 ```
 
 ## 配置管理
@@ -261,13 +288,60 @@ private String authMethod;
 
 # Controller | 请求处理
 
+传统的 Spring MVC 基于 Servlet API 构建，使用单请求单线程处理的同步阻塞型模型；而 Spring WebFlux 则是 Reactive Stack，能够充分利用现代多核处理器的特性，从底层机制上保证了对于海量并发请求处理的能力。WebFlux 使用 Netty, Servlet 3.1+ Containers 替代传统的 Servlet Containers，使用 Reactive Stream Adapters 替代 Servlet API，使用 Spring Security Reactive 替代 Spring Security，使用 Spring Data Reactive Repositories 替代 Spring Data Repositories。
+
+![](https://docs.spring.io/spring/docs/current/spring-framework-reference/images/spring-mvc-and-webflux-venn.png)
+
+## 路由与参数
+
+```java
+@RestController
+@RequestMapping("/persons")
+class PersonController {
+
+    @GetMapping("/{id}")
+    public Person getPerson(@PathVariable Long id) {
+        // ...
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void add(@RequestBody Person person) {
+        // ...
+    }
+}
+```
+
+## 响应
+
+# Service | 服务
+
+## Logging | 日志
+
+## 缓存
+
+Spring Cache 为我们提供了非常便捷的方法调用缓存功能，在依赖中引入 spring-boot-starter-cache:
+
+```groovy
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-cache")
+}
+```
+
+然后在 Application 类中添加 `@EnableCaching` 注解，这样我们在进行方法调用时可以缓存调用结果：
+
+```java
+@Cacheable("books")
+public Book getByIsbn(String isbn) {
+    ...
+}
+```
+
 # Storage | 数据访问
 
 ## Mybatis
 
 ## Redis
-
-# Logging | 日志
 
 # Test | 测试
 
@@ -345,3 +419,7 @@ class MySpec extends Specification {
   }
 }
 ```
+
+# Todos
+
+- https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-ann-modelattrib-methods

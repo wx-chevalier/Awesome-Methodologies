@@ -1,10 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-<<<<<<< HEAD
-# Java CheatSheet | Java 语法速览与实践清单
-=======
 # Java CheatSheet | Java 语法速览与实践清单
->>>>>>> e047c5a0d72d7a17bc5d0ff7bdeb3b474c2cff0b
 
 当我们谈起 Java 的时候，往往是将其作为一门编程语言来讨论；然而编程语言的特性只是 Java 架构的某部分，保障其平台独立性的一系列底层架构也是 Java 不可分割的组成。宏观来看，我们认为 Java 主要包含以下四个部分：Java 编程语言、Java 类文件格式、Java API 以及 JVM。当我们在进行 Java 开发时，我们使用 Java 编程语言来编写代码，然后将其编译为 Java 类文件，最终在 JVM 中执行这些类文件；目前我们也可以使用 Gradle、Kotlin 等其他优秀的语言来编写 Java 应用程序。而 JVM 与 Java 平台的核心库就构成了我们所熟知的 Java Runtime Environment(JRE)：
 
@@ -38,8 +34,8 @@ Java 未来的发布周期，将每半年发布一个大版本，每个季度发
 
 ```java
 do {
-        System.out.println("Count is: " + count);
-        count++;
+      System.out.println("Count is: " + count);
+      count++;
     } while (count < 11);
 ```
 
@@ -89,6 +85,21 @@ String str = "tim,kerry,timmy,camden";
 String[] results = str.split(",");
 ```
 
+### Regex | 正则表达式
+
+```java
+String pattern = "\\sa(\\w)*t(\\w)*"; //contains "at"
+Pattern regPat = Pattern.compile(pattern);
+// 多行模式
+Pattern regPat = Pattern.compile(pattern, Pattern.MULTILINE);
+String text = "words something at atte afdgdatdsf hey";
+Matcher matcher = regPat.matcher(text);
+while(matcher.find()){
+    String matched = matcher.group();
+    System.out.println(matched);
+}
+```
+
 #  数据结构
 
 ## 数组
@@ -119,29 +130,29 @@ Arrays.stream(stringArray).forEach(System.out::println);
 ####  创建映射集合:
 
 ```
-        HashMap map = new HashMap();
-        map.put(key1,obj1);
-        map.put(key2,obj2);
-        map.put(key2,obj2);
+      HashMap map = new HashMap();
+      map.put(key1,obj1);
+      map.put(key2,obj2);
+      map.put(key2,obj2);
 ```
 
 ####  数组排序:
 
 ```
-       int[] nums = {1,4,7,324,0,-4};
-       Arrays.sort(nums);
-       System.out.println(Arrays.toString(nums));
+     int[] nums = {1,4,7,324,0,-4};
+     Arrays.sort(nums);
+     System.out.println(Arrays.toString(nums));
 ```
 
 ####  列表排序:
 
 ```
-        List<String> unsortList = new ArrayList<String>();
+      List<String> unsortList = new ArrayList<String>();
 
-        unsortList.add("CCC");
-        unsortList.add("111");
-        unsortList.add("AAA");
-        Collections.sort(unsortList);
+      unsortList.add("CCC");
+      unsortList.add("111");
+      unsortList.add("AAA");
+      Collections.sort(unsortList);
 ```
 
 ####  列表搜索:
@@ -281,89 +292,43 @@ System.out.println(timeElapsed);
 
 ```
 String pattern = "[TJ]im";
-       Pattern regPat = Pattern.compile(pattern,Pattern.CASE_INSENSITIVE);
-       String text = "This is Jim and that's Tim";
-       Matcher matcher = regPat.matcher(text);
+     Pattern regPat = Pattern.compile(pattern,Pattern.CASE_INSENSITIVE);
+     String text = "This is Jim and that's Tim";
+     Matcher matcher = regPat.matcher(text);
 
-       if (matcher.find()){
+     if (matcher.find()){
 
-           String matchedText = matcher.group();
-           System.out.println(matchedText);
-       }
+         String matchedText = matcher.group();
+         System.out.println(matchedText);
+     }
 ```
 
 ####  替换匹配字符串:
 
 ```
     String pattern = "[TJ]im";
-       Pattern regPat = Pattern.compile(pattern,Pattern.CASE_INSENSITIVE);
-       String text = "This is jim and that's Tim";
-       Matcher matcher = regPat.matcher(text);
-       String text2 = matcher.replaceAll("Tom");
-       System.out.println(text2);
+     Pattern regPat = Pattern.compile(pattern,Pattern.CASE_INSENSITIVE);
+     String text = "This is jim and that's Tim";
+     Matcher matcher = regPat.matcher(text);
+     String text2 = matcher.replaceAll("Tom");
+     System.out.println(text2);
 ```
 
 ####  使用  StringBuffer  替换匹配字符串:
 
 ```
  Pattern p = Pattern.compile("My");
-       Matcher m = p.matcher("My dad and My mom");
-       StringBuffer sb = new StringBuffer();
-       boolean found = m.find();
+     Matcher m = p.matcher("My dad and My mom");
+     StringBuffer sb = new StringBuffer();
+     boolean found = m.find();
 
-       while(found){
-           m.appendReplacement(sb,"Our");
-           found = m.find();
+     while(found){
+         m.appendReplacement(sb,"Our");
+         found = m.find();
 
-       }
-        m.appendTail(sb);
-        System.out.println(sb);
-```
-
-####  打印所有匹配次数:
-
-```
-String pattern = "\\sa(\\w)*t(\\w)*"; //contains "at"
-      Pattern regPat = Pattern.compile(pattern);
-      String text = "words something at atte afdgdatdsf hey";
-      Matcher matcher = regPat.matcher(text);
-      while(matcher.find()){
-
-
-          String matched = matcher.group();
-          System.out.println(matched);
-      }
-```
-
-####  打印包含固定模式的行:
-
-```
- String pattern = "^a";
-      Pattern regPat = Pattern.compile(pattern);
-      Matcher matcher = regPat.matcher("");
-        BufferedReader reader = new BufferedReader(new FileReader("file.txt"));
-        String line;
-        while ((line = reader.readLine())!= null){
-            matcher.reset(line);
-            if (matcher.find()){
-                System.out.println(line);
-            }
-        }
-```
-
-####  匹配新行:
-
-```
-String pattern = "\\d$"; //any single digit
-     String text = "line one\n line two\n line three\n";
-     Pattern regPat = Pattern.compile(pattern, Pattern.MULTILINE);
-     Matcher matcher = regPat.matcher(text);
-     while (matcher.find()){
-
-         System.out.println(matcher.group());
-
-
-     }
+     }
+      m.appendTail(sb);
+      System.out.println(sb);
 ```
 
 #### regex:
@@ -401,12 +366,12 @@ String pattern = "\\d$"; //any single digit
 
      try{
 
-         int result = Integer.parseInt(str);
+       int result = Integer.parseInt(str);
 
      }
 
      catch (NumberFormatException e){
-         System.out.println("not valid");
+       System.out.println("not valid");
      }
 ```
 
@@ -414,48 +379,48 @@ String pattern = "\\d$"; //any single digit
 
 ```
 Double a = 4.5;
-      Double b= 4.5;
+    Double b= 4.5;
 
-      boolean result = a.equals(b);
+    boolean result = a.equals(b);
 
-      if (result) System.out.println("equal");
+    if (result) System.out.println("equal");
 ```
 
 #### rounding:
 
 ```
 double doubleVal = 43.234234200000000234040324;
-       float floatVal = 2.98f;
+     float floatVal = 2.98f;
 
-      long longResult = Math.round(doubleVal);
-      int intResult = Math.round(floatVal);
+    long longResult = Math.round(doubleVal);
+    int intResult = Math.round(floatVal);
 
-        System.out.println(longResult + " and " + intResult); // 43 and 3
+      System.out.println(longResult + " and " + intResult); // 43 and 3
 ```
 
 ####  格式化数字:
 
 ```
 double value = 2343.8798;
-        NumberFormat numberFormatter;
-        String formattedValue;
-        numberFormatter = NumberFormat.getNumberInstance();
-        formattedValue = numberFormatter.format(value);
-        System.out.format("%s%n",formattedValue); //2.343,88
+      NumberFormat numberFormatter;
+      String formattedValue;
+      numberFormatter = NumberFormat.getNumberInstance();
+      formattedValue = numberFormatter.format(value);
+      System.out.format("%s%n",formattedValue); //2.343,88
 ```
 
 ####  格式化货币:
 
 ```
 double currency = 234546457.99;
-       NumberFormat currencyFormatter;
-       String formattedCurrency;
+     NumberFormat currencyFormatter;
+     String formattedCurrency;
 
-       currencyFormatter = NumberFormat.getCurrencyInstance();
+     currencyFormatter = NumberFormat.getCurrencyInstance();
 
-       formattedCurrency = currencyFormatter.format(currency);
+     formattedCurrency = currencyFormatter.format(currency);
 
-        System.out.format("%s%n",formattedCurrency); // $ 234.546.457,99
+      System.out.format("%s%n",formattedCurrency); // $ 234.546.457,99
 ```
 
 ####  二进制、八进制、十六进制转换:
@@ -471,66 +436,23 @@ String hexStr = Integer.toHexString(val);
 
 ```
 double rn = Math.random();
-        int rint = (int) (Math.random()*10); // random int between 0-10
+      int rint = (int) (Math.random()*10); // random int between 0-10
 
-        System.out.println(rn);
-        System.out.println(rint);
+      System.out.println(rn);
+      System.out.println(rint);
 ```
 
 ####  计算三角函数:
 
 ```
 double cos = Math.cos(45);
-        double sin = Math.sin(45);
-        double tan = Math.tan(45);
-```
-
-####  计算对数
-
-```
-double logVal = Math.log(125.5);
-```
-
-#### Math library:
-
-[![Ekran Resmi 2017-03-04 10.42.52.png](https://s27.postimg.org/fuya7a83n/Ekran_Resmi_2017_03_04_10_42_52.png)](https://postimg.org/image/f5fhux7jz/)
-
-[![library-calls.png](https://s29.postimg.org/ux3o2zijb/library_calls.png)](https://postimg.org/image/ow5z5wvwz/)
-
-##  输入输出操作:
-
-####  从输入流读取:
-
-```
-//throw IOexception first
-
-BufferedReader inStream = new BufferedReader(new InputStreamReader(System.in));
-      String inline ="";
-      while (!(inline.equalsIgnoreCase("quit"))){
-          System.out.println("prompt> ");
-          inline=inStream.readLine();
-      }
-```
-
-####  格式化输出:
-
-```
-StringBuffer buffer = new StringBuffer();
-      Formatter formatter = new Formatter(buffer, Locale.US);
-      formatter.format("PI: "+Math.PI);
-        System.out.println(buffer.toString());
+      double sin = Math.sin(45);
+      double tan = Math.tan(45);
 ```
 
 #### formatter format calls:
 
 [![Ekran Resmi 2017-03-04 11.21.45.png](https://s24.postimg.org/6st8e3epx/Ekran_Resmi_2017_03_04_11_21_45.png)](https://postimg.org/image/qanvu1bnl/)
-
-####  打开文件:
-
-```
-BufferedReader br = new BufferedReader(new FileReader(textFile.txt)); //for reading
-    BufferedWriter bw = new BufferedWriter(new FileWriter(textFile.txt)); //for writing
-```
 
 ####  读取二进制数据:
 
@@ -556,13 +478,13 @@ ZipFile file =new ZipFile(filename);
     Enumeration entries = file.entries();
     while(entries.hasMoreElements()){
 
-        ZipEntry entry = (ZipEntry) entries.nextElement();
-        if (entry.isDirectory()){
-            //do something
-        }
-        else{
-            //do something
-        }
+      ZipEntry entry = (ZipEntry) entries.nextElement();
+      if (entry.isDirectory()){
+        //do something
+      }
+      else{
+        //do something
+      }
     }
     file.close();
 ```
@@ -602,9 +524,8 @@ f.setLastModified(desired time);
 
 ####  获取文件大小:
 
-File f = new File("somefile.txt");
-
 ```
+File f = new File("somefile.txt");
 long length = file.length();
 ```
 
@@ -638,16 +559,20 @@ File f = new File("somefile.txt");
     System.out.println(isDirectory); //false
 ```
 
-####  列举目录下文件:
+####  :
 
 ```
+
+```
+
+####  :
+
+```java
+// 列举目录下文件
 File directory = new File("users/ege");
-    String[] result = directory.list();
-```
+String[] result = directory.list();
 
-####  创建目录:
-
-```
+// 创建目录
 boolean result = new File("users/ege").mkdir();
 ```
 
@@ -665,22 +590,22 @@ String serverName = "www.egek.us";
 
 ```
 try {
-            Socket sock = new Socket(server_name, tcp_port);
-            System.out.println("Connected to " + server_name);
-        sock.close(  );
+        Socket sock = new Socket(server_name, tcp_port);
+        System.out.println("Connected to " + server_name);
+      sock.close(  );
 
     } catch (UnknownHostException e) {
-        System.err.println(server_name + " Unknown host");
-        return;
+      System.err.println(server_name + " Unknown host");
+      return;
     } catch (NoRouteToHostException e) {
-        System.err.println(server_name + " Unreachable" );
-        return;
+      System.err.println(server_name + " Unreachable" );
+      return;
     } catch (ConnectException e) {
-        System.err.println(server_name + " connect refused");
-        return;
+      System.err.println(server_name + " connect refused");
+      return;
     } catch (java.io.IOException e) {
-        System.err.println(server_name + ' ' + e.getMessage(  ));
-        return;
+      System.err.println(server_name + ' ' + e.getMessage(  ));
+      return;
     }
 ```
 
@@ -804,9 +729,9 @@ Java 8 API 添加了一个新的抽象称为流 Stream，可以让你以一种�
 Stream（流）是一个来自数据源的元素队列并支持聚合操作，元素是特定类型的对象，形成一个队列；Java 中的 Stream 并不会存储元素，而是按需计算。元素流在管道中经过中间操作(intermediate operation)的处理，最后由最终操作(terminal operation)得到前面处理的结果。
 
 ```sh
-+--------------------+       +------+   +------+   +---+   +-------+
++--------------------+     +------+   +------+   +---+   +-------+
 | stream of elements +-----> |filter+-> |sorted+-> |map+-> |collect|
-+--------------------+       +------+   +------+   +---+   +-------+
++--------------------+     +------+   +------+   +---+   +-------+
 ```
 
 最简流程的描述如下：
@@ -814,10 +739,10 @@ Stream（流）是一个来自数据源的元素队列并支持聚合操作，�
 ```java
 List<Integer> transactionsIds =
 widgets.stream()
-             .filter(b -> b.getColor() == RED)
-             .sorted((x,y) -> x.getWeight() - y.getWeight())
-             .mapToInt(Widget::getWeight)
-             .sum();
+     .filter(b -> b.getColor() == RED)
+     .sorted((x,y) -> x.getWeight() - y.getWeight())
+     .mapToInt(Widget::getWeight)
+     .sum();
 ```
 
 和以前的 Collection 操作不同，Stream 操作还有两个基础的特征：
@@ -894,8 +819,8 @@ System.out.println("合并字符串: " + mergedString);
 ```java
 // 提取为 Map
 IntStream.range(0, alphabet.size())
-         .boxed()
-         .collect(toMap(alphabet::get, i -> i));
+     .boxed()
+     .collect(toMap(alphabet::get, i -> i));
 ```
 
 # 数据结构
@@ -934,8 +859,36 @@ for (Iterator it = map.entrySet().iterator();it.hasNext();){
 
 # Storage | 存储
 
-## 流
+## 文件读写
+
+Java.io 包几乎包含了所有操作输入、输出需要的类。所有这些流类代表了输入源和输出目标；Java.io 包中的流支持很多种格式，比如：基本类型、对象、本地化字符集等等。一个流可以理解为一个数据的序列。输入流表示从一个源读取数据，输出流表示向一个目标写数据。Java 为 I/O 提供了强大的而灵活的支持，使其更广泛地应用到文件传输和网络编程中。
+
+InputStream 是所有字节输入流的祖先，而 OutputStream 是所有字节输出流的祖先；Reader 是所有读取字符串输入流的祖先，而 writer 是所有输出字符串的祖先。字节流是最基本的，所有的 InputStream 和 OutputStream 的子类都是,主要用在处理二进制数据，它是按字节来处理的，但实际中很多的数据是文本，又提出了字符流的概念，它是按虚拟机的 Encode 来处理，也就是要进行字符集的转化。这两个之间通过 InputStreamReader,OutputStreamWriter 来关联，实际上是通过 byte[]和 String 来关联。字节流在操作时本身不会用到缓冲区（内存），是文件本身直接操作的，而字符流在操作时使用了缓冲区，通过缓冲区再操作文件。
+
+![](http://www.runoob.com/wp-content/uploads/2013/12/iostream2xx.png)
+
+控制台读写：
+
+```java
+BufferedReader inStream = new BufferedReader(new InputStreamReader(System.in));
+String inline ="";
+while (!(inline.equalsIgnoreCase("quit"))){
+    System.out.println("prompt> ");
+    inline=inStream.readLine();
+}
+```
+
+```java
+BufferedReader br = new BufferedReader(new FileReader(textFile.txt)); //for reading
+BufferedWriter bw = new BufferedWriter(new FileWriter(textFile.txt)); //for writing
+```
+
+## 文件系统
 
 # Todos
 
 - https://github.com/in28minutes/java-cheat-sheet
+
+```
+
+```

@@ -54,6 +54,30 @@ Linux 在操作这些物理内存时，不会直接操作物理内存，而是�
 
 只有网络 I/O 是能够单线程事件循环，文件 I/O 暂时只能用线程池来模拟事件循环。
 
+Unix 的 5 种 I/O 模型：阻塞式 I/O, 非阻塞式 I/O，I/O 复用模型，信号驱动式 I/O 和异步 I/O。
+
+- 阻塞式 I/O
+
+![blocking_io](https://lukangping.gitbooks.io/java-nio/content/resources/blocking_io.jpg)
+
+- 非阻塞式 I/O
+
+![nonblocking_io](https://lukangping.gitbooks.io/java-nio/content/resources/nonblocking_io.jpg)
+
+- I/O 复用(select,poll)
+
+I/O 多路复用通过把多个 I/O 的阻塞复用到同一个 select 的阻塞上，从而使得系统在单线程的情况可以同时处理多个客户端请求。 目前支持 I/O 多路复用的**系统调用**有 select，pselect，poll，epoll，在 linux 网络编程过程中，很长一段时间都是用 select 做轮询和网络事件通知，然而 select 的一些固有缺陷导致了它的应用受到了很大的限制，最终 linux 不得不载新的内核版本中寻找 select 的替代方案，最终选择了 epoll。
+
+![multplexing_io](https://lukangping.gitbooks.io/java-nio/content/resources/multiplexing_io.jpg)
+
+- 信号驱动式 I/O
+
+![signal_driven](https://lukangping.gitbooks.io/java-nio/content/resources/signal_driven.jpg)
+
+- 异步 I/O
+
+![asynchronous_io](https://lukangping.gitbooks.io/java-nio/content/resources/asynchronous_io.jpg)
+
 ## I/O 类别
 
 不同应用通常具有不同的 I/O 类型，了解应用的 I/O 类型是为其设计解决方案、排错性能问题的首要工作。那 I/O 类型通常包括哪些需要考虑的因素？我们今天就来谈一谈 I/O 类型的几个重要方面。
