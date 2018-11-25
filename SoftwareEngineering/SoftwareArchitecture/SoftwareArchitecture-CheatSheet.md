@@ -140,21 +140,6 @@ AMQP-based 的代表系统是 kafka、RabbitMQ 等。这类分布式消息处理
 
 测试驱动开发的基本思想就是在开发功能代码之前，先编写测试代码。也就是说在明确要开发某个功能后，首先思考如何对这个功能进行测试，并完成测试代码的编写，然后编写相关的代码满足这些测试用例。然后循环进行添加其他功能，直到完全部功能的开发。我们这里把这个技术的应用领域从代码编写扩展到整个开发过程。应该对整个开发过程的各个阶段进行测试驱动，首先思考如何对这个阶段进行测试、验证、考核，并编写相关的测试文档，然后开始下一步工作，最后再验证相关的工作。下图是一个比较流行的测试模型：V 测试模型。
 
-## BDD
+# 软件设计
 
-## DDD
-
-> [领域模型驱动设计][1]
-
-# 敏捷开发(Agile)
-
-# Reference
-
-## 软件架构
-
-- [Architectural Styles and
-
-  the Design of Network-based Software Architectures][2]
-
-[1]: http://blog.csdn.net/johnstrive/article/details/16805121
-[2]: http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm
+软件设计有以下四大目标：简单、正确、一致、完整，但两大流派 MIT Style (MIT AI Lab 是 LISP 重镇) 和 New Jersey Style (C 和 UNIX 的老家贝尔实验室所在地) 对这些目标的优先级排序不同。MIT Style 认为软件正确性要绝对保证，然后优先级 正确 ~= 一致 > 完整 > 简单，简单这一条还得分，为了接口简单，可以忍受实现复杂。而 New Jersey Style 是正好反过来：首先软件实现得简单，做不到宁愿让接口复杂点，为了简单显然可以牺牲完整性，而正确、一致，那就尽力吧…… 反正得简单。Worse is Better 前面的 Worse 指的就是像 UNIX 这样为简单甚至能放弃「正确」这种有绝对标准的好的东西，后面的 Better, 指的是更好的生存适应性，这里面不带价值判断，文章作者也为 "Worse Is Better Is Worse" or "Worse is Better is Still Better" 一直在纠结，但这是一个能解释很多现象的准确观察。

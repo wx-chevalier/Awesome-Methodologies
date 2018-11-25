@@ -486,6 +486,12 @@ console.log(getEntriesArry.next().value);
 
 ## Map
 
+Map 对象和 Object 对象的区别如下：
+
+- 一个对象通常都有自己的原型，所以一个对象总有一个"prototype"键
+- 一个对象的键只能是字符串或者 Symbols，但一个 Map 的键可以是任意值
+- 可以通过 size 属性很容易地得到一个 Map 的键值对个数，而对象的键值对个数只能手动确认
+
 ## Typed Arrays & Buffer
 
 Typed Arrays 允许我们在 JavaScript 中处理二进制数据与结构，最早是用于 WebGL API 中，以缓解标准 JavaScript 数组转换与类型推测过慢的问题。
@@ -729,11 +735,11 @@ console.log(o1); // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变�
 
 # 异步编程
 
+异步函数语法在其他语言中存在已久，就像 C# 中的 async/await、Kotlin 中的 coroutines、Go 中的 goroutines；而随着 Node.js 8 的发布，async/await 语法也得到了原生支持而不再需要依赖于 Babel 等转化工具。
+
 ## Callback | 回调
 
 ## Promise
-
-> 📚 参考资料: []()，[]()
 
 ## 生成器
 
@@ -753,9 +759,45 @@ co(function*() {
 );
 ```
 
-> 📎 完整代码: []()
-
 ## async/await
+
+```js
+class Sleep {
+  constructor(timeout) {
+    this.timeout = timeout;
+  }
+  then(resolve, reject) {
+    const startTime = Date.now();
+    setTimeout(() => resolve(Date.now() - startTime), this.timeout);
+  }
+}
+
+(async () => {
+  const actualTime = await new Sleep(1000);
+  console.log(actualTime);
+})();
+```
+
+```js
+const http = require('http');
+
+http
+  .createServer(async (req, res) => {
+    try {
+      let body = '';
+      req.setEncoding('utf8');
+      for await (const chunk of req) {
+        body += chunk;
+      }
+      res.write(body);
+      res.end();
+    } catch {
+      res.statusCode = 500;
+      res.end();
+    }
+  })
+  .listen(1337);
+```
 
 # 其他
 

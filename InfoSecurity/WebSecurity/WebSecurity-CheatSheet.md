@@ -60,10 +60,10 @@ amount=100.00&routingNumber=1234&account=9876
 
 ```html
 <form action="https://bank.example.com/transfer" method="post">
-  <input type="hidden" name="amount" value="100.00"/>
-  <input type="hidden" name="routingNumber" value="evilsRoutingNumber"/>
-  <input type="hidden" name="account" value="evilsAccountNumber"/>
-  <input type="submit" value="Win Money!"/>
+  <input type="hidden" name="amount" value="100.00" />
+  <input type="hidden" name="routingNumber" value="evilsRoutingNumber" />
+  <input type="hidden" name="account" value="evilsAccountNumber" />
+  <input type="submit" value="Win Money!" />
 </form>
 ```
 
@@ -97,3 +97,7 @@ Cookie: xxxx
 
 param1=value1&_csrf=8fba1604-8c0d-4619-973c-ac1a79b90298
 ```
+
+# Todos
+
+- https://blog.logrocket.com/security-for-fullstack-web-developers-part-1-a56340283f7c

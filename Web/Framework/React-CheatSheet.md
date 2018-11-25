@@ -605,6 +605,18 @@ class MyClass extends React.Component {
 MyClass.contextType = MyContext;
 ```
 
+## Hooks
+
+## Suspense
+
+Suspense allows you to defer rendering part of your application tree until some condition is met (for example, data from an endpoint or a resource is loaded).
+
+理论上，React 的工作分为两个阶段：
+
+render（渲染）阶段，将决定是否需要更新 DOM。此时 React 调用 render 函数，然后将本次 render 函数的结果与上一次的结果进行比较。
+
+commit（提交）阶段，当 React 做出更新 DOM 的操作（DOM 节点的增加，删除，修改等）时，此阶段还会调用 componentDidMount，componentDidUpdate 等与生命周期相关的函数。
+
 # React Router
 
 ```js
@@ -622,7 +634,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 <PrivateRoute path='/protected' component={Protected} />
 ```
 
-# 架构模式
+# Design Pattern | 架构模式
 
 ## Functional React | 函数式 React
 

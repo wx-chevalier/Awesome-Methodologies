@@ -87,16 +87,7 @@ http://maven.apache.org/maven-v4_0_0.xsd">
     <version>1.0</version>
 
     <dependencies>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hamcrest</groupId>
-            <artifactId>hamcrest-all</artifactId>
-            <version>1.3</version>
-        </dependency>
+        ...
     </dependencies>
 
     <build>
@@ -213,7 +204,7 @@ artifacts {
     archives someFile
 }
 
-## 根据自定义task来完成artifact
+// 根据自定义task来完成artifact
 task myTask(type:  MyTaskType) {
     destFile = file('build/somefile.txt')
 }
@@ -225,7 +216,7 @@ artifacts {
     }
 }
 
-## 根据自定义task来完成artifact
+// 根据自定义task来完成artifact
 task generate(type:  MyTaskType) {
     destFile = file('build/somefile.txt')
 }
@@ -349,7 +340,7 @@ repositories {                              // 定义ivy协议类型的仓库
 ```groovy
 repositories {
  mavenCentral artifactUrls:["file://C:/maven/.m2/repository/"]
- }
+}
 ```
 
 如果是系统的默认配置的：
@@ -502,7 +493,7 @@ task other << {
 }
 ```
 
-`gradle -q`命令的输出：
+`gradle -q` 命令的输出：
 
 ```groovy
 > gradle -q
@@ -510,13 +501,11 @@ Default Cleaning!
 Default Running!
 ```
 
-# Plugins | 插件
-
-## Java
+# Java Plugin
 
 1，使用 Java plugin，只需要在 build.gradle 中加入这句话：
 
-```
+```groovy
 apply plugin: 'java'
 ```
 
@@ -524,9 +513,7 @@ apply plugin: 'java'
 
 ![gradle source set](http://tech.meituan.com/img/gradle/source_set.png)
 
-这里要注意，每个 plugin 的 source set 可能都不一样。
-
-同样的，Java plugin 还定义好了一堆 task，让我们可以直接使用，比如：clean、test、build 等等。这些 task 都是围绕着 Java plugin 的构建生命周期的：
+这里要注意，每个 plugin 的 source set 可能都不一样。同样的，Java plugin 还定义好了一堆 task，让我们可以直接使用，比如：clean、test、build 等等。这些 task 都是围绕着 Java plugin 的构建生命周期的：
 
 ![](http://tech.meituan.com/img/gradle/javaPluginTasks.png)
 
@@ -538,7 +525,7 @@ gradle 构建过程中，所有的依赖都表现为配置，比如说系统运�
 
 可以看到，基本和 Maven 是一样的。其实 Gradle 里面这些依赖(scope)都是通过 configuration 来实现的，这里就不细说，有兴趣的可以研究一下官方资料。
 
-### 源代码
+## 源码配置
 
 ```groovy
 // A Closure that configures the sourceSets Task
@@ -570,7 +557,7 @@ sourceSets {
 }
 ```
 
-### 任务
+## 任务
 
 ```sh
 # 执行编译，将 Java 源码编译到 build 目录并且打包到 jar 包中
@@ -612,6 +599,6 @@ jar {
 }
 ```
 
-## Web Application
+# Web Application
 
 # 测试 | Test

@@ -28,8 +28,12 @@ $ docker run -it --rm mysql mysql -hsome.mysql.host -usome-mysql-user -p
 ```
 
 ```sql
+--- 老版本中更新 Root 用户信息
 GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'password' WITH GRANT OPTION;
  FLUSH PRIVILEGES;
+
+--- 5.7 之后版本
+update user set authentication_string=password('YOURSUPERSECRETPASSWORD') where user='root';
 ```
 
 # 配置与管理
@@ -303,70 +307,11 @@ EXPLAIN SELECT * FROM product WHERE name = '产品一'；
 EXPLAIN SELECT * FROM product WHERE category = '类目一'；
 ```
 
-# Optimization | 性能调优
+- SYSTEM，CONST 的特例，当表上只有一条元组匹配
 
- CPU 过载 –- 慢查询， OPTIMZE TABLE
- 内存使用问题 –- 内存相关参数配置不合理
- 磁盘 I/O -- Buffer pool 命中率；慢查询； redo, undo, data 分开存放
- 网络问题 – 非专有网络，网络路由
- 表及查询语句问题
+- CONST，WHERE 条件筛选后表上至多有一条元组匹配时，比如 WHERE ID = 2 （ID 是主键，值为 2 的要么有一条要么没有）
 
- DBT2
-– http://osdldbt.sourceforge.net/
-– http://samurai-mysql.blogspot.com/2009/03/settingup-dbt-2.html
- mysqlslap MySQL 5.1 +
-– http://dev.mysql.com/doc/refman/5.1/en/mysqlslap.html
- SysBench
-– http://sysbench.sourceforge.net/
- supersmack
-– http://vegan.net/tony/supersmack/
- mybench
-– http://jeremy.zawodny.com/mysql/mybench/
-
- innodb_buffer_pool_size
-一般设置为机器内存的 50%左右(实践经验)
- innodb_buffer_pool_instances
-5.6 及 5.7，可设置为 8-16 个
- innodb_log_file_size
-一般设置为 25% 的 buffer pool size 大小
- innodb_flush_log_at_trx_commit
-要求高可靠性，设置为 1。不要求高可靠性，可设置为 0 或 2.
- sync_binlog
-binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
- innodb_flush_method
-Linux 下设置为 O_DIRECT
-
- innodb_thread_concurrency
-(Cores \* 2) + (# Disks)
- skip_name_resolve
-使用直接 IP 方式，避免 DNS 解析
- innodb_io_capacity， innodb_io_capacity_max
-需要根据你的磁盘的 IOPS 处理能力进行相应设置。
-innodb_io_capacity~= IOPS
- query_cache_type
-是否使用 Query Cache，对于读/写， 80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
- tmp_table_size/ max_heap_table_size
-通过查看状态变量 Created_tmp_disk_tables 及 Created_tmp_tables，决定是否合适
-
-常用定位问题的方法
- 分析状态变量
- MySQL Slow query log
- EXPLAIN 命令查看执行计划
- profiling 查看执行过耗时
- show full processlist
- show engine innodb status
- 查看 innodb 系统表
-
-主要的查询性能问题：全表扫描 临时表 排序 FileSort
-
-（1）SYSTEM
-CONST 的特例，当表上只有一条元组匹配
-
-（2）CONST
-WHERE 条件筛选后表上至多有一条元组匹配时，比如 WHERE ID = 2 （ID 是主键，值为 2 的要么有一条要么没有）
-
-（3）EQ_REF
-参与连接运算的表是内表（在代码实现的算法中，两表连接时作为循环中的内循环遍历的对象，这样的表称为内表）。
+- EQ_REF，参与连接运算的表是内表（在代码实现的算法中，两表连接时作为循环中的内循环遍历的对象，这样的表称为内表）。
 
 基于索引（连接字段上存在唯一索引或者主键索引，且操作符必须是“=”谓词，索引值不能为 NULL）做扫描，使得对外表的一条元组，内表只有唯一一条元组与之对应。
 
@@ -398,6 +343,120 @@ WHERE 条件筛选后表上至多有一条元组匹配时，比如 WHERE ID = 2 
 
 （12）FT
 FULL TEXT，全文检索
+
+# Tuning | 性能调优
+
+MySQL 中常见的性能问题，可能是有如下类型：
+
+- CPU 过载，慢查询，OPTIMZE TABLE
+- 内存使用问题，内存相关参数配置不合理
+- 磁盘 I/O，Buffer pool 命中率；慢查询； redo, undo, data 分开存放
+- 网络问题，非专有网络，网络路由
+- 表及查询语句问题，主要的查询性能问题：全表扫描 临时表 排序 FileSort
+
+常用定位问题的方法则有：
+
+- 分析状态变量
+- MySQL Slow query log
+- EXPLAIN 命令查看执行计划
+- profiling 查看执行过耗时
+- show full processlist
+- show engine innodb status
+- 查看 innodb 系统表
+
+## 配置
+
+- innodb_buffer_pool_size, 一般设置为机器内存的 50%左右(实践经验)
+
+- innodb_buffer_pool_instances, 5.6 及 5.7，可设置为 8-16 个
+
+- innodb_log_file_size
+  一般设置为 25% 的 buffer pool size 大小
+- innodb_flush_log_at_trx_commit
+  要求高可靠性，设置为 1。不要求高可靠性，可设置为 0 或 2.
+- sync_binlog
+  binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
+- innodb_flush_method
+  Linux 下设置为 O_DIRECT
+
+- innodb_thread_concurrency
+  (Cores \* 2) + (# Disks)
+- skip_name_resolve
+  使用直接 IP 方式，避免 DNS 解析
+- innodb_io_capacity， innodb_io_capacity_max
+  需要根据你的磁盘的 IOPS 处理能力进行相应设置。
+  innodb_io_capacity~= IOPS
+- query_cache_type
+  是否使用 Query Cache，对于读/写， 80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
+- tmp_table_size/ max_heap_table_size
+  通过查看状态变量 Created_tmp_disk_tables 及 Created_tmp_tables，决定是否合适
+
+## explain | 分析
+
+在日常工作中，我们会有时会开慢查询去记录一些执行时间比较久的 SQL 语句，找出这些 SQL 语句并不意味着完事了，些时我们常常用到 explain 这个命令来查看一个这些 SQL 语句的执行计划，查看该 SQL 语句有没有使用上了索引，有没有做全表扫描，这都可以通过 explain 命令来查看。
+
+```sh
+mysql> explain select * from (select * from ( select * from t1 where id=2602) a) b;
++----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+
+| id | select_type | table      | type   | possible_keys     | key     | key_len | ref  | rows | Extra |
++----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+
+|  1 | PRIMARY     | <derived2> | system | NULL              | NULL    | NULL    | NULL |    1 |       |
+|  2 | DERIVED     | <derived3> | system | NULL              | NULL    | NULL    | NULL |    1 |       |
+|  3 | DERIVED     | t1         | const  | PRIMARY,idx_t1_id | PRIMARY | 4       |      |    1 |       |
++----+-------------+------------+--------+-------------------+---------+---------+------+------+-------+
+```
+
+当我们的查询语句包含了多个 Select 语句时，explain 会依次返回每个子查询的信息，其中 select_type 就是表示每个 select 子句的类型：
+
+- SIMPLE: 简单 SELECT,不使用 UNION 或子查询等
+
+- PRIMARY: 查询中若包含任何复杂的子部分,最外层的 select 被标记为 PRIMARY
+
+- UNION: UNION 中的第二个或后面的 SELECT 语句
+
+- DEPENDENT UNION: UNION 中的第二个或后面的 SELECT 语句，取决于外面的查询
+
+- UNION RESULT: UNION 的结果
+
+- SUBQUERY: 子查询中的第一个 SELECT
+
+- DEPENDENT SUBQUERY: 子查询中的第一个 SELECT，取决于外面的查询
+
+- DERIVED: 派生表的 SELECT, FROM 子句的子查询
+
+- UNCACHEABLE SUBQUERY: 一个子查询的结果不能被缓存，必须重新评估外链接的第一行
+
+type 表示 MySQL 在表中找到所需行的方式，又称“访问类型”。常用的类型有： ALL, index, range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）：
+
+- ALL：Full Table Scan， MySQL 将遍历全表以找到匹配的行
+
+- index: Full Index Scan，index 与 ALL 区别为 index 类型只遍历索引树
+
+- range:只检索给定范围的行，使用一个索引来选择行
+
+- ref: 表示上述表的连接匹配条件，即哪些列或常量被用于查找索引列上的值
+
+- eq_ref: 类似 ref，区别就在使用的索引是唯一索引，对于每个索引键值，表中只有一条记录匹配，简单来说，就是多表连接中使用 primary key 或者 unique key 作为关联条件
+
+- const, system: 当 MySQL 对查询某部分进行优化，并转换为一个常量时，使用这些类型访问。如将主键置于 where 列表中，MySQL 就能将该查询转换为一个常量,system 是 const 类型的特例，当查询的表只有一行的情况下，使用 system
+
+- NULL: MySQL 在优化过程中分解语句，执行时甚至不用访问表或索引，例如从一个索引列里选取最小值可以通过单独索引查找完成。
+
+possible_keys, 指出 MySQL 能使用哪个索引在表中找到记录，查询涉及到的字段上若存在索引，则该索引将被列出，但不一定被查询使用。key 列显示 MySQL 实际决定使用的键（索引），如果没有选择索引，键是 NULL。要想强制 MySQL 使用或忽视 possible_keys 列中的索引，在查询中使用 FORCE INDEX、USE INDEX 或者 IGNORE INDEX。key_len 表示索引中使用的字节数，可通过该列计算查询中使用的索引的长度（key_len 显示的值为索引字段的最大可能长度，并非实际使用长度，即 key_len 是根据表定义计算而得，不是通过表内检索出的）；不损失精确性的情况下，长度越短越好。
+
+最后的 Extra 列包含 MySQL 解决查询的详细信息,有以下几种情况：
+
+- Using where: 列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生在对表的全部的请求列都是同一个索引的部分的时候，表示 mysql 服务器将在存储引擎检索行后再进行过滤
+
+- Using temporary: 表示 MySQL 需要使用临时表来存储结果集，常见于排序和分组查询
+
+- Using filesort: MySQL 中无法利用索引完成的排序操作称为“文件排序”
+
+- Using join buffer：改值强调了在获取连接条件时没有使用索引，并且需要连接缓冲区来存储中间结果。如果出现了这个值，那应该注意，根据查询的具体情况可能需要添加索引来改进性能。
+
+- Impossible where：这个值强调了 where 语句会导致没有符合条件的行。
+
+- Select tables optimized away：这个值意味着仅通过使用索引，优化器可能仅从聚合函数结果中返回一行
 
 ## Security | 安全
 

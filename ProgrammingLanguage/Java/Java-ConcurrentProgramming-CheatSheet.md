@@ -1,12 +1,12 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Java 并发编程概览：内存模型，并发单元，并发控制与异步模式
+> 本文参考了许多经典的文章描述/示例，统一声明在了 [Java Concurrent Programming Links](https://parg.co/UDS)。
+
+# Java 并发编程概论：内存模型，并发单元，并发控制与异步模式
 
 参考[并发编程导论]()中的介绍，并发编程主要会考虑并发单元、并发控制与异步模式等方面；本文即是着眼于 Java，具体地讨论 Java 中并发编程相关的知识要点。Java 是典型的共享内存的并发模型，线程之间的通信往往是隐式进行。
 
 并发是同一时间应对(dealing with)多件事情的能力；并行是同一时间动手做(doing)多件事情的能力。
-
-本文参考了许多经典的文章描述/示例，统一声明在了 [Java Concurrent Programming Links](https://parg.co/UDS)。
 
 # Java Memory Model | Java 内存模型
 
@@ -261,7 +261,7 @@ Callable<String> callable(String result, long sleepSeconds) {
 
 我们利用这个方法创建一组 callable，这些 callable 拥有不同的执行时间，从 1 分钟到 3 分钟。通过 invokeAny()将这些 callable 提交给一个 executor，返回最快的 callable 的字符串结果-在这个例子中为任务 2：
 
-```
+```java
 ExecutorService executor = Executors.newWorkStealingPool();
 
 List<Callable<String>> callables = Arrays.asList(
@@ -277,12 +277,13 @@ System.out.println(result);
 
 ### Scheduled Executors
 
-为了持续的多次执行常见的任务，我们可以利用调度线程池 ScheduledExecutorService 支持任务调度，持续执行或者延迟一段时间后执行。 下面的实例，调度一个任务在延迟 3 分钟后执行：
+为了持续的多次执行常见的任务，我们可以利用调度线程池 ScheduledExecutorService 支持任务调度，持续执行或者延迟一段时间后执行：
 
 ```java
 ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
 Runnable task = () -> System.out.println("Scheduling: " + System.nanoTime());
+// 设置延迟 3 秒执行
 ScheduledFuture<?> future = executor.schedule(task, 3, TimeUnit.SECONDS);
 
 TimeUnit.MILLISECONDS.sleep(1337);
@@ -291,7 +292,7 @@ long remainingDelay = future.getDelay(TimeUnit.MILLISECONDS);
 System.out.printf("Remaining Delay: %sms", remainingDelay);
 ```
 
-调度一个任务将会产生一个专门的 future 类型——ScheduleFuture，它除了提供了 Future 的所有方法之外，他还提供了 getDelay()方法来获得剩余的延迟。在延迟消逝后，任务将会并发执行。 为了调度任务持续的执行，executors 提供了两个方法 scheduleAtFixedRate()和 scheduleWithFixedDelay()。第一个方法用来以固定频率来执行一个任务，比如，下面这个示例中，每分钟一次：
+调度一个任务将会产生一个专门的 ScheduleFuture 类型，它除了提供了 Future 的所有方法之外，他还提供了 getDelay()方法来获得剩余的延迟。在延迟消逝后，任务将会并发执行。为了调度任务持续的执行，executors 提供了两个方法 s`cheduleAtFixedRate()` 和 `scheduleWithFixedDelay()`；第一个方法用来以固定频率来执行一个任务，比如，下面这个示例中，每分钟一次：
 
 ```java
 ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
@@ -303,13 +304,17 @@ int period = 1;
 executor.scheduleAtFixedRate(task, initialDelay, period, TimeUnit.SECONDS);
 ```
 
-另外，这个方法还接收一个初始化延迟，用来指定这个任务首次被执行等待的时长。 请记住：scheduleAtFixedRate()并不考虑任务的实际用时。所以，如果你指定了一个 period 为 1 分钟而任务需要执行 2 分钟，那么线程池为了性能会更快的执行。在这种情况下，你应该考虑使用 scheduleWithFixedDelay()。这个方法的工作方式与上我们上面描述的类似。不同之处在于等待时间 period 的应用是在一次任务的结束和下一个任务的开始之间。例如：
+另外，这个方法还接收一个初始化延迟，用来指定这个任务首次被执行等待的时长。需要注意的是，`scheduleAtFixedRate()` 并不考虑任务的实际用时。所以，如果你指定了一个 period 为 1 分钟而任务需要执行 2 分钟，那么线程池为了性能会更快的执行。在这种情况下，你应该考虑使用 scheduleWithFixedDelay()。这个方法的工作方式与上我们上面描述的类似。不同之处在于等待时间 period 的应用是在一次任务的结束和下一个任务的开始之间。
+
+## Fork/Join
+
+Fork/Join 框架最早于 Java 7 中提出，其提供了类似于 MapReduce 这样分而治之的并发处理能力，以最大限度地利用 CPU；它首先会将
 
 # Concurrency Control | 并发控制
 
 ## Atomic Variables | 原子性与原子变量
 
-## 可见性
+## volatile | 可见性保障
 
 Java 中的 volatile 关键字主要即是保证了变量的可见性，而不是原子性，譬如 Java 语言规范描述：每一个变量都有一个主内存。为了保证最佳性能，JVM 允许线程从主内存拷贝一份私有拷贝，然后在线程读取变量的时候从主内存里面读，退出的时候，将修改的值同步到主内存。
 
@@ -415,7 +420,7 @@ Exception in thread "main" java.util.concurrent.TimeoutException
 
 ## CompletableFuture
 
-CompletableFuture 类实现了 CompletionStage 和 Future 接口，JDK 吸收了 guava 的设计思想，加入了 Future 的诸多扩展功能形成了 CompletableFuture。
+CompletableFuture 类实现了 CompletionStage 和 Future 接口，JDK 吸收了 guava 的设计思想，加入了 Future 的诸多扩展功能形成了 CompletableFuture，CompletableFuture 的基础用法就是当做对于未来对象的包裹使用：
 
 ```java
 // 无参构造函数简单的创建 CompletableFuture
@@ -444,6 +449,8 @@ completableFuture.complete(new Object())
 ```
 
 ### 链式调用与转换
+
+CompletableFuture 还提供了 runAsync/supplyAsync 等静态方法，让我们创建便捷地异步执行流程：
 
 ```java
 // Variations of runAsync() and supplyAsync() methods
@@ -723,6 +730,8 @@ end.await();
 System.out.println("Game Over");
 exec.shutdown();
 ```
+
+# 延伸阅读
 
 # Todos
 

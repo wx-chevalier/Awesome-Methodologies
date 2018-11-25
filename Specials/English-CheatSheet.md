@@ -231,3 +231,5 @@
 - are very mush in {news} 在某个领域很重要
 
 - reason about 推导出
+
+- Love is deep and holds us fast 情不知所起，一往而深

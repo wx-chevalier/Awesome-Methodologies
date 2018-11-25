@@ -41,12 +41,30 @@ $ tsc main.ts --watch
 ```json
 {
   "compilerOptions": {
+    "outDir": "./dist/es",
+    "declarationDir": "./dist/types",
+    "target": "es5",
     "module": "commonjs",
-    "target": "es2015",
-    "removeComments": true,
-    "outDir": "./bin"
+    "jsx": "react",
+    "downlevelIteration": true,
+    "moduleResolution": "node",
+    "allowUnreachableCode": true,
+    "declaration": true,
+    "experimentalDecorators": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib": ["dom", "es2015"],
+    "baseUrl": "src"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "typings/**/*"]
 }
 ```
 

@@ -1,10 +1,12 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 # Spring Boot CheatSheet
 
 Spring Boot 应用本质上就是一个基于 Spring 框架的应用，它是 Spring 对“约定优先于配置”理念的最佳实践产物，它能够帮助开发者更快速高效地构建基于 Spring 生态圈的应用；最重要的 4 大核心特性包括了自动配置、起步依赖、Actuator、命令行界面(CLI) 。
 
 可以在 [Spring Initializr](https://start.spring.io/) 动态地选择需要的组件，对于 Spring 框架/生态的讨论，以及 IOC/DI 等机制原理的分析参考 [Spring CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Backend/WebFramework/Java/Spring-CheatSheet.md)
 
-```
+```java
 // @SpringBootApplication 整合了 @Configuration + @ComponentScan + @EnableAutoConfiguration，其会自动进行组件扫描与配置
 @SpringBootApplication
 public class FooApplication {
@@ -133,9 +135,9 @@ public class MyService {
 
 Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Prototype(原型), Request,Session 和 Global Session:
 
-- Singleton, 单例模式，Spring IoC 容器中只会存在一个共享的 Bean 实例，无论有多少个 Bean 引用它，始终指向同一对象。Singleton 作用域是 Spring 中的缺省作用域，也可以显示的将 Bean 定义为 singleton 模式
+- Singleton, 单例模式，Spring IoC 容器中只会存在一个共享的 Bean 实例，无论有多少个 Bean 引用它，始终指向同一对象。Singleton 作用域是 Spring 中的缺省作用域，也可以显式的将 Bean 定义为 Singleton 模式
 
-- Prototype, 原型模式，每次通过 Spring 容器获取 prototype 定义的 bean 时，容器都将创建一个新的 Bean 实例，每个 Bean 实例都有自己的属性和状态，而 singleton 全局只有一个对象。根据经验，对有状态的 bean 使用 prototype 作用域，而对无状态的 bean 使用 singleton 作用域。
+- Prototype, 原型模式，每次通过 Spring 容器获取 prototype 定义的 bean 时，容器都将创建一个新的 Bean 实例，每个 Bean 实例都有自己的属性和状态，而 Singleton 全局只有一个对象。根据经验，对有状态的 bean 使用 prototype 作用域，而对无状态的 bean 使用 Singleton 作用域。
 
 - Request, 在一次 Http 请求中，容器会返回该 Bean 的同一实例。而对不同的 Http 请求则会产生新的 Bean，而且该 bean 仅在当前 Http Request 内有效。
 
@@ -143,9 +145,58 @@ Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Proto
 
 - Global Session, 在一个全局的 Http Session 中，容器会返回该 Bean 的同一个实例，仅在使用 portlet context 时有效。
 
-可以通过 @Scope 注解来指定作用域。Spring 容器可以管理 singleton 作用域下 Bean 的生命周期，在此作用域下，Spring 能够精确地知道 Bean 何时被创建，何时初始化完成，以及何时被销毁。而对于 prototype 作用域的 Bean，Spring 只负责创建，当容器创建了 Bean 的实例后，Bean 的实例就交给了客户端的代码管理，Spring 容器将不再跟踪其生命周期，并且不会管理那些被配置成 prototype 作用域的 Bean 的生命周期。Spring 中 Bean 的生命周期的执行是一个很复杂的过程，读者可以利用 Spring 提供的方法来定制 Bean 的创建过程。Spring 容器在保证一个 bean 实例能够使用之前会做很多工作：
+可以通过 @Scope 注解来指定作用域。Spring 容器可以管理 Singleton 作用域下 Bean 的生命周期，在此作用域下，Spring 能够精确地知道 Bean 何时被创建，何时初始化完成，以及何时被销毁。而对于 prototype 作用域的 Bean，Spring 只负责创建，当容器创建了 Bean 的实例后，Bean 的实例就交给了客户端的代码管理，Spring 容器将不再跟踪其生命周期，并且不会管理那些被配置成 prototype 作用域的 Bean 的生命周期。Spring 中 Bean 的生命周期的执行是一个很复杂的过程，读者可以利用 Spring 提供的方法来定制 Bean 的创建过程。Spring 容器在保证一个 Bean 实例能够使用之前会做很多工作：
 
 ![image](https://user-images.githubusercontent.com/5803001/47768779-677b0500-dd14-11e8-9f33-f06dbbebd08b.png)
+
+我们常用的生命周期的 Hook 方法就是在其创建后与销毁之前：
+
+```java
+@PostConstruct
+public void initAfterStartup() {
+    ...
+}
+
+@PreDestroy
+public void cleanupBeforeExit() {
+    ...
+}
+```
+
+对于使用 Bean 注解的对象，可以添加 destroyMethod 等参数来介入其生命周期：
+
+```java
+@Bean(destroyMethod = "close")
+public MyBean myBean(){...
+```
+
+### Application LifeCycle | 应用生命周期
+
+Spring Boot 为我们提供了两个接口，CommandLineRunner 与 ApplicationRunner，它们能够在应用启动之后执行部分业务逻辑。CommandLineRunner 能够允许我们访问到应用的启动参数：
+
+```java
+@Component
+public class CommandLineAppStartupRunner implements CommandLineRunner {
+    private static final Logger logger = LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
+    @Override
+    public void run(String...args) throws Exception {
+        logger.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
+    }
+}
+```
+
+ApplicationRunner 则是对启动参数进行了二次封装：
+
+```java
+@Component
+public class AppStartupRunner implements ApplicationRunner {
+    private static final Logger logger = LoggerFactory.getLogger(AppStartupRunner.class);
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        logger.info("Your application started with option names : {}", args.getOptionNames());
+    }
+}
+```
 
 ## 配置管理
 
@@ -235,6 +286,63 @@ mail.credentials.authMethod=SHA1
 private String authMethod;
 ```
 
+# Controller | 请求处理
+
+传统的 Spring MVC 基于 Servlet API 构建，使用单请求单线程处理的同步阻塞型模型；而 Spring WebFlux 则是 Reactive Stack，能够充分利用现代多核处理器的特性，从底层机制上保证了对于海量并发请求处理的能力。WebFlux 使用 Netty, Servlet 3.1+ Containers 替代传统的 Servlet Containers，使用 Reactive Stream Adapters 替代 Servlet API，使用 Spring Security Reactive 替代 Spring Security，使用 Spring Data Reactive Repositories 替代 Spring Data Repositories。
+
+![](https://docs.spring.io/spring/docs/current/spring-framework-reference/images/spring-mvc-and-webflux-venn.png)
+
+## 路由与参数
+
+```java
+@RestController
+@RequestMapping("/persons")
+class PersonController {
+
+    @GetMapping("/{id}")
+    public Person getPerson(@PathVariable Long id) {
+        // ...
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public void add(@RequestBody Person person) {
+        // ...
+    }
+}
+```
+
+## 响应
+
+# Service | 服务
+
+## Logging | 日志
+
+## 缓存
+
+Spring Cache 为我们提供了非常便捷的方法调用缓存功能，在依赖中引入 spring-boot-starter-cache:
+
+```groovy
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-cache")
+}
+```
+
+然后在 Application 类中添加 `@EnableCaching` 注解，这样我们在进行方法调用时可以缓存调用结果：
+
+```java
+@Cacheable("books")
+public Book getByIsbn(String isbn) {
+    ...
+}
+```
+
+# Storage | 数据访问
+
+## Mybatis
+
+## Redis
+
 # Test | 测试
 
 ## 请求
@@ -311,3 +419,7 @@ class MySpec extends Specification {
   }
 }
 ```
+
+# Todos
+
+- https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-ann-modelattrib-methods
