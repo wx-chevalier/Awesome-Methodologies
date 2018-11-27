@@ -339,6 +339,8 @@ public Book getByIsbn(String isbn) {
 
 # Storage | 数据访问
 
+## Spring JDBC Template
+
 ## Mybatis
 
 ## Redis
