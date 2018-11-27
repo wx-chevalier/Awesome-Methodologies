@@ -2,61 +2,6 @@
 
 # HA CheatSheet | 一文了解高可用架构关键点：性能指标、负载均衡、缓存、降级与限流
 
-# Test & Log | 性能测试与日志追踪
-
-## 性能指标
-
-MTTF, Mean Time To Failure，系统平均运行多长时间才发生故障，越长越好
-MTTR,Mean Time To Recover, 故障平均修复时间，越短越好
-可用性计算公式， Availability= MTTF /（MTTF+MTTR）
-
-## 日志配置
-
-对外接口统一拦截捕获，避免异常向外系统传播，自身系统无法感知问题。
-
-严格规范日志输出等级，尤其Error级别。影响业务进行或意料外异常输出Error级别，Error级别日志统一输出到独立文件，并接入xflush 系统错误监控告警。做到Error日志输出即为需要人为介入处理。为了避免干扰，对现有Error做降噪检查。
-
-服务层日志统一输出，包括耗时、接口成功标识、业务成功标识，为监控做准备。
-
-所有日志traceId的统一输出。通过扩展 ch.qos.logback.classic.pattern.ClassicConverter，现实traceId自动输出。这极大的提升了系统运维效率。
-
-```xml
-<appender name="ERROR-APPENDER"
-          class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${LOG_PATH}/common-error.log</file>
-    <!-- Error 级别过滤 -->
-    <filter class="ch.qos.logback.classic.filter.LevelFilter">   
-      <level>ERROR</level>   
-      <onMatch>ACCEPT</onMatch>   
-      <onMismatch>DENY</onMismatch>   
-  </filter>
-    <encoder>
-        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} - [%thread] : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}
-        </pattern>
-    </encoder>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <!-- 按天滚动，可根据实际量调整单位 -->
-        <fileNamePattern>${LOG_PATH}/common-error.log.%d{yyyy-MM-dd}
-        </fileNamePattern>
-        <maxHistory>15</maxHistory>
-    </rollingPolicy>
-</appender>
-```
-
-```xml
-<root level="INFO">
-    <!-- root中增加Error输出配置 -->
-    <appender-ref ref="ERROR-APPENDER" />
-</root>
-
-<logger name="testLog" level="INFO"
-        additivity="false">
-    <appender-ref ref="WORK_SHIFT_CORE_MONITOR_LOG" />
-    <!-- 每个logger增加ERROR输出 -->
-    <appender-ref ref="ERROR-APPENDER" />
-</logger>
-```
-
 # Load Balancing | 负载均衡
 
 ## 负载均衡算法
