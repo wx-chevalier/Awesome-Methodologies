@@ -119,6 +119,7 @@ mybatis.mapper-locations=classpath:mapper/*.xml
 或者指定专门的 mybatis 配置文件：
 
 ```yaml
+mybatis.config-location=classpath:/mybatis/mybatis-config.xml
 ```
 
 接下来我们如常定义实体类：
