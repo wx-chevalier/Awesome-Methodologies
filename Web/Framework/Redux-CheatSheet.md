@@ -1,4 +1,4 @@
-题注：本文详细地阐述了 Redux 的设计理念与实践技巧，包含了其三大原则与简单的仿制、基础组件以及 React 集成使用、基于 Thunk, Promise, Sagas 三种不同的异步处理方式、Selector, Ducks 等其他常见的样式规范、中间件的实现原理与代码分析等。
+> 本文详细地阐述了 Redux 的设计理念与实践技巧，包含了其三大原则与简单的仿制、基础组件以及 React 集成使用、基于 Thunk, Promise, Sagas 三种不同的异步处理方式、Selector, Ducks 等其他常见的样式规范、中间件的实现原理与代码分析等。
 
 # Redux CheatSheet | Redux 设计理念与实践技巧清单
 
@@ -438,4 +438,13 @@ class Com extends Component {
     }
   }
 }
+```
+
+# 关键源代码
+
+## react-redux
+
+在 Provider.js 中：
+
+```
 ```

@@ -113,15 +113,18 @@ public interface UserRepository {}
 然后我们可以在 Spring Boot 的 application.properties 文件中添加 Mybatis 配置参数：
 
 ```yaml
+# application.properties
+mybatis.config-location=classpath:/mybatis/mybatis-config.xml
 mybatis.mapper-locations=classpath:mapper/*.xml
+mybatis.type-aliases-package=com.example.domain.model
+mybatis.type-handlers-package=com.example.typehandler
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.default-fetch-size=100
+mybatis.configuration.default-statement-timeout=30
+...
 ```
 
-或者指定专门的 mybatis 配置文件：
-
-```yaml
-```
-
-接下来我们如常定义实体类：
+然后在 Mybatis 配置文件中，接下来我们如常定义实体类：
 
 ```java
 public class City implements Serializable {
@@ -149,6 +152,12 @@ this.cityMapper.findByState("CA");
 ```
 
 ## XML 配置
+
+将下划线表示映射到 camelCase:
+
+```xml
+<setting name="mapUnderscoreToCamelCase" value="true"/>
+```
 
 # XML 映射文件
 
@@ -415,3 +424,7 @@ generatorConfig.xml 的详细配置阐述如下：
     </context>
 </generatorConfiguration>
 ```
+
+# Todos
+
+- https://github.com/pagehelper/Mybatis-PageHelper/blob/master/wikis/zh/HowToUse.md

@@ -425,3 +425,4 @@ class MySpec extends Specification {
 # Todos
 
 - https://docs.spring.io/spring/docs/current/spring-framework-reference/web-reactive.html#webflux-ann-modelattrib-methods
+- https://www.baeldung.com/spring-jdbc-jdbctemplate
