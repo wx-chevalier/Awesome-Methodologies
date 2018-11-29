@@ -113,16 +113,18 @@ public interface UserRepository {}
 然后我们可以在 Spring Boot 的 application.properties 文件中添加 Mybatis 配置参数：
 
 ```yaml
-mybatis.mapper-locations=classpath:mapper/*.xml
-```
-
-或者指定专门的 mybatis 配置文件：
-
-```yaml
+# application.properties
 mybatis.config-location=classpath:/mybatis/mybatis-config.xml
+mybatis.mapper-locations=classpath:mapper/*.xml
+mybatis.type-aliases-package=com.example.domain.model
+mybatis.type-handlers-package=com.example.typehandler
+mybatis.configuration.map-underscore-to-camel-case=true
+mybatis.configuration.default-fetch-size=100
+mybatis.configuration.default-statement-timeout=30
+...
 ```
 
-接下来我们如常定义实体类：
+然后在 Mybatis 配置文件中，接下来我们如常定义实体类：
 
 ```java
 public class City implements Serializable {
