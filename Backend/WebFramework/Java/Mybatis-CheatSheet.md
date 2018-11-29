@@ -151,6 +151,12 @@ this.cityMapper.findByState("CA");
 
 ## XML 配置
 
+将下划线表示映射到 camelCase:
+
+```xml
+<setting name="mapUnderscoreToCamelCase" value="true"/>
+```
+
 # XML 映射文件
 
 ```java
