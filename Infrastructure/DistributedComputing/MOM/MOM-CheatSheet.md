@@ -25,8 +25,6 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 
 在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。
 
-
-
 # 生态圈
 
 为何使用消息系统

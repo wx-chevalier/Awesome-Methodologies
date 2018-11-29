@@ -1,14 +1,12 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# 并发编程导论
+# Concurrent Programming CheatSheet | 并发编程导论
 
 并发控制中主要考虑线程之间的通信(线程之间以何种机制来交换信息)与同步(读写等待，竞态条件等)模型，在命令式编程中，线程之间的通信机制有两种：共享内存和消息传递。
 
 Java 就是典型的共享内存模式的通信机制，而 Go 则是提倡以消息传递方式实现内存共享，而非通过共享来实现通信。
 
 在共享内存的并发模型里，线程之间共享程序的公共状态，线程之间通过写-读内存中的公共状态来隐式进行通信。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过明确的发送消息来显式进行通信。同步是指程序用于控制不同线程之间操作发生相对顺序的机制。在共享内存并发模型里，同步是显式进行的。程序员必须显式指定某个方法或某段代码需要在线程之间互斥执行。在消息传递的并发模型里，由于消息的发送必须在消息的接收之前，因此同步是隐式进行的。
-
-本文参考了许多经典的文章描述/示例，统一声明在了 [Concurrent Programming Links]()。
 
 # 并发与并行
 
@@ -91,6 +89,12 @@ L2 将 key:123 更新为 100 + 2
 ## Event-Driven Architecture | 事件驱动架构
 
 基于事件驱动的服务器，无需为每一个请求创建额外的对应线程，虽然可以省去创建线程与销毁线程的开销；但它在处理网络请求时，会把侦听到的请求放在事件队列中交给观察者，事件循环会不停的处理这些网络请求。最为经典的进程模型与事件驱动模型的对比当属 Apache 与 Nginx, Apache 是标准的为新的请求创建阻塞型线程来处理，每个线程负责处理单个请求。而 Nginx 则是基于事件的 Web 服务器，它使用 libevent 与 Reactor Pattern 来处理请求。Nginx 在接收到请求之后，会将其交托给系统去处理(读取数据)，而不会阻塞等待；在当数据准备完毕之后，服务器会将结果返回给客户端。Redis 的事件模型实现基于 linux 的 epoll，sun 的 export,FreeBSD 和 Mac osx 的 queue。
+
+下图以 Netty 为例
+
+![](http://ayedo.github.io/img/reactor.png)
+
+We could implement a mechanism which takes the events from the selector and distributes or “dispatches” them to interested methods. If you would like react to an event you can thus subscribe a method to it. Once the event occurs the dispatcher then calls the subscribed methods (often called “handlers”) one by one and one after another. Not only does Netty implement this reactor pattern for you but it further extends it with the concepts of pipelines: Instead of having a single handler attached to an event it allows you to attach a whole sequence of handlers which can pass their output as input to the next handler. How is this useful? Usually, networking applications work in layers: You have raw byte streams which represent HTTP which might me used to transport compressed and encrypted data and so on. With Netty you can now chain a HTTP decoder which passes its output to a decompression handler which passes its output to an decrypt handler and so on… In short: Event handlers in Netty are composable and composition is at the very core of most maintainable and extendable code.
 
 而对于业务逻辑层而言，不但要跟内网的网络服务通信，还要跟外网的服务通信，在业务逻辑层也产生了大量的外网网络 IO，导致一个请求不能在 100ms 内完成，可能增加到了 500ms 甚至几秒钟，其中大部分时间是在等待网络，白白的占用了一个线程等 IO。第二代事件驱动模型应运而生，把业务逻辑也变成事件驱动，彻底消除浪费线程等待 IO 这个现象。事件驱动有两件常见的外衣，一件是异步回调，另一件是 coroutine，近几年有了很多应用：
 

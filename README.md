@@ -12,7 +12,7 @@
 
 **建议前往 [xCompass](https://wxyyxc1992.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程，或者直接浏览本仓库的目录以了解更多内容。**
 
-# 前言
+# Preface | 前言
 
 `让知识在该在的地方 @ 王下邀月熊`
 
@@ -28,7 +28,9 @@
 
 - 代码式笔记，典型的代表是 [coding-snippets](https://github.com/wxyyxc1992/coding-snippets), 对于程序员这个角色而言，代码也是我们笔记系统的重要组成。在这个之上，我们又可以构建出一系列小的项目。
 
-## TOC | 目录
+# Index | 索引
+
+## 文件类型
 
 对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
 
@@ -37,6 +39,16 @@
 - {Something}-Snippets-CheatSheet.md: 有用的/令人吃惊的 {Something} 代码片，帮助开发者迅速理解并且应用到工作中。
 
 - {Something}-OpenSource-CheatSheet.md: 推荐的 {Something} 相关的开源库或者工具。
+
+## 精选集锦
+
+### 存储，并发编程，分布式系统
+
+### Web 开发实践
+
+### Java 微服务开发
+
+### 人工智能与深度学习基础
 
 # About | 关于
 
