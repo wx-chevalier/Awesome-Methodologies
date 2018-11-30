@@ -116,6 +116,9 @@ GROUP BY YEAR(record_date), MONTH(record_date)
 
 // 根据固定的时间格式排序
 GROUP BY DATE_FORMAT(record_date, '%Y%m')
+
+// 获取 Unix_Stamp
+SELECT UNIX_TIMESTAMP('1970-01-01 12:00:00');
 ```
 
 我们可以使用 TIMESTAMPDIFF 与 DATEDIFF 计算两个日期时间的差：
