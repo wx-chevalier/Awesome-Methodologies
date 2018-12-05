@@ -285,10 +285,17 @@ declare namespace NodeJS {
 declare var require: (moduleId: string) => any;
 declare var process: any;
 
-// 声明命名空间下变量
+// 声明/扩展命名空间下变量
 declare namespace NodeJS {
   interface ReadableStream {
     destroy: () => {};
+  }
+}
+
+declare module 'egg' {
+  // 声明了由插件注入的依赖
+  interface Application {
+    knex: Knex;
   }
 }
 ```

@@ -707,7 +707,7 @@ f707aa0ef50d        bridge              bridge              local
 d5a1bed0b12d        none                null                local
 ```
 
-桥接模式下，当 Docker 启动时，会自动在主机上创建一个 docker0 虚拟网桥，即软件交换机，在挂载到它的网口之间进行转发。同时，Docker 随机分配一个本地未占用的私有网段(在 RFC1918 中定义)中的一个地址给 docker0 接口。比如典型的 172.17.42.1 ，掩码为 255.255.0.0 。此后启动的容器内的网口也会自动分配一个同一网段( 172.17.0.0/16)的地址。
+桥接模式下，当 Docker 启动时，会自动在主机上创建一个 docker0 虚拟网桥，即软件交换机，在挂载到它的网口之间进行转发。同时，Docker 随机分配一个本地未占用的私有网段(在 RFC1918 中定义)中的一个地址给 docker0 接口。比如典型的 172.17.42.1 ，掩码为 255.255.0.0。此后启动的容器内的网口也会自动分配一个同一网段(172.17.0.0/16)的地址。
 
 桥接模式下，创建一个 Docker 容器的时候，同时会创建了一对 veth pair 接口(当数据包发送到一个接口时，另外一个接口也可以收到相同的数据包)。这对接口一端在容器内，即 eth0 ；另一端在本地并被挂载到 docker0 网桥，名称以 veth 开头(例如 vethAQI2QT)。通过这种方式，主机可以跟容器通信，容器之间也可以相互通信。Docker 就创建了在主机和所有容器之间一个虚拟共享网络。
 
@@ -721,7 +721,7 @@ $ docker network create --driver=bridge --subnet=192.168.2.0/24 --gateway=192.16
 # 创建时将某个容器连接到网络
 $ docker run --network=isolated -itd --name=docker-nginx nginx
 
-# 将某个运行中容器连接到某个网络
+# 将某个运行中容器连接到某个网络，在该网络内可以通过容器名自由访问
 $ docker network connect multi-host-network container1
 ```
 

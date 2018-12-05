@@ -52,15 +52,17 @@ Egg.js 也是遵循了约定优于配置的理念，
 
 ## TypeScript
 
-# 内部对象
+# 内置对象
 
 ## Application
 
-譬如数据库实例等全局对象。
+在 `app/extend/application.js` 文件中我们可以去扩展现有的 Application 对象，而在 `app.js` 中我们可以监听 Egg 的生命周期事件，或者进行启动前操作。
+
+application.js 中我们可以去定义譬如数据库实例等全局对象：
 
 ```js
 // app/extend/application.js
-const REDIS_SYMBOL = Symbox('REDIS_SYMBOL');
+const REDIS_SYMBOL = Symbol('REDIS_SYMBOL');
 
 module.exports = {
   get redis() {

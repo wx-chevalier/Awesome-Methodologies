@@ -411,3 +411,49 @@ btn.el.addEventListener(); // el表示svg的上层包裹dom
 来源：慕课网
 
 本文首次发布于慕课网 ，转载请注明出处，谢谢合作
+
+# Shape | 图形
+
+## Shape Animation | 图形动画
+
+```js
+// 效果参考 https://codepen.io/sol0mka/pen/bbd4fe6c1ac8519c76bc18828844e2c3
+const circle = new mojs.Shape({
+  shape: 'circle',
+  scale: { 0: 1 },
+  left: '25%',
+  fill: { cyan: 'yellow' },
+  radius: 25,
+
+  duration: 2000,
+  repeat: 999
+}).play();
+
+const rect = new mojs.Shape({
+  shape: 'rect',
+  left: '50%',
+  fill: 'none',
+  radius: 20,
+  stroke: { 'rgba(0,255,255, 1)': 'magenta' },
+  strokeWidth: { 10: 0 },
+  strokeDasharray: '100%',
+  strokeDashoffset: { '-100%': '100%' },
+  angle: { 0: 180 },
+
+  duration: 2000,
+  repeat: 999
+}).play();
+
+const polygon = new mojs.Shape({
+  shape: 'polygon',
+  points: 5,
+  left: '75%',
+  fill: { deeppink: '#00F87F' },
+  x: { 'rand(-100%, -200%)': 0 },
+  angle: { 0: 'rand(0, 360)' },
+  radius: 25,
+
+  duration: 2000,
+  repeat: 999
+}).play();
+```

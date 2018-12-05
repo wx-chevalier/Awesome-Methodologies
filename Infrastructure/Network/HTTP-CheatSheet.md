@@ -6,6 +6,49 @@
 http://rob:abcd1234@www.example.co.uk/path/index.html?query1=test&silly=willy&field[0]=zero&field[2]=two#test=hash&chucky=cheese
 ```
 
+# 基础
+
+## URI & URL
+
+The difference between them is straightforward after knowing their definitions:
+
+- **Uniform Resource Identifier (URI)** − a sequence of characters that allows the complete identification of any abstract or physical resource
+- **Uniform Resource Locator (URL)** − a subset of URI that, in addition to identifying where a resource is available, describes the primary mechanism to access it
+
+Every URI, regardless if it’s a URL or not, follows a particular form:
+
+```
+scheme:[//authority][/path][?query][#fragment]
+```
+
+Where each part is described as follows:
+
+- **\*scheme\*** − for URLs, is the name of the protocol used to access the resource, for other URIs, is a name that refers to a specification for assigning identifiers within that scheme
+- **authority** − an optional part comprised of user authentication information, a host and an optional port
+- **\*path\*** − it serves to identify a resource within the scope of its _scheme_ and _authority_
+- **\*query\*** − additional data that, along with the _path,_ serves to identify a resource. For URLs, this is the query string
+- **\*fragment\*** − an optional identifier to a specific part of the resource
+
+**To easily identify if a particular URI is also a URL, we can check its scheme**. Every URL has to start with any of these schemes: _ftp_, _http_, _https,_ _gopher_, _mailto_, _news_, _nntp_, _telnet_, _wais_, _file_, or _prospero_. If it doesn’t start with it, then it’s not a URL.
+
+# 请求
+
+# 响应
+
+## 常用响应头
+
+- Content-Disposition
+
+Content-Disposition 属性是作为对下载文件的一个标识字段，属性有两种类型: inline 将文件内容直接显示在页面, attachment 弹出对话框让用户下载:
+
+```
+Content-Type: image/jpeg
+Content-Disposition: inline;filename=hello.jpg
+Content-Description: just a small picture of me
+```
+
+# 缓存
+
 # 简明协议流程
 
 ## TCP
@@ -31,8 +74,6 @@ TCP 协议规定，对于已经建立的连接，网络双方要进行四次握�
 
 CLOSE_WAIT 对方主动关闭连接或者网络异常导致连接中断，这时我方的状态会变成 CLOSE_WAIT 此时我方要调用 close()来使得连接正确关闭；TIME_WAIT 是我方主动调用 close()断开连接，收到对方确认后状态变为 TIME_WAIT。TCP 协议规定 TIME_WAIT 状态会一直持续 2MSL(即两倍的分段最大生存期)，以此来确保旧的连接状态不会对新连接产生影响。处于 TIME_WAIT 状态的连接占用的资源不会被内核释放，所以作为服务器，在可能的情况下，尽量不要主动断开连接，以减少 TIME_WAIT 状态造成的资源浪费。
 
-
-
 ## HTTPS
 
 ## HTTP/2
@@ -42,21 +83,3 @@ CLOSE_WAIT 对方主动关闭连接或者网络异常导致连接中断，这时
 ## DNS
 
 ![i20180520_181112_186](https://user-images.githubusercontent.com/5803001/40573917-a5b3da1c-60fb-11e8-8be9-7ad479c05daa.jpg)
-
-# 请求
-
-# 响应
-
-## 常用响应头
-
-- Content-Disposition
-
-Content-Disposition 属性是作为对下载文件的一个标识字段，属性有两种类型: inline 将文件内容直接显示在页面, attachment 弹出对话框让用户下载:
-
-```
-Content-Type: image/jpeg
-Content-Disposition: inline;filename=hello.jpg
-Content-Description: just a small picture of me
-```
-
-# 缓存

@@ -57,9 +57,9 @@ In the case of CBA, responsibility is split on a component-by-component basis. T
 
 Component-Based Architecture
 
-# Component | 组件基础
+# Component | 组件系统
 
-## 组件定义
+## 类组件
 
 典型的 React 组件是继承自 Component 或者 PureComponent 并且包含了 render 函数的类：
 
@@ -104,6 +104,10 @@ const MyComponent = React.memo(function MyComponent(props) {
 
 不过函数式组件也并非处处适用，使用函数式组件时，我们无法使用 refs，无法使用 State 并且没有生命周期函数；还需要避免使用 input 这样的非受控元素，每次重新渲染都会创建新的 input 元素。
 
+This is another popular way of classifying components. And the criteria for the classification is simple: the components that have state and the components that don't.
+
+Stateful components are always class components.
+
 ### JSX
 
 目前组件支持返回数组元素，我们也可以使用 React.Fragment 来返回多个子元素而不添加额外的 DOM 元素：
@@ -120,7 +124,35 @@ render() {
 }
 ```
 
-### 组件与 DOM
+## 函数式组件
+
+## 生命周期
+
+![dz-97vzw4aabczj](https://user-images.githubusercontent.com/5803001/38792131-18812574-417e-11e8-97e5-d523160fdd34.jpg)
+
+```js
+componentDidUpdate(prevProps, prevState, snapshot);
+```
+
+在 React 16.3 中移除了 componentWillReceiveProps 之后，我们可以在类中定义 getDerivedStateFromProps 来完成状态的自动推断：
+
+```js
+static getDerivedStateFromProps(nextProps, prevState){
+    if (nextProps.currentRow === prevState.lastRow){
+        return null;
+    }
+    return {
+        lastRow: nextProps.currentRow,
+        isScrollingDown: nextProps.currentRow > prevState.lastRow
+    }
+}
+```
+
+值得一提的是，Fiber 会自动开启 StrictMode，
+
+# 组件与 DOM
+
+## Ref
 
 ```js
 class VideoPlayer extends React.Component {
@@ -188,98 +220,6 @@ render() {
 }
 ```
 
-### Children
-
-React 的核心为组件，而在嵌套使用中，我们可以通过 `props.children` 来引用当前组件的子组件；React 中的 Children 不一定是组件，它们可以是任何东西。鉴于这种不确定性，React 为我们提供了多个 API 进行元素的操控：
-
-```js
-// 复制某个元素
-React.cloneElement(element, [props], [...children]);
-
-// 从某个组件类或者类型中创建元素
-React.createElement(type, [props], [...children]);
-
-// 转换子元素
-React.Children.map(children, function[(thisArg)])
-
-// 遍历子元素
-React.Children.forEach(children, function[(thisArg)])
-
-// 如果仅有单个子元素，则返回
-React.Children.only(children)
-```
-
-React.Children.map 与 React.Children.forEach 能够用于遍历与转化，即使 children 传入的是函数对象也能够正常处理：
-
-```js
-// 忽略首个元素
-{
-  React.Children.map(children, (child, i) => {
-    // Ignore the first child
-    if (i < 1) return;
-    return child;
-  });
-}
-
-// 即使传入的是函数，也能够正常执行
-<IgnoreFirstChild>
-  {() => <h1>First</h1>} // <- Ignored 💪
-</IgnoreFirstChild>
-```
-
-`React.Children.count` 则是能够对子元素进行正确的统计：
-
-```js
-// Renders "3"
-<ChildrenCounter>
-  {() => <h1>First!</h1>}
-  Second!
-  <p>Third!</p>
-</ChildrenCounter>
-```
-
-能将 children 转换为数组通过 `React.Children.toArray` 方法。如果你需要对它们进行排序，这个方法是非常有用的。
-
-```js
-class Sort extends React.Component {
-  render() {
-    const children = React.Children.toArray(this.props.children);
-    // Sort and render the children
-    return <p>{children.sort().join(' ')}</p>;
-  }
-}
-
-<Sort>
-  // We use expression containers to make sure our strings // are passed as
-  three children, not as one string
-  {'bananas'}
-  {'oranges'}
-  {'apples'}
-</Sort>;
-```
-
-在已知仅有一个子元素的情况下，我们也可以使用 `only` 函数来获取该元素实例：
-
-```js
-class Executioner extends React.Component {
-  render() {
-    return React.Children.only(this.props.children)();
-  }
-}
-```
-
-在需要对子元素进行修改的场景下，我们可以使用 `cloneElement`，将想要克隆的元素当作第一个参数，然后将想要设置的属性以对象的方式作为第二个参数。
-
-```js
-renderChildren() {
-  return React.Children.map(this.props.children, child => {
-    return React.cloneElement(child, {
-      name: this.props.name
-    })
-  })
-}
-```
-
 ## 事件监听与响应
 
 为了避免过多地事件监听，React 引入了 SyntheticEvent 来集中式地监听事件与调用响应函数；我们自定义的事件处理器都会被传入 SyntheticEvent 对象，其支持 `stopPropagation()` 与 `preventDefault()`，并且保证了跨浏览器的一致性。出于性能的考虑，SyntheticEvent 会复用传入的 Event 对象，因此我们避免直接异步读取 Event 对象的值，而是应该使用闭包将需要的值保存下来：
@@ -303,30 +243,6 @@ function onClick(event) {
   </button>
 </div>
 ```
-
-## 生命周期
-
-![dz-97vzw4aabczj](https://user-images.githubusercontent.com/5803001/38792131-18812574-417e-11e8-97e5-d523160fdd34.jpg)
-
-```js
-componentDidUpdate(prevProps, prevState, snapshot);
-```
-
-在 React 16.3 中移除了 componentWillReceiveProps 之后，我们可以在类中定义 getDerivedStateFromProps 来完成状态的自动推断：
-
-```js
-static getDerivedStateFromProps(nextProps, prevState){
-    if (nextProps.currentRow === prevState.lastRow){
-        return null;
-    }
-    return {
-        lastRow: nextProps.currentRow,
-        isScrollingDown: nextProps.currentRow > prevState.lastRow
-    }
-}
-```
-
-值得一提的是，Fiber 会自动开启 StrictMode，
 
 ## 组件样式
 
@@ -471,6 +387,98 @@ MyComponent.propTypes = {
 };
 ```
 
+### Children
+
+React 的核心为组件，而在嵌套使用中，我们可以通过 `props.children` 来引用当前组件的子组件；React 中的 Children 不一定是组件，它们可以是任何东西。鉴于这种不确定性，React 为我们提供了多个 API 进行元素的操控：
+
+```js
+// 复制某个元素
+React.cloneElement(element, [props], [...children]);
+
+// 从某个组件类或者类型中创建元素
+React.createElement(type, [props], [...children]);
+
+// 转换子元素
+React.Children.map(children, function[(thisArg)])
+
+// 遍历子元素
+React.Children.forEach(children, function[(thisArg)])
+
+// 如果仅有单个子元素，则返回
+React.Children.only(children)
+```
+
+React.Children.map 与 React.Children.forEach 能够用于遍历与转化，即使 children 传入的是函数对象也能够正常处理：
+
+```js
+// 忽略首个元素
+{
+  React.Children.map(children, (child, i) => {
+    // Ignore the first child
+    if (i < 1) return;
+    return child;
+  });
+}
+
+// 即使传入的是函数，也能够正常执行
+<IgnoreFirstChild>
+  {() => <h1>First</h1>} // <- Ignored 💪
+</IgnoreFirstChild>
+```
+
+`React.Children.count` 则是能够对子元素进行正确的统计：
+
+```js
+// Renders "3"
+<ChildrenCounter>
+  {() => <h1>First!</h1>}
+  Second!
+  <p>Third!</p>
+</ChildrenCounter>
+```
+
+能将 children 转换为数组通过 `React.Children.toArray` 方法。如果你需要对它们进行排序，这个方法是非常有用的。
+
+```js
+class Sort extends React.Component {
+  render() {
+    const children = React.Children.toArray(this.props.children);
+    // Sort and render the children
+    return <p>{children.sort().join(' ')}</p>;
+  }
+}
+
+<Sort>
+  // We use expression containers to make sure our strings // are passed as
+  three children, not as one string
+  {'bananas'}
+  {'oranges'}
+  {'apples'}
+</Sort>;
+```
+
+在已知仅有一个子元素的情况下，我们也可以使用 `only` 函数来获取该元素实例：
+
+```js
+class Executioner extends React.Component {
+  render() {
+    return React.Children.only(this.props.children)();
+  }
+}
+```
+
+在需要对子元素进行修改的场景下，我们可以使用 `cloneElement`，将想要克隆的元素当作第一个参数，然后将想要设置的属性以对象的方式作为第二个参数。
+
+```js
+renderChildren() {
+  return React.Children.map(this.props.children, child => {
+    return React.cloneElement(child, {
+      name: this.props.name
+    })
+  })
+}
+```
+
 ## State
 
 ```js
@@ -605,8 +613,6 @@ class MyClass extends React.Component {
 MyClass.contextType = MyContext;
 ```
 
-## Hooks
-
 ## Suspense
 
 Suspense allows you to defer rendering part of your application tree until some condition is met (for example, data from an endpoint or a resource is loaded).
@@ -636,11 +642,29 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 # Design Pattern | 架构模式
 
-## Functional React | 函数式 React
-
 ## HoC | 高阶组件
 
+### Presentational Components & Container Components
+
+This is another pattern that is very useful while writing components. The benefit of this approach is that the behavior logic is separated from the presentational logic.
+
+- Presentational Components
+
+Presentational components are coupled with the view or how things look. These components accept props from their container counterpart and render them. Everything that has to do with describing the UI should go here.
+
+Presentational components are reusable and should stay decoupled from the behavioral layer. A presentational component receives the data and callbacks exclusively via props and when an event occurs, like a button being pressed, it performs a callback to the container component via props to invoke an event handling method.
+
+Functional components should be your first choice for writing presentational components unless a state is required. If a presentational component requires a state, it should be concerned with the UI state and not actual data. The presentational component doesn't interact with the Redux store or make API calls.
+
+- Container Components
+
+Container components will deal with the behavioral part. A container component tells the presentational component what should be rendered using props. It shouldn't contain limited DOM markups and styles. If you're using Redux, a container component contains the code that dispatches an action to a store. Alternatively, this is the place where you should place your API calls and store the result into the component's state.
+
+The usual structure is that there is a container component at the top that passes down the data to its child presentational components as props. This works for smaller projects; however, when the project gets bigger and you have a lot of intermediate components that just accept props and pass them on to child components, this will get nasty and hard to maintain. When this happens, it's better to create a container component unique to the leaf component, and this will ease the burden on the intermediate components.
+
 ## renderProps
+
+## Hooks
 
 # 工程实践
 
@@ -775,3 +799,5 @@ export interface Connect {
 
 export declare const connect: Connect;
 ```
+
+# 延伸阅读

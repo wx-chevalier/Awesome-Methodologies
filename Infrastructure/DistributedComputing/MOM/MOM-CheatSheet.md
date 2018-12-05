@@ -13,6 +13,8 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 
 复用：一次发布多方订阅。
 
+作为一个消息系统，其基本结构中至少要有产生消息的组件(消息生产者，Producer)以及消费消息的组件(消费者，Consumer)。
+
 # 消息系统概述
 
 在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：
