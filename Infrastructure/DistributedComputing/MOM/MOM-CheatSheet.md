@@ -13,6 +13,24 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 
 复用：一次发布多方订阅。
 
+消息模型应涵盖以下 3 个方面：
+
+消息消费——如何发送和消费消息；
+消息确认（ack）——如何确认消息；
+消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；
+
+在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。
+
+队列（Queue）模型
+队列模型主要是采用无序或者共享的方式来消费消息。通过队列模型，用户可以创建多个消费者从单个管道中接收消息；当一条消息从队列发送出来后，多个消费者中的只有一个（任何一个都有可能）接收和消费这条消息。消息系统的具体实现决定了最终哪个消费者实际接收到消息。
+队列模型通常与无状态应用程序一起结合使用。无状态应用程序不关心排序，但它们确实需要能够确认（ack）或删除单条消息，以及尽可能地扩展消费并行性的能力。典型的基于队列模型的消息系统包括 RabbitMQ 和 RocketMQ。
+
+流式（Stream）模型
+相比之下，流模型要求消息的消费严格排序或独占消息消费。对于一个管道，使用流式模型，始终只会有一个消费者使用和消费消息。消费者按照消息写入管道的确切顺序接收从管道发送的消息。
+流模型通常与有状态应用程序相关联。有状态的应用程序更加关注消息的顺序及其状态。消息的消费顺序决定了有状态应用程序的状态。消息的顺序将影响应用程序处理逻辑的正确性。
+在面向微服务或事件驱动的体系结构中，队列模型和流模型都是必需的。
+
+
 # 消息系统概述
 
 在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：
@@ -25,6 +43,11 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 
 在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。
 
+采用了基于分区(Partation)的模型
+
+![](https://ss0.baidu.com/6LVYsjip0QIZ8Aqbn9fN2DC/timg?pa&quality=100&size=b640_10000&sec=1543121721&di=fcd43868f8d1250ba1ed5604a17d0d91&ref=http%3A%2F%2Fflyingangelet%2Eiteye%2Ecom%2Fblog%2F2271324&src=http%3A%2F%2Fkafka%2Eapache%2Eorg%2Fimages%2Flog_anatomy%2Epng)
+
+partition是以文件的形式存储在文件系统中，比如，创建了一个名 为page_visits的topic，其有5个partition，那么在Kafka的数据目录中(由配置文件中的log.dirs指定的)中就有这样 5个目录: page_visits-0， page_visits-1，page_visits-2，page_visits-3，page_visits-4，其命名规则 为-，里面存储的分别就是这5个partition的数据。
 
 
 # 生态圈
@@ -51,6 +74,9 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 RabbitMQ
 
 RabbitMQ 是使用 Erlang 编写的一个开源的消息队列，本身支持很多的协议：AMQP，XMPP, SMTP, STOMP，也正因如此，它非常重量级，更适合于企业级的开发。同时实现了 Broker 构架，这意味着消息在发送给客户端时先在中心队列排队。对路由，负载均衡或者数据持久化都有很好的支持。
+首先RabbitMQ的开发语言是erlang，这是一门略小众的语言，我们担心无法完全掌控，所以没有选择。而ActiveMQ其实在公司内部已有很长一段时间使用历史，但是ActiveMQ太过于复杂，在使用过程中经常出现消息丢失或者整个进程hang住的情况，并且难以定位。
+
+
 
 
 Redis
