@@ -25,12 +25,6 @@
 
 * Practice & Resources
 
-> - [an-introduction-to-microservices](https://auth0.com/blog/2015/09/04/an-introduction-to-microservices-part-1/)
-> - [微服务(Microservices)](http://blog.csdn.net/wurenhai/article/details/37659335)
-> - [微服务实战](http://kb.cnblogs.com/page/521880/)
-> - [Getting-Started-With-Microservices](https://dzone.com/refcardz/getting-started-with-microservices)
-> - [Getting started with microservices](https://blog.ruxit.com/microservices/)
-
 根据 Oracle 大神的指导，MicroService 可以认为是 SOA 的一种实现方案：
 
 > Microservices are the kind of SOA we have been talking about for the last decade. Microservices must be independently deployable, whereas SOA services are often implemented in deployment monoliths. Classic SOA is more platform driven, so microservices offer more choices in all dimensions.

@@ -121,7 +121,6 @@ mybatis.type-handlers-package=com.example.typehandler
 mybatis.configuration.map-underscore-to-camel-case=true
 mybatis.configuration.default-fetch-size=100
 mybatis.configuration.default-statement-timeout=30
-...
 ```
 
 然后在 Mybatis 配置文件中，接下来我们如常定义实体类：
@@ -165,6 +164,8 @@ this.cityMapper.findByState("CA");
 public int insertUser(UserBean user) throws Exception;
 ```
 
+在各种标签中的 id 属性必须和接口中的方法名相同 ， id 属性值必须是唯一的，不能够重复使用。parameterType 属性指明查询时使用的参数类型，resultType 属性指明查询返回的结果集类型。
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 不写会报错 -->
@@ -177,8 +178,6 @@ public int insertUser(UserBean user) throws Exception;
         <result property="password" column="password" javaType="java.lang.String"></result>
         <result property="account" column="account" javaType="java.lang.Double"></result>
     </resultMap>
-    <!-- 在各种标签中的id属性必须和接口中的方法名相同 ， id属性值必须是唯一的，不能够重复使用。parameterType属性指明查询时使用的参数类型，
-    resultType属性指明查询返回的结果集类型-->
     <!-- useGeneratedKeys：（ 仅 对 insert 有 用 ） 这 会 告 诉 MyBatis 使 用 JDBC 的getGeneratedKeys
         方法来取出由数据（比如：像 MySQL 和 SQLServer 这样的数据库管理系统的自动递增字段）内部生成的主键。默认值： false。
         oracle 不支持应该设置成 useGeneratedKeys="false" 不然会报错
@@ -207,7 +206,7 @@ public int insertUser(UserBean user) throws Exception;
 </mapper>
 ```
 
-## 类型
+## 数据类型
 
 无论是 MyBatis 在预处理语句（PreparedStatement）中设置一个参数时，还是从结果集中取出一个值时， 都会用类型处理器将获取的值以合适的方式转换成 Java 类型。从 3.4.5 开始，MyBatis 默认支持 JSR-310(日期和时间 API) 。
 
@@ -241,6 +240,18 @@ public int insertUser(UserBean user) throws Exception;
   REF                 Ref
   DATALINK            java.net.URL
 ```
+
+## 数据查询
+
+因为 XML 本身语法的限制，如果我们需要在 SQL 语句中表述小于或者大于，需要使用 CDATA 宏：
+
+```xml
+<![CDATA[
+AND STUDENT_ID <= #{joiningDate}
+]]>
+```
+
+## 数据操作
 
 ## 动态 SQL
 
@@ -396,7 +407,7 @@ generatorConfig.xml 的详细配置阐述如下：
 
             <!-- optional.
                     列的命名规则：
-                    MBG使用 <columnRenamingRule> 元素在计算列名的对应 名称之前，先对列名进行重命名，
+                    MBG使用 <columnRenamingRule> 元素在计算列名的对应名称之前，先对列名进行重命名，
                     作用：一般需要对BUSI_CLIENT_NO 前的BUSI_进行过滤
                     支持正在表达式
                      searchString 表示要被换掉的字符串

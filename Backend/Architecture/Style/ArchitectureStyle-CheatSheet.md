@@ -1,5 +1,7 @@
 # REST CheatSheet
 
+Roy Fielding 提出了一种用于设计 Web 服务的架构方法，称为 Representational State Transfer（REST）。REST 的概念是将 API 结构分离为操作和资源。使用 HTTP 方法 GET、DELETE、POST 和 PUT 操作资源。
+
 REST,即 Representational State Transfer 的缩写，表现层状态转化。
 
 Resource（资源） ：对象的单个实例。 例如，一只动物。它可以是一段文本、一张图片、一首歌曲、一种服务，总之就是一个具体的实在。你可以用一个 URI（统一资源定位符）指向它，每种资源对应一个特定的 URI。要获取这个资源，访问它的 URI 就可以，因此 URI 就成了每一个资源的地址或独一无二的识别符。
@@ -117,31 +119,3 @@ GET /zoo/ID/animals 与 GET /animals?zoo_id=ID 的含义是相同的。
 503 Service Unavailable
 504 网关超时
 ```
-
-Roy Fielding 提出了一种用于设计 Web 服务的架构方法，称为 Representational State Transfer（REST）。REST 的概念是将 API 结构分离为操作和资源。使用 HTTP 方法 GET、DELETE、POST 和 PUT 操作资源。
-
-Resource（资源）是指代表某种东西的对象，它具有一些与之相关的数据，并且可以有一组方法对其进行操作。 例如。 学校，班级和学生是资源，删除，添加，更新是要对这些资源执行的操作。
-
-Collections（集合）是一组资源，例如，211 大学是全国 211 所优质大学的集合。
-
-URL（统一资源定位符）是可以通过其定位资源的路径，并且可以对其执行某些操作。
-
-2xx(成功类别)
-200 Ok 表示 GET，PUT 或 POST 成功的标准 HTTP 响应。
-201 Created 每当创建新实例时，都应返回此状态代码。 例如，使用 POST 方法创建新实例时，应始返回 201 状态代码。
-204 No Content 表示请求已成功处理，但未返回任何内容。
-
-3xx（重定向类别）
-304 Not Modified 表示客户端已在其缓存中有响应。 因此无需再次传输相同的数据。
-
-4xx（客户端错误类别）
-这些状态代码表示客户端已提出错误请求。
-400 Bad Request 表示未处理客户端的请求，因为服务器无法理解客户端要求的内容。
-401 Unauthorized 表示不允许客户端访问资源，并应使用所需凭据重新请求。
-403 Forbidden 表示请求有效且客户端已通过身份验证，但不允许客户端出于任何原因访问该页面或资源。例如，有时不允许授权客户端访问服务器上的目录。
-404 Not Found 表示请求的资源现在不可用。
-410 Gone 表示已移动的请求资源不再可用。
-
-5xx（服务器错误类别）
-500 内部服务器错误表示请求有效，但服务器完全混淆，并要求服务器提供某些意外情况。
-503 Service Unavailable 表示服务器已关闭或无法接收和处理请求。大多数情况下，例如服务器正在进行维护。
