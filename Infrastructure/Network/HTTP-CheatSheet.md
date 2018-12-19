@@ -82,4 +82,36 @@ CLOSE_WAIT 对方主动关闭连接或者网络异常导致连接中断，这时
 
 ## DNS
 
+Dns系统主要是依靠权威dns，和递归dns来工作的。权威dns做的事情主要是管理某个或多个特定域的dns服务。一般大一点的公司，都有自己的权威dns
+
+比如所有”.alipay.com”结尾的域名都由alipay来管理
+
+所有”.alibaba.com”结尾的域名都由alibaba来管理(alipay和alibaba实际又是同一家公司来管理)
+
+所有“.baidu.com”结尾的域名都由baidu来管理
+
+Alibaba和baidu各管各的，没有交互。一级域要去根上注册，像com域，net域就属于一级域
+
+Com域（也就是所有以“.com”结尾的老祖com域）要去根上注册com域的域名服务器（nameserver）列表。
+
+Net域（也就是所有以”.net”结尾的老祖net域）要去根上注册net域的域名服务器（nameserver）列表。 二级域一般要到一级域上去注册
+
+alibaba.com要到com域去注册自己的域名服务器nameserver列表
+
+Baidu.com也要到com域去注册自己的域名服务器nameserver列表
+
 ![i20180520_181112_186](https://user-images.githubusercontent.com/5803001/40573917-a5b3da1c-60fb-11e8-8be9-7ad479c05daa.jpg)
+
+递归DNS（Recursion DNS）
+
+那用户访问www.alibaba.com，请求又是如何到alibaba的权威dns服务器上面找到www.alibaba.com的ip呢？
+
+这个时候递归dns（我们一般叫做local dns）就介入了。递归dns也就是我们常说的缓存dns，local dns，公共dns（提供专门递归服务的dns），这样一步步的从根“.”到"com",再到“alibaba.com”,最后到“www.alibaba.com”的过程叫做递归过程
+Dns请求一般是udp报文（也可以是tcp的报文），所以同样也是要有源ip，目标ip，等等这些网络数据包的底层信息，递归过程的每一步，目标ip都必须是很明确的
+各个域的namserver实际上是有多台的，比如根的namserver的ip有13个，com的namserver的ip也有13个，递归dns在进行递归时需要选择其中一个ip作为目标ip进行下一步请求即可（目前主流dns实现软件，如bind会选择延时最小的那个ip作为下一步请求的目标ip）dns中用的多的是anycast技术，一个ip实际上对了很多个物理服务器，到各个权威nameserver上，也有lvs，ospf等等一些负载均衡技术把同一个ip对应到多个物理服务器上面。
+递归dns还会把图中递归第一步，第二步，第三步向各级权威dns发起的请求结果给缓存到自己的内存中，直到这条结果的ttl超期失效（超期时间一般为几分钟到几小时几天等等），在这个ttl超期之前，任何其他用户发起的www.alibaba.com的dns请求，递归dns都会直接从自己的内存中把缓存结果直接返回给客户端（不会去递归了）。如果ttl超期了，才会去重新递归。
+
+有的dns既是权威dns，又是递归dns，这并不冲突，这种dns在遇到域名是自己管理的域的后缀结尾时，会直接进行应答（无论是否存在结果），如果不是自己管理的域的后缀域名，则进行递归，同样吧递归结果进行缓存。
+
+
+
