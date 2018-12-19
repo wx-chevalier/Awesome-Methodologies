@@ -126,6 +126,12 @@ $ ls -l --sort=size --block-size=M
 
 # 网络
 
+DNS 解析检索与查询：
+
+```sh
+$ dig ns alicdn.com
+```
+
 # 状态与性能检索
 
 ![default](https://user-images.githubusercontent.com/5803001/39466197-45bac832-4d5a-11e8-9c90-1cbdc0762b49.png)
