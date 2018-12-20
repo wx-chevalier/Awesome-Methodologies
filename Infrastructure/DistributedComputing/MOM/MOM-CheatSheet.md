@@ -1,17 +1,24 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+> 很多内容整理/借鉴自
+
 # MOM CheatSheet | 消息中间件/消息队列知识梳理与项目盘点
 
-[Message-oriented middleware (MOM)](http://en.wikipedia.org/wiki/Message-oriented_middleware) is software or hardware infrastructure supporting sending and receiving messages between distributed systems。
-In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queue) and mailboxes are software-engineering components used for inter-process communication (IPC), or for inter-thread communication within the same process.
+Message-oriented middleware (MOM)is software or hardware infrastructure supporting sending and receiving messages between distributed systems。In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queue) and mailboxes are software-engineering components used for inter-process communication (IPC), or for inter-thread communication within the same process.
 
-消息队列作为成熟的异步通信模式，对比常用的同步通信模式，有如下优势：
+## 特性与应用场景
 
-解耦：防止引入过多的 API 给系统的稳定性带来风险；调用方使用不当会给被调用方系统造成压力，被调用方处理不当会降低调用方系统的响应能力。
+消息队列作为成熟的异步通信模式，对比常用的同步通信模式，它能够提供异步通信模式，并且起到譬如解耦、流控、复用等作用。
 
-削峰和流控：消息生产者不会堵塞，突发消息缓存在队列中，消费者按照实际能力读取消息。
+- 异步通信：很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候再去处理它们。
 
-复用：一次发布多方订阅。
+- 解耦：防止引入过多的 API 给系统的稳定性带来风险；调用方使用不当会给被调用方系统造成压力，被调用方处理不当会降低调用方系统的响应能力。消息系统在处理过程中间插入了一个隐含的、基于数据的接口层，两边的处理过程都要实现这一接口。这允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。另一方面，处理数据的过程会失败。除非数据被持久化，否则将造成丢失。消息队列把数据进行持久化直到它们已经被完全处理，通过这一方式规避了数据丢失风险。许多消息队列所采用的"插入-获取-删除"范式中，在把一个消息从队列中删除之前，需要你的处理系统明确的指出该消息已经被处理完毕，从而确保你的数据被安全的保存直到你使用完毕。
+
+- 削峰和流控：在访问量剧增的情况下，应用仍然需要继续发挥作用，但是这样的突发流量并不常见；如果为以能处理这类峰值访问为标准来投入资源随时待命无疑是巨大的浪费。使用消息队列能够使关键组件顶住突发的访问压力，而不会因为突发的超负荷的请求而完全崩溃。消息生产者不会堵塞，突发消息缓存在队列中，消费者按照实际能力读取消息。
+
+- 复用可扩展：一次发布多方订阅，消息队列解耦了你的处理过程，所以增大消息入队和处理的频率是很容易的，只要另外增加处理过程即可。不需要改变代码、不需要调节参数。系统的一部分组件失效时，不会影响到整个系统。消息队列降低了进程间的耦合度，所以即使一个处理消息的进程挂掉，加入队列中的消息仍然可以在系统恢复后被处理。
+
+# 消息传递与消费模型
 
 作为一个消息系统，其基本结构中至少要有产生消息的组件(消息生产者，Producer)以及消费消息的组件(消费者，Consumer)。
 消息模型应涵盖以下 3 个方面：
@@ -19,6 +26,8 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 消息消费——如何发送和消费消息；
 消息确认（ack）——如何确认消息；
 消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；
+
+在面向微服务或事件驱动的体系结构中，队列模型和流模型都是必需的。
 
 在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。
 
@@ -29,70 +38,53 @@ In computer science, [message queues](http://en.wikipedia.org/wiki/Message_queu
 流式（Stream）模型
 相比之下，流模型要求消息的消费严格排序或独占消息消费。对于一个管道，使用流式模型，始终只会有一个消费者使用和消费消息。消费者按照消息写入管道的确切顺序接收从管道发送的消息。
 流模型通常与有状态应用程序相关联。有状态的应用程序更加关注消息的顺序及其状态。消息的消费顺序决定了有状态应用程序的状态。消息的顺序将影响应用程序处理逻辑的正确性。
-在面向微服务或事件驱动的体系结构中，队列模型和流模型都是必需的。
 
-# 消息系统概述
+## 流式分区模型
 
-在用户选择一个消息系统时，消息模型是用户首先考虑的事情。消息模型应涵盖以下 3 个方面：
+Kafka 采用了基于分区(Partation)的模型
 
-消息消费——如何发送和消费消息；
-消息确认（ack）——如何确认消息；
-消息保存——消息保留多长时间，触发消息删除的原因以及怎样删除；
+![image](https://user-images.githubusercontent.com/5803001/49648965-ae21f480-fa62-11e8-8d77-18906db2d4bd.png)
 
-## 消息消费模型
+Kafka 中关于消息的存储只有一种文件，叫做 Partition，它是以文件的形式存储在文件系统中，比如，创建了一个名 为 page_visits 的 topic，其有 5 个 partition，那么在 Kafka 的数据目录中(由配置文件中的 log.dirs 指定的)中就有这样 5 个目录: page_visits-0， page_visits-1，page_visits-2，page_visits-3，page_visits-4，其命名规则 为-，里面存储的分别就是这 5 个 partition 的数据。
 
-在实时流式架构中，消息传递可以分为两类：队列（Queue）和流（Stream）。
+![image](https://user-images.githubusercontent.com/5803001/49649147-44eeb100-fa63-11e8-92b2-e352642f16c9.png)
 
-采用了基于分区(Partation)的模型
+不管对于 Producer 还是 Consumer，单个 Partition 文件在正常的发送和消费逻辑中都是顺序 IO，充分利用 Page Cache 带来的巨大性能提升，但是，万一 Topic 很多，每个 Topic 又分了 N 个 Partition，这时对于 OS 来说，这么多文件的顺序读写在并发时变成了随机读写。
 
-![](https://ss0.baidu.com/6LVYsjip0QIZ8Aqbn9fN2DC/timg?pa&quality=100&size=b640_10000&sec=1543121721&di=fcd43868f8d1250ba1ed5604a17d0d91&ref=http%3A%2F%2Fflyingangelet%2Eiteye%2Ecom%2Fblog%2F2271324&src=http%3A%2F%2Fkafka%2Eapache%2Eorg%2Fimages%2Flog_anatomy%2Epng)
+RocketMQ 则是使用了 Commit Log，一个文件集合，每个文件 1G 大小，存储满后存下一个，为了讨论方便可以把它当成一个文件，所有消息内容全部持久化到这个文件中；Consume Queue：一个 Topic 可以有多个，每一个文件代表一个逻辑队列，这里存放消息在 Commit Log 的偏移值以及大小和 Tag 属性。
 
-partition 是以文件的形式存储在文件系统中，比如，创建了一个名 为 page_visits 的 topic，其有 5 个 partition，那么在 Kafka 的数据目录中(由配置文件中的 log.dirs 指定的)中就有这样 5 个目录: page_visits-0， page_visits-1，page_visits-2，page_visits-3，page_visits-4，其命名规则 为-，里面存储的分别就是这 5 个 partition 的数据。
+![image](https://user-images.githubusercontent.com/5803001/49649071-f7724400-fa62-11e8-8835-659188ad4e1d.png)
+
+RocketMQ 的消息整体是有序的，所以这 5 条消息按顺序将内容持久化在 Commit Log 中。Consume Queue 则用于将消息均衡地排列在不同的逻辑队列，集群模式下多个消费者就可以并行消费 Consume Queue 的消息。在队列非常多的情况下 Consume Queue 不也是和 Kafka 类似，虽然每一个文件是顺序 IO，但整体是随机 IO。不要忘记了，RMQ 的 Consume Queue 是不会存储消息的内容，任何一个消息也就占用 20 Byte，所以文件可以控制得非常小，绝大部分的访问还是 Page Cache 的访问，而不是磁盘访问。正式部署也可以将 Commit Log 和 Consume Queue 放在不同的物理 SSD，避免多类文件进行 IO 竞争。
+
+## 队列模型
+
+## 延时消费模型
 
 # 生态圈
 
-为何使用消息系统
- 解耦在项目启动之初来预测将来项目会碰到什么需求，是极其困难的。消息系统在处理过程中间插入了一个隐含的、基于数据的接口层，两边的处理过程都要实现这一接口。这允许你独立的扩展或修改两边的处理过程，只要确保它们遵守同样的接口约束。
-
- 冗余有些情况下，处理数据的过程会失败。除非数据被持久化，否则将造成丢失。消息队列把数据进行持久化直到它们已经被完全处理，通过这一方式规避了数据丢失风险。许多消息队列所采用的"插入-获取-删除"范式中，在把一个消息从队列中删除之前，需要你的处理系统明确的指出该消息已经被处理完毕，从而确保你的数据被安全的保存直到你使用完毕。
-
- 扩展性因为消息队列解耦了你的处理过程，所以增大消息入队和处理的频率是很容易的，只要另外增加处理过程即可。不需要改变代码、不需要调节参数。扩展就像调大电力按钮一样简单。
-
- 灵活性 & 峰值处理能力在访问量剧增的情况下，应用仍然需要继续发挥作用，但是这样的突发流量并不常见；如果为以能处理这类峰值访问为标准来投入资源随时待命无疑是巨大的浪费。使用消息队列能够使关键组件顶住突发的访问压力，而不会因为突发的超负荷的请求而完全崩溃。
-
- 可恢复性系统的一部分组件失效时，不会影响到整个系统。消息队列降低了进程间的耦合度，所以即使一个处理消息的进程挂掉，加入队列中的消息仍然可以在系统恢复后被处理。
-
- 顺序保证在大多使用场景下，数据处理的顺序都很重要。大部分消息队列本来就是排序的，并且能保证数据会按照特定的顺序来处理。Kafka 保证一个 Partition 内的消息的有序性。
-
- 缓冲在任何重要的系统中，都会有需要不同的处理时间的元素。例如，加载一张图片比应用过滤器花费更少的时间。消息队列通过一个缓冲层来帮助任务最高效率的执行———写入队列的处理会尽可能的快速。该缓冲有助于控制和优化数据流经过系统的速度。
-
- 异步通信很多时候，用户不想也不需要立即处理消息。消息队列提供了异步处理机制，允许用户把一个消息放入队列，但并不立即处理它。想向队列中放入多少消息就放多少，然后在需要的时候再去处理它们。
-
-常用 Message Queue 对比
-
-RabbitMQ
-
-RabbitMQ 是使用 Erlang 编写的一个开源的消息队列，本身支持很多的协议：AMQP，XMPP, SMTP, STOMP，也正因如此，它非常重量级，更适合于企业级的开发。同时实现了 Broker 构架，这意味着消息在发送给客户端时先在中心队列排队。对路由，负载均衡或者数据持久化都有很好的支持。
-首先 RabbitMQ 的开发语言是 erlang，这是一门略小众的语言，我们担心无法完全掌控，所以没有选择。而 ActiveMQ 其实在公司内部已有很长一段时间使用历史，但是 ActiveMQ 太过于复杂，在使用过程中经常出现消息丢失或者整个进程 hang 住的情况，并且难以定位。
+## Kafka
 
-
-
-Redis
-
-Redis 是一个基于 Key-Value 对的 NoSQL 数据库，开发维护很活跃。虽然它是一个 Key-Value 数据库存储系统，但它本身支持 MQ 功能，所以完全可以当做一个轻量级的队列服务来使用。对于 RabbitMQ 和 Redis 的入队和出队操作，各执行 100 万次，每 10 万次记录一次执行时间。测试数据分为 128Bytes、512Bytes、1K 和 10K 四个不同大小的数据。实验表明：入队时，当数据比较小时 Redis 的性能要高于 RabbitMQ，而如果数据大小超过了 10K，Redis 则慢的无法忍受；出队时，无论数据大小，Redis 都表现出非常好的性能，而 RabbitMQ 的出队性能则远低于 Redis。
-
-
-ZeroMQ
-
-ZeroMQ 号称最快的消息队列系统，尤其针对大吞吐量的需求场景。ZeroMQ 能够实现 RabbitMQ 不擅长的高级/复杂的队列，但是开发人员需要自己组合多种技术框架，技术上的复杂度是对这 MQ 能够应用成功的挑战。ZeroMQ 具有一个独特的非中间件的模式，你不需要安装和运行一个消息服务器或中间件，因为你的应用程序将扮演这个服务器角色。你只需要简单的引用 ZeroMQ 程序库，可以使用 NuGet 安装，然后你就可以愉快的在应用程序之间发送消息了。但是 ZeroMQ 仅提供非持久性的队列，也就是说如果宕机，数据将会丢失。其中，Twitter 的 Storm 0.9.0 以前的版本中默认使用 ZeroMQ 作为数据流的传输(Storm 从 0.9 版本开始同时支持 ZeroMQ 和 Netty 作为传输模块)。
-
-
-ActiveMQ
-
-ActiveMQ 是 Apache 下的一个子项目。 类似于 ZeroMQ，它能够以代理人和点对点的技术实现队列。同时类似于 RabbitMQ，它少量代码就可以高效地实现高级应用场景。
-
-
-Kafka/Jafka
-
 Kafka 是 Apache 下的一个子项目，是一个高性能跨语言分布式发布/订阅消息队列系统，而 Jafka 是在 Kafka 之上孵化而来的，即 Kafka 的一个升级版。具有以下特性：快速持久化，可以在 O(1)的系统开销下进行消息持久化；高吞吐，在一台普通的服务器上既可以达到 10W/s 的吞吐速率；完全的分布式系统，Broker、Producer、Consumer 都原生自动支持分布式，自动实现负载均衡；支持 Hadoop 数据并行加载，对于像 Hadoop 的一样的日志数据和离线分析系统，但又要求实时处理的限制，这是一个可行的解决方案。Kafka 通过 Hadoop 的并行加载机制统一了在线和离线的消息处理。Apache Kafka 相对于 ActiveMQ 是一个非常轻量级的消息系统，除了性能非常好之外，还是一个工作良好的分布式系统。
-
+
+## RocketMQ
+
+## Pulsar
+
+Pulsar 旨在取代 Apache Kafka 多年的主宰地位。Pulsar 在很多情况下提供了比 Kafka 更快的吞吐量和更低的延迟，并为开发人员提供了一组兼容的 API，让他们可以很轻松地从 Kafka 切换到 Pulsar。Pulsar 的最大优点在于它提供了比 Apache Kafka 更简单明了、更健壮的一系列操作功能，特别在解决可观察性、地域复制和多租户方面的问题。在运行大型 Kafka 集群方面感觉有困难的企业可以考虑转向使用 Pulsar。
+
+## RabbitMQ
+
+RabbitMQ 是使用 Erlang 编写的一个开源的消息队列，本身支持很多的协议：AMQP，XMPP, SMTP, STOMP，也正因如此，它非常重量级，更适合于企业级的开发。同时实现了 Broker 构架，这意味着消息在发送给客户端时先在中心队列排队。对路由，负载均衡或者数据持久化都有很好的支持。
+
+## Redis
+
+Redis 是一个基于 Key-Value 对的 NoSQL 数据库，开发维护很活跃。虽然它是一个 Key-Value 数据库存储系统，但它本身支持 MQ 功能，所以完全可以当做一个轻量级的队列服务来使用。对于 RabbitMQ 和 Redis 的入队和出队操作，各执行 100 万次，每 10 万次记录一次执行时间。测试数据分为 128Bytes、512Bytes、1K 和 10K 四个不同大小的数据。实验表明：入队时，当数据比较小时 Redis 的性能要高于 RabbitMQ，而如果数据大小超过了 10K，Redis 则慢的无法忍受；出队时，无论数据大小，Redis 都表现出非常好的性能，而 RabbitMQ 的出队性能则远低于 Redis。
+
+## ZeroMQ & ActiveMQ
+
+ZeroMQ 号称最快的消息队列系统，尤其针对大吞吐量的需求场景。ZeroMQ 能够实现 RabbitMQ 不擅长的高级/复杂的队列，但是开发人员需要自己组合多种技术框架，技术上的复杂度是对这 MQ 能够应用成功的挑战。ZeroMQ 具有一个独特的非中间件的模式，你不需要安装和运行一个消息服务器或中间件，因为你的应用程序将扮演这个服务器角色。你只需要简单的引用 ZeroMQ 程序库，可以使用 NuGet 安装，然后你就可以愉快的在应用程序之间发送消息了。但是 ZeroMQ 仅提供非持久性的队列，也就是说如果宕机，数据将会丢失。其中，Twitter 的 Storm 0.9.0 以前的版本中默认使用 ZeroMQ 作为数据流的传输(Storm 从 0.9 版本开始同时支持 ZeroMQ 和 Netty 作为传输模块)。
+
+ActiveMQ 是 Apache 下的一个子项目。 类似于 ZeroMQ，它能够以代理人和点对点的技术实现队列。同时类似于 RabbitMQ，它少量代码就可以高效地实现高级应用场景。ActiveMQ 太过于复杂，在使用过程中经常出现消息丢失或者整个进程 hang 住的情况，并且难以定位。
+
+# 延伸阅读

@@ -735,6 +735,49 @@ User.where('id', 1)
   });
 ```
 
+## 日志
+
+```js
+const env = process.env.NODE_ENV || 'development';
+const logDir = 'log';
+
+// Create the log directory if it does not exist
+if (!fs.existsSync(logDir)) {
+  fs.mkdirSync(logDir);
+}
+
+const filename = path.join(logDir, 'results.log');
+
+const logger = createLogger({
+  // change level if in dev environment versus production
+  level: env === 'production' ? 'info' : 'debug',
+  format: format.combine(
+    format.label({ label: path.basename(module.parent.filename) }),
+    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
+  ),
+  transports: [
+    new transports.Console({
+      format: format.combine(
+        format.colorize(),
+        format.printf(
+          info =>
+            `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
+        )
+      )
+    }),
+    new transports.File({
+      filename,
+      format: format.combine(
+        format.printf(
+          info =>
+            `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
+        )
+      )
+    })
+  ]
+});
+```
+
 # Web 框架
 
 基础框架除了应用最广泛的主流 Web 框架 Koa 外，Fastify 也是一直劲敌，作者 Matteo Collina 是 Node.js 核心开发，Stream 掌门，性能优化专家。Fastify 基于 Schema 优化，对性能提升极其明显。当然，最值得说明的，我认为是企业级 Web 开发，这里简单介绍 3 个知名框架。

@@ -103,6 +103,27 @@ Time per request / Concurrency Level
 
 # 进程
 
+## 系统状态
+
+```sh
+# 查看系统当前的内存
+$ free -h
+              total        used        free      shared  buff/cache   available
+Mem:           7.8G        1.2G        627M         85M        6.0G        6.0G
+Swap:            0B          0B          0B
+```
+
+上图中总内存与可用内存差值出现不一致性，是因为 OS 发现系统的物理内存有大量剩余时，为了提高 IO 的性能，就会使用多余的内存当做文件缓存。
+
+## 资源占用
+
+```
+root@iZbp18e5znt7xhuu0e8sayZ:/home/scan# free -h
+              total        used        free      shared  buff/cache   available
+Mem:           7.8G        1.2G        627M         85M        6.0G        6.0G
+Swap:            0B          0B          0B
+```
+
 # 存储
 
 ```sh

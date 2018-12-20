@@ -74,6 +74,14 @@ function delegate(criteria, listener) {
 }
 ```
 
+## 滚动事件
+
+在 Web 开发中，scroll 事件是一个很重要的事件。通过 scroll 事件，我们可以通过一些方式获知视口在页面的位置。知道这个信息可以帮助我们判断很多东西，如用户即将浏览到页面底部，是不是该调用 API 加载一些新的内容等等。
+
+如果 scroll 的目标元素是一个元素的话，比如说是一个 div 元素。那么此时事件只有从 document 到 div 的捕获阶段以及 div 的冒泡阶段。如果尝试在父级监视 scroll 的冒泡阶段监视这一事件是无效的。如果 scroll 是由 document.defaultView（目前 document 关联的 window 对象）产生的有冒泡阶段。但是由于其本身就是 DOM 树里最顶级的对象，因此只能在 window 里监视 scroll 的捕获阶段以及冒泡阶段。
+
+针对这个特性，我们往往在 window 上监听 scroll 的捕获阶段，即 `window.addEventListener('scroll', handler, true)` 以避免所谓的滚动失效。
+
 ## 自定义事件
 
 ```js

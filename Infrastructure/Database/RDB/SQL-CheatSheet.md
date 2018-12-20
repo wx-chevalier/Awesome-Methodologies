@@ -88,6 +88,46 @@ ON DUPLICATE KEY UPDATE `value1` = `value1` + 1 AND
 `value2` = `value2` + 2 AND `value3` = `value3` + 3;
 ```
 
+## DELETE
+
+Delete only the deadline rows:
+sql
+
+```sql
+DELETE `deadline` FROM `deadline` LEFT JOIN `job` ....
+```
+
+Delete the deadline and job rows:
+
+```sql
+DELETE `deadline`, `job` FROM `deadline` LEFT JOIN `job` ....
+```
+
+Delete only the job rows:
+
+```sqk
+DELETE `job` FROM `deadline` LEFT JOIN `job` ....
+```
+
+删除某个表中的重复数据：
+
+```sql
+DELETE product
+FROM
+	product
+LEFT JOIN (
+	SELECT
+		count(*) AS cnt,
+		id
+	FROM
+		product
+	GROUP BY
+		id
+) a ON a.id = product.id
+WHERE
+	a.cnt > 1;
+```
+
 # DQL | 数据查询
 
 ## Column | 查询列
