@@ -778,6 +778,43 @@ const logger = createLogger({
 });
 ```
 
+# DevOps
+
+## Deploy
+
+Pandora.js 阿里巴巴产出的一个Node.js 应用监控管理器，可以让您对自己的 Node.js 应用了若指掌，我们的目标就是让应用可管理、可度量、可追踪。
+
+```sh
+$ npm i pandora pandora-dashboard -g
+
+# 输出 Pandora.js dashboard 的目录，然后 Pandora.js 会把它当成一个普通的项目来启动
+$ pandora start --name dashboard `pandora-dashboard-dir`
+
+# 主入口为 server.js，在项目根目录运行下面的命令来初始化
+$ pandora init server.js 
+? Which type do you like to generate ? (Use arrow keys)
+  fork  # Fork 简单拉起 server.js 
+❯ cluster  # Cluster 则用 Node.js 的 Cluster 模块启动 server.js （即 Master / Worker 模型）
+
+$ pandora start
+Starting rest-crud at /xx/xxx/rest-crud
+rest-crud started successfully! Run command [ pandora log rest-crud ] to get more information
+```
+
+如果需要在 Egg.js 中使用，则添加自定义的 server.js 入口文件：
+
+```sh
+const egg = require('egg');
+
+const workers = Number(process.argv[2] || require('os').cpus().length);
+egg.startCluster({
+  workers,
+  baseDir: __dirname,
+});
+```
+
+
+
 # Web 框架
 
 基础框架除了应用最广泛的主流 Web 框架 Koa 外，Fastify 也是一直劲敌，作者 Matteo Collina 是 Node.js 核心开发，Stream 掌门，性能优化专家。Fastify 基于 Schema 优化，对性能提升极其明显。当然，最值得说明的，我认为是企业级 Web 开发，这里简单介绍 3 个知名框架。
