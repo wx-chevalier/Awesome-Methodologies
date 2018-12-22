@@ -232,3 +232,7 @@ Oracle 只提供 Read committed 和 Serializable 两个标准隔离级别，另�
 在查询过程中，查询引擎仅去字典表里找到字符串对应数字(只进行一次字符串比较)，然后用数字去列表里匹配，匹配上的位置设为 1；把不同列的匹配结果进行位运算得到符合所有条件的记录下标，使用这个下标组装出最终的结果集。
 
 ![image](https://user-images.githubusercontent.com/5803001/46093255-6ae91100-c1e9-11e8-8bbc-5bb8bf7936ab.png)
+
+# Todos
+
+- https://mp.weixin.qq.com/s/SlPldYm4_mX93qThGId1ug
