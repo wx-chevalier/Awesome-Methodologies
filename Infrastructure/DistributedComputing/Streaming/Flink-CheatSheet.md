@@ -2,6 +2,8 @@
 
 # Flink CheatSheet | Flink 实践技巧与机制浅析
 
+Apache Flink 已经被业界公认是最好的流计算引擎。然而 Flink 的计算能力不仅仅局限于做流处理。Apache Flink 的定位是一套兼具流、批、机器学习等多种计算功能的大数据引擎。在最近的一段时间，Flink 在批处理以及机器学习等诸多大数据场景都有长足的突破。
+
 # API
 
 ![image](https://user-images.githubusercontent.com/5803001/44439870-279eef80-a5f8-11e8-9012-5d082a2b8670.png)
