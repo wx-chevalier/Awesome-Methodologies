@@ -58,6 +58,8 @@ Google Chrome 与 Firefox 都是主流的浏览器平台，Firefox 自 Quantum �
 
 ## 代码管理
 
+- [JPlag #Project#](https://github.com/jplag/jplag): Detecting Software Plagiarism
+
 ## 文献资料
 
 - [2018-SciHubEVA #Project#](https://github.com/leovan/SciHubEVA): Sci-Hub EVA is a cross-platform Sci-Hub GUI application.
