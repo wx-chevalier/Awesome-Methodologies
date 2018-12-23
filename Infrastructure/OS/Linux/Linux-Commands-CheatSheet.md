@@ -94,6 +94,8 @@ lsof -i :port
 ```sh
 # 同时移动两个文件
 $ mv foo.{txt,pdf} some-dir
+# Copy 'filename' as 'filename.bak.
+$ cp filename{,.bak}
 
 # 会被扩展成 cp somefile somefile.bak
 $ cp somefile{,.bak}
@@ -110,9 +112,7 @@ $ mkdir -p test-{a,b,c}/subtest-{1,2,3}
 # 顺序查看
 $ history | more
 1  2008-08-05 19:02:39 service network restart
-2  2008-08-05 19:02:39 exit
-3  2008-08-05 19:02:39 id
-4  2008-08-05 19:02:39 cat /etc/redhat-release
+...
 
 # 查看最新的命令
 $ history | tail -3
