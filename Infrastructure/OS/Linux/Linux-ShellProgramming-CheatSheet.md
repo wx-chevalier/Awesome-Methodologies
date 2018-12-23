@@ -87,6 +87,23 @@ greeting_2='hello, '$your_name' !'
 greeting_3='hello, ${your_name} !' # hello, ${your_name} !
 ```
 
+字符串常见的操作如下：
+
+```sh
+string="string"
+
+# 获取字符串长度
+echo ${#string}
+
+# 提取子字符串
+${string:1:4}
+
+# 查找子字符串
+echo `expr index "$string" io`
+```
+
+### 数组
+
 ## 流程控制
 
 ### 条件
@@ -125,3 +142,7 @@ if [ -d "$LINK_OR_DIR" ]; then
   fi
 fi
 ```
+
+# Todos
+
+- http://www.runoob.com/linux/linux-shell-variable.html
