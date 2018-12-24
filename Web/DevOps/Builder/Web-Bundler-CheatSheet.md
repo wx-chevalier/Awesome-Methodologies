@@ -475,3 +475,77 @@ module.exports = {
   "presets": ["backpack-core/babel", "stage-0"]
 }
 ```
+
+# Module Loader | 模块加载器
+
+## SystemJS
+
+Configurable module loader enabling backwards compatibility workflows for ES modules in browsers.
+
+```html
+<script type="systemjs-packagemap">
+{
+  "packages": {
+    "lodash": "https://unpkg.com/lodash@4.17.10/lodash.js"
+  }
+}
+</script>
+<!-- Alternatively:
+<script type="systemjs-packagemap" src="path/to/map.json">
+-->
+<!-- SystemJS must be loaded after the package map -->
+<script src="system.js"></script>
+<script>
+  System.import('/js/main.js');
+</script>
+```
+
+To load ES modules directly in older browsers with SystemJS we can install and use the Babel plugin:
+
+```html
+<script src="system.js"></script>
+<script src="extras/transform.js"></script>
+<script src="plugin-babel/dist/babel-transform.js"></script>
+<script>
+  // main and all its dependencies will now run through transform before loading
+  System.import('/js/main.js');
+</script>
+```
+
+```js
+import moment from 'moment';
+
+export function test() {
+    const m1 = moment().format('LLL');
+    const m2 = moment().fromNow();
+    return `The moment is ${m1}, which was ${m2}`;
+}
+ 
+```
+
+```js
+const SystemJS = require('systemjs');
+
+SystemJS.config({
+    map: {
+        'traceur': 'node_modules/traceur/bin/traceur.js',
+        'moment': 'node_modules/moment/src'
+    },
+    packages: {
+        'moment': {
+            main: 'moment.js'
+        }
+    }
+});
+
+SystemJS.import('./test.js')
+    .then(function(test) {
+        var t = test.test();
+        console.log(t);
+    })
+    .catch(function(e) {
+        console.error(e)
+    });
+```
+
+## RequireJS
