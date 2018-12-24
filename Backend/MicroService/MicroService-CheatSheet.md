@@ -45,6 +45,8 @@ In the microservices approach, each service manages and stores its own state. Ea
 
 ![](https://docs.microsoft.com/en-us/azure/service-fabric/media/service-fabric-overview-microservices/statemonolithic-vs-micro.png)
 
+所谓的“单体”，即把所有服务代码结合一个“项目”打包发布，也就是一个“普通”的项目并且共用一个数据库，但每个服务的表名都有服务的标识（约定），例如商品服务的相关表名以“KW_GOODS_XXX”命名，订单服务的相关表名以“KW_ORDER_XXX”命名，支付服务的相关表名以“KW_PAYMENT_XXX”命名，充值服务的相关表名以“KW_RECHARGE_XXX”命名，对账服务的相关表名以“KW_ACCOUNT_XXX”命名，服务之间决不能跨越服务操作数据库表，必须按照“业务流程设计”调用，所以“单体”只是体现在物理实施层面，逻辑层面始终保持着“微服务”的分布式特性，保留了各种不用修改一行代码即可灵活扩展的可能性。
+
 # 微服务的挑战
 
 微服务应用往往由多个粒度较小，版本独立，有明确边界并可扩展的服务构成，各个服务之间通过定义好的标准协议相互通信。在构建微服务架构时，模块化(Modularity)和分而治之(Divide & Conquer)是基本的思路。然后需要考虑单一职责(Single Responsibility)原则，即一个服务应当承担尽可能单一的职责，服务应基于有界的上下文(Bounded Context)，通常是边界清晰的业务领域构建；服务理想应当只有一个变更的理由，当一个服务承担过多职责，就会产生各种耦合性问题，需要进一步拆分使其尽可能职责单一化。其次我们需要遵循关注分离(Separation of Concerns)，将日志分析、监控、限流、安全等横向功能与具体的业务逻辑相互分离，让开发人员能专注于业务逻辑的开发。
