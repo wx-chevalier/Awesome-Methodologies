@@ -329,7 +329,11 @@ $ ls -l --sort=size --block-size=M
 可以使用 [fzf](https://github.com/junegunn/fzf) 进行交互式检索，在[这里](https://github.com/junegunn/fzf-bin/releases)下载二进制文件
 
 ```sh
-$find * -type f | fzf > selected
+# 根据文件类型搜索
+$ find * -type f | fzf > selected
+
+# 根据文件名匹配
+$ find . -name '*.map' -exec rm {} \;
 ```
 
 ![fzf](https://raw.githubusercontent.com/junegunn/i/master/fzf-preview.png)
@@ -407,7 +411,7 @@ mkdir -p -m 777 backup/server/2011/11/30
 
 ### 移动
 
-### 压缩
+### 解压缩与切割
 
 ```sh
 # 将文件解压到指定文件名
@@ -415,9 +419,7 @@ $ tar -xvzf fileName.tar.gz -C newFileName
 
 # 将文件夹压缩到指定目录
 $ tar -czf target.tar.fz file1 file2 file3
-```
 
-```sh
 # 指定文件名创建压缩包
 $ tar -cv -f archive.tar file1.txt file2.txt
 
@@ -427,8 +429,18 @@ $ tar cvf dir.tar.gz --exclude='/dir/subdir/subsubdir/*' dir
 
 # 向压缩包中添加文件
 $ tar -rf archive.tar file3.txt
+```
 
-######
+有时候我们还需要将大型文件进行切割处理：
+
+```sh
+$ split -b 10M home.tar.bz2 "home.tar.bz2.part"
+$ ls -lh home.tar.bz2.parta*
+# 混合 tar 命令使用
+$ tar -cvzf - wget/* | split -b 150M - "downloads-part"
+
+# 拼接文件
+$ cat home.tar.bz2.parta* >backup.tar.gz.joined
 ```
 
 ## 文件属性

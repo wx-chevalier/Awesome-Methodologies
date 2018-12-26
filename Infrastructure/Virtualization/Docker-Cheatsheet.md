@@ -525,6 +525,9 @@ $ docker run -dit — restart unless-stopped [CONTAINER]
 # 关闭所有正在运行的容器
 $ docker kill $(docker ps -q)
 
+# 批量重启容器
+$ docker restart $(docker ps -a -q)
+
 # 根据 ID 或 Name 移除
 $ docker rm idOrName
 
@@ -536,7 +539,6 @@ $ docker rm $(docker ps -q -f 'status=exited')
 
 # 根据标签移除
 $ docker rm $(docker ps -a | grep rabbitmq | awk '{print $1}')
-
 $ docker rm $(docker ps -a | grep "46 hours ago")
 ```
 
