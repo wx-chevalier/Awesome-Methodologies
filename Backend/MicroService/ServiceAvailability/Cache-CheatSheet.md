@@ -48,4 +48,29 @@ CDN系统中，直接面向用户，负责给用户提供内容服务的的Cache
 
 常规的CDN都是回源的。即：当有用户访问某一个URL的时候，如果被解析到的那个CDN节点没有缓存响应的内容，或者是缓存已经到期，就会回源站去获取。如果没有人访问，那么CDN节点不会主动去源站拿的；源站内容有更新的时候，源站主动把内容推送到CDN节点。回源域名一般是cdn领域的专业术语，通常情况下，是直接用ip进行回源的，但是如果客户源站有多个ip，并且ip地址会经常变化，对于cdn厂商来说，为了避免经常更改配置（回源ip），会采用回源域名方式进行回源，这样即使源站的ip变化了，也不影响原有的配置。CDN本来是给我们的网站加速的，但是有时会因为不合适的回源策略给服务器带来负担，只有选择正确的策略才能给自己的网站带来更高的访问效率。
 
+# 微服务缓存
+
+①非本地缓存的工作机制
+
+
+
+②本地缓存的工作机制：Key 预加载/更新
+
+
+
+③本地缓存的工作机制：Set/Delete 操作
+
+
+
+④本地缓存的工作机制：Get 操作
+
+https://ww1.sinaimg.cn/large/005SXJ9Agy1fyjgsvl1zfj30u00jedhy.jpg
+
+https://ww1.sinaimg.cn/large/005SXJ9Agy1fyjgsvlvxnj30u00eyta6.jpg
+
+https://ww1.sinaimg.cn/large/005SXJ9Agy1fyjgsvvcozj30u00gq761.jpg
+
+https://ww1.sinaimg.cn/large/005SXJ9Agy1fyjgsw8x5gj30u00f00u9.jpg
+
+
 
