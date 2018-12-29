@@ -312,6 +312,110 @@ class PersonController {
 }
 ```
 
+## 请求校验
+
+Spring 为我们提供了开箱即用的简单校验，当定义某个 REST 端点之后，可以针对 PathVariable 与 RequestParameter 设置某个值是否为必须：
+
+```java
+@GetMapping("/hello/{name}")
+private String hello(@PathVariable(value = "name", required = true) String name){
+    //...
+}
+
+@GetMapping("/name")
+private ResponseEntity<?> queryPerson(@RequestParam(value = "query", required = false) String query) {
+    // ...
+}
+```
+
+对于复杂请求体的验证，可以使用 Spring 内置的 [JSR 303 Bean Validation](http://beanvalidation.org/1.0/spec/) 提供的 NotNull, Max, Min 等等注解：
+
+```java
+public class Message {
+    @NotNull
+    private String title;
+    @NotNull
+    private String message;
+ 
+    // getters/setters/etc
+}
+```
+
+然后在 Controller 中注解响应体：
+
+```java
+@PostMapping
+public ResponseEntity<?> createMessage(@Valid @RequestBody Message message) {
+    // ...
+}
+```
+
+如果我们需要去自定义校验器，则可以选择去扩展 ConstraintValidator 接口：
+
+```java
+public class InRangeValidator implements ConstraintValidator<InRange, Integer> {
+
+    private int min;
+    private int max;
+
+    @Override
+    public void initialize(InRange constraintAnnotation) {
+        this.min = constraintAnnotation.min();
+        this.max = constraintAnnotation.max();
+    }
+
+    @Override
+    public boolean isValid(Integer value, ConstraintValidatorContext context) {
+        return value == null || (value >= min && value <= max);
+    }
+}
+
+// 扩展 InRange 接口，添加自定义属性
+@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+@Constraint(validatedBy = { InRangeValidator.class })
+public @interface InRange {
+    String message() default "Value is out of range";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
+
+    int min() default Integer.MIN_VALUE;
+
+    int max() default Integer.MAX_VALUE;
+}
+```
+
+在使用的时候，直接注解即可：
+
+```java
+@NotNull(groups = {Existing.class, New.class})
+@InRange(
+    min=18,
+    message = "User must be at least 18 years old",
+    groups = {Existing.class, New.class}
+)
+private Integer age;
+```
+
+最后，我们还可以自定义返回的错误格式，譬如以 JSON 的方式返回：
+
+```java
+@ExceptionHandler
+@ResponseStatus(HttpStatus.BAD_REQUEST)
+public ErrorResponse handleException(MethodArgumentNotValidException exception) {
+
+    String errorMsg = exception.getBindingResult().getFieldErrors().stream()
+            .map(DefaultMessageSourceResolvable::getDefaultMessage)
+            .findFirst()
+            .orElse(exception.getMessage());
+
+    return ErrorResponse.builder().message(errorMsg).build();
+}
+```
+
 ## 响应
 
 # Service | 服务

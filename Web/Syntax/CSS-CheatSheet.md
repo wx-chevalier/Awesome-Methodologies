@@ -73,6 +73,56 @@ p::after {
 }
 ```
 
+# Properties
+
+## content
+
+可以使用css content来避免dom入侵。
+我们为查找到采集的元素添加了个性化的样式 data-spmd-container ，并为该dom添加新属性 data-udata-value 用于记录该元素的点击数据，css做如下定义
+
+
+```css
+
+
+.data-spmd-container:before {
+  content: attr(data-udata-value);
+  background:#7fbf2d;
+  position:absolute;
+  font-size: 12px;
+  top: 0;
+  padding: 0px 3px;
+  line-height:20px;
+  color: #333;
+  left: 0;
+  white-space: nowrap;
+}
+```
+
+hover图标
+这个实现简单，只需要在上面的的基础上定义新css
+
+```css
+.data-spmd-container:hover:before {
+    content: url(http://www.mjdemo.com/search.png); //搜索图标
+    position:absolute;
+    color: #333;
+    left: 0;
+    white-space: nowrap;
+  }
+```
+
+图标点击事件
+首先明确一点，对于css添加的伪元素，并不真实存在于页面元素里，所以不能直接添加点击事件 $('.class:before')也不可能查到，不过针对于udata的使用情况，采用了迂回方案，即详细的图标大小是固定的，居左上角20px * 20px，只要监听该元素的点击范围是不是在图标范围内就可以了，js事件如下
+
+```js
+dom.on('click', (e) => {
+    if(e.offsetX < 20 && e.offsetY < 20 ){
+        //do something for udata info
+        return false;
+    }
+}) 
+```
+
 # CSS Animation
 
 CSS3 动画相关的几个属性是：transition, transform, animation；分别理解为过渡，变换，动画。transition 指过渡，就是从 a 点都 b 点，是有时间的，是连续的，一般针对常规 CSS 属性；transform 指变换，包含几个固定的属性：旋转、缩放、偏移等等，但是，效果就是很干涩机械的旋转移动，如果配合 transition 属性，变换就会很平滑。

@@ -859,3 +859,84 @@ log.Fatal("error making udp socket", err)
 ## Express
 
 ## Koa
+
+Koa 中最著名即其洋葱圈模型，其任何的处理流都是以中间件方式进行：
+
+![](https://segmentfault.com/img/bV6DZG?w=478&h=435)
+
+基础的 Koa 用法如下：
+
+```js
+const Koa = require('koa');
+
+const app = new Koa();
+const PORT = 3000;
+
+app.use(async (ctx, next)=>{
+    console.log(1)
+    ctx.body = ...
+    await next();
+    console.log(1)
+});
+
+...
+```
+Koa 洋葱模型的两个核心设计点即是 context的保存和传递以及中间件的管理和next的实现，从 Koa 入口 Server 开始：
+
+```java
+listen(...args) {
+    debug('listen');
+    const server = http.createServer(this.callback());
+    return server.listen(...args);
+}
+```
+在 callback 函数中，会执行中间件的聚合与使用：
+
+```java
+callback() {
+    const fn = compose(this.middleware);
+    ...
+    const handleRequest = (req, res) => {
+      const ctx = this.createContext(req, res);
+      return this.handleRequest(ctx, fn);
+    };
+    
+    return handleRequest;
+}
+```
+
+compose 函数在 [koa-compose](https://github.com/koajs/compose) 中定义，其会包含某个 dispatch 函数，该函数等于会递归执行数组后的中间件函数：
+
+```java
+function compose (middleware) {
+  ...
+  return function (context, next) {
+    // last called middleware #
+    let index = -1
+    return dispatch(0)
+    function dispatch (i) {
+      if (i <= index) return Promise.reject(new Error('next() called multiple times'))
+      index = i
+      let fn = middleware[i]
+      if (i === middleware.length) fn = next
+      if (!fn) return Promise.resolve()
+      try {
+      	// 递归执行下一个函数
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
+      } catch (err) {
+        return Promise.reject(err)
+      }
+    }
+  }
+}
+```
+
+而 handleRequest 函数中只是会简单地初始化调用中间件聚合函数：
+
+```js
+  handleRequest(ctx, fnMiddleware) {
+    ...
+    return fnMiddleware(ctx).then(handleResponse).catch(onerror);
+  }
+```
+

@@ -111,7 +111,9 @@ Time per request / Concurrency Level
 </logger>
 ```
 
-# 进程
+# 进程与系统
+
+![](http://www.brendangregg.com/Perf/linux_perf_tools_full.svg)
 
 ## 系统状态
 

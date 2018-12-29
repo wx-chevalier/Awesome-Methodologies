@@ -350,6 +350,8 @@ __webpack_require__.r(__webpack_exports__);
 
 ![cc11f7e53c579fff28de1b3ed5b9f53a](https://user-images.githubusercontent.com/5803001/39862950-c8ba51c0-5477-11e8-892c-a2b6ec619e2d.png)
 
+### SplitChunksPlugin
+
 不同于 Webpack 3 中需要依赖 CommonChunksPlugin 进行配置，Webpack 4 引入了 [SplitChunksPlugin](https://webpack.js.org/plugins/split-chunks-plugin/#optimization-runtimechunk)，并为我们提供了开箱即用的代码优化特性，Webpack 会根据以下情况自动进行代码分割操作：
 
 - 新的块是在多个模块间共享，或者来自于 node_modules 目录；
@@ -361,6 +363,7 @@ SplitChunksPlugin 的默认配置如下：
 
 ```js
 splitChunks: {
+    // 通用配置
     chunks: "async",
     minSize: 30000,
     minChunks: 1,
@@ -368,11 +371,15 @@ splitChunks: {
     maxInitialRequests: 3,
     automaticNameDelimiter: '~',
     name: true,
+    
+    // 自定义配置，会覆写通用配置
     cacheGroups: {
         vendors: {
             test: /[\\/]node_modules[\\/]/,
             priority: -10
         },
+    
+    // 默认的切割规则
     default: {
             minChunks: 2,
             priority: -20,
@@ -382,7 +389,7 @@ splitChunks: {
 }
 ```
 
-值得一提的是，这里的 chunks 选项有 `initial`, `async` 与 `all` 三个配置，上述配置即是分别针对初始 chunks、按需加载的 chunks 与全部的 chunks 进行优化；如果将 vendors 的 chunks 设置为 `initial`，那么它将忽略通过动态导入的模块包包含的第三方库代码。而 priority 则用于指定某个自定义的 Cache Group 捕获代码的优先级，其默认值为 0。在 [common-chunk-and-vendor-chunk](https://parg.co/YoE) 例子中，我们即针对入口进行优化，提取出入口公共的 vendor 模块与业务模块：
+当两个 chunk 包含了相同代码时，会生成 `chunka~index~chunkb` 等类似的代码，值得一提的是，这里的 chunks 选项有 `initial`, `async` 与 `all` 三个配置，上述配置即是分别针对初始 chunks、按需加载的 chunks 与全部的 chunks 进行优化；如果将 vendors 的 chunks 设置为 `initial`，那么它将忽略通过动态导入的模块包包含的第三方库代码。而 priority 则用于指定某个自定义的 Cache Group 捕获代码的优先级，其默认值为 0。在 [common-chunk-and-vendor-chunk](https://parg.co/YoE) 例子中，我们即针对入口进行优化，提取出入口公共的 vendor 模块与业务模块：
 
 ```js
 {
@@ -406,7 +413,11 @@ splitChunks: {
 }
 ```
 
-Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被设置为 true 时，即会为每个 Entry 添加仅包含运行时信息的 Chunk；当该属性值被设置为 single 时，即为所有的 Entry 创建公用的包含运行时的 Chunk。我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
+Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被设置为 true 时，即会为每个 Entry 添加仅包含运行时信息的 Chunk；当该属性值被设置为 single 时，即为所有的 Entry 创建公用的包含运行时的 Chunk。
+
+### import
+
+我们也可以在代码中使用 import 语句，动态地进行块划分，实现代码的按需加载：
 
 ![c4e91fafb1a08e7733ac2688222eb65a](https://user-images.githubusercontent.com/5803001/39863036-0aaf92d4-5478-11e8-929c-9f07e8dca3b8.png)
 
