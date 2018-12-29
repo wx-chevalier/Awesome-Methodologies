@@ -931,3 +931,12 @@ function compose (middleware) {
 }
 ```
 
+而 handleRequest 函数中只是会简单地初始化调用中间件聚合函数：
+
+```js
+  handleRequest(ctx, fnMiddleware) {
+    ...
+    return fnMiddleware(ctx).then(handleResponse).catch(onerror);
+  }
+```
+
