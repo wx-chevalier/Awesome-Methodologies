@@ -106,3 +106,7 @@ RocketMQ 的消息整体是有序的，所以这 5 条消息按顺序将内容�
 在 Apache Kafka 中，恢复点通常称为 Offset，更新恢复点的过程称为消息确认或提交 Offset。在 Apache Pulsar 中，每个订阅中都使用一个专门的数据结构——游标（Cursor）来跟踪订阅中的每条消息的确认（ACK）状态。每当消费者在主题分区上确认消息时，游标都会更新。更新游标可确保消费者不会再次收到消息。
 
 # 延伸阅读
+
+# Todos
+
+- https://mp.weixin.qq.com/s/nAjYhuN3ptAqaE67bqc4aQ
