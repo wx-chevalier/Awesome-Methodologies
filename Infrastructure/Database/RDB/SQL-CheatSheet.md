@@ -60,6 +60,16 @@ CREATE TABLE `product` (
 
 在 varchar 字段上建立索引时，必须指定索引长度，没必要对全字段建立索引，根据实际文本区分度决定索引长度即可。索引的长度与区分度是一对矛盾体，一般对字符串类型数据，长度为 20 的索引，区分度会高达 90%以上，可以使用`count(distinct left(列名, 索引长度))/count(*)`的区分度来确定。
 
+### 外键
+
+1、要设置外键的字段不能为主键
+
+2、改建所参考的字段必须为主键
+
+3、两个字段必须具有相同的数据类型和约束
+
+满足这三个条件一般在创建外键的时候就不会报错，而这里报错了cannot add foreign key constraint大多数是因为第三个条件不满足。
+
 # Data Manipulation Language | 数据操作
 
 DML 包含了 INSERT, UPDATE, DELETE 等常见的数据操作语句。

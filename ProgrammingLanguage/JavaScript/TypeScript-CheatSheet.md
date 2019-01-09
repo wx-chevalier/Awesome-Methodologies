@@ -10,7 +10,7 @@ TypeScript 是由 MicroSoft 出品的 JavaScript 超集，它在兼容 JavaScrip
 
 JavaScript 本身乃动态类型的语言，即是在运行时才进行类型校验；该特性赋予了其快速原型化的能力，却在构建大型 JavaScript 应用时力有不逮，其无法在编译时帮助规避可能的类型错误，也无法利用自动补全、自动重构等工具特性。TypeScript 的静态类型特性则帮助我们在编译时尽可能规避类型错误，并且 TypeScript 会尽可能地从上下文信息中进行类型推导，以避免像 Java 等静态类型语言中过于冗余的麻烦。
 
-可以参考 [fe-boilerplat/\*-ts]() 或者 [Backend-Boilerplate/node]()，如果想了解 TypeScript 在 React 中的应用，可以参考 [React CheatSheet/TypeScript 节]()。我们可以通过 npm 安装 TypeScript 的依赖包：
+可以参考 [fe-boilerplat/\*-ts]() 或者 [Backend-Boilerplate/node]()，如果想了解 TypeScript 在 React 中的应用，可以参考 [React CheatSheet/TypeScript 节]()。们可以通过 npm 安装 TypeScript 的依赖包：
 
 ```sh
 # 全局安装
@@ -289,6 +289,12 @@ declare var process: any;
 declare namespace NodeJS {
   interface ReadableStream {
     destroy: () => {};
+  }
+}
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: Function;
   }
 }
 
