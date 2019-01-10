@@ -203,6 +203,12 @@ count(distinct col) 计算该列除 NULL 之外的不重复行数，注意 count
 
 值得一提的是，超过三个表禁止 join，需要 join 的字段，数据类型必须绝对一致；多表关联查询时，保证被关联的字段需要有索引。
 
+关于 A left join B on condition 的提醒。
+ON 条件：用于决定如何从 表B 中检索行，如果表B中没有任何数据匹配ON条件，则会额外生成一行全部为NULL的外部行。
+WHERE条件：在匹配阶段，where 条件不会被使用到。仅在匹配阶段完成后，where 子句才会被使用。它将从匹配产生的结果中检索过滤。
+
+
+
 ### Inner Join | 内联查询
 
 Inner Join 是最常用的 Join 类型，基于一个或多个公共字段把记录匹配到一起。Inner Join 只返回进行联结字段上匹配的记录。  如：
