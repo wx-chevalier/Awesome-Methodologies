@@ -38,6 +38,17 @@ element.style.removeProperty('--my-color');
 
 需要注意的是，如果父元素包含了 transform 属性，那么子元素的 position 为 fixed 属性时会出现异常。
 
+```json
+{
+  "top": "元素顶部相对于视口顶部的距离",
+  "bottom": "元素底部相对于视口底部的距离",
+  "left": "元素左边相对于视口左边的距离",
+  "right": "元素右边相对于视口左边的距离",
+  "height": "元素高度",
+  "width": "元素宽度"
+}
+```
+
 ### Center | 居中
 
 ## Scroll | 滚动
@@ -50,26 +61,53 @@ element.style.removeProperty('--my-color');
 
 ```css
 p {
-    position: relative;
-    line-height: 18px;
-    height: 36px;
-    overflow: hidden;
+  position: relative;
+  line-height: 18px;
+  height: 36px;
+  overflow: hidden;
 }
 
 p::after {
-    content:"...";
-    font-weight:bold;
-    position:absolute;
-    bottom:0;
-    right:0;
-    padding:0 20px 1px 45px;
-    
-    /* 为了展示效果更好 */
-    background: -webkit-gradient(linear, left top, right top, from(rgba(255, 255, 255, 0)), to(white), color-stop(50%, white));
-    background: -moz-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
-    background: -o-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
-    background: -ms-linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
-    background: linear-gradient(to right, rgba(255, 255, 255, 0), white 50%, white);
+  content: '...';
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 0 20px 1px 45px;
+
+  /* 为了展示效果更好 */
+  background: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(rgba(255, 255, 255, 0)),
+    to(white),
+    color-stop(50%, white)
+  );
+  background: -moz-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    white 50%,
+    white
+  );
+  background: -o-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    white 50%,
+    white
+  );
+  background: -ms-linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    white 50%,
+    white
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0),
+    white 50%,
+    white
+  );
 }
 ```
 
@@ -77,50 +115,47 @@ p::after {
 
 ## content
 
-可以使用css content来避免dom入侵。
-我们为查找到采集的元素添加了个性化的样式 data-spmd-container ，并为该dom添加新属性 data-udata-value 用于记录该元素的点击数据，css做如下定义
-
+可以使用 css content 来避免 dom 入侵。
+我们为查找到采集的元素添加了个性化的样式 data-spmd-container ，并为该 dom 添加新属性 data-udata-value 用于记录该元素的点击数据，css 做如下定义
 
 ```css
-
-
 .data-spmd-container:before {
   content: attr(data-udata-value);
-  background:#7fbf2d;
-  position:absolute;
+  background: #7fbf2d;
+  position: absolute;
   font-size: 12px;
   top: 0;
   padding: 0px 3px;
-  line-height:20px;
+  line-height: 20px;
   color: #333;
   left: 0;
   white-space: nowrap;
 }
 ```
 
-hover图标
-这个实现简单，只需要在上面的的基础上定义新css
+hover 图标
+这个实现简单，只需要在上面的的基础上定义新 css
 
 ```css
 .data-spmd-container:hover:before {
-    content: url(http://www.mjdemo.com/search.png); //搜索图标
-    position:absolute;
-    color: #333;
-    left: 0;
-    white-space: nowrap;
-  }
+  content: url(http://www.mjdemo.com/search.png); //搜索图标
+  position: absolute;
+  color: #333;
+  left: 0;
+  white-space: nowrap;
+}
 ```
 
 图标点击事件
-首先明确一点，对于css添加的伪元素，并不真实存在于页面元素里，所以不能直接添加点击事件 $('.class:before')也不可能查到，不过针对于udata的使用情况，采用了迂回方案，即详细的图标大小是固定的，居左上角20px * 20px，只要监听该元素的点击范围是不是在图标范围内就可以了，js事件如下
+首先明确一点，对于 css 添加的伪元素，并不真实存在于页面元素里，所以不能直接添加点击事件 \$('.class:before')也不可能查到，不过针对于 udata 的使用情况，采用了迂回方案，即详细的图标大小是固定的，居左上角 20px \* 20px，只要监听该元素的点击范围是不是在图标范围内就可以了，js 事件如下
 
 ```js
-dom.on('click', (e) => {
-    if(e.offsetX < 20 && e.offsetY < 20 ){
-        //do something for udata info
-        return false;
-    }
-}) 
+dom.on('click', e => {
+  if (e.offsetX < 20 && e.offsetY < 20) {
+    //do something for udata info
+    return false;
+  }
+});
 ```
 
 # CSS Animation

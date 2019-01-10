@@ -613,3 +613,7 @@ export default compose(
 # Todos
 
 - 典型案例，参考 [howtographql](https://www.howtographql.com/basics/3-big-picture/) 中的介绍，
+
+- https://github.com/sogko/graphql-schema-language-cheat-sheet
+
+- https://gist.github.com/jbritton/1f60ef440686b51ee37b708e6376b26e

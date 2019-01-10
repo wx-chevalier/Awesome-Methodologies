@@ -8,6 +8,8 @@ Kubernetes 是支持多种底层容器虚拟化技术的分布式容器编排架
 
 [官方的交互式教程](https://kubernetes.io/docs/tutorials/)也是非常不错的入门资源。
 
+![image](https://user-images.githubusercontent.com/5803001/50947031-4cc4c980-14d7-11e9-8bb4-5da3b9da1dea.png)
+
 # Concepts & Terminology | 概念与术语
 
 kubeadm 是集群的安装配置脚手架，kubectl 是集群管理工具，kubelet 是工作节点上的代理 Daemon 服务, 负责与 Master 节点进行通信。

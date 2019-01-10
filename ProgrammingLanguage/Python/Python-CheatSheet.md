@@ -325,10 +325,18 @@ if x < 0:
      print('More')
 ```
 
-Python 同样支持 ternary conditional operator:
+Python 同样支持 ternary conditional operator，并且提供了
 
 ```py
 a if condition else b
+
+x = [True, True, False]
+if any(x):
+    print("At least one True")
+if all(x):
+    print("Not one False")
+if any(x) and not all(x):
+    print("At least one True and one False")
 ```
 
 也可以使用 Tuple 来实现类似的效果：
@@ -831,8 +839,17 @@ print d['monkey']  # KeyError: 'monkey' not a key of d
 print d.get('monkey', 'N/A')  # Get an element with a default; prints "N/A"
 print d.get('fish', 'N/A')    # Get an element with a default; prints "wet"
 
-
 d.keys() # 使用 keys 方法可以获取所有的键
+```
+
+Python 还提供了部分特殊的字典类型：
+
+```py
+from collections import OrderedDict, Counter
+# Remembers the order the keys are added!
+x = OrderedDict(a=1, b=2, c=3)
+# Counts the frequency of each character
+y = Counter("Hello World!")
 ```
 
 可以使用 for-in 来遍历数组 :
@@ -1176,6 +1193,27 @@ example.instmethod()
 # Traceback (most recent call last):
 #   File "", line 1, in
 # TypeError: unbound method instmethod() ...
+```
+
+如果我们希望直接比较两个对象的，则需要覆写该类的比较相关方法：
+
+```py
+
+class Thing:
+    def __init__(self, value):
+        self.__value = value
+    def __gt__(self, other):
+        return self.__value > other.__value
+    def __lt__(self, other):
+        return self.__value < other.__value
+something = Thing(100)
+nothing = Thing(0)
+# True
+something > nothing
+# False
+something < nothing
+# Error
+something + nothing
 ```
 
 ### 抽象类
