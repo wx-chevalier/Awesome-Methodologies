@@ -18,9 +18,9 @@ Go (a.k.a. Golang) is a statically-typed programming language first developed at
 
 Golang 的包管理是一直是为人诟病之处，从 Golang 1.5 引入的 vendor 机制，到准官方工具 dep, 再到 Go 1.11 引入了 Go Modules，其包管理与模块机制一直也在不断地完善。
 
-## GOPATH
+## Package
 
-go 命令依赖于 \$GOPATH 环境变量进行代码组织，多项目情况下也可以使用 ln 进行目录映射以方便进行项目管理。GOPATH 允许设置多个目录，每个目录都会包含三个子目录：src 用于存放源代码，pkg 用于存放编译后生成的文件，bin 用于存放编译后生成的可执行文件。
+早期 Go 命令依赖于 GOPATH 环境变量进行代码组织，多项目情况下也可以使用 ln 进行目录映射以方便进行项目管；GOPATH 允许设置多个目录，每个目录都会包含三个子目录：src 用于存放源代码，pkg 用于存放编译后生成的文件，bin 用于存放编译后生成的可执行文件。
 
 Go 并没有相对路径引入，而是以文件夹为单位定义模块；并且规定每个源文件的首部需要进行包声明，可执行文件默认放在 main 包中。如上文所述，GOPATH 环境变量为我们指明了本地工作空间的地址，而每个导入路径都会指明唯一的包。标准库中的包往往是 `fmt`, `net/http` 这样的短路径；而对于自定义的包，则必须指明根路径以避免潜在的冲突。如果我们使用了 Github 这样的源码仓库，则需要使用 `github.com/user` 作为根路径。
 
@@ -148,11 +148,11 @@ replace (
 
 ### 外部依赖
 
-模块依赖项会被下载并存储到 `GOPATH/src/mod` 目录中，直接后果就是废除了模块的组织名称。
-
-那么，新的结构到底是什么样的呢？假设我们正在开发的项目依赖于 github.com/me/lib 且版本号 1.0.0 的模块，对于这种情况，我们会发现在 GOPATH/src/mod 中文件结构如下
+模块依赖项会被下载并存储到 `GOPATH/src/mod` 目录中，直接后果就是废除了模块的组织名称。假设我们正在开发的项目依赖于 github.com/me/lib 且版本号 1.0.0 的模块，对于这种情况，我们会发现在 GOPATH/src/mod 中文件结构如下
 
 ![](https://www.twle.cn/static/i/golang/20180803_golang_3.png)
+
+Go 的模块版本号必须以 v 开头，在发布版本时可以通过 Tag 方式来指定不同的版本。我们可以使用 `go mod tidy` 来移除未被使用的依赖，使用 `go mod vendor` 可以生成独立的 vendor 目录。
 
 ## 初始化函数
 

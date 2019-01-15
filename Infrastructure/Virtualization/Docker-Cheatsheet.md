@@ -461,6 +461,8 @@ $ docker run -it --rm -p 8080:8080 -v /path/to/agent.jar:/agent.jar -e JAVA_OPTS
 
 # 创建容器，指定网络
 $ docker run --network=<NETWORK>
+# 直接使用宿主机的网络
+$ docker run --rm -d --network host --name my_nginx nginx
 
 # 指定标签
 $ docker run -l my-label --label com.example.foo=bar ubuntu bash
