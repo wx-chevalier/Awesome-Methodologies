@@ -236,3 +236,5 @@ Oracle 只提供 Read committed 和 Serializable 两个标准隔离级别，另�
 # Todos
 
 - https://mp.weixin.qq.com/s/SlPldYm4_mX93qThGId1ug
+
+- 几篇关于数据库索引的文章 https://ruby-china.org/topics/26352 https://www.cnblogs.com/kenshinobiy/p/4360371.html https://www.cnblogs.com/kenshinobiy/p/4360371.html https://neway6655.github.io/elasticsearch/2015/09/11/elasticsearch-study-notes.html#elasticsearch%E6%98%AF%E5%A6%82%E4%BD%95%E5%81%9A%E5%88%B0%E5%BF%AB%E9%80%9F%E7%B4%A2%E5%BC%95%E7%9A%84

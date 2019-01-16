@@ -617,3 +617,5 @@ export default compose(
 - https://github.com/sogko/graphql-schema-language-cheat-sheet
 
 - https://gist.github.com/jbritton/1f60ef440686b51ee37b708e6376b26e
+
+- https://medium.com/graphql-mastery/graphql-quick-tip-how-to-pass-variables-into-a-mutation-in-graphiql-23ecff4add57
