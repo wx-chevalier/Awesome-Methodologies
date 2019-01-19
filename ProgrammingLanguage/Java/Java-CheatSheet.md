@@ -174,7 +174,7 @@ int[]nums={1,4,7,324,0,-4};
 Arrays.sort(nums);
 ```
 
-## List
+##  List
 
 ### 创建增删
 
@@ -633,7 +633,7 @@ IntStream.range(0, alphabet.size())
 ## 数组
 
 ```java
-// Array 转化为 List
+// Array 转化为  List
 List<Integer> numbers = Arrays.asList(3, 2, 2, 3, 7, 3, 5);
 
 // List 转化为 Array

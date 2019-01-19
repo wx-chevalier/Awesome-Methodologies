@@ -28,7 +28,7 @@
 
 ## 数据结构
 
-### Linked List
+### Linked  List
 
 _ 链表即是由节点(Node)组成的线性集合，每个节点可以利用指针指向其他节点。它是一种包含了多个节点的，能够用于表示序列的数据结构。
  _ **Singly-linked list**: 链表中的节点仅指向下一个节点。
@@ -391,7 +391,7 @@ _ 二叉树即是每个节点最多包含左子节点与右子节点这两个节
 │   ├── strobogrammaticNumber.java
 │   ├── twoSum.java
 │   └── uniqueWordAbbreviation.java
-├── LinkedList
+├── Linked List
 │   ├── addTwoNumbers.java
 │   ├── deleteNodeInALinkedList.java
 │   ├── mergeKSortedLists.java

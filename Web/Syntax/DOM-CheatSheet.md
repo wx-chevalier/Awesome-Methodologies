@@ -12,7 +12,7 @@ console.log('Element is ' + offset + ' vertical pixels from <body>');
 
 ```js
 // 获取 StyleSheet 对象
-var sheets = document.styleSheets; // returns an Array-like StyleSheetList
+var sheets = document.styleSheets; // returns an Array-like StyleSheet List
 var sheet = document.styleSheets[0];
 
 // 添加样式规则

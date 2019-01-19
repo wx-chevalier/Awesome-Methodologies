@@ -391,7 +391,7 @@ const schema = `
   }
 
   type Query {
-    todoList: TodoList
+    todoList: Todo List
   }
 
   type Mutation {
