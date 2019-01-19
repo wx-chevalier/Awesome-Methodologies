@@ -10,6 +10,21 @@ Java 就是典型的共享内存模式的通信机制，而 Go 则是提倡以�
 
 # 并发与并行
 
+Parallelism consists of performing multiple operations at the same time. Multiprocessing is a means to effect parallelism, and it entails spreading tasks over a computer’s central processing units (CPUs, or cores). Multiprocessing is well-suited for CPU-bound tasks: tightly bound for loops and mathematical computations usually fall into this category.
+
+Concurrency is a slightly broader term than parallelism. It suggests that multiple tasks have the ability to run in an overlapping manner. (There’s a saying that concurrency does not imply parallelism.)
+
+Threading is a concurrent execution model whereby multiple threads take turns executing tasks. One process can contain multiple threads. What’s important to know about threading is that it’s better for IO-bound tasks. While a CPU-bound task is characterized by the computer’s cores continually working hard from start to finish, an IO-bound job is dominated by a lot of waiting on input/output to complete.
+
+To recap the above, concurrency encompasses both multiprocessing (ideal for CPU-bound tasks) and threading (suited for IO-bound tasks). Multiprocessing is a form of parallelism, with parallelism being a specific type (subset) of concurrency. 
+
+In fact, async IO is a single-threaded, single-process design: it uses cooperative multitasking, In fact, async IO is a single-threaded, single-process design: it uses cooperative multitasking, It has been said in other words that async IO gives a feeling of concurrency despite using a single thread in a single process. Coroutines (a central feature of async IO) can be scheduled concurrently, but they are not inherently concurrent. cooperative multitasking is a fancy way of saying that a program’s event loop (more on that later) communicates with multiple tasks to let each take turns running at the optimal time.
+
+Async IO takes long waiting periods in which functions would otherwise be blocking and allows other functions to run during that downtime. (A function that blocks effectively forbids others from running from the time that it starts until the time that it returns.)
+
+Asynchronous routines are able to “pause” while waiting on their ultimate result and let other routines run in the meantime.
+Asynchronous code, through the mechanism above, facilitates concurrent execution. To put it differently, asynchronous code gives the look and feel of concurrency.
+
 # 并发单元
 
 进程是资源分配的基本单位，线程是调度的基本单位。
