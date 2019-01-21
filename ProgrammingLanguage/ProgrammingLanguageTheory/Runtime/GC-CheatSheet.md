@@ -2,6 +2,12 @@
 
 Application memory management involves supplying the memory needed for a program’s objects and data structures from the limited resources available, and recycling that memory for reuse when it is no longer required. Because application programs cannot in general predict in advance how much memory they are going to require, they need additional code to handle their changing memory requirements.
 
+基于引用计数与基于 trace 这两大类别的自动内存管理方式最大的不同之处在于：前者只需要局部信息，而后者需要全局信息。引用计数方式最基本的形态就是让每个被管理的对象与一个引用计数器关联在一起，该计数器记录着该对象当前被引用的次数，每当创建一个新的引用指向该对象时其计数器就加 1，每当指向该对象的引用失效时计数器就减 1。当该计数器的值降到 0 就认为对象死亡。每个计数器只记录了其对应对象的局部信息——被引用的次数，而没有（也不需要）一份全局的对象图的生死信息。由于只维护局部信息，所以不需要扫描全局对象图就可以识别并释放死对象；但也因为缺乏全局对象图信息，所以无法处理循环引用的状况。更高级的引用计数实现会引入“弱引用”的概念来打破某些已知的循环引用，但那是另一个话题了。
+
+在实际实现中，引用计数存在什么地方是个有趣的话题。可以侵入式的存在对象内，例如 CPython 就把引用计数存在每个受自动内存管理的 Python 对象的对象头里（PyObject 的 ob_refcnt 字段），或者 COM 的 IUnknown::AddRef()/Release()；也可以非侵入式的存在对象外面，例如 C++11 标准库里的 std::shared_ptr。计数器的管理（自增/自减）可能由人工完成，例如老的 Objective-C，或者是从 C++里使用 COM，等等；也可能是自动管理，例如 CPython、使用“自动引用计数”（ARC）的 Objective-C、C++/CX 的“hat”、前面提到的 C++11 的 std::shared_ptr 等等。如果能自动管理，那么必然有一套明确的规则说明何种情况下一个引用会被认为失效；以 std::shared_ptr 为例的话，其析构函数被调用（例如离开作用域时）或者其指向别的对象时，原本指向的对象的引用计数就会减 1。
+
+Tracing GC 与引用计数正好相反，需要全局的对象图信息，从对象图的“根”（也就是必然活的引用）出发扫描出去，基于引用的可到达性来判断对象的生死。这使得对象的生死状态只能批量的被识别出来，然后批量释放死对象。Tracing GC 不显式维护对象的引用计数，只在 trace 的时候才能回答“有”还是“没有”活引用指向某个对象。实际上，在内存充裕的前提下，tracing GC 的整体开销比引用计数方式更低一些，所以吞吐量（throughput）高一些。因为引用计数方式通常需要统计冗余的局部信息，而 tracing GC 则可以通过全局信息一口气批量判断对象的生死；如果是带整理的 tracing GC，则其内存分配通常也会更快。不过 tracing GC 通常会比引用计数方式的延迟（latency）大一些，而且内存越紧张的时候 tracing GC 的效率反而越低，所以在内存不太充裕的地方使用引用计数仍然是个合理的选择（例如 iOS5 上的 ARC）。
+
 ## Tasks | 任务
 
 Allocation
