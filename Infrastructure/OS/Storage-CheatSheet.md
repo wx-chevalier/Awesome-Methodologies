@@ -86,6 +86,14 @@ I/O 多路复用通过把多个 I/O 的阻塞复用到同一个 select 的阻塞
 
 ![asynchronous_io](https://lukangping.gitbooks.io/java-nio/content/resources/asynchronous_io.jpg)
 
+一般有三种操作 IO 的方式：
+
+blocking IO: 发起 IO 操作后阻塞当前线程直到 IO 结束，标准的同步 IO，如默认行为的 posix read 和 write。
+non-blocking IO: 发起 IO 操作后不阻塞，用户可阻塞等待多个 IO 操作同时结束。non-blocking 也是一种同步 IO：“批量的同步”。如 linux 下的 poll,select, epoll，BSD 下的 kqueue。
+asynchronous IO: 发起 IO 操作后不阻塞，用户得递一个回调待 IO 结束后被调用。如 windows 下的 OVERLAPPED + IOCP。linux 的 native AIO 只对文件有效。
+
+linux 一般使用 non-blocking IO 提高 IO 并发度。当 IO 并发度很低时，non-blocking IO 不一定比 blocking IO 更高效，因为后者完全由内核负责，而 read/write 这类系统调用已高度优化，效率显然高于一般得多个线程协作的 non-blocking IO。但当 IO 并发度愈发提高时，blocking IO 阻塞一个线程的弊端便显露出来：内核得不停地在线程间切换才能完成有效的工作，一个 cpu core 上可能只做了一点点事情，就马上又换成了另一个线程，cpu cache 没得到充分利用，另外大量的线程会使得依赖 thread-local 加速的代码性能明显下降，如 tcmalloc，一旦 malloc 变慢，程序整体性能往往也会随之下降。而 non-blocking IO 一般由少量 event dispatching 线程和一些运行用户逻辑的 worker 线程组成，这些线程往往会被复用（换句话说调度工作转移到了用户态），event dispatching 和 worker 可以同时在不同的核运行（流水线化），内核不用频繁的切换就能完成有效的工作。线程总量也不用很多，所以对 thread-local 的使用也比较充分。这时候 non-blocking IO 就往往比 blocking IO 快了。不过 non-blocking IO 也有自己的问题，它需要调用更多系统调用，比如 epoll_ctl，由于 epoll 实现为一棵红黑树，epoll_ctl 并不是一个很快的操作，特别在多核环境下，依赖 epoll_ctl 的实现往往会面临棘手的扩展性问题。non-blocking 需要更大的缓冲，否则就会触发更多的事件而影响效率。non-blocking 还得解决不少多线程问题，代码比 blocking 复杂很多。
+
 ## I/O 类别
 
 不同应用通常具有不同的 I/O 类型，了解应用的 I/O 类型是为其设计解决方案、排错性能问题的首要工作。那 I/O 类型通常包括哪些需要考虑的因素？我们今天就来谈一谈 I/O 类型的几个重要方面。

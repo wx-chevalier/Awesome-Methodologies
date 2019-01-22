@@ -8,7 +8,7 @@ Java 就是典型的共享内存模式的通信机制，而 Go 则是提倡以�
 
 在共享内存的并发模型里，线程之间共享程序的公共状态，线程之间通过写-读内存中的公共状态来隐式进行通信。在消息传递的并发模型里，线程之间没有公共状态，线程之间必须通过明确的发送消息来显式进行通信。同步是指程序用于控制不同线程之间操作发生相对顺序的机制。在共享内存并发模型里，同步是显式进行的。程序员必须显式指定某个方法或某段代码需要在线程之间互斥执行。在消息传递的并发模型里，由于消息的发送必须在消息的接收之前，因此同步是隐式进行的。
 
-# 并发与并行
+# 并发，并行，异步
 
 Parallelism consists of performing multiple operations at the same time. Multiprocessing is a means to effect parallelism, and it entails spreading tasks over a computer’s central processing units (CPUs, or cores). Multiprocessing is well-suited for CPU-bound tasks: tightly bound for loops and mathematical computations usually fall into this category.
 
@@ -16,7 +16,7 @@ Concurrency is a slightly broader term than parallelism. It suggests that multip
 
 Threading is a concurrent execution model whereby multiple threads take turns executing tasks. One process can contain multiple threads. What’s important to know about threading is that it’s better for IO-bound tasks. While a CPU-bound task is characterized by the computer’s cores continually working hard from start to finish, an IO-bound job is dominated by a lot of waiting on input/output to complete.
 
-To recap the above, concurrency encompasses both multiprocessing (ideal for CPU-bound tasks) and threading (suited for IO-bound tasks). Multiprocessing is a form of parallelism, with parallelism being a specific type (subset) of concurrency. 
+To recap the above, concurrency encompasses both multiprocessing (ideal for CPU-bound tasks) and threading (suited for IO-bound tasks). Multiprocessing is a form of parallelism, with parallelism being a specific type (subset) of concurrency.
 
 In fact, async IO is a single-threaded, single-process design: it uses cooperative multitasking, In fact, async IO is a single-threaded, single-process design: it uses cooperative multitasking, It has been said in other words that async IO gives a feeling of concurrency despite using a single thread in a single process. Coroutines (a central feature of async IO) can be scheduled concurrently, but they are not inherently concurrent. cooperative multitasking is a fancy way of saying that a program’s event loop (more on that later) communicates with multiple tasks to let each take turns running at the optimal time.
 
@@ -24,6 +24,8 @@ Async IO takes long waiting periods in which functions would otherwise be blocki
 
 Asynchronous routines are able to “pause” while waiting on their ultimate result and let other routines run in the meantime.
 Asynchronous code, through the mechanism above, facilitates concurrent execution. To put it differently, asynchronous code gives the look and feel of concurrency.
+
+在多核的前提下，性能和线程是紧密联系在一起的。线程间的跳转对高频 IO 操作的性能有决定性作用: 一次跳转意味着至少 3-20 微秒的延时，由于每个核心的 L1 cache 独立（我们的 cpu L2 cache 也是独立的），随之而来是大量的 cache miss，一些变量的读取、写入延时会从纳秒级上升几百倍至微秒级: 等待 cpu 把对应的 cacheline 同步过来。有时这带来了一个出乎意料的结果，当每次的处理都很简短时，一个多线程程序未必比一个单线程程序更快。因为前者可能在每次付出了大的切换代价后只做了一点点“正事”，而后者在不停地做“正事”。不过单线程也是有代价的，它工作良好的前提是“正事”都很快，否则一旦某次变慢就使后续的所有“正事”都被延迟了。在一些处理时间普遍较短的程序中，使用（多个不相交的）单线程能最大程度地”做正事“，由于每个请求的处理时间确定，延时表现也很稳定，各种 http server 正是这样。但我们的检索服务要做的事情可就复杂多了，有大量的后端服务需要访问，广泛存在的长尾请求使每次处理的时间无法确定，排序策略也越来越复杂。如果还是使用（多个不相交的）单线程的话，一次难以预计的性能抖动，或是一个大请求可能导致后续一堆请求被延迟。
 
 # 并发单元
 
