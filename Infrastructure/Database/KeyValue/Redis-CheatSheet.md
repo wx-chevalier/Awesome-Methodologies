@@ -1,3 +1,6 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 # Redis CheatSheet
 
 REmote DIctionary Server(Redis) 是一个由 Salvatore Sanfilippo 写的 key-value 存储系统。Redis 是一个开源的使用 ANSI C 语言编写、遵守 BSD 协议、支持网络、可基于内存亦可持久化的日志型、Key-Value 数据库，并提供多种语言的 API。它通常被称为数据结构服务器，因为值（value）可以是 字符串(String), 哈希(Map), 列表(list), 集合(sets) 和 有序集合(sorted sets)等类型。
@@ -12,8 +15,18 @@ Redis 是一种基于客户端-服务端模型以及请求/响应协议的 TCP �
 
 # 数据备份与恢复
 
+由于 RDB 的数据实时性问题，目前用 AOF 比较多了；而持久化恢复也是优先 AOF。
+
+## RDB
+
+## AOF
+
+RDB 保存的是 key-value 数据内容，即快照模式。
+
 # 内部原理
 
 # Todos
 
 - http://www.runoob.com/redis/sets-scard.html
+
+- https://mp.weixin.qq.com/s/TSYDcEA78Mcj7BRXlAHxHw
