@@ -2,6 +2,8 @@
 
 # HTTP CheatSheet | HTTP 相关必知必会：TCP/HTTP2/HTTPS/DNS，请求，响应，缓存
 
+HTTP, 等网络协议是我们日常开发、面试中常见的知识要点。
+
 ```sh
 http://rob:abcd1234@www.example.co.uk/path/index.html?query1=test&silly=willy&field[0]=zero&field[2]=two#test=hash&chucky=cheese
 ```
@@ -49,9 +51,7 @@ Content-Description: just a small picture of me
 
 # 缓存
 
-# 简明协议流程
-
-## TCP
+# TCP
 
 ![image](https://user-images.githubusercontent.com/5803001/48391511-ea06ba00-e741-11e8-832f-ac9d994f0b21.png)
 
@@ -74,44 +74,43 @@ TCP 协议规定，对于已经建立的连接，网络双方要进行四次握�
 
 CLOSE_WAIT 对方主动关闭连接或者网络异常导致连接中断，这时我方的状态会变成 CLOSE_WAIT 此时我方要调用 close()来使得连接正确关闭；TIME_WAIT 是我方主动调用 close()断开连接，收到对方确认后状态变为 TIME_WAIT。TCP 协议规定 TIME_WAIT 状态会一直持续 2MSL(即两倍的分段最大生存期)，以此来确保旧的连接状态不会对新连接产生影响。处于 TIME_WAIT 状态的连接占用的资源不会被内核释放，所以作为服务器，在可能的情况下，尽量不要主动断开连接，以减少 TIME_WAIT 状态造成的资源浪费。
 
-## HTTPS
+# HTTPS
 
-## HTTP/2
+HTTPS 要使客户端与服务器端的通信过程得到安全保证，必须使用的对称加密算法，但是协商对称加密算法的过程，需要使用非对称加密算法来保证安全，然而直接使用非对称加密的过程本身也不安全，会有中间人篡改公钥的可能性，所以客户端与服务器不直接使用公钥，而是使用数字证书签发机构颁发的证书来保证非对称加密过程本身的安全。这样通过这些机制协商出一个对称加密算法，就此双方使用该算法进行加密解密。从而解决了客户端与服务器端之间的通信安全问题。
 
-## WebSocket
+# HTTP/2
 
-## DNS
+# WebSocket
 
-Dns系统主要是依靠权威dns，和递归dns来工作的。权威dns做的事情主要是管理某个或多个特定域的dns服务。一般大一点的公司，都有自己的权威dns
+# DNS
 
-比如所有”.alipay.com”结尾的域名都由alipay来管理
+Dns 系统主要是依靠权威 dns，和递归 dns 来工作的。权威 dns 做的事情主要是管理某个或多个特定域的 dns 服务。一般大一点的公司，都有自己的权威 dns
 
-所有”.alibaba.com”结尾的域名都由alibaba来管理(alipay和alibaba实际又是同一家公司来管理)
+比如所有”.alipay.com”结尾的域名都由 alipay 来管理
 
-所有“.baidu.com”结尾的域名都由baidu来管理
+所有”.alibaba.com”结尾的域名都由 alibaba 来管理(alipay 和 alibaba 实际又是同一家公司来管理)
 
-Alibaba和baidu各管各的，没有交互。一级域要去根上注册，像com域，net域就属于一级域
+所有“.baidu.com”结尾的域名都由 baidu 来管理
 
-Com域（也就是所有以“.com”结尾的老祖com域）要去根上注册com域的域名服务器（nameserver）列表。
+Alibaba 和 baidu 各管各的，没有交互。一级域要去根上注册，像 com 域，net 域就属于一级域
 
-Net域（也就是所有以”.net”结尾的老祖net域）要去根上注册net域的域名服务器（nameserver）列表。 二级域一般要到一级域上去注册
+Com 域（也就是所有以“.com”结尾的老祖 com 域）要去根上注册 com 域的域名服务器（nameserver）列表。
 
-alibaba.com要到com域去注册自己的域名服务器nameserver列表
+Net 域（也就是所有以”.net”结尾的老祖 net 域）要去根上注册 net 域的域名服务器（nameserver）列表。 二级域一般要到一级域上去注册
 
-Baidu.com也要到com域去注册自己的域名服务器nameserver列表
+alibaba.com 要到 com 域去注册自己的域名服务器 nameserver 列表
+
+Baidu.com 也要到 com 域去注册自己的域名服务器 nameserver 列表
 
 ![i20180520_181112_186](https://user-images.githubusercontent.com/5803001/40573917-a5b3da1c-60fb-11e8-8be9-7ad479c05daa.jpg)
 
-递归DNS（Recursion DNS）
+递归 DNS（Recursion DNS）
 
-那用户访问www.alibaba.com，请求又是如何到alibaba的权威dns服务器上面找到www.alibaba.com的ip呢？
+那用户访问 www.alibaba.com，请求又是如何到 alibaba 的权威 dns 服务器上面找到 www.alibaba.com 的 ip 呢？
 
-这个时候递归dns（我们一般叫做local dns）就介入了。递归dns也就是我们常说的缓存dns，local dns，公共dns（提供专门递归服务的dns），这样一步步的从根“.”到"com",再到“alibaba.com”,最后到“www.alibaba.com”的过程叫做递归过程
-Dns请求一般是udp报文（也可以是tcp的报文），所以同样也是要有源ip，目标ip，等等这些网络数据包的底层信息，递归过程的每一步，目标ip都必须是很明确的
-各个域的namserver实际上是有多台的，比如根的namserver的ip有13个，com的namserver的ip也有13个，递归dns在进行递归时需要选择其中一个ip作为目标ip进行下一步请求即可（目前主流dns实现软件，如bind会选择延时最小的那个ip作为下一步请求的目标ip）dns中用的多的是anycast技术，一个ip实际上对了很多个物理服务器，到各个权威nameserver上，也有lvs，ospf等等一些负载均衡技术把同一个ip对应到多个物理服务器上面。
-递归dns还会把图中递归第一步，第二步，第三步向各级权威dns发起的请求结果给缓存到自己的内存中，直到这条结果的ttl超期失效（超期时间一般为几分钟到几小时几天等等），在这个ttl超期之前，任何其他用户发起的www.alibaba.com的dns请求，递归dns都会直接从自己的内存中把缓存结果直接返回给客户端（不会去递归了）。如果ttl超期了，才会去重新递归。
+这个时候递归 dns（我们一般叫做 local dns）就介入了。递归 dns 也就是我们常说的缓存 dns，local dns，公共 dns（提供专门递归服务的 dns），这样一步步的从根“.”到"com",再到“alibaba.com”,最后到“www.alibaba.com”的过程叫做递归过程
+Dns 请求一般是 udp 报文（也可以是 tcp 的报文），所以同样也是要有源 ip，目标 ip，等等这些网络数据包的底层信息，递归过程的每一步，目标 ip 都必须是很明确的
+各个域的 namserver 实际上是有多台的，比如根的 namserver 的 ip 有 13 个，com 的 namserver 的 ip 也有 13 个，递归 dns 在进行递归时需要选择其中一个 ip 作为目标 ip 进行下一步请求即可（目前主流 dns 实现软件，如 bind 会选择延时最小的那个 ip 作为下一步请求的目标 ip）dns 中用的多的是 anycast 技术，一个 ip 实际上对了很多个物理服务器，到各个权威 nameserver 上，也有 lvs，ospf 等等一些负载均衡技术把同一个 ip 对应到多个物理服务器上面。
+递归 dns 还会把图中递归第一步，第二步，第三步向各级权威 dns 发起的请求结果给缓存到自己的内存中，直到这条结果的 ttl 超期失效（超期时间一般为几分钟到几小时几天等等），在这个 ttl 超期之前，任何其他用户发起的 www.alibaba.com 的 dns 请求，递归 dns 都会直接从自己的内存中把缓存结果直接返回给客户端（不会去递归了）。如果 ttl 超期了，才会去重新递归。
 
-有的dns既是权威dns，又是递归dns，这并不冲突，这种dns在遇到域名是自己管理的域的后缀结尾时，会直接进行应答（无论是否存在结果），如果不是自己管理的域的后缀域名，则进行递归，同样吧递归结果进行缓存。
-
-
-
+有的 dns 既是权威 dns，又是递归 dns，这并不冲突，这种 dns 在遇到域名是自己管理的域的后缀结尾时，会直接进行应答（无论是否存在结果），如果不是自己管理的域的后缀域名，则进行递归，同样吧递归结果进行缓存。
