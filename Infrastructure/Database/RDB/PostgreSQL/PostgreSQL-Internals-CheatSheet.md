@@ -37,4 +37,42 @@ The root of a query tree is the Query structure defined in parsenodes.h; this st
 
 ![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzheky40s5j30bq0bldfs.jpg)
 
-## 
+## Rewriter
+
+The rewriter is the system that realizes the rule system, and transforms a query tree according to the rules stored in the pg_rules system catalog if necessary. 
+
+Views in PostgreSQL are implemented by using the rule system. When a view is defined by the CREATE VIEW command, the corresponding rule is automatically generated and stored in the catalog.
+
+```sh
+sampledb=# CREATE VIEW employees_list 
+sampledb-#      AS SELECT e.id, e.name, d.name AS department 
+sampledb-#            FROM employees AS e, departments AS d WHERE e.department_id = d.id;
+```
+
+When a query that contains a view shown below is issued, the parser creates the parse tree as shown in Fig. 3.4(a).
+
+```sh
+sampledb=# SELECT * FROM employees_list;
+```
+
+![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzhjswic24j30w00bft96.jpg)
+
+## Planner and Executor
+
+The planner receives a query tree from the rewriter and generates a (query) plan tree that can be processed by the executor most effectively.
+
+The planner in PostgreSQL is based on pure cost-based optimization; it does not support rule-based optimization and hints. This planner is the most complex subsystem in RDBMS; 
+
+![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzhjswic24j30w00bft96.jpg)
+
+A plan tree is composed of elements called plan nodes, and it is connected to the plantree list of the PlannedStmt structure. 
+
+Each plan node has information that the executor requires for processing, and the executor processes from the end of the plan tree to the root in the case of a single-table query.
+
+For example, the plan tree shown in Fig. 3.5 is a list of a sort node and a sequential scan node; thus, the executor scans the table:tbl_a by a sequential scan and then sorts the obtained result.
+
+![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzhjswic24j30w00bft96.jpg)
+
+The executor reads and writes tables and indexes in the database cluster via the buffer manager described in Chapter 8. When processing a query, the executor uses some memory areas, such as temp_buffers and work_mem, allocated in advance and creates temporary files if necessary.
+
+In addition, when accessing tuples, PostgreSQL uses the concurrency control mechanism to maintain consistency and isolation of the running transactions.
