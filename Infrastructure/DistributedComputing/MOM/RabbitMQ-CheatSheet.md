@@ -58,9 +58,13 @@ RabbitMQ 主要包括以下组件：
 
 ![image](https://user-images.githubusercontent.com/5803001/45918017-01989380-beb3-11e8-91f4-19a7c6fed0e2.png)
 
+![image](https://user-images.githubusercontent.com/5803001/51668768-e32bdb80-1ffd-11e9-9a32-486690a335d7.png)
+
 # 消息路由
 
 AMQP 中消息的路由过程和 Java 开发者熟悉的 JMS 存在一些差别，AMQP 中增加了 Exchange 和 Binding 的角色。生产者把消息发布到 Exchange 上，消息最终到达队列并被消费者接收，而 Binding 决定交换器的消息应该发送到那个队列。
+
+![image](https://user-images.githubusercontent.com/5803001/51668736-d6a78300-1ffd-11e9-8195-15142165a29a.png)
 
 Exchange 分发消息时根据类型的不同分发策略有区别，目前共四种类型：direct、fanout、topic、headers 。headers 匹配 AMQP 消息的 header 而不是路由键，此外 headers 交换器和 direct 交换器完全一致，但性能差很多，目前几乎用不到了，所以直接看另外三种类型：
 
@@ -168,17 +172,19 @@ channel.basicConsume(queueName, true, consumer);
 
 声明一个 Binding 需要提供一个 QueueName，ExchangeName 和 BindingKey。生产者在发送消息时，都需要指定一个 RoutingKey 和 Exchange，Exchange 在接到该 RoutingKey 以后，会判断该 ExchangeType。如果是 Direct 类型，则会将消息中的 RoutingKey 与该 Exchange 关联的所有 Binding 中的 BindingKey 进行比较，如果相等，则发送到该 Binding 对应的 Queue 中。
 
-![image](https://user-images.githubusercontent.com/5803001/45954841-bca26780-c040-11e8-89bb-9fde38de94ca.png)
+![image](https://user-images.githubusercontent.com/5803001/51668709-c8596700-1ffd-11e9-873f-8745eaf7594c.png)
 
 ## Fanout
 
 如果是 Fanout 类型，则会将消息发送给所有与该 Exchange 定义过 Binding 的所有 Queues 中去，其实是一种广播行为。
 
-![image](https://user-images.githubusercontent.com/5803001/45954936-1440d300-c041-11e8-93cc-6d7442aea08d.png)
+![image](https://user-images.githubusercontent.com/5803001/51665862-a65ce600-1ff7-11e9-961c-789c62d1c470.png)
 
 ## Topic Exchange
 
 如果是 Topic 类型，则会按照正则表达式，对 RoutingKey 与 BindingKey 进行匹配，如果匹配成功，则发送到对应的 Queue 中。
+
+![image](https://user-images.githubusercontent.com/5803001/51665694-54b45b80-1ff7-11e9-9971-fd3c7333ce05.png)
 
 ## Task Queue
 
