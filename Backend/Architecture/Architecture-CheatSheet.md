@@ -1,8 +1,30 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-# Introduction
+# Backend Architecture | 服务端架构风格/模式概述
 
 完整的软件体系结构由不同的模式或者风格构成，常见的风格有架构设计模式、框架设计模式与驱动模式等。
+
+Architectural styles tell us, in very broad strokes, how to organise our code. It’s the highest level of granularity and it specifies layers, high-level modules of the application and how those modules and layers interact with each other, the relations between them. Examples of Architectural Styles:
+
+Component-based
+Monolithic application
+Layered
+Pipes and filters
+Event-driven
+Publish-subscribe
+Plug-ins
+Client-server
+Service-oriented
+An Architectural Style can be implemented in various ways, with a specific technical environment, specific policies, frameworks or practices.
+
+A pattern is a recurring solution to a recurring problem. In the case of Architectural Patterns, they solve the problems related to the Architectural Style. For example, “what classes will we have and how will they interact, in order to implement a system with a specific set of layers“, or “what high-level modules will have in our Service-Oriented Architecture and how will they communicate“, or “how many tiers will our Client-server Architecture have“.
+
+Architectural Patterns have an extensive impact on the code base, most often impacting the whole application either horizontally (ie. how to structure the code inside a layer) or vertically (ie. how a request is processed from the outer layers into the inner layers and back). Examples of Architectural Patterns:
+
+Three-tier
+Microkernel
+Model-View-Controller
+Model-View-ViewModel
 
 # 架构风格(Architectural Style)
 
