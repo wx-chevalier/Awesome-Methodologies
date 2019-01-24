@@ -2,7 +2,29 @@
 
 # RabbitMQ CheatSheet
 
-RabbitMQ 是一个由 erlang 开发的 AMQP(Advanved Message Queue)的开源实现，是经典的消息代理(Message Broker)/消息队列(Message Queue)；其提供了点对点、请求/回复(Request/Reply)、发布/订阅(Pub/Sub)等多种通信模式。其可以被广泛应用于异步处理、应用解耦、流量削峰等场景。RabbitMQ 采用了智能代理(Smart Broker)与简单消费者(Dumb Consumer)的模式，Broker 会保持对于 Consumer 的状态追踪，而不需要 Consumer 自身记录消费进度。
+RabbitMQ 是一个由 Erlang 开发的 AMQP(Advanved Message Queue)的开源实现，是经典的消息代理(Message Broker)/消息队列(Message Queue)；AMQP 高级消息队列协议是应用层协议的一个开放标准，为面向消息的中间件设计，基于此协议的客户端与消息中间件可传递消息，并不受产品、开发语言等条件的限制。
+
+RabbitMQ 最初起源于金融系统，用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗。具体特点包括：
+
+可靠性（Reliability） RabbitMQ 使用一些机制来保证可靠性，如持久化、传输确认、发布确认。
+
+灵活的路由（Flexible Routing） 在消息进入队列之前，通过 Exchange 来路由消息的。对于典型的路由功能，RabbitMQ 已经提供了一些内置的 Exchange 来实现。针对更复杂的路由功能，可以将多个 Exchange 绑定在一起，也通过插件机制实现自己的 Exchange 。
+
+消息集群（Clustering） 多个 RabbitMQ 服务器可以组成一个集群，形成一个逻辑 Broker 。
+
+高可用（Highly Available Queues） 队列可以在集群中的机器上进行镜像，使得在部分节点出问题的情况下队列仍然可用。
+
+多种协议（Multi-protocol） RabbitMQ 支持多种消息队列协议，比如 STOMP、MQTT 等等。
+
+多语言客户端（Many Clients） RabbitMQ 几乎支持所有常用语言，比如 Java、.NET、Ruby 等等。
+
+管理界面（Management UI） RabbitMQ 提供了一个易用的用户界面，使得用户可以监控和管理消息 Broker 的许多方面。
+
+跟踪机制（Tracing） 如果消息异常，RabbitMQ 提供了消息跟踪机制，使用者可以找出发生了什么。
+
+插件机制（Plugin System） RabbitMQ 提供了许多插件，来从多方面进行扩展，也可以编写自己的插件。
+
+RabbitMQ 提供了点对点、请求/回复(Request/Reply)、发布/订阅(Pub/Sub)等多种通信模式。其可以被广泛应用于异步处理、应用解耦、流量削峰等场景。RabbitMQ 采用了智能代理(Smart Broker)与简单消费者(Dumb Consumer)的模式，Broker 会保持对于 Consumer 的状态追踪，而不需要 Consumer 自身记录消费进度。
 
 ![image](https://user-images.githubusercontent.com/5803001/45857187-33faa180-bd8a-11e8-8917-730d896c428b.png)
 
@@ -18,11 +40,11 @@ RabbitMQ 主要包括以下组件：
 
 1. Server(broker): 接受客户端连接，实现 AMQP 消息队列和路由功能的进程。
 
-2. Virtual Host: 其实是一个虚拟概念，类似于权限控制组，一个 Virtual Host 里面可以有若干个 Exchange 和 Queue，但是权限控制的最小粒度是 Virtual Host
+2. Virtual Host: 其实是一个虚拟概念，类似于权限控制组，一个 Virtual Host 里面可以有若干个 Exchange 和 Queue，但是权限控制的最小粒度是 Virtual Host。表示一批交换器、消息队列和相关对象。虚拟主机是共享相同的身份认证和加密环境的独立服务器域。每个 vhost 本质上就是一个 mini 版的 RabbitMQ 服务器，拥有自己的队列、交换器、绑定和权限机制。vhost 是 AMQP 概念的基础，必须在连接时指定，RabbitMQ 默认的 vhost 是 / 。
 
 3.Exchange:接受生产者发送的消息，并根据 Binding 规则将消息路由给服务器中的队列。ExchangeType 决定了 Exchange 路由消息的行为，例如，在 RabbitMQ 中，ExchangeType 有 direct、Fanout 和 Topic 三种，不同类型的 Exchange 路由的行为是不一样的。
 
-4.Message Queue：消息队列，用于存储还未被消费者消费的消息。
+4.Message Queue：消息队列，用于存储还未被消费者消费的消息。消息是不具名的，它由消息头和消息体组成。消息体是不透明的，而消息头则由一系列的可选属性组成，这些属性包括 routing-key（路由键）、priority（相对于其他消息的优先权）、delivery-mode（指出该消息可能需要持久性存储）等。
 
 5.Message: 由 Header 和 Body 组成，Header 是由生产者添加的各种属性的集合，包括 Message 是否被持久化、由哪个 Message Queue 接受、优先级是多少等。而 Body 是真正需要传输的 APP 数据。
 
@@ -30,13 +52,23 @@ RabbitMQ 主要包括以下组件：
 
 7.Connection:连接，对于 RabbitMQ 而言，其实就是一个位于客户端和 Broker 之间的 TCP 连接。
 
-8.Channel:信道，仅仅创建了客户端到 Broker 之间的连接后，客户端还是不能发送消息的。需要为每一个 Connection 创建 Channel，AMQP 协议规定只有通过 Channel 才能执行 AMQP 的命令。一个 Connection 可以包含多个 Channel。之所以需要 Channel，是因为 TCP 连接的建立和释放都是十分昂贵的，如果一个客户端每一个线程都需要与 Broker 交互，如果每一个线程都建立一个 TCP 连接，暂且不考虑 TCP 连接是否浪费，就算操作系统也无法承受每秒建立如此多的 TCP 连接。RabbitMQ 建议客户端线程之间不要共用 Channel，至少要保证共用 Channel 的线程发送消息必须是串行的，但是建议尽量共用 Connection。
+8.Channel:信道，仅仅创建了客户端到 Broker 之间的连接后，客户端还是不能发送消息的。需要为每一个 Connection 创建 Channel，AMQP 协议规定只有通过 Channel 才能执行 AMQP 的命令。一个 Connection 可以包含多个 Channel。之所以需要 Channel，是因为 TCP 连接的建立和释放都是十分昂贵的，如果一个客户端每一个线程都需要与 Broker 交互，如果每一个线程都建立一个 TCP 连接，暂且不考虑 TCP 连接是否浪费，就算操作系统也无法承受每秒建立如此多的 TCP 连接。RabbitMQ 建议客户端线程之间不要共用 Channel，至少要保证共用 Channel 的线程发送消息必须是串行的，但是建议尽量共用 Connection。多路复用连接中的一条独立的双向数据流通道。信道是建立在真实的 TCP 连接内地虚拟连接，AMQP 命令都是通过信道发出去的，不管是发布消息、订阅队列还是接收消息，这些动作都是通过信道完成。因为对于操作系统来说建立和销毁 TCP 都是非常昂贵的开销，所以引入了信道的概念，以复用一条 TCP 连接。
 
 9.Command:AMQP 的命令，客户端通过 Command 完成与 AMQP 服务器的交互来实现自身的逻辑。例如在 RabbitMQ 中，客户端可以通过 publish 命令发送消息，txSelect 开启一个事务，txCommit 提交一个事务。
 
 ![image](https://user-images.githubusercontent.com/5803001/45918017-01989380-beb3-11e8-91f4-19a7c6fed0e2.png)
 
 # 消息路由
+
+AMQP 中消息的路由过程和 Java 开发者熟悉的 JMS 存在一些差别，AMQP 中增加了 Exchange 和 Binding 的角色。生产者把消息发布到 Exchange 上，消息最终到达队列并被消费者接收，而 Binding 决定交换器的消息应该发送到那个队列。
+
+Exchange 分发消息时根据类型的不同分发策略有区别，目前共四种类型：direct、fanout、topic、headers 。headers 匹配 AMQP 消息的 header 而不是路由键，此外 headers 交换器和 direct 交换器完全一致，但性能差很多，目前几乎用不到了，所以直接看另外三种类型：
+
+消息中的路由键（routing key）如果和 Binding 中的 binding key 一致， 交换器就将消息发到对应的队列中。路由键与队列名完全匹配，如果一个队列绑定到交换机要求路由键为“dog”，则只转发 routing key 标记为“dog”的消息，不会转发“dog.puppy”，也不会转发“dog.guard”等等。它是完全匹配、单播的模式。
+
+每个发到 fanout 类型交换器的消息都会分到所有绑定的队列上去。fanout 交换器不处理路由键，只是简单的将队列绑定到交换器上，每个发送到交换器的消息都会被转发到与该交换器绑定的所有队列上。很像子网广播，每台子网内的主机都获得了一份复制的消息。fanout 类型转发消息是最快的。
+
+topic 交换器通过模式匹配分配消息的路由键属性，将路由键和某个模式进行匹配，此时队列需要绑定到一个模式上。它将路由键和绑定键的字符串切分成单词，这些单词之间用点隔开。它同样也会识别两个通配符：符号“#”和符号“”。#匹配 0 个或多个单词，匹配不多不少一个单词。
 
 在 RabbitMQ 中，无论是生产者发送消息还是消费者接受消息，都首先需要声明一个 MessageQueue。消费者是无法订阅或者获取不存在的 MessageQueue 中信息；消息被 Exchange 接受以后，如果没有匹配的 Queue，则会被丢弃，因此如果是消费者去声明 Queue，就有可能会出现在声明 Queue 之前，生产者已发送的消息被丢弃的隐患。
 
