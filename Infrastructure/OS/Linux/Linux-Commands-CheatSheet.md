@@ -830,10 +830,20 @@ $ lscpu
 使用 `top` 查看进程资源占用情况，也可以使用扩展 htop 或者 gtop；如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
 
 ```sh
-# 指定查看用户
+# 指定查看用户，键入数字 1 查看单个 CPU 的负载，P/M/T 分别切换按照 CPU、内存、CPU 占用时间排序
 $ top -u oracle
 
-# 栏目内容解释
+# Cpu(s): 87.3%us,  1.2%sy,  0.0%ni, 27.6%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+us: user cpu time (or) % CPU time spent in user space
+sy: system cpu time (or) % CPU time spent in kernel space
+ni: user nice cpu time (or) % CPU time spent on low priority processes
+id: idle cpu time (or) % CPU time spent idle
+wa: io wait cpu time (or) % CPU time spent in wait (on disk)
+hi: hardware irq (or) % CPU time spent servicing/handling hardware interrupts
+si: software irq (or) % CPU time spent servicing/handling software interrupts
+st: steal time - - % CPU time in involuntary wait by virtual cpu while hypervisor is servicing another processor (or) % CPU time stolen from a virtual machine
+
+# 表格列
 
 # PID：进程的ID
 # USER：进程所有者
