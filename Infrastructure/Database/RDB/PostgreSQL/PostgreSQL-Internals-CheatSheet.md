@@ -2,6 +2,10 @@
 
 # PostgreSQL Internals CheatSheet
 
+![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzhjswic24j30w00bft96.jpg)
+
+# Query Processing
+
 In PostgreSQL, although the parallel query implemented in version 9.6 uses multiple background worker processes, a backend process basically handles all queries issued by the connected client. This backend consists of five subsystems, as shown below:
 
 PostgreSQL 中使用了多个 Background Worker 来并发地处理查询请求
