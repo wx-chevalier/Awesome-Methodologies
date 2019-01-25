@@ -2,6 +2,8 @@
 
 # PostgreSQL Internals CheatSheet
 
+PostgreSQL 是著名的开源关系型数据库，其内部由多个独立协作的子系统构成；了解其内部原理对于 DBA 以及开发人员都有着极大的意义，本文也即希望对于 PostgreSQL 中子系统的工作原理进行概述，给予读者高层次的理解。
+
 ![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzhjswic24j30w00bft96.jpg)
 
 # Query Processing
@@ -15,7 +17,7 @@ PostgreSQL 中使用了多个 Background Worker 来并发地处理查询请求
 - Analyzer/Analyser，对提取树进行语义化分析，生成查询树。
 
 - Rewriter，
-The rewriter transforms a query tree using the rules stored in the rule system if such rules exist.
+  The rewriter transforms a query tree using the rules stored in the rule system if such rules exist.
 
 Planner
 The planner generates the plan tree that can most effectively be executed from the query tree.
@@ -27,7 +29,7 @@ The executor executes the query via accessing the tables and indexes in the orde
 
 ## Parser
 
-The parser generates a parse tree that can be read by subsequent subsystems from an SQL statement in plain text. A parse tree is a tree whose root node is the SelectStmt structure defined in parsenodes.h. 
+The parser generates a parse tree that can be read by subsequent subsystems from an SQL statement in plain text. A parse tree is a tree whose root node is the SelectStmt structure defined in parsenodes.h.
 
 ![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzheky40s5j30bq0bldfs.jpg)
 
@@ -43,13 +45,13 @@ The root of a query tree is the Query structure defined in parsenodes.h; this st
 
 ## Rewriter
 
-The rewriter is the system that realizes the rule system, and transforms a query tree according to the rules stored in the pg_rules system catalog if necessary. 
+The rewriter is the system that realizes the rule system, and transforms a query tree according to the rules stored in the pg_rules system catalog if necessary.
 
 Views in PostgreSQL are implemented by using the rule system. When a view is defined by the CREATE VIEW command, the corresponding rule is automatically generated and stored in the catalog.
 
 ```sh
-sampledb=# CREATE VIEW employees_list 
-sampledb-#      AS SELECT e.id, e.name, d.name AS department 
+sampledb=# CREATE VIEW employees_list
+sampledb-#      AS SELECT e.id, e.name, d.name AS department
 sampledb-#            FROM employees AS e, departments AS d WHERE e.department_id = d.id;
 ```
 
@@ -65,11 +67,11 @@ sampledb=# SELECT * FROM employees_list;
 
 The planner receives a query tree from the rewriter and generates a (query) plan tree that can be processed by the executor most effectively.
 
-The planner in PostgreSQL is based on pure cost-based optimization; it does not support rule-based optimization and hints. This planner is the most complex subsystem in RDBMS; 
+The planner in PostgreSQL is based on pure cost-based optimization; it does not support rule-based optimization and hints. This planner is the most complex subsystem in RDBMS;
 
 ![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzhjswic24j30w00bft96.jpg)
 
-A plan tree is composed of elements called plan nodes, and it is connected to the plantree list of the PlannedStmt structure. 
+A plan tree is composed of elements called plan nodes, and it is connected to the plantree list of the PlannedStmt structure.
 
 Each plan node has information that the executor requires for processing, and the executor processes from the end of the plan tree to the root in the case of a single-table query.
 
