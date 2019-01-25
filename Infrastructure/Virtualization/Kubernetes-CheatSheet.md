@@ -1,5 +1,7 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
+![image](https://user-images.githubusercontent.com/5803001/51689547-dd4fed80-2031-11e9-858f-13fd47a57e60.png)
+
 # Kubernetes CheatSheet | Kubernetes 基础概念，配置使用与实践技巧
 
 Kubernetes 是支持多种底层容器虚拟化技术的分布式容器编排架构，具有完备的功能用于支撑分布式系统以及微服务架构，同时具备超强的横向扩容能力；它提供了自动化容器的部署和复制，随时扩展或收缩容器规模，将容器组织成组，并且提供容器间的负载均衡，提供容器弹性等特性。
@@ -723,6 +725,8 @@ Spinnaker 可作为当前所有主流的云环境自托管平台，像 Armory �
 在云原生生态系统中，来自于 Bitnami 的 Kubeless 项目是当前最流行的无服务项目。它与 AWS lambda 的兼容性与对主流语言的支持使得它成为理想的选择。
 
 ## Helm
+
+容器即进程，Kubernetes 则解决了如何部署和运行应用的问题。对于任何一个部署在 Kubernetes 的应用而言，通常都可以由几个固定的部分组成：Ingress、Service、Deployment 等。直接使用 Kubernetes 原生的 YAML 定义服务，虽然能一定程度上简化应用的部署，但是对于大部分研发人员来说编写和使用 YAML 依然是一件相对痛苦的事情。Helm 应运而生，Helm 作为 Kubernetes 下的包管理工具，对原生服务定义过程进行了增强，通过模板化，参数化的形式大大简化用户部署 Kubernetes 应用的复杂度。
 
 # Todos
 
