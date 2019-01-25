@@ -188,14 +188,14 @@ NoSQL（Not Only SQL，不限于 SQL）是一类范围非常广泛的持久化�
 
 - 幻读: 同一查询在同一事务中多次进行，由于其他提交事务所做的插入操作，每次返回不同的结果集，此时发生幻读。
 
-| 隔离级别                    | 脏读 / Dirty Read | 不可重复读 / Non Repeatable Read | 幻读 / Phantom Read | 锁             |
+| 隔离级别/现象               | 脏读 / Dirty Read | 不可重复读 / Non Repeatable Read | 幻读 / Phantom Read | 锁             |
 | --------------------------- | ----------------- | -------------------------------- | ------------------- | -------------- |
 | 未提交读 / Read Uncommitted | 可能              | 可能                             | 可能                | 无事务         |
 | 提交读 / Read Committed     | 不可能            | 可能                             | 可能                | 事务保护       |
 | 可重复读 / Repeatable Read  | 不可能            | 不可能                           | 可能                | 行锁，顺序写   |
 | 串行化 / Serializable       | 不可能            | 不可能                           | 不可能              | 表锁，顺序读写 |
 
-Oracle 只提供 Read committed 和 Serializable 两个标准隔离级别，另外还提供自己定义的 Read only 隔离级别；SQL Server 除支持上述 ISO/ANSI SQL92 定义的 4 个隔离级别外，还支持一个叫做“快照”的隔离级别，但严格来说它是一个用 MVCC 实现的 Serializable 隔离级别。MySQL 支持全部 4 个隔离级别，但在具体实现时，有一些特点，比如在一些隔离级别下是采用 MVCC 一致性读，但某些情况下又不是，这些内容在后面的章节中将会做进一步介绍。
+Oracle 只提供 Read committed 和 Serializable 两个标准隔离级别，另外还提供自己定义的 Read only 隔离级别；SQL Server 除支持上述 ISO/ANSI SQL92 定义的 4 个隔离级别外，还支持一个叫做“快照”的隔离级别，但严格来说它是一个用 MVCC 实现的 Serializable 隔离级别。MySQL 支持全部 4 个隔离级别，但在具体实现时，有一些特点，比如在一些隔离级别下是采用 MVCC 一致性读，但某些情况下又不是。
 
 # 数据库扩展
 
