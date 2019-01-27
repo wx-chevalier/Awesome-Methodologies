@@ -782,7 +782,7 @@ const logger = createLogger({
 
 ## Deploy
 
-Pandora.js 阿里巴巴产出的一个Node.js 应用监控管理器，可以让您对自己的 Node.js 应用了若指掌，我们的目标就是让应用可管理、可度量、可追踪。
+Pandora.js 阿里巴巴产出的一个 Node.js 应用监控管理器，可以让您对自己的 Node.js 应用了若指掌，我们的目标就是让应用可管理、可度量、可追踪。
 
 ```sh
 $ npm i pandora pandora-dashboard -g
@@ -791,9 +791,9 @@ $ npm i pandora pandora-dashboard -g
 $ pandora start --name dashboard `pandora-dashboard-dir`
 
 # 主入口为 server.js，在项目根目录运行下面的命令来初始化
-$ pandora init server.js 
+$ pandora init server.js
 ? Which type do you like to generate ? (Use arrow keys)
-  fork  # Fork 简单拉起 server.js 
+  fork  # Fork 简单拉起 server.js
 ❯ cluster  # Cluster 则用 Node.js 的 Cluster 模块启动 server.js （即 Master / Worker 模型）
 
 $ pandora start
@@ -812,8 +812,6 @@ egg.startCluster({
   baseDir: __dirname,
 });
 ```
-
-
 
 # Web 框架
 
@@ -881,7 +879,8 @@ app.use(async (ctx, next)=>{
 
 ...
 ```
-Koa 洋葱模型的两个核心设计点即是 context的保存和传递以及中间件的管理和next的实现，从 Koa 入口 Server 开始：
+
+Koa 洋葱模型的两个核心设计点即是 context 的保存和传递以及中间件的管理和 next 的实现，从 Koa 入口 Server 开始：
 
 ```java
 listen(...args) {
@@ -890,6 +889,7 @@ listen(...args) {
     return server.listen(...args);
 }
 ```
+
 在 callback 函数中，会执行中间件的聚合与使用：
 
 ```java
@@ -900,7 +900,7 @@ callback() {
       const ctx = this.createContext(req, res);
       return this.handleRequest(ctx, fn);
     };
-    
+
     return handleRequest;
 }
 ```
@@ -918,10 +918,12 @@ function compose (middleware) {
       if (i <= index) return Promise.reject(new Error('next() called multiple times'))
       index = i
       let fn = middleware[i]
+      // 如果中间件执行完毕，则调用传入的函数
       if (i === middleware.length) fn = next
       if (!fn) return Promise.resolve()
+
       try {
-      	// 递归执行下一个函数
+      	// 递归执行下一个函数，传入的 next 函数即是包装的 dispatch 的下一个函数的调用
         return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
       } catch (err) {
         return Promise.reject(err)
@@ -939,4 +941,3 @@ function compose (middleware) {
     return fnMiddleware(ctx).then(handleResponse).catch(onerror);
   }
 ```
-
