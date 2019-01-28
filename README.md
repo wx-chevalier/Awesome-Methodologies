@@ -14,7 +14,7 @@
 
 建议前往 [xCompass](https://wxyyxc1992.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程，或者直接浏览本仓库的目录以了解更多内容，也可以使用 [alfred-sg](https://github.com/wxyyxc1992/xCompass/tree/master/soogle/alfred-sg) 在 MAC 设备上进行快速检索。
 
-- Web 开发实践
+- 如果希望实践掌握 **Web 开发**，可以阅读 [JavaScript CheatSheet](https://parg.co/rdm)/[ProgrammingLanguage-Series/JavaScript](https://github.com/wxyyxc1992/ProgrammingLanguage-Series/tree/master/JavaScript)，[DOM CheatSheet](https://parg.co/rdG)/[CSS CheatSheet](https://parg.co/rdo)，[React CheatSheet](https://parg.co/rdA)/[Vue CheatSheet](https://parg.co/rdd)，[现代 Web 开发基础与工程实践](https://github.com/wxyyxc1992/Web-Series)/[Web Tuning CheatSheet](https://parg.co/rd0) 等。
 
 - Java 微服务开发
 
