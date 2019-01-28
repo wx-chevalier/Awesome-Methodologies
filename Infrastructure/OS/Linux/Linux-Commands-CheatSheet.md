@@ -1,6 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
 
-> 📌 相较于这些参考资料本文希望能够更为生动详细，并且不仅仅局限于 Bash 本身，而是包含具有一定价值的其他扩展命令，从而更贴近于日常工作中的需要。更多关于 Linux DevOps, 安全加固与优化，亦或是更简洁版的命令清单可以查看 [Linux CheatSheet Series](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/toc.md#linux)，或者 [Git CheatSheet, Docker CheatSheet](https://parg.co/Uqh)，更多参考资料请前往 [Linux Links, Linux Shell Links, Docker Links, Git Links]()。
+> 📌 相较于这些参考资料本文希望能够更为生动详细，并且不仅仅局限于 Bash 本身，而是包含具有一定价值的其他扩展命令，从而更贴近于日常工作中的需要。
 
 # Linux Commands CheatSheet | 常用命令与技巧清单
 
@@ -483,7 +483,9 @@ $ umount /data2
 
 # 文本处理
 
-## 读取
+## 非交互式检索与编辑
+
+### tail & head & cat & more
 
 `tailf` 命令类似于 `tail -f`，其可以打印出文件的最后十行内容，并且会随着文件的增长而自动滚动；不过其不会在文件没有变化的时候去频繁访问文件。
 
@@ -498,7 +500,7 @@ $ tail -f /var/log/messages
 $ sed -n '5,10p' /etc/passwd
 ```
 
-## 检索
+### grep & ack
 
 grep（global search regular expression(RE) and print out the line，全面搜索正则表达式并把行打印出来）是一种强大的文本搜索工具，它能使用正则表达式搜索文本，并把匹配的行打印出来。
 
@@ -587,7 +589,35 @@ $ ack -g hello.py$
 $ ack -g hello --sort-files
 ```
 
-## 导出
+### awk
+
+awk 是一种可以处理数据、产生格式化报表的语言。awk 的工作方式是读取数据文件，将每一行数据视为一条记录，每条记录以分隔符分成若干字段，然后输出。
+
+awk 的日常用法：
+
+    awk常用的格式：
+
+    1. awk '样式' 文件，把符合样式的数据显示出来。
+
+    2. awk '{操作}' 文件，对每一行都执行｛｝中的操作。
+
+    3. awk '样式{操作}' 文件，对符合样式的数据进行括号里的操作。
+
+awk 内置变量
+
+```sh
+ARGC               命令行参数个数
+ARGV               命令行参数排列
+ENVIRON            支持队列中系统环境变量的使用
+FILENAME           awk浏览的文件名
+FNR                浏览文件的记录数
+FS                 设置输入域分隔符，等价于命令行 -F选项
+NF                 浏览记录的域的个数
+NR                 已读的记录数
+OFS                输出域分隔符
+ORS                输出记录分隔符
+RS                 控制记录分隔符
+```
 
 ```sh
 $ echo 'BEGIN' | awk '{print $0 "\nline one\nline two\nline three"}'
@@ -604,9 +634,105 @@ $ awk '{s+=$1} END {printf "%.0f", s}' mydatafile
 
 # NF 表示的是浏览记录的域的个数，$NF 表示的最后一个Field（列），即输出最后一个字段的内容
 $ free -m | grep buffers\/ | awk '{print $NF}'
+
+ps aux | awk '{print $2}'  //获取所有进程PID
+
+awk '/La/' 1.log   // 显示含La的数据行
+
+awk '{print $1, $2}' 1.log   //显示每一行的第1和第2个字段
+
+awk '/La/{print $1, $2}' 1.log   //将含有La关键词的数据行的第1以及第2个字段显示出来
+
+awk -F : '/^root/{print $1, $2}'  /etc/passwd
+
+
+awk 'BEGIN {count=0}{count++} END{print count}' /etc/passwd  //统计用户数
+
+//BEGIN后紧跟的操作，在awk命令开始匹配第一行时执行，END后面紧跟的操作在处理完后执行
+
+awk -F ':' 'BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i < NR; i++) print i, name[i]}' /etc/passwd  //显示所有账户
+
+
+awk -F : 'NR > 1 && NR <=5 {print $1}' /etc/passwd  //显示一到五行
 ```
 
-## 编辑
+### sed
+
+sed 是一种非交互式的流编辑器，可动态编辑文件。所谓的非交互式是说，sed 和传统的文本编辑器不同，并非和使用者直接互动，sed 处理的对象是文件的数据流。sed 的工作模式是，比对每一行数据，若符合样式，就执行指定的操作。
+
+```sh
+# 选项与参数
+-n ：使用安静(silent)模式。在一般 sed 的用法中，所有来自 STDIN 的数据一般都会被列出到终端上。但如果加上 -n 参数后，则只有经过sed 特殊处理的那一行(或者动作)才会被列出来。
+-e ：直接在命令列模式上进行 sed 的动作编辑；
+-f ：直接将 sed 的动作写在一个文件内， -f filename 则可以运行 filename 内的 sed 动作；
+-r ：sed 的动作支持的是延伸型正规表示法的语法。(默认是基础正规表示法语法)
+-i ：直接修改读取的文件内容，而不是输出到终端。
+
+# 函数
+a ：新增， a 的后面可以接字串，而这些字串会在新的一行出现(目前的下一行)～
+c ：取代， c 的后面可以接字串，这些字串可以取代 n1,n2 之间的行！
+d ：删除，因为是删除啊，所以 d 后面通常不接任何咚咚；
+i ：插入， i 的后面可以接字串，而这些字串会在新的一行出现(目前的上一行)；
+p ：列印，亦即将某个选择的数据印出。通常 p 会与参数 sed -n 一起运行～
+s ：取代，可以直接进行取代的工作哩！通常这个 s 的动作可以搭配正规表示法！例如 1,20s/old/new/g 就是啦！
+```
+
+常用示例：
+
+```sh
+# 在第一行和第二行间插入一行123Abc
+sed -i '2i 123Abc' 1.log
+# 在第二行和第三行间插入一行 123Abc
+sed -i '2a 123Abc' 1.log
+
+sed '1,4d' 1.log  //删除1到4行数据，剩下的显示出来。d是sed的删除命令。这里的删除并不是修改了源文件
+
+# 删除最后一行
+sed '$d' 1.log
+# 删除匹配到包含'LA'字符行的数据，剩下的显示。//代表搜索
+sed '/LA/d' 1.log
+
+sed '/[0-9]\{3\}/d' 1.log   //删除包含三位数字的行，注意{3}个数指定的大括号转义
+
+sed '/LA/!d' 1.log  // 反选 ，把不含LA行的数据删除
+
+sed '/^$/d' 1.log //删除空白行
+
+//如果想显示匹配到的呢？
+
+sed '/a/p' 1.log   //由于默认sed也会显示不符合的数据行，所以要用-n，抑制这个操作
+
+sed -n '/a/p' 1.log
+
+
+//替换字符，把a替换成A
+sed -n 's/a/A/p' 1.log  //s是替换的命令，第一个//中的字符是搜索目标（a），第二个//是要替换的字符A
+
+//上面的只会替换匹配到的第一个，如果我想所有替换呢
+
+sed -n 's/a/A/gp' 1.log   // g 全局替换
+
+sed -n 's/a//gp' 1.log //删除所有的a
+
+sed -n 's/^...//gp' 1.log  //删除每行的前三个字符
+
+sed -n 's/...$//gp' 1.log  //删除每行结尾的三个字符
+
+sed -n 's/\(A\)/\1BC/gp' 1.log  // 在A后面追加BC，\1表示搜索里面括号里的字符
+
+
+sed -n '/AAA/s/234/567/p' 1.log  //找到包含字符AAA这一行，并把其中的234替换成567
+
+sed -n '/AAA/,/BBB/s/234/567/p' 1.log //找到包含字符AAA或者BBB的行，并把其中的234替换成567
+
+sed -n '1,4s/234/567/p' 1.log  //将1到4行中的234.替换成567
+
+cat 1.log | sed -e '3,$d' -e 's/A/a/g'   //删除3行以后的数据，并把剩余的数据替换A为a
+
+sed -i '1d' 1.log   //直接修改文件，删除第一行
+```
+
+## 交互式编辑
 
 ### Nano
 
@@ -664,7 +790,7 @@ $ sudo /etc/init.d/apache2 start
 $ service apache2 start
 ```
 
-当 sysvinit 系统初始化的时候，它是串行启动，并且会将所有可能用到的后台服务进程全部启动运行；系统必须等待所有的服务都启动就绪之后，才允许用户登录，导致启动时间过长与系统资源浪费。并且 init 进程只是执行启动脚本，不管其他事情，脚本需要自己处理各种情况，使得脚本复杂度增加很多。Systemd 就是为了解决这些问题而诞生的。它的设计目标是，为系统的启动和管理提供一套完整的解决方案。Systemd 并不是一个命令，而是一组命令，涉及到系统管理的方方面面。
+当 sysvinit 系统初始化的时候，它是串行启动，并且会将所有可能用到的后台服务进程全部启动运行；系统必须等待所有的服务都启动就绪之后，才允许用户登录，导致启动时间过长与系统资源浪费。并且 init 进程只是执行启动脚本，不管其他事情，脚本需要自己处理各种情况，使得脚本复杂度增加很多。Systemd 就是为了解决这些问题而诞生的。它的设计目标是，为系统的启动和管理提供一套完整的解决方案；Systemd 并不是一个命令，而是一组命令，涉及到系统管理的方方面面。
 
 ```sh
 # 查看 Systemd 的版本
@@ -825,39 +951,9 @@ $ lscpu
 
 ### 进程监控
 
+- 使用 `top` 查看进程资源占用情况，也可以使用扩展 htop 或者 gtop；如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
+
 - 使用 `pstree -p` 查看当前进程树，使用 `ps -A` 查看所有进程信息，使用 `ps -aux` 查看所有正在内存中的程序，使用 `ps -ef` 查看所有连同命令行的进程信息；使用 `ps -u root` 显示指定用户信息；使用 `ps -ef | grep ssh` 查看特定进程。
-
-使用 `top` 查看进程资源占用情况，也可以使用扩展 htop 或者 gtop；如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
-
-```sh
-# 指定查看用户，键入数字 1 查看单个 CPU 的负载，P/M/T 分别切换按照 CPU、内存、CPU 占用时间排序
-$ top -u oracle
-
-# Cpu(s): 87.3%us,  1.2%sy,  0.0%ni, 27.6%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
-us: user cpu time (or) % CPU time spent in user space
-sy: system cpu time (or) % CPU time spent in kernel space
-ni: user nice cpu time (or) % CPU time spent on low priority processes
-id: idle cpu time (or) % CPU time spent idle
-wa: io wait cpu time (or) % CPU time spent in wait (on disk)
-hi: hardware irq (or) % CPU time spent servicing/handling hardware interrupts
-si: software irq (or) % CPU time spent servicing/handling software interrupts
-st: steal time - - % CPU time in involuntary wait by virtual cpu while hypervisor is servicing another processor (or) % CPU time stolen from a virtual machine
-
-# 表格列
-
-# PID：进程的ID
-# USER：进程所有者
-# PR：进程的优先级别，越小越优先被执行
-# NInice：值
-# VIRT：进程占用的虚拟内存
-# RES：进程占用的物理内存
-# SHR：进程使用的共享内存
-# S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数
-# %CPU：进程占用CPU的使用率
-# %MEM：进程使用的物理内存和总内存的百分比
-# TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。
-# COMMAND：进程启动命令名称
-```
 
 ## 进程管理
 
@@ -940,7 +1036,7 @@ $ netstat -an
 # 统计80端口连接数
 $ netstat -nat|grep -i "80"|wc -l
 # 统计 IP 地址连接数
-netstat -na|grep ESTABLISHED|awk {print $5}|awk -F: {print $1}|sort|uniq -c|sort -r +0n
+netstat -na|grep ESTABLISHED|awk {print $5}|awk -F: {print $1}| sort |uniq -c|sort -r +0n
 
 netstat -na|grep SYN|awk {print $5}|awk -F: {print $1}|sort|uniq -c|sort -r +0n
 ```

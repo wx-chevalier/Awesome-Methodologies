@@ -1,4 +1,8 @@
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+
 # Backend DevOps CheatSheet
+
+本文囊括了日常的持续集成、应用部署、服务器维护等方面的命令与技巧，相较于 [基础命令/DevOps/安全加固/Shell 编程](./Linux-Commands-CheatSheet.md) 等相关清单，首先介绍了如何查看服务器的状态与关键指标，然后介绍了指标的含义、评判标准，最后从进程、存储、网络等细分角度进行展开。
 
 # Metrics | 指标
 
@@ -175,3 +179,87 @@ Linux 进程状态：X (TASK_DEAD – EXIT_DEAD)，退出状态，进程即将�
 响应信号而进入 TASK_STOPED 状态、或 TASK_DEAD 状态；
 执行系统调用主动进入 TASK_INTERRUPTIBLE 状态（如 nanosleep 系统调用）、或 TASK_DEAD 状态（如 exit 系统调用）；或由于执行系统调用需要的资源得不到满足，而进入 TASK_INTERRUPTIBLE 状态或 TASK_UNINTERRUPTIBLE 状态（如 select 系统调用）。
 显然，这两种情况都只能发生在进程正在 CPU 上执行的情况下。
+
+# 进程与内存
+
+```sh
+# 指定查看用户，键入数字 1 查看单个 CPU 的负载，P/M/T 分别切换按照 CPU、内存、CPU 占用时间排序
+$ top -u oracle
+
+# Cpu(s): 87.3%us,  1.2%sy,  0.0%ni, 27.6%id,  0.0%wa,  0.0%hi,  0.0%si,  0.0%st
+us: user cpu time (or) % CPU time spent in user space
+sy: system cpu time (or) % CPU time spent in kernel space
+ni: user nice cpu time (or) % CPU time spent on low priority processes
+id: idle cpu time (or) % CPU time spent idle
+wa: io wait cpu time (or) % CPU time spent in wait (on disk)
+hi: hardware irq (or) % CPU time spent servicing/handling hardware interrupts
+si: software irq (or) % CPU time spent servicing/handling software interrupts
+st: steal time - - % CPU time in involuntary wait by virtual cpu while hypervisor is servicing another processor (or) % CPU time stolen from a virtual machine
+
+# 表格列
+
+# PID：进程的ID
+# USER：进程所有者
+# PR：进程的优先级别，越小越优先被执行
+# NInice：值
+# VIRT：进程占用的虚拟内存
+# RES：进程占用的物理内存
+# SHR：进程使用的共享内存
+# S：进程的状态。S表示休眠，R表示正在运行，Z表示僵死状态，N表示该进程优先值为负数
+# %CPU：进程占用CPU的使用率
+# %MEM：进程使用的物理内存和总内存的百分比
+# TIME+：该进程启动后占用的总的CPU时间，即占用CPU使用时间的累加值。
+# COMMAND：进程启动命令名称
+```
+
+# 存储
+
+## 磁盘 I/O
+
+## MySQL
+
+```sh
+$ show full processlist;
+$ SELECT HOST FROM information_schema.processlist where user='dbname' and INFO like '%tbname%'"
+```
+
+```sh
+#!/bin/bash
+
+COUNTER=0
+tmp_file=$1
+
+while [ $COUNTER -lt 10000 ];
+do
+    ss=`mysql -uroot -N -e"SELECT HOST FROM information_schema.processlist where user='dbname' and INFO like '%tbname%'";`
+    echo $ss>>${tmp_file}
+    let COUNTER=COUNTER+1
+done
+
+# 然后使用 awk 命令检索
+# awk -F":" '{print $1}' ${tmp_file}| sort | uniq
+```
+
+# 网络
+
+# 应用程序
+
+## JVM
+
+## perf
+
+perf 是 linux 下一个非常强大的性能分析工具，通过它可以分析出进程运行过程中的主要时间都花在了哪些地方；结合著名的 [FlameGraph](https://github.com/brendangregg/FlameGraph.git) 火焰图工具，我们能够快速定位 时间占用较多的函数调用。
+
+```sh
+# 执行采样
+$ perf record -e cpu-clock -g -p ${PID}
+
+# 用 perf script 工具对 perf.data 进行解析
+perf script -i perf.data &> perf.unfold
+
+# 将 perf.unfold 中的符号进行折叠
+./stackcollapse-perf.pl perf.unfold &> perf.folded
+
+# 生成 svg 火焰图
+/flamegraph.pl perf.folded > perf.svg
+```

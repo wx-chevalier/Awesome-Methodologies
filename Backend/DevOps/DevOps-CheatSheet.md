@@ -4,58 +4,11 @@
 
 DevOps 的出现，运维的身份职责发生了转变，它不再是专门跑任务脚本或者与机器打交道的人，而是变成了 OpenStack 或者 Kubernetes 的专家，通过搭建 / 管理相关的分布式集群，为研发提供可靠的应用运行环境。DevOps 更重要的方面还是改变了应用交付的流程，从传统的搭火车模式走向持续交付，应用的架构和形态改变了，其方法论也随之而改变。DevOps 和持续交付也被认为是云原生应用的要素。至于 AIOps 是 DevOps 在实践 AI 过程中的一些应用，称不上是范式的改变，AI 在运维领域还远远取代不了人的作用。
 
-本文囊括了日常的持续集成、应用部署、服务器维护等方面的命令与技巧，相较于 [基础命令/DevOps/安全加固/Shell 编程](./Linux-Commands-CheatSheet.md) 等相关清单，首先介绍了如何查看服务器的状态与关键指标，然后介绍了指标的含义、评判标准，最后从进程、存储、网络等细分角度进行展开。
+[![devops](https://user-images.githubusercontent.com/5803001/36406883-0409874a-1635-11e8-815d-fdd882484bb4.png)](https://www.processon.com/view/link/5a8b9c75e4b059c41ac41001)
 
 # 状态
 
 ## top
-
-## 日志配置
-
-对外接口统一拦截捕获，避免异常向外系统传播，自身系统无法感知问题。
-
-严格规范日志输出等级，尤其 Error 级别。影响业务进行或意料外异常输出 Error 级别，Error 级别日志统一输出到独立文件，并接入 xflush 系统错误监控告警。做到 Error 日志输出即为需要人为介入处理。为了避免干扰，对现有 Error 做降噪检查。
-
-服务层日志统一输出，包括耗时、接口成功标识、业务成功标识，为监控做准备。
-
-所有日志 traceId 的统一输出。通过扩展 ch.qos.logback.classic.pattern.ClassicConverter，现实 traceId 自动输出。这极大的提升了系统运维效率。
-
-```xml
-<appender name="ERROR-APPENDER"
-          class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${LOG_PATH}/common-error.log</file>
-    <!-- Error 级别过滤 -->
-    <filter class="ch.qos.logback.classic.filter.LevelFilter">
-      <level>ERROR</level>
-      <onMatch>ACCEPT</onMatch>
-      <onMismatch>DENY</onMismatch>
-  </filter>
-    <encoder>
-        <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} - [%thread] : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}
-        </pattern>
-    </encoder>
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-        <!-- 按天滚动，可根据实际量调整单位 -->
-        <fileNamePattern>${LOG_PATH}/common-error.log.%d{yyyy-MM-dd}
-        </fileNamePattern>
-        <maxHistory>15</maxHistory>
-    </rollingPolicy>
-</appender>
-```
-
-```xml
-<root level="INFO">
-    <!-- root中增加Error输出配置 -->
-    <appender-ref ref="ERROR-APPENDER" />
-</root>
-
-<logger name="testLog" level="INFO"
-        additivity="false">
-    <appender-ref ref="WORK_SHIFT_CORE_MONITOR_LOG" />
-    <!-- 每个logger增加ERROR输出 -->
-    <appender-ref ref="ERROR-APPENDER" />
-</logger>
-```
 
 # 进程与系统
 
@@ -120,41 +73,6 @@ $ iostat -x -d 2
 
 Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
 vda               0.00     0.25    0.04    0.53     0.56     4.88    19.25     0.00    6.85    3.09    7.14   0.25   0.01
-```
-
-# 应用程序调用
-
-## perf 与火焰图
-
-perf 是 linux 下一个非常强大的性能分析工具，通过它可以分析出进程运行过程中的主要时间都花在了哪些地方；结合著名的 [FlameGraph](https://github.com/brendangregg/FlameGraph.git) 火焰图工具，我们能够快速定位 时间占用较多的函数调用。
-
-```sh
-# 执行采样
-$ perf record -e cpu-clock -g -p ${PID}
-
-# 用 perf script 工具对 perf.data 进行解析
-perf script -i perf.data &> perf.unfold
-
-# 将 perf.unfold 中的符号进行折叠
-./stackcollapse-perf.pl perf.unfold &> perf.folded
-
-# 生成 svg 火焰图
-/flamegraph.pl perf.folded > perf.svg
-```
-
-# 安全加固
-
-## 用户记录
-
-```sh
-# 查询最近登录到系统的用户和系统重启的时间和日期
-$ last reboot | less
-```
-
-[基础加固脚本](https://parg.co/K2m)
-
-```sh
-
 ```
 
 # Todos
