@@ -120,9 +120,15 @@ Aurora 对国内的计算与存储分离的产品研发影响深远，阿里的 
 
 # 存储引擎
 
-## SSTables, LSM-Tree 与 BTree
+## LSM-Tree 与 BTree
 
-LevelDB 可以作为一个独立的持久化引擎来使用，淘宝的 Tair 就选择了 LevelDB 来做持久化。LevelDB 总体思想即 LSM tree，这中方法已在主流 NoSQL 系统中广泛使用，除开 BigTable/HBase，还有 Cassandra 等。
+基于 LSM Tree 的数据库一大把（HBase, Cassandra, RockDB, LevelDB, SQLite）
+
+![image](https://user-images.githubusercontent.com/5803001/51817950-f691bc00-2307-11e9-9492-b819d7a61ec0.png)
+
+LevelDB 可以作为一个独立的持久化引擎来使用，淘宝的 Tair 就选择了 LevelDB 来做持久化。LevelDB 总体思想即 LSM tree，这中方法已在主流 NoSQL 系统中广泛使用，除开 BigTable/HBase，还有 Cassandra 等。 LSM Tree 的树节点可以分为两种，保存在内存中的称之为 MemTable, 保存在磁盘上的称之为 SSTable。
+
+![]()
 
 ## 索引
 
