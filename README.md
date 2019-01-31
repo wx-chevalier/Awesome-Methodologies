@@ -18,7 +18,7 @@
 
 - Java 微服务开发
 
-- 存储，并发编程，分布式系统
+- 如果希望深入浅出 **分布式系统，分布式计算，分布式存储，数据库，操作系统，虚拟化** 等内容，可以参阅 [深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series)， [DistributedSystem CheatSheet](./Infrastructure/DistributedSystem/DistributedSystem-CheatSheet.md), [Database CheatSheet](./Infrastructure/Database/Database-CheatSheet.md), [Linux CheatSheet](./Infrastructure/OS/Linux/Linux-Commands-CheatSheet.md), [MySQL CheatSheet](./Infrastructure/Database/RDB/MySQL/MySQL-Cheatsheet.md), [Docker CheatSheet](./Infrastructure/Virtualization/Docker-Cheatsheet.md), [Flink CheatSheet](./Infrastructure/DistributedComputing/Streaming/Flink-CheatSheet.md), [Kafka CheatSheet](./Infrastructure/DistributedComputing/MOM/Kafka-CheatSheet.md) 等。
 
 - DevOps
 
