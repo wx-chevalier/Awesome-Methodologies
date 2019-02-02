@@ -4,6 +4,8 @@
 
 [OWASP 2017](https://www.owasp.org/images/7/72/OWASP_Top_10-2017_%28en%29.pdf.pdf)
 
+[![websecurity](https://user-images.githubusercontent.com/5803001/36406391-4fae0aee-1631-11e8-9f07-1bfe67f1cfc4.png)](https://www.processon.com/view/link/5a8b94d5e4b0615ac05a5698)
+
 # 校验过滤
 
 数值处理：
@@ -101,3 +103,5 @@ param1=value1&_csrf=8fba1604-8c0d-4619-973c-ac1a79b90298
 # Todos
 
 - https://blog.logrocket.com/security-for-fullstack-web-developers-part-1-a56340283f7c
+
+- https://juejin.im/post/5c446eb1e51d45517624f7db
