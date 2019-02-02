@@ -4,7 +4,7 @@
 
 Maven 是一个异常强大的构建工具，能够帮我们自动化构建过程，从清理、编译、测试到生成报告，再到打包和部署。通过 Maven，我们只需要输入简单的命令(如 mvn clean install)，就会帮我们处理繁琐的任务。Maven 最大化的消除了构建的重复，抽象了构建生命周期，并且为绝大部分的构建任务提供了已实现的插件。比如说测试，我们只需要遵循 Maven 的约定编写好测试用例，当我们运行构建的时候，这些测试便会自动运行。除此之外，Maven 能帮助我们标准化构建过程。在 Maven 之前，十个项目可能有十种构建方式，但通过 Maven，所有项目的构建命令都是简单一致的。有利于促进项目团队的标准化。
 
-Maven 是笔者接触的第一个脱离于 IDE 的命令行构建工具，笔者之前一直是基于 Visual Studio 下进行 Windows 驱动开发，并不是很能明白 Builder 与 IDE 之间的区别。依赖大量的手工操作。编译、测试、代码生成等工作都是相互独立的，很难一键完成所有工作。手工劳动往往意味着低效，意味着容易出错。很难在项目中统一所有的 IDE 配置，每个人都有自己的喜好。也正是由于这个原因，一个在机器 A 上可以成功运行的任务，到了机器 B 的 IDE 中可能就会失败。
+![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzqpenbb80j30eo0hegm2.jpg)
 
 ## Comparison | 对比
 
@@ -14,9 +14,79 @@ Make 将自己和操作系统绑定在一起了。也就是说，使用 Make，�
 
 Ant 是没有依赖管理的，所以很长一段时间 Ant 用户都不得不手工管理依赖，这是一个令人头疼的问题。幸运的是，Ant 用户现在可以借助 Ivy 管理依赖。而对于 Maven 用户来说，依赖管理是理所当然的，Maven 不仅内置了依赖管理，更有一个可能拥有全世界最多 Java 开源软件包的中央仓库，Maven 用户无须进行任何配置就可以直接享用。
 
-## 配置与使用
+## 仓库
 
+在 Maven 的术语中，仓库是一个位置(place)，例如目录，可以存储所有的工程 jar 文件、library jar 文 件、插件或任何其他的工程指定的文件。严格意义上说，Maven 只有两种类型的仓库:
 
+- 本地(local)
+- 远程(remote)
+
+Maven 的本地仓库保存你的工程的所有依赖(library jar、plugin jar 等)。当你运行一次 Maven 构建时，Maven 会自动下载所有依赖的 jar 文件到本地仓库中。它避免了每次构建时都引用存放在远程仓库上的依赖文件。
+
+Maven 的本地仓库默认被创建在 ${user.home}/.m2/repository 目录下。要修改默认位置，只要在 settings.xml 文件中定义另一个路径即可，例如：
+
+```xml
+<localRepository>
+/anotherDirectory/.m2/respository</localRepository>
+```
+
+Maven 的远程仓库可以是任何其他类型的存储库，可通过各种协议，例如 file：//和 http：// 来访问。
+
+这些存储库可以是由第三方提供的可供下载的远程仓库，例如Maven 的中央仓库(central repository)：
+
+- repo.maven.apache.org/maven2
+
+- uk.maven.org/maven2
+
+也可以是在公司内的FTP服务器或HTTP服务器上设置的内部存储库，用于在开发团队和发布之间共享私有的 artifacts。
+
+首先 Maven 会到本地仓库中去寻找所需要的jar吧，如果找不到就会到配置的私有仓库中去找，如果私有仓库中也找不到的话，就会到配置的中央仓库中去找，如果还是找不到就会报错。但是这中间只要在某一个仓库中找到了就会返回了，除非仓库中有更新的版本，或者是snapshot版本。
+
+## 镜像
+
+Mirror 则相当于一个代理，它会拦截去指定的远程 Repository 下载构件的请求，然后从自己这里找出构件回送给客户端。配置 Mirror 的目的一般是出于网速考虑。
+
+Repository 和 Mirror 是两个不同的概念：前者本身是一个仓库，可以堆外提供服务，而后者本身并不是一个仓库，它只是远程仓库的网络加速器。
+
+需要注意的是很多本地仓库搭建工具往往也提供 Mirror 服务，比如Nexus就可以让同一个URL,既用作 internalrepository，又使它成为所有 repository 的 Mirror。
+
+如果 仓库X 可以提供 仓库Y 存储的所有内容，那么就可以认为 X是Y的一个镜像。这也意味着，任何一个可以从某个仓库中获得的构件，都可以从它的镜像中获取。
+
+举个例子：http://maven.net.cn/content/groups/public/ 是中央仓库 http://repo1.maven.org/maven2/ 在中国的镜像，由于地理位置的因素，该镜像往往能够提供比中央仓库更快的服务。
+
+因此，可以在Maven中配置该镜像来替代中央仓库。在settings.xml中配置如下代码：
+
+<settings>
+  ...
+  
+<mirrors>
+    
+<mirror>
+      
+<id>
+maven.net.cn
+</id>
+      
+<mirrorOf>
+central
+</mirrorOf>
+      
+<name>
+one of the central mirrors in china
+</name>
+      
+<url>
+http://maven.net.cn/content/groups/public/
+</url>
+    
+</mirror>
+  
+</mirrors>
+  ...
+</settings>
+\的值为central，表示该镜像是中央仓库的镜像，任何对于中央仓库的请求都会转至该镜像
+
+# 安装与配置
 
 可从 apache 官方下载最新的 Maven 压缩包，解压即可。然后设置下系统的环境变量。如下所示:
 
@@ -185,18 +255,6 @@ clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项�
 - 检查对应的 Java 文件的编码
 - 如果都没有问题，在 Eclipse 中先将文件编码设置为 GBK，再改回 UTF-8 试试。
 
-## Reference
-
-- [Maven 学习](https://tracylihui.github.io/2015/07/09/Maven%E5%AD%A6%E4%B9%A0/)​
-- [Maven 实战(许晓斌著)](http://www.linuxidc.com/Linux/2014-12/110503.htm)
-
-### Tutorials&Docs
-
-- [CSDN-Maven 学习每周总结](http://blog.csdn.net/lfsfxy9/article/category/1516519)
-
-### Practice&Resource
-
-- [maven-best-practices](http://www.kyleblaney.com/maven-best-practices/)
 
 # Dependence(依赖管理)
 
@@ -248,6 +306,10 @@ Maven 使用 dependencyManagement 元素来提供了一种管理依赖版本号�
     </dependencies>
 </dependencyManagement>
 ```
+
+# 构建
+
+
 
 # Resources(资源管理)
 
