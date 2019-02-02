@@ -120,3 +120,13 @@ $ java -XX:StartFlightRecording=settings=default -XX:FlightRecorderOptions=dumpo
 # 磁盘
 
 # 追踪
+
+# Todos
+
+- [JVM 监控与调优](http://my.oschina.net/91jason/blog/493870?p={{page}})
+
+[诊断 Java 代码中常见的数据库性能热点问题](http://www.infoq.com/cn/articles/Diagnosing-Common-Java-Database-Performance-Hotspots) [大神手把手教你 Java 性能优化 - 江南白衣(加强版)](http://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&mid=2651815337&idx=1&sn=8e846e11e908735a5175c9eacb642329)
+
+> [关键业务系统的 JVM 启动参数推荐](http://calvin1978.blogcn.com/articles/jvmoption-2.html) [关键业务系统的 JVM 参数推荐 (2016 热冬版 )](http://calvin1978.blogcn.com/articles/jvmoption-2.html?f=tt)
+
+> [JVM 调试工具说明](http://blog.csdn.net/jiushuai/article/details/8455788) >[Java VisualVM ](http://ihuangweiwei.iteye.com/blog/1219302) >[JMX](http://docs.oracle.com/javase/tutorial/jmx/):Java Management Extensions (JMX)
