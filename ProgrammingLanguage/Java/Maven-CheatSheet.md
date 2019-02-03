@@ -6,7 +6,7 @@ Maven 是一个异常强大的构建工具，能够帮我们自动化构建过�
 
 ![](https://ww1.sinaimg.cn/large/007rAy9hgy1fzqpenbb80j30eo0hegm2.jpg)
 
-## Comparison | 对比
+## 背景与对比
 
 Make 将自己和操作系统绑定在一起了。也就是说，使用 Make，就不能实现(至少很难)跨平台的构建，这对于 Java 来说是非常不友好的。此外，Makefile 的语法也成问题，很多人抱怨 Make 构建失败的原因往往是一个难以发现的空格或 Tab 使用错误。
 
@@ -14,92 +14,18 @@ Make 将自己和操作系统绑定在一起了。也就是说，使用 Make，�
 
 Ant 是没有依赖管理的，所以很长一段时间 Ant 用户都不得不手工管理依赖，这是一个令人头疼的问题。幸运的是，Ant 用户现在可以借助 Ivy 管理依赖。而对于 Maven 用户来说，依赖管理是理所当然的，Maven 不仅内置了依赖管理，更有一个可能拥有全世界最多 Java 开源软件包的中央仓库，Maven 用户无须进行任何配置就可以直接享用。
 
-## 仓库
+## 安装
 
-在 Maven 的术语中，仓库是一个位置(place)，例如目录，可以存储所有的工程 jar 文件、library jar 文 件、插件或任何其他的工程指定的文件。严格意义上说，Maven 只有两种类型的仓库:
+可从 Apache 官方下载最新的 Maven 压缩包，解压即可。然后设置下系统的环境变量。如下所示:
 
-- 本地(local)
-- 远程(remote)
-
-Maven 的本地仓库保存你的工程的所有依赖(library jar、plugin jar 等)。当你运行一次 Maven 构建时，Maven 会自动下载所有依赖的 jar 文件到本地仓库中。它避免了每次构建时都引用存放在远程仓库上的依赖文件。
-
-Maven 的本地仓库默认被创建在 ${user.home}/.m2/repository 目录下。要修改默认位置，只要在 settings.xml 文件中定义另一个路径即可，例如：
-
-```xml
-<localRepository>
-/anotherDirectory/.m2/respository</localRepository>
-```
-
-Maven 的远程仓库可以是任何其他类型的存储库，可通过各种协议，例如 file：//和 http：// 来访问。
-
-这些存储库可以是由第三方提供的可供下载的远程仓库，例如Maven 的中央仓库(central repository)：
-
-- repo.maven.apache.org/maven2
-
-- uk.maven.org/maven2
-
-也可以是在公司内的FTP服务器或HTTP服务器上设置的内部存储库，用于在开发团队和发布之间共享私有的 artifacts。
-
-首先 Maven 会到本地仓库中去寻找所需要的jar吧，如果找不到就会到配置的私有仓库中去找，如果私有仓库中也找不到的话，就会到配置的中央仓库中去找，如果还是找不到就会报错。但是这中间只要在某一个仓库中找到了就会返回了，除非仓库中有更新的版本，或者是snapshot版本。
-
-## 镜像
-
-Mirror 则相当于一个代理，它会拦截去指定的远程 Repository 下载构件的请求，然后从自己这里找出构件回送给客户端。配置 Mirror 的目的一般是出于网速考虑。
-
-Repository 和 Mirror 是两个不同的概念：前者本身是一个仓库，可以堆外提供服务，而后者本身并不是一个仓库，它只是远程仓库的网络加速器。
-
-需要注意的是很多本地仓库搭建工具往往也提供 Mirror 服务，比如Nexus就可以让同一个URL,既用作 internalrepository，又使它成为所有 repository 的 Mirror。
-
-如果 仓库X 可以提供 仓库Y 存储的所有内容，那么就可以认为 X是Y的一个镜像。这也意味着，任何一个可以从某个仓库中获得的构件，都可以从它的镜像中获取。
-
-举个例子：http://maven.net.cn/content/groups/public/ 是中央仓库 http://repo1.maven.org/maven2/ 在中国的镜像，由于地理位置的因素，该镜像往往能够提供比中央仓库更快的服务。
-
-因此，可以在Maven中配置该镜像来替代中央仓库。在settings.xml中配置如下代码：
-
-<settings>
-  ...
-  
-<mirrors>
-    
-<mirror>
-      
-<id>
-maven.net.cn
-</id>
-      
-<mirrorOf>
-central
-</mirrorOf>
-      
-<name>
-one of the central mirrors in china
-</name>
-      
-<url>
-http://maven.net.cn/content/groups/public/
-</url>
-    
-</mirror>
-  
-</mirrors>
-  ...
-</settings>
-\的值为central，表示该镜像是中央仓库的镜像，任何对于中央仓库的请求都会转至该镜像
-
-# 安装与配置
-
-可从 apache 官方下载最新的 Maven 压缩包，解压即可。然后设置下系统的环境变量。如下所示:
-
-- M2HOME:maven 安装目录
-- Path:追加 maven 安装目录下的 bin 目录
+- M2HOME: Maven 安装目录
+- Path: 追加 Maven 安装目录下的 bin 目录
 
 在用户目录下，我们可以发现.m2 文件夹。默认情况下，该文件夹下放置了 Maven 本地仓库.m2/repository。所有的 Maven 构件(artifact)都被存储到该仓库中，以方便重用。默认情况下，~/.m2 目录下除了 repository 仓库之外就没有其他目录和文件了，不过大多数 Maven 用户需要复制 M2HOME/conf/settings.xml 文件到~/.m2/settings.xml
 
-## 常用命令
-
-本节列举出部分常用的 Maven 命令：
-
-mvn -v 查看 maven 版本
+```sh
+# 查看 maven 版本
+mvn -v
 
 mvn compile 编译
 
@@ -111,19 +37,16 @@ mvn clean 删除 target
 
 mvn install 安装 jar 包到本地仓库中
 
+# 跳过测试
 -DskipTests -Dmaven.test.skip
 
-- 创建一个新工程
-
+# 创建新工程
 mvn archetype:generate -DgroupId=co.hoteam -DartifactId=Zigbee -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
 
-# 项目配置
+# POM 配置
 
-## Pom
-
-就像 Make 的 Makefile，Ant 的 build.xml 一样，Maven 项目的核心是 pom.xml。
-
-首先创建一个名为 hello-world 的文件夹，打开该文件夹，新建一个名为 pom.xml 的文件，输入其内容如下：
+就像 Make 的 Makefile，Ant 的 build.xml 一样，Maven 项目的核心是 pom.xml。首先创建一个名为 hello-world 的文件夹，打开该文件夹，新建一个名为 pom.xml 的文件，输入其内容如下：
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -149,40 +72,53 @@ mvn archetype:generate -DgroupId=co.hoteam -DartifactId=Zigbee -DarchetypeArtifa
 * artifactId 定义了当前 Maven 项目在组中唯一的 ID，我们为这个 Hello World 项目定义 artifactId 为 hello-world，本书其他章节代码会被分配其他的 artifactId。而在前面的 groupId 为 com.googlecode.myapp 的例子中，你可能会为不同的子项目(模块)分配 artifactId，如：myapp-util、myapp-domain、myapp-web 等等。
 
 - version 指定了 Hello World 项目当前的版本——1.0-SNAPSHOT。SNAPSHOT 意为快照，说明该项目还处于开发中，是不稳定的版本。随着项目的发展，version 会不断更新，如升级为 1.0、1.1-SNAPSHOT、1.1、2.0 等等。
+
 - 最后一个 name 元素声明了一个对于用户更为友好的项目名称，虽然这不是必须的，但我还是推荐为每个 POM 声明 name，以方便信息交流。 没有任何实际的 Java 代码，我们就能够定义一个 Maven 项目的 POM，这体现了 Maven 的一大优点，它能让项目对象模型最大程度地与实际代码相独立，我们可以称之为解耦，或者正交性，这在很大程度上避免了 Java 代码和 POM 代码的相互影响。比如当项目需要升级版本时，只需要修改 POM，而不需要更改 Java 代码；而在 POM 稳定之后，日常的 Java 代码开发工作基本不涉及 POM 的修改。
 
-### Main
+## 仓库
 
-项目主代码和测试代码不同，项目的主代码会被打包到最终的构件中(比如 jar)，而测试代码只在运行测试时用到，不会被打包。默认情况下，Maven 假设项目主代码位于 src/main/java 目录，我们遵循 Maven 的约定，创建该目录，然后在该目录下创建文件 com/juvenxu/mvnbook/helloworld/HelloWorld.java，其内容如下:
+在 Maven 的术语中，仓库是一个位置(place)，例如目录，可以存储所有的工程 jar 文件、library jar 文 件、插件或任何其他的工程指定的文件。严格意义上说，Maven 只有两种类型的仓库:
 
-```java
-package com.juvenxu.mvnbook.helloworld;
+- 本地(local)
+- 远程(remote)
 
-public class HelloWorld
-{
-    public String sayHello()
-    {
-        return "Hello Maven";
-    }
+Maven 的本地仓库保存你的工程的所有依赖(library jar、plugin jar 等)。当你运行一次 Maven 构建时，Maven 会自动下载所有依赖的 jar 文件到本地仓库中。它避免了每次构建时都引用存放在远程仓库上的依赖文件。
 
-    public static void main(String[] args)
-    {
-        System.out.print( new HelloWorld().sayHello() );
-    }
-}
+Maven 的本地仓库默认被创建在 \${user.home}/.m2/repository 目录下。要修改默认位置，只要在 settings.xml 文件中定义另一个路径即可，例如：
+
+```xml
+<localRepository>
+/anotherDirectory/.m2/respository</localRepository>
 ```
 
-关于该 Java 代码有两点需要注意。首先，在 95%以上的情况下，我们应该把项目主代码放到 src/main/java/目录下(遵循 Maven 的约定)，而无须额外的配置，Maven 会自动搜寻该目录找到项目主代码。其次，该 Java 类的包名是 com.juvenxu.mvnbook.helloworld，这与我们之前在 POM 中定义的 groupId 和 artifactId 相吻合。一般来说，项目中 Java 类的包都应该基于项目的 groupId 和 artifactId，这样更加清晰，更加符合逻辑，也方便搜索构件或者 Java 类。 代码编写完毕后，我们使用 Maven 进行编译，在项目根目录下运行命令 mvn clean compile 即可。
+Maven 的远程仓库可以是任何其他类型的存储库，可通过各种协议，例如 file：//和 http：// 来访问。
 
-clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项目主代码，从输出中我们看到 Maven 首先执行了 clean:clean 任务，删除 target/目录，默认情况下 Maven 构建的所有输出都在 target/目录中；接着执行 resources:resources 任务(未定义项目资源，暂且略过)；最后执行 compiler:compile 任务，将项目主代码编译至 target/classes 目录(编译好的类为 com/juvenxu/mvnbook/helloworld/HelloWorld.Class)。
+这些存储库可以是由第三方提供的可供下载的远程仓库，例如 Maven 的中央仓库(central repository)：
 
-## Configuration
+- repo.maven.apache.org/maven2
 
-### Network
+- uk.maven.org/maven2
 
-#### Proxy
+也可以是在公司内的 FTP 服务器或 HTTP 服务器上设置的内部存储库，用于在开发团队和发布之间共享私有的 artifacts。
 
-编辑~/.m2/settings.xml 文件(如果没有该文件，则复制$M2HOME/conf/settings.xml)。添加代理配置如下：
+首先 Maven 会到本地仓库中去寻找所需要的 jar 吧，如果找不到就会到配置的私有仓库中去找，如果私有仓库中也找不到的话，就会到配置的中央仓库中去找，如果还是找不到就会报错。但是这中间只要在某一个仓库中找到了就会返回了，除非仓库中有更新的版本，或者是 snapshot 版本。
+
+## 镜像
+
+Mirror 则相当于一个代理，它会拦截去指定的远程 Repository 下载构件的请求，然后从自己这里找出构件回送给客户端。配置 Mirror 的目的一般是出于网速考虑。Repository 和 Mirror 是两个不同的概念：前者本身是一个仓库，可以堆外提供服务，而后者本身并不是一个仓库，它只是远程仓库的网络加速器。需要注意的是很多本地仓库搭建工具往往也提供 Mirror 服务，比如 Nexus 就可以让同一个 URL,既用作 internalrepository，又使它成为所有 repository 的 Mirror。
+
+如果 仓库 X 可以提供 仓库 Y 存储的所有内容，那么就可以认为 X 是 Y 的一个镜像。这也意味着，任何一个可以从某个仓库中获得的构件，都可以从它的镜像中获取。举个例子：http://maven.net.cn/content/groups/public/ 是中央仓库 http://repo1.maven.org/maven2/ 在中国的镜像，由于地理位置的因素，该镜像往往能够提供比中央仓库更快的服务。
+
+```xml
+<mirror>
+  <id>CN</id>
+  <name>OSChina Central</name>
+  <url>http://maven.oschina.net/content/groups/public/</url>
+  <mirrorOf>central</mirrorOf>
+</mirror>
+```
+
+编辑~/.m2/settings.xml 文件(如果没有该文件，则复制\$M2HOME/conf/settings.xml)。添加代理配置如下：
 
 ```xml
 <settings>
@@ -205,60 +141,337 @@ clean 告诉 Maven 清理输出目录 target/，compile 告诉 Maven 编译项�
 </settings>
 ```
 
-如果不行试试重启机器或者 eclipse 等 ide 还不行试试下面这种方式：windows-->preferences-->maven-->installations add
+## 坐标
 
-![maven config](http://outofmemory.cn/ugc/upload/00/20/20130620/maven-config.png)
+说到 Maven 的坐标，我们首先就需要想到 GAV ，即 groupId artifactId version。由这三个属性就可以唯一确定一个 jar 包了。其中每个属性的意义如下：
 
-这样配置后将使用指定目录下的 maven，而非 eclipse 的 maven 内置插件。
+- groupId：表示一个团体，可以是公司、组织等
 
-#### Mirror
+- artifactId：表示团体下的某个项目
 
-众所周知的原因，国内有时候并不能够很顺畅的访问 Maven 的中央仓库，往往我们需要访问国内的镜像地址：
+- version：表示某个项目的版本号
 
-> - [OSChina Maven 教程][2]
+他们之间的关系是一对多的，即每个团体下可以有多个项目，每个项目可以有多个版本号，可以用下面这张图来表示：
 
-```xml
-<mirror>
-  <id>CN</id>
-  <name>OSChina Central</name>
-  <url>http://maven.oschina.net/content/groups/public/</url>
-  <mirrorOf>central</mirrorOf>
-</mirror>
+![](https://mmbiz.qpic.cn/mmbiz_png/GtXvavW2UlwyGfDVvuLSpndp2xBreDuF94QUz56jsKxmzTrWX194dTLDLWg9SQ8PDibZ1nP8OHwm9guVicC1aPjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+# 运行与构建
+
+## 构建基础
+
+生命周期是由一组有顺序的阶段构成的一个整体，这么说可能有点绕，那让我们来关注他里面的几个重要的点：
+
+- 一组：指的是可能有多个
+- 顺序：指的是按照顺序执行，执行某一个阶段的指令时会依次先执行该阶段之前的指令
+- 阶段：指的是具体要执行的内容
+
+例如 Maven 有三个内置的构建生命周期： default， clean 和 site。每个生命周期都由一系列的阶段所构成，比如 default 生命周期的一个简易阶段如下，完整的生命周期请参考官方文档：
+
+![](https://mmbiz.qpic.cn/mmbiz_png/GtXvavW2UlwyGfDVvuLSpndp2xBreDuFibAX42NbRaUTIEicW7DtSPiblI0NpXpoa5mHn31ZkiaQGDHMKx7zrIMSmg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+上图中的每一个节点都是一个 阶段 ，阶段的执行是按顺序的，一个阶段执行完成之后才会执行下一个阶段。比如我们执行了一个如下的指令：
+
+```sh
+mvn install
 ```
 
-## Error  List
+他实际会执行 install 阶段之前的所有阶段，然后才会执行 install 阶段本身。
 
-### 网络问题
+## Run & Package | 运行与打包
 
-(1)有时候因为众所周知的网络问题，导致 Maven 无法访问中央仓库然后扔出一大堆错误，这个时候可以尝试参考上文中的设置代理。但是也要注意，是不是有一些私库中的 Repository。
+如果需要在 Maven 中直接运行某个类中的 Main 方法：
 
-### 编译问题
+```sh
+$ mvn exec:java -Dexec.mainClass="com.example.Main"
+```
 
-(1)有时候执行`mvn compile`时候会爆出无法找到 junit 的错误，可能的解决方法有：
+如果是经常使用的话，可以在 pom 文件中添加如下的配置：
 
-- 在 Eclipse 的 Projects 选项中使用 Projects Clean
+```xml
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>exec-maven-plugin</artifactId>
+  <version>1.2.1</version>
+  <executions>
+    <execution>
+      <goals>
+        <goal>java</goal>
+      </goals>
+    </execution>
+  </executions>
+  <configuration>
+    <mainClass>com.example.Main</mainClass>
+    <arguments>
+      <argument>foo</argument>
+      <argument>bar</argument>
+    </arguments>
+  </configuration>
+</plugin>
+```
 
-- 在 pom.xml 中引入 junit 依赖项，并且保证其 scope 为 compile:
+## Resource | 资源处理
 
-  ```
-  <dependency>
-  	<groupId>junit</groupId>
-  	<artifactId>junit</artifactId>
-  	<version>4.11</version>
-  	<scope>test</scope>
-  </dependency>
-  ```
+### Resource Directories | 资源文件夹
 
-(2)有时候在 Eclipse 下执行`mvn compile`或者相关命令时，会报某某文件出现不识别字符或者非 UTF-8 编码，此时可以做几步检查：
+它对应的配置方式为：
 
-- 检查对应的 Java 文件是否有 Bom 头
-- 检查对应的 Java 文件的编码
-- 如果都没有问题，在 Eclipse 中先将文件编码设置为 GBK，再改回 UTF-8 试试。
+```xml
+<project>
+ ...
+ <build>
+   ...
+   <resources>
+     <resource>
+       <directory>[your folder here]</directory>
+     </resource>
+   </resources>
+   ...
+ </build>
+ ...
+</project>
+```
 
+对于如下的结构：
 
-# Dependence(依赖管理)
+```yaml
+Project
+|-- pom.xml
+`-- src
+`-- my-resources
+```
 
-> 《记一次依赖项冲突》
+我们需要在 pom 文件中进行如下配置：
+
+```xml
+...
+   <resources>
+     <resource>
+       <directory>src/my-resources</directory>
+     </resource>
+   </resources>
+...
+```
+
+譬如如果我们要用 Maven 构建一个 Web 项目，会在 src/main 目录下构建一个选择包含或者忽视文件或者目录：
+
+```xml
+<project>
+  ...
+  <build>
+    ...
+    <resources>
+      <resource>
+        <directory>src/my-resources</directory>
+        <excludes>
+          <exclude>**/*.bmp</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/my-resources2</directory>
+        <includes>
+          <include>**/*.txt</include>
+        </includes>
+        <excludes>
+          <exclude>**/*test*.*</exclude>
+        </excludes>
+      </resource>
+      ...
+    </resources>
+    ...
+  </build>
+  ...
+</project>
+```
+
+### Filter | 过滤与内容替换
+
+## Test| 测试
+
+Maven 本身并不是一个单元测试框架，它只是在构建执行到特定生命周期阶段的时候，通过插件来执行 JUnit 或者 TestNG 的测试用例。这个插件就是 maven-surefire-plugin，也可以称为测试运行器(Test Runner)，它能兼容 JUnit 3、JUnit 4 以及 TestNG。在默认情况下，maven-surefire-plugin 的 test 目标会自动执行测试源码路径(默认为 src/test/java/)下所有符合一组命名模式的测试类。这组模式为：
+
+- \*_/Test_.java：任何子目录下所有命名以 Test 开关的 Java 类。
+- \**/*Test.java：任何子目录下所有命名以 Test 结尾的 Java 类。
+- \**/*TestCase.java：任何子目录下所有命名以 TestCase 结尾的 Java 类。
+
+Maven 中使用 package、install 等命令时会自动调用 Test 组件，`mvn package -DskipTests`命令可以跳过测试。也可以在插件配置的时候设置跳过：
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.5</version>
+    <configuration>
+        <skipTests>true</skipTests>
+    </configuration>
+</plugin>
+```
+
+maven-surefire-plugin 提供了一个 test 参数让 Maven 用户能够在命令行指定要运行的测试用例。如：
+
+```sh
+$ mvn test -Dtest=RandomGeneratorTest
+```
+
+也可以使用通配符：
+
+```sh
+$ mvn test -Dtest=Random*Test
+```
+
+或者也可以使用“，”号指定多个测试类：
+
+```sh
+$ mvn test -Dtest=Random*Test,AccountCaptchaServiceTest
+```
+
+如果由于历史原因，测试类不符合默认的三种命名模式，可以通过 pom.xml 设置 maven-surefire-plugin 插件添加命名模式或排除一些命名模式。
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <version>2.5</version>
+    <configuration>
+        <includes>
+            <include>**/*Tests.java</include>
+        </includes>
+        <excludes>
+            <exclude>**/*ServiceTest.java</exclude>
+            <exclude>**/TempDaoTest.java</exclude>
+        </excludes>
+    </configuration>
+</plugin>
+```
+
+## 插件
+
+插件是 Maven 的核心，所有执行的操作都是基于插件来完成的。为了让一个插件中可以实现众多的相类似的功能，Maven 为插件设定了目标，一个插件中有可能有多个目标。其实生命周期中的每个阶段都是由插件的一个具体目标来执行的。例如可以用下面的方式配置一个插件：
+
+```xml
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.2.1</version>
+            <!-- 配置执行 -->
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>jar-no-fork</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
+```
+
+配置目标 goal 的目的是：这样在执行 mvnpackage 的时候，就会自动执行 mvn source:jar-no-fork 了，jar-no-fork 这个目标是用来进行源码打包的。除了可以在 build 元素中配置插件，当然也可以在 parent 项目中，用 pluginManagement 来配置，然后在子项目继承即可使用。
+
+# Dependence Management | 依赖管理
+
+Maven 核心特点之一是依赖管理。一旦我们开始处理多模块工程(包含数百个子模块或者子工程)的时候，模块间的依赖关系就变得非常复杂，管理也变得很困难。
+
+## 依赖声明与冲突管理
+
+依赖传递很好理解，假设 B 依赖于 C，当 A 需要依赖 B 时，则 A 自动获得了对 C 的依赖。依赖传递有时非常好，当我们需要依赖很多 jar 包时，我们可以声明一个包来依赖所有的 jar，然后只要依赖这个包就可以了。但是有时又很麻烦，因为很可能会造成依赖的冲突。当同一个项目中由于不同的 jar 包依赖了相同的 jar 包，此时就会发生依赖冲突的情况，如下图所示：
+
+![](https://mmbiz.qpic.cn/mmbiz_png/GtXvavW2UlwyGfDVvuLSpndp2xBreDuFVjNAjnWhVR26OumcRMdiaQld7hyneYmP2OpZ1h41BSUTQiaiayZjiciaMOQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+当项目中依赖了 a 和 c，而 a 和 c 都依赖了 b，这时就造成了冲突。为了避免冲突的产生，Maven 使用了两种策略来解决冲突，分别是短路优先和声明优先。短路优先是从项目一直到最终依赖的 jar 的距离，哪个距离短就依赖哪个，距离长的将被忽略掉。例如下图所示：
+
+![](https://mmbiz.qpic.cn/mmbiz_png/GtXvavW2UlwyGfDVvuLSpndp2xBreDuFaZSKSoXYPWzMiap1VVTHF0g2LlHk29cWnllqXkpej2WQlImM0qsaPicA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+声明优先的意思是，通过 jar 包声明的顺序来决定使用哪个，最先声明的 jar 包总是被选中，后声明的 jar 包则会被忽略，如下图所示：
+
+![](https://mmbiz.qpic.cn/mmbiz_png/GtXvavW2UlwyGfDVvuLSpndp2xBreDuFcbfic0Hdw1CsICryqWtKPNKUicgs2uVBNonvcibOgC2He1YiaFEEr2FajQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+### 依赖排除
+
+如果我们只想引用我们直接依赖的 jar 包，而不想把间接依赖的 jar 包也引入的话，那可以使用依赖排除的方式，将间接引用的 jar 包排除掉，如下面的配置所示：
+
+```xml
+<exclusions>
+    <exclusion>
+        <groupId>
+            excluded.groupId
+        </groupId>
+        <artifactId>
+            excluded-artifactId
+        </artifactId>
+    </exclusion>
+</exclusions>
+```
+
+如果我们启动项目时报错：NoSuchMethodError，那么极有可能是依赖冲突，可以通过 dependency 命令来查看依赖列表：
+
+```sh
+$ mvn dependency:tree -Dverbose
+```
+
+## 项目聚合与继承
+
+在 Maven 中，parent 模块组织好 childA 和 childB，叫做"聚合"，多个模块联合编译。实现起来很简单，只需要在 parent 的 pom 文件里加入以下内容：
+
+```xml
+<packaging>pom</packaging>
+<modules>
+    <module>module-1</module>
+    <module>module-2</module>
+    <module>module-3</module>
+</modules>
+```
+
+这样只是告诉 Maven 编译器，在读取 parent 的 POM 文件时去找到 childA 和 childB，但还是会分别去编译他们引入的依赖。这样就会导致 POM 文件引入的包重复；于是我们引入了"继承"的概念，也就是形成"父子"关系，子 POM 可以引用到父 POM 中引入的依赖。Maven 的继承特性也会继承父 pom 中的依赖，假设我们定义了一个父 pom：
+
+```xml
+<groupId>wx</groupId>
+<artifactId>maven-parent</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.30</version>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+然后在子 pom 中引入这个父 pom：
+
+```xml
+<!-- 指定parent，说明是从哪个pom继承 -->
+<parent>
+    <groupId>wx</groupId>
+    <artifactId>maven-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <!-- 指定相对路径 -->
+    <relativePath>../maven-parent</relativePath>
+</parent>
+
+<!-- 只需要指明groupId + artifactId，就可以到父pom找到了，无需指明版本 -->
+<dependencies>
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+    </dependency>
+</dependencies>
+```
 
 ## dependencyManagement
 
@@ -306,755 +519,3 @@ Maven 使用 dependencyManagement 元素来提供了一种管理依赖版本号�
     </dependencies>
 </dependencyManagement>
 ```
-
-# 构建
-
-
-
-# Resources(资源管理)
-
-## Resource Directories：资源文件夹
-
-它对应的配置方式为：
-
-```xml
-<project>
- ...
- <build>
-   ...
-   <resources>
-     <resource>
-       <directory>[your folder here]</directory>
-     </resource>
-   </resources>
-   ...
- </build>
- ...
-</project>
-```
-
-对于如下的结构：
-
-```yaml
-Project
-|-- pom.xml
-`-- src
-`-- my-resources
-```
-
-我们需要在 pom 文件中进行如下配置：
-
-```xml
-...
-   <resources>
-     <resource>
-       <directory>src/my-resources</directory>
-     </resource>
-   </resources>
-...
-```
-
-譬如如果我们要用 Maven 构建一个 Web 项目，会在 src/main 目录下构建一个
-
-## 选择包含或者忽视文件或者目录
-
-```xml
-<project>
-  ...
-  <name>My Resources Plugin Practice Project</name>
-  ...
-  <build>
-    ...
-    <resources>
-      <resource>
-        <directory>src/my-resources</directory>
-        <excludes>
-          <exclude>**/*.bmp</exclude>
-          <exclude>**/*.jpg</exclude>
-          <exclude>**/*.jpeg</exclude>
-          <exclude>**/*.gif</exclude>
-        </excludes>
-      </resource>
-      <resource>
-        <directory>src/my-resources2</directory>
-        <includes>
-          <include>**/*.txt</include>
-        </includes>
-        <excludes>
-          <exclude>**/*test*.*</exclude>
-        </excludes>
-      </resource>
-      ...
-    </resources>
-    ...
-  </build>
-  ...
-</project>
-```
-
-## Filter：过滤与内容替换
-
-# Run & Package(运行与打包)
-
-## Run
-
-### Main
-
-如果需要在 Maven 中直接运行某个类中的 Main 方法：
-
-```
-mvn exec:java -Dexec.mainClass="com.example.Main"
-```
-
-如果是经常使用的话，可以在 pom 文件中添加如下的配置：
-
-```xml
-<plugin>
-  <groupId>org.codehaus.mojo</groupId>
-  <artifactId>exec-maven-plugin</artifactId>
-  <version>1.2.1</version>
-  <executions>
-    <execution>
-      <goals>
-        <goal>java</goal>
-      </goals>
-    </execution>
-  </executions>
-  <configuration>
-    <mainClass>com.example.Main</mainClass>
-    <arguments>
-      <argument>foo</argument>
-      <argument>bar</argument>
-    </arguments>
-  </configuration>
-</plugin>
-```
-
-### Jetty-Plugin
-
-#### Scan(文件扫描)
-
-```xml
-<project>
-...
-  <plugins>
-...
-    <plugin>
-      <groupId>org.eclipse.jetty</groupId>
-      <artifactId>jetty-maven-plugin</artifactId>
-      <version>9.3.1-SNAPSHOT</version>
-      <configuration>
-        <webAppSourceDirectory>${project.basedir}/src/staticfiles</webAppSourceDirectory>
-        <webApp>
-          <contextPath>/</contextPath>
-          <descriptor>${project.basedir}/src/over/here/web.xml</descriptor>
-          <jettyEnvXml>${project.basedir}/src/over/here/jetty-env.xml</jettyEnvXml>
-        </webApp>
-        <classesDirectory>${project.basedir}/somewhere/else</classesDirectory>
-        <scanClassesPattern>
-          <excludes>
-             <exclude>**/Foo.class</exclude>
-          </excludes>
-        </scanClassesPattern>
-        <scanTargets>
-          <scanTarget>src/mydir</scanTarget>
-          <scanTarget>src/myfile.txt</scanTarget>
-        </scanTargets>
-        <scanTargetPatterns>
-          <scanTargetPattern>
-            <directory>src/other-resources</directory>
-            <includes>
-              <include>**/*.xml</include>
-              <include>**/*.properties</include>
-            </includes>
-            <excludes>
-              <exclude>**/myspecial.xml</exclude>
-              <exclude>**/myspecial.properties</exclude>
-            </excludes>
-          </scanTargetPattern>
-        </scanTargetPatterns>
-      </configuration>
-    </plugin>
-  </plugins>
-</project>
-```
-
-#### Port(监听端口)
-
-在运行 Jetty 时往往需要改变其监听的端口，主要就是修正 HttpConnector 的参数来建立一些 ServerConnector 的配置，主要有如下的三种方式：
-
-- Change the port when just at runtime:
-
-  ```
-  mvn jetty:run -Djetty.http.port=9999
-  ```
-
-- Set the property inside your *pom.xml* file:
-
-  ```
-  <properties>
-    <jetty.http.port>9999</jetty.http.port>
-  </properties>
-  ```
-
-  Then just run:
-
-  ```
-  mvn jetty:run
-  ```
-
-- Set the port in your plugin declaration inside the *pom.xml* file:
-
-  ```
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.eclipse.jetty</groupId>
-        <artifactId>jetty-maven-plugin</artifactId>
-        <version>9.2.1.v20140609</version>
-        <configuration>
-          <httpConnector>
-            <!--host>localhost</host-->
-            <port>9999</port>
-          </httpConnector>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  ```
-
-## Package(打包)
-
-### Profile:构建不同环境的部署包
-
-项目开发好以后，通常要在多个环境部署，象我们公司多达 5 种环境：本机环境(**local**)、(开发小组内自测的)开发环境(**dev**)、(提供给测试团队的)测试环境(**test**)、预发布环境(**pre**)、正式生产环境(**prod**)，每种环境都有各自的配置参数，比如：数据库连接、远程调用的 ws 地址等等。如果每个环境 build 前手动修改这些参数，显然会非常的麻烦。而 Maven 本身就可以允许我们通过定义 Profile 的方式来在编译是动态注入配置：
-
-```xml
-<profiles>
-        <profile>
-            <!-- 本地环境 -->
-            <id>local</id>
-            <properties>
-                <db-url>jdbc:oracle:thin:@localhost:1521:XE</db-url>
-                <db-username>***</db-username>
-                <db-password>***</db-password>
-            </properties>
-        </profile>
-        <profile>
-            <!-- 开发环境 -->
-            <id>dev</id>
-            <properties>
-                <db-url>jdbc:oracle:thin:@172.21.129.51:1521:orcl</db-url>
-                <db-username>***</db-username>
-                <db-password>***</db-password>
-            </properties>
-            <!-- 默认激活本环境 -->
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        ...
-</profiles>
-```
-
-profiles 节点中，定义了二种环境：local、dev(默认激活 dev 环境)，可以在各自的环境中添加需要的 property 值，接下来修改 build 节点，参考下面的示例：
-
-<build>
-
-```xml
-    <resources>
-        <resource>
-            <directory>src/main/resources</directory>
-            <filtering>true</filtering>
-        </resource>
-    </resources>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>2.5.1</version>
-            <configuration>
-                <source>1.6</source>
-                <target>1.6</target>
-                <encoding>utf-8</encoding>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-```
-
-resource 节点是关键，它表明了哪个目录下的配置文件(不管是 xml 配置文件，还是 properties 属性文件)，需要根据 profile 环境来替换属性值。通常配置文件放在 resources 目录下，build 时该目录下的文件都自动会 copy 到 class 目录下:
-
-![](http://images.cnitblog.com/blog/27612/201408/281044295329658.jpg)
-
-以上图为例，其中 spring-database.xml 的内容为：
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans.xsd">
-
-    <bean id="dataSource"
-        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url" value="${db-url}" />
-        <property name="username" value="${db-username}" />
-        <property name="password" value="${db-password}" />
-    </bean>
-</beans>
-```
-
-各属性节点的值，用占位符"${属性名}"占位，maven 在 package 时，会根据 profile 的环境自动替换这些占位符为实际属性值。
-
-默认情况下：
-
-`maven package`
-
-将采用默认激活的 profile 环境来打包，也可以手动指定环境，比如：
-
-`maven package -P dev`
-
-将自动打包成 dev 环境的部署包(注：参数 P 为大写)
-
-**1、开发环境与生产环境数据源采用不同方式的问题**
-
-本机开发时为了方便，很多开发人员喜欢直接用 JDBC 直接连接数据库，这样修改起来方便；
-
-```
-<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url" value="${db-url}" />
-        <property name="username" value="${db-username}" />
-        <property name="password" value="${db-password}" />
-        <property name="defaultAutoCommit" value="false" />
-        <property name="initialSize" value="2" />
-        <property name="maxActive" value="10" />
-        <property name="maxWait" value="60000" />
-    </bean>
-```
-
-而生产环境，通常是在 webserver(比如 weblogic 上)配置一个 JNDI 数据源，
-
-```xml
-<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-         <property name="jndiName" value="appDS" />
-</bean>
-```
-
-如果每次发布生产前，都要手动修改，未免太原始，可以通过 maven 的 profile 来解决。先把配置文件改成  ：
-
-```xml
-<bean id="${db-source-jdbc}" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url" value="${db-url}" />
-        <property name="username" value="${db-username}" />
-        <property name="password" value="${db-password}" />
-        <property name="defaultAutoCommit" value="false" />
-        <property name="initialSize" value="2" />
-        <property name="maxActive" value="10" />
-        <property name="maxWait" value="60000" />
-    </bean>
-
-    <bean id="${db-source-jndi}" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="appDS" />
-</bean>
-```
-
-即用占位符来代替 bean 的 id，然后在 pom.xml 里类似下面设置
-
-```xml
-<profile>
-            <!-- 本机环境 -->
-            <id>local</id>
-            <properties>
-                ...
-                <db-source-jdbc>dataSource</db-source-jdbc>
-                <db-source-jndi>NONE</db-source-jndi>
-                <db-url>jdbc:oracle:thin:@172.21.129.51:1521:orcl</db-url>
-                <db-username>mu_fsu</db-username>
-                <db-password>mu_fsu</db-password>
-                ...
-            </properties>
-            <!-- 默认激活本环境 -->
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <!-- 生产环境 -->
-            <id>pro</id>
-            <properties>
-                ...
-                <db-source-jdbc>NONE</db-source-jdbc>
-                <db-source-jndi>dataSource</db-source-jndi>
-                ...
-            </properties>
-        </profile>
-    </profiles>
-```
-
-这样，mvn clean package -P local 打包本地开发环境时，将生成
-
-```xml
-<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url" value="jdbc:oracle:thin:@172.21.129.***:1521:orcl" />
-        <property name="username" value="***" />
-        <property name="password" value="***" />
-        <property name="defaultAutoCommit" value="false" />
-        <property name="initialSize" value="2" />
-        <property name="maxActive" value="10" />
-        <property name="maxWait" value="60000" />
-    </bean>
-
-    <bean id="NONE" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="appDS" />
-    </bean>
-```
-
-而打包生产环境 mvn clean package -P pro 时，生成
-
-```xml
-<bean id="NONE" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
-        <property name="url" value="${db-url}" />
-        <property name="username" value="${db-username}" />
-        <property name="password" value="${db-password}" />
-        <property name="defaultAutoCommit" value="false" />
-        <property name="initialSize" value="2" />
-        <property name="maxActive" value="10" />
-        <property name="maxWait" value="60000" />
-    </bean>
-
-    <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-        <property name="jndiName" value="appDS" />
-    </bean>
-```
-
-**2、不同 webserver 环境，依赖 jar 包，是否打包的问题**
-
-weblogic 上，允许多个 app，把共用的 jar 包按约定打包成一个 war 文件，以 library 的方式部署，然后各应用在 WEB-INF/weblogic.xml 中，用类似下面的形式
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<weblogic-web-app xmlns="http://www.bea.com/ns/weblogic/90">
-    ...
-    <library-ref>
-        <library-name>my-share-lib</library-name>
-    </library-ref>
-</weblogic-web-app>
-```
-
-指定共享 library 的名称即可。这样的好处是，即节省了服务器开销，而且各 app 打包时，就不必再重复打包这些 jar 文件，打包后的体积大大减少，上传起来会快很多。
-
-而其它 webserver 上却未必有这个机制，一般为了方便，我们开发时，往往采用一些轻量级的 webserver，比如:tomcat,jetty,jboss 之类，正式部署时才发布到 weblogic 下，这样带来的问题就是，本机打包时，要求这些依赖 jar 包，全打包到 app 的 WEB-INF/lib 下；而生产环境下，各应用的 WEB-INF/lib 下并不需要这些 jar 文件，同样还是用 profile 来搞定，先处理 pom.xml，把依赖项改成类似下面的形式：
-
-```
-<dependency>
-            <groupId>dom4j</groupId>
-            <artifactId>dom4j</artifactId>
-            <version>1.6.1</version>
-            <scope>${jar.scope}</scope>
-        </dependency>
-```
-
-即 scope 这里，用一个占位符来代替，然后 profile 这样配置
-
-<profile>
-
-```xml
-        <!-- 本机环境 -->
-        <id>local</id>
-        <properties>
-            <jar.scope>compile</jar.scope>
-            ...
-        </properties>
-        <!-- 默认激活本环境 -->
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-    </profile>
-    <profile>
-        <!-- 生产环境 -->
-        <id>pro</id>
-        <properties>
-            <jar.scope>provided</jar.scope>
-            ...
-        </properties>
-    </profile>
-```
-
-在 maven 里，如果一个依赖项的 scope 是 provided，表示由容器提供，打包时将不会打包进最终的 package 里，所以这样配置后，生产环境打包时，依赖项的 scope 全变成了 provided，即不打包进 war 文件，而本机环境下，因为 scope 是 compile，所以会打包到 war 里。
-
-# Test(测试)
-
-> 参考资料
->
-> - [Maven 单元测试][1]
-
-Maven 本身并不是一个单元测试框架，它只是在构建执行到特定生命周期阶段的时候，通过插件来执行 JUnit 或者 TestNG 的测试用例。这个插件就是 maven-surefire-plugin，也可以称为测试运行器(Test Runner)，它能兼容 JUnit 3、JUnit 4 以及 TestNG。在默认情况下，maven-surefire-plugin 的 test 目标会自动执行测试源码路径(默认为 src/test/java/)下所有符合一组命名模式的测试类。这组模式为：
-
-- \*_/Test_.java：任何子目录下所有命名以 Test 开关的 Java 类。
-- \**/*Test.java：任何子目录下所有命名以 Test 结尾的 Java 类。
-- \**/*TestCase.java：任何子目录下所有命名以 TestCase 结尾的 Java 类。
-
-## JUnit
-
-在 Java 世界中，由 Kent Beck 和 Erich Gamma 建立的 JUnit 是事实上的单元测试标准。要使用 JUnit，我们首先需要为 Hello World 项目添加一个 JUnit 依赖，修改项目的 POM 如代码清单。
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.juvenxu.mvnbook</groupId>
-  <artifactId>hello-world</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Maven Hello World Project</name>
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.7</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
-</project>
-```
-
-代码中添加了 dependencies 元素，该元素下可以包含多个 dependency 元素以声明项目的依赖，这里我们添加了一个依赖——groupId 是 junit，artifactId 是 junit，version 是 4.7。前面我们提到 groupId、artifactId 和 version 是任何一个 Maven 项目最基本的坐标，JUnit 也不例外，有了这段声明，Maven 就能够自动下载 junit-4.7.jar。也许你会问，Maven 从哪里下载这个 jar 呢？在 Maven 之前，我们可以去 JUnit 的官网下载分发包。而现在有了 Maven，它会自动访问中央仓库([http://repo1.maven.org/maven2/](http://repo1.maven.org/maven2/)) ,下载需要的文件。读者也可以自己访问该仓库，打开路径 junit/junit/4.7/，就能看到 junit-4.7.pom 和 junit-4.7.jar。
-
-上述 POM 代码中还有一个值为 test 的元素 scope，scope 为依赖范围，若依赖范围为 test 则表示该依赖只对测试有效，换句话说，测试代码中的 import JUnit 代码是没有问题的，但是如果我们在主代码中用 import JUnit 代码，就会造成编译错误。如果不声明依赖范围，那么默认值就是 compile，表示该依赖对主代码和测试代码都有效。
-
-配置了测试依赖，接着就可以编写测试类，回顾一下前面的 HelloWorld 类，现在我们要测试该类的 sayHello()方法，检查其返回值是否为“Hello Maven”。在 src/test/java 目录下创建文件，其内容如代码清单如下：
-
-```
-package com.juvenxu.mvnbook.helloworld;
-
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
-
-public class HelloWorldTest
-{
-    @Test
-    public void testSayHello()
-    {
-        HelloWorld helloWorld = new HelloWorld();
-
-        String result = helloWorld.sayHello();
-
-        assertEquals( "Hello Maven", result );
-    }
-}
-```
-
-测试用例编写完毕之后就可以调用 Maven 执行测试，运行 mvn clean test。
-
-构建在执行 compiler:testCompile 任务的时候失败了，Maven 输出提示我们需要使用-source 5 或更高版本以启动注释，也就是代码中 JUnit 4 的@Test 注解。这是 Maven 初学者常常会遇到的一个问题。由于历史原因，Maven 的核心插件之一 compiler 插件默认只支持编译 Java 1.3，因此我们需要配置该插件使其支持 Java 5，见代码清单：
-
-```xml
-<project>
-…
-<build>
-<plugins>
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <configuration>
-       <source>1.5</source>
-       <target>1.5</target>
-     </configuration>
-   </plugin>
-</plugins>
-</build>
-…
-</project>
-```
-
-该 POM 省略了除插件配置以外的其他部分。现在再执行 mvn clean test,结果正常。
-
-## 测试命令
-
-Maven 中使用 package、install 等命令时会自动调用 Test 组件，`mvn package -DskipTests`命令可以跳过测试。也可以在插件配置的时候设置跳过：
-
-```
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>2.5</version>
-    <configuration>
-        <skipTests>true</skipTests>
-    </configuration>
-</plugin>
-```
-
-### 指定测试用例
-
-maven-surefire-plugin 提供了一个 test 参数让 Maven 用户能够在命令行指定要运行的测试用例。如：
-
-```
-mvn test -Dtest=RandomGeneratorTest
-```
-
-也可以使用通配符：
-
-```
-mvn test -Dtest=Random*Test
-```
-
-或者也可以使用“，”号指定多个测试类：
-
-```
-mvn test -Dtest=Random*Test,AccountCaptchaServiceTest
-```
-
-如果由于历史原因，测试类不符合默认的三种命名模式，可以通过 pom.xml 设置 maven-surefire-plugin 插件添加命名模式或排除一些命名模式。
-
-```
-    <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.5</version>
-        <configuration>
-            <includes>
-                <include>**/*Tests.java</include>
-            </includes>
-            <excludes>
-                <exclude>**/*ServiceTest.java</exclude>
-                <exclude>**/TempDaoTest.java</exclude>
-            </excludes>
-        </configuration>
-    </plugin>
-```
-
-## Coverage(测试覆盖率)
-
-### Cobertura
-
-[1]: http://blog.csdn.net/sin90lzc/article/details/7543262
-[2]: http://maven.oschina.net/help.html
-
-# 依赖管理
-
-## 父子项目
-
-```xml
-Parent
-`------ childA(BusinessLayer)
-          `--- pom.xml
-`------ childB(WebLayer)
-         `--- pom.xml
-`------ pom.xml
-```
-
-在maven中，parent模块组织好childA和childB，叫做"聚合"，多个模块联合编译。实现起来很简单，只需要在parent的pom文件里加入以下内容。
-
-```xml
-<modules>
-   <module>childA</module>
-   <module>childB</module>
-</modules>
-```
-
-这样只是告诉maven编译器，在读取parent的pom文件时去找到childA和childB，但还是会分别去编译他们引入的依赖。这样就会导致pom文件引入的包重复！！于是我们引入了"继承"的概念，也就是形成"父子"关系，子pom可以引用到父pom中引入的依赖。具体做法如下：
-
-在parent中，写入以下内容，其中"*"标识的行可以组成一个路径，通过这个路径可以在maven仓库中找到这个pom文件！本例中，path为M2_Path/com/sang/main/Parent-Moduel/1.0.2/xxxx-1.0.2.pom。所以这三个标签是必须的！！！
-
-<modelVersion>4.0.0</modelVersion>  
-<groupId>com.sang.main</groupId>              *
-<artifactId>Parent-Moduel</artifactId>        *
-<version>1.0.2</version>            *
-<packaging>pom</packaging>  
-<name>Simple-main</name>
-父pom写好了，子pom就通过<parent>标签继承父pom的依赖，如下：
-
-<parent>
-   <groupId>com.sang.main</groupId>
-   <artifactId>Parent-Moduel</artifactId>
-   <version>1.0.2</version>
-   <relativePath>../pom.xml</relativePath>  <!--本例中此处是可选的-->
-</parent>
-值得注意的是<relativePath>标签，如果pom的层次关系就像本例中的那样只隔一层，则可以省略这个。maven同样可以找到子pom。
-
-子pom中引入<parent>标签后，就会从父pom继承<version>等属性了，例如childA只需要再加入如下内容即可！
-
-<modelVersion>4.0.0</modelVersion>  
-<groupId>com.sang.business</groupId>     <!--和artifactId一起唯一标识这个jar文件-->
-<artifactId>ChildA-module</artifactId>
-<packaging>jar</packaging>         <!--指明打包类型-->
-<name>childA</name>
-
-maven可以让我们方便地管理jar包依赖，具体做法如下：
-
-<dependencies>
-     <dependency>   <!--添加一个jar包依赖-->
-         <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>
-        <version>2.5</version>
-    </dependency>
-</dependencies>
-如果不通过继承，则需要在每个pom中加入这样的依赖，这样子pom对应的模块可以引用到这个jar包。上面提到的重复引用jar包，可以通过下面的方式解决：
-
-主pom中把依赖通过<dependecyManagement>引起来，表示子pom可能会用到的jar包依赖
-
-<dependencyManagement>
-   <dependencies>
-      <dependency>
-           <groupId>javax.servlet</groupId>
-          <artifactId>servlet-api</artifactId>
-          <version>2.5</version>
-      </dependency>
-   </dependencies>
-</dependencyManagement>
-子pom如果需要引用该jar包，则直接引用即可！不需要加入<version>，便于统一管理。此外也可以加入仅在子pom中用到的jar包，比如：
-
-<dependencies>
-   <dependency>
-        <groupId>javax.servlet</groupId>
-        <artifactId>servlet-api</artifactId>   <!--此处不再需要verison了！-->
-   </dependency>
-   <dependency>
-       <groupId>org.codehaus.jackson</groupId>
-       <artifactId>jackson-core-lgpl</artifactId>
-       <version>1.9.4</version>    <!--当然也可以加入只在这个子模块中用到的jar包-->
-   </dependency>
-</dependencies>
-4、除了jar包依赖，插件也可以通过这样的方式进行管理
-
-<!-- mainModule -->
-<build>
-   <pluginManagement>
-      <plugins>
-          <plugin>
-               <groupId>org.apache.maven.plugins</groupId>
-               <artifactId>maven-source-plugin</artifactId>
-               <version>2.1.1</version>
-          </plugin>
-      </plugins>
-   </pluginManagement>
-</build>
-
-<!-- childA -->
-<build>   
-   <plugins>
-      <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-source-plugin</artifactId>
-      </plugin>
-   </plugins>
-</build>
-5、如果子pom间存在引用关系，比如childA引用到了childB的jar包，该怎么做？
-
-<dependency>
-   <groupId>com.module</groupId>
-   <artifactId>childA</artifactId>       <!--加上childA的依赖-->
-   <version>1.0.0</version>
-</dependency>

@@ -12,7 +12,11 @@
 
 ## 基础参数
 
+- `-Xms4g`: JVM 启动时，分配的最小堆大小 4G
+
 ## 垃圾回收参数
+
+## 其他参数
 
 ## Tomcat JVM 配置
 
@@ -41,7 +45,7 @@ CATALINA_OPTS="${CATALINA_OPTS} -Dcom.sun.management.jmxremote.authenticate=fals
 
 | 参数                                                        | 含义                                                                                                                                                                                                                                                                                                                                                                                        | 扩展阅读                                                                                                                                                            |
 | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| -Xms4g                                                      | jvm 启动时，分配的最小堆大小：4g                                                                                                                                                                                                                                                                                                                                                            |                                                                                                                                                                     |
+| -Xms4g                                                      |                                                                                                                                                                                                                                                                                                                                                                                             |                                                                                                                                                                     |
 | -Xmx4g                                                      | jvm 启动时， 允许分配的最大的堆大小：4g                                                                                                                                                                                                                                                                                                                                                     |                                                                                                                                                                     |
 | -XX:MetaspaceSize=256m                                      | 元数据区默认大小，从 JDK8 之后，没有 Perm 区了                                                                                                                                                                                                                                                                                                                                              |                                                                                                                                                                     |
 | -XX:MaxMetaspaceSize=256m                                   | 元数据的最大大小                                                                                                                                                                                                                                                                                                                                                                            |                                                                                                                                                                     |
@@ -78,15 +82,11 @@ CATALINA_OPTS="${CATALINA_OPTS} -Dcom.sun.management.jmxremote.authenticate=fals
 | -Djava.endorsed.dirs                                        | 包升级替换机制，一般默认是 lib/endorsed 文件夹，就是说，可以把你自己的 jar 包放在这里，代替原有的系统的 jar 包                                                                                                                                                                                                                                                                              | -                                                                                                                                                                   |
 | -Djava.io.tmpdir=/home/admin/di-afi/.default/temp           | 设置应用的写入的临时文件目录                                                                                                                                                                                                                                                                                                                                                                | -                                                                                                                                                                   |
 
-# 内存
+# 内存分析
 
 Full GC 每小时小于个位数
 
-# 线程
-
-# 网络
-
-# 磁盘
+# 线程与调用分析
 
 # 追踪
 
@@ -112,6 +112,11 @@ $ java -XX:StartFlightRecording=settings=default
 # Continuous With Dump on Exit
 $ java -XX:StartFlightRecording=settings=default -XX:FlightRecorderOptions=dumponexit=true,dumponexitpath=C:\tmp
 ```
+
+通过 jmap 命令生成 dump 文件
+命令格式：jmap -dump:live,format=b,file=heap.bin <pid>
+注意：如果要保留 heapdump 中的不可达对象，则需要把”:live“去掉，即使用命令”jmap -dump,format=b,file=heap.bin <pid>“
+通过设置 JVM 参数自动生成 使用-XX:+HeapDumpOnOutOfMemoryError 这个 JVM 参数，在 Java 进程运行过程中发生 OOM 的时候就会生成一个 heapdump 文件，并写入到指定目录，一般用-XX:HeapDumpPath=\${HOME}/logs/test 来设置。
 
 # 线程
 
