@@ -49,31 +49,49 @@ mvn archetype:generate -DgroupId=co.hoteam -DartifactId=Zigbee -DarchetypeArtifa
 就像 Make 的 Makefile，Ant 的 build.xml 一样，Maven 项目的核心是 pom.xml。首先创建一个名为 hello-world 的文件夹，打开该文件夹，新建一个名为 pom.xml 的文件，输入其内容如下：
 
 ```xml
-<?xml version="1.0" encoding="UTF-8"?>
-  <project xmlns="http://maven.apache.org/POM/4.0.0"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-  http://maven.apache.org/maven-v4_0_0.xsd">
-
+                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.juvenxu.mvnbook</groupId>
-  <artifactId>hello-world</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <name>Maven Hello World Project</name>
+
+  <!-- The Basics -->
+  <groupId>...</groupId>
+  <artifactId>...</artifactId>
+  <version>...</version>
+  <packaging>...</packaging>
+  <dependencies>...</dependencies>
+  <parent>...</parent>
+  <dependencyManagement>...</dependencyManagement>
+  <modules>...</modules>
+  <properties>...</properties>
+
+  <!-- Build Settings -->
+  <build>...</build>
+  <reporting>...</reporting>
+
+  <!-- More Project Information -->
+  <name>...</name>
+  <description>...</description>
+  <url>...</url>
+  <inceptionYear>...</inceptionYear>
+  <licenses>...</licenses>
+  <organization>...</organization>
+  <developers>...</developers>
+  <contributors>...</contributors>
+
+  <!-- Environment Settings -->
+  <issueManagement>...</issueManagement>
+  <ciManagement>...</ciManagement>
+  <mailingLists>...</mailingLists>
+  <scm>...</scm>
+  <prerequisites>...</prerequisites>
+  <repositories>...</repositories>
+  <pluginRepositories>...</pluginRepositories>
+  <distributionManagement>...</distributionManagement>
+  <profiles>...</profiles>
 </project>
 ```
-
-- 代码的第一行是 XML 头，指定了该 xml 文档的版本和编码方式。紧接着是 project 元素，project 是所有 pom.xml 的根元素，它还声明了一些 POM 相关的命名空间及 xsd 元素，虽然这些属性不是必须的，但使用这些属性能够让第三方工具(如 IDE 中的 XML 编辑器)帮助我们快速编辑 POM。
-
-* 根元素下的第一个子元素 modelVersion 指定了当前 POM 模型的版本，对于 Maven2 及 Maven 3 来说，它只能是 4.0.0。这段代码中最重要的是 groupId，artifactId 和 version 三行。这三个元素定义了一个项目基本的坐标，在 Maven 的世界，任何的 jar、pom 或者 war 都是以基于这些基本的坐标进行区分的。
-
-- groupId 定义了项目属于哪个组，这个组往往和项目所在的组织或公司存在关联，譬如你在 googlecode 上建立了一个名为 myapp 的项目，那么 groupId 就应该是 com.googlecode.myapp，如果你的公司是 mycom，有一个项目为 myapp，那么 groupId 就应该是 com.mycom.myapp。本书中所有的代码都基于 groupId com.juvenxu.mvnbook。
-
-* artifactId 定义了当前 Maven 项目在组中唯一的 ID，我们为这个 Hello World 项目定义 artifactId 为 hello-world，本书其他章节代码会被分配其他的 artifactId。而在前面的 groupId 为 com.googlecode.myapp 的例子中，你可能会为不同的子项目(模块)分配 artifactId，如：myapp-util、myapp-domain、myapp-web 等等。
-
-- version 指定了 Hello World 项目当前的版本——1.0-SNAPSHOT。SNAPSHOT 意为快照，说明该项目还处于开发中，是不稳定的版本。随着项目的发展，version 会不断更新，如升级为 1.0、1.1-SNAPSHOT、1.1、2.0 等等。
-
-- 最后一个 name 元素声明了一个对于用户更为友好的项目名称，虽然这不是必须的，但我还是推荐为每个 POM 声明 name，以方便信息交流。 没有任何实际的 Java 代码，我们就能够定义一个 Maven 项目的 POM，这体现了 Maven 的一大优点，它能让项目对象模型最大程度地与实际代码相独立，我们可以称之为解耦，或者正交性，这在很大程度上避免了 Java 代码和 POM 代码的相互影响。比如当项目需要升级版本时，只需要修改 POM，而不需要更改 Java 代码；而在 POM 稳定之后，日常的 Java 代码开发工作基本不涉及 POM 的修改。
 
 ## 仓库
 
@@ -155,6 +173,33 @@ Mirror 则相当于一个代理，它会拦截去指定的远程 Repository 下�
 
 ![](https://mmbiz.qpic.cn/mmbiz_png/GtXvavW2UlwyGfDVvuLSpndp2xBreDuF94QUz56jsKxmzTrWX194dTLDLWg9SQ8PDibZ1nP8OHwm9guVicC1aPjQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+  http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.juvenxu.mvnbook</groupId>
+  <artifactId>hello-world</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <name>Maven Hello World Project</name>
+</project>
+```
+
+- 代码的第一行是 XML 头，指定了该 xml 文档的版本和编码方式。紧接着是 project 元素，project 是所有 pom.xml 的根元素，它还声明了一些 POM 相关的命名空间及 xsd 元素，虽然这些属性不是必须的，但使用这些属性能够让第三方工具(如 IDE 中的 XML 编辑器)帮助我们快速编辑 POM。
+
+* 根元素下的第一个子元素 modelVersion 指定了当前 POM 模型的版本，对于 Maven2 及 Maven 3 来说，它只能是 4.0.0。这段代码中最重要的是 groupId，artifactId 和 version 三行。这三个元素定义了一个项目基本的坐标，在 Maven 的世界，任何的 jar、pom 或者 war 都是以基于这些基本的坐标进行区分的。
+
+- groupId 定义了项目属于哪个组，这个组往往和项目所在的组织或公司存在关联，譬如你在 googlecode 上建立了一个名为 myapp 的项目，那么 groupId 就应该是 com.googlecode.myapp，如果你的公司是 mycom，有一个项目为 myapp，那么 groupId 就应该是 com.mycom.myapp。本书中所有的代码都基于 groupId com.juvenxu.mvnbook。
+
+* artifactId 定义了当前 Maven 项目在组中唯一的 ID，我们为这个 Hello World 项目定义 artifactId 为 hello-world，本书其他章节代码会被分配其他的 artifactId。而在前面的 groupId 为 com.googlecode.myapp 的例子中，你可能会为不同的子项目(模块)分配 artifactId，如：myapp-util、myapp-domain、myapp-web 等等。
+
+- version 指定了 Hello World 项目当前的版本——1.0-SNAPSHOT。SNAPSHOT 意为快照，说明该项目还处于开发中，是不稳定的版本。随着项目的发展，version 会不断更新，如升级为 1.0、1.1-SNAPSHOT、1.1、2.0 等等。
+
+- 最后一个 name 元素声明了一个对于用户更为友好的项目名称，虽然这不是必须的，但我还是推荐为每个 POM 声明 name，以方便信息交流。 没有任何实际的 Java 代码，我们就能够定义一个 Maven 项目的 POM，这体现了 Maven 的一大优点，它能让项目对象模型最大程度地与实际代码相独立，我们可以称之为解耦，或者正交性，这在很大程度上避免了 Java 代码和 POM 代码的相互影响。比如当项目需要升级版本时，只需要修改 POM，而不需要更改 Java 代码；而在 POM 稳定之后，日常的 Java 代码开发工作基本不涉及 POM 的修改。
+
 # 运行与构建
 
 ## 构建基础
@@ -213,6 +258,10 @@ $ mvn exec:java -Dexec.mainClass="com.example.Main"
 
 ### Resource Directories | 资源文件夹
 
+resource 节点是关键，它表明了哪个目录下的配置文件(不管是 xml 配置文件，还是 properties 属性文件)，需要根据 profile 环境来替换属性值。通常配置文件放在 resources 目录下，build 时该目录下的文件都自动会 copy 到 class 目录下:
+
+![](http://images.cnitblog.com/blog/27612/201408/281044295329658.jpg)
+
 它对应的配置方式为：
 
 ```xml
@@ -244,11 +293,11 @@ Project
 
 ```xml
 ...
-   <resources>
-     <resource>
-       <directory>src/my-resources</directory>
-     </resource>
-   </resources>
+<resources>
+    <resource>
+    <directory>src/my-resources</directory>
+    </resource>
+</resources>
 ...
 ```
 
@@ -283,7 +332,37 @@ Project
 </project>
 ```
 
-### Filter | 过滤与内容替换
+### Properties | 变量属性
+
+### Profile
+
+在实际项目中我们往往需要针对不同的环境配置不同的属性，本机环境(**local**)、(开发小组内自测的)开发环境(**dev**)、(提供给测试团队的)测试环境(**test**)、预发布环境(**pre**)、正式生产环境(**prod**)，每种环境都有各自的配置参数，比如：数据库连接、远程调用的 ws 地址等等。如果每个环境 build 前手动修改这些参数，显然会非常的麻烦。而 Maven 本身就可以允许我们通过定义 Profile 的方式来在编译是动态注入配置：
+
+```xml
+<profiles>
+    <profile>
+        <!-- 本地环境 -->
+        <id>local</id>
+        <properties>
+            <db-url>jdbc:oracle:thin:@localhost:1521:XE</db-url>
+        </properties>
+    </profile>
+    <profile>
+        <!-- 开发环境 -->
+        <id>dev</id>
+        <properties>
+            <db-url>jdbc:oracle:thin:@172.21.129.51:1521:orcl</db-url>
+        </properties>
+        <!-- 默认激活本环境 -->
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+    </profile>
+    ...
+</profiles>
+```
+
+可以使用 `-P` 参数指定不同的 Profile: `mvn clean package -P pro`。
 
 ## Test| 测试
 
@@ -395,12 +474,8 @@ Maven 核心特点之一是依赖管理。一旦我们开始处理多模块工�
 ```xml
 <exclusions>
     <exclusion>
-        <groupId>
-            excluded.groupId
-        </groupId>
-        <artifactId>
-            excluded-artifactId
-        </artifactId>
+        <groupId>excluded.groupId</groupId>
+        <artifactId>excluded-artifactId</artifactId>
     </exclusion>
 </exclusions>
 ```
