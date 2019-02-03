@@ -52,7 +52,7 @@ public class TestConfig {
 }
 ```
 
-### Conditional Configuration
+### Conditional Configuration | 条件化配置
 
 Class conditions allow us to specify that a configuration bean will be included if a specified class is present.
 
@@ -131,7 +131,7 @@ public class MyService {
 | @ConditionalOnWebApplication    | 这是一个 Web 应用程序                                   |
 | @ConditionalOnNotWebApplication | 这不是一个 Web 应用程序                                 |
 
-### 作用域与生命周期
+## 作用域与生命周期
 
 Spring 中为 Bean 定义了 5 种作用域，分别为 Singleton(单例), Prototype(原型), Request,Session 和 Global Session:
 
@@ -285,6 +285,8 @@ mail.credentials.authMethod=SHA1
 @Length(max = 4, min = 1)
 private String authMethod;
 ```
+
+## 端口设置
 
 # Controller | 请求处理
 

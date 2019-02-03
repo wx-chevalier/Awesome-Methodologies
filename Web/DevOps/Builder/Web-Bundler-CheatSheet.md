@@ -10,6 +10,19 @@
 
 尺有所短，寸有所长，不同的构建工具有其不同的适用场景。Webpack 是非常优秀的构建与打包工具，但是其提供了基础且复杂的功能支持，使得并不适用于全部的场景。Parcel 这样的零配置打包工具适合于应用型的原型项目构建，而 Rollup 或者 Microbundle 适合于库的打包，Backpack 则能够帮我们快速构建 Node.js 项目。笔者在本文中列举讨论的仅是日常工作中会使用的工具，更多的 [Browserify](https://github.com/browserify/browserify)、[Fusebox](https://github.com/fuse-box/fuse-box) 等等构建工具查看 [Web 构建与打包工具资料索引](https://parg.co/Uss)或者[现代 Web 开发实战/进阶篇](https://github.com/wxyyxc1992/Web-Series)。
 
+# NPM & Yarn
+
+```sh
+yarn config set registry https://registry.npm.taobao.org -g
+yarn config set disturl https://npm.taobao.org/dist -g
+yarn config set electron_mirror https://npm.taobao.org/mirrors/electron/ -g
+yarn config set sass_binary_site https://npm.taobao.org/mirrors/node-sass/ -g
+yarn config set phantomjs_cdnurl https://npm.taobao.org/mirrors/phantomjs/ -g
+yarn config set chromedriver_cdnurl https://cdn.npm.taobao.org/dist/chromedriver -g
+yarn config set operadriver_cdnurl https://cdn.npm.taobao.org/dist/operadriver -g
+yarn config set fse_binary_host_mirror https://npm.taobao.org/mirrors/fsevents -g
+```
+
 # Parcel
 
 Parcel 是著名的零配置的应用打包工具，在 [TensorFlowJS](https://github.com/wxyyxc1992/AIDL-Workbench) 或者 [gh-craft](https://github.com/wxyyxc1992/xCompass/blob/master/x-home/gh-craft/README.md) 等算法实验/游戏场景构建中，都能够快速地搭建应用。
