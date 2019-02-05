@@ -1,10 +1,10 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
 [🔆 中文版本](./JavaScript-CheatSheet.md) | [☀️ English Version](./JavaScript-CheatSheet.en.md)
 
 # JavaScript CheatSheet | 现代 JavaScript 语法速览与实战清单
 
-JavaScript CheatSheet 是对于 JavaScript 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。本文参考了许多优秀的文章与代码示范，统一声明在了 [JavaScript Links](https://github.com/wxyyxc1992/Awesome-Lists/blob/master/ProgrammingLanguage/JavaScript/JavaScript-List.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/javascript]() 查看使用 JavaScript 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
+JavaScript CheatSheet 是对于 JavaScript 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheets/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。本文参考了许多优秀的文章与代码示范，统一声明在了 [JavaScript Links](https://github.com/wxyyxc1992/Awesome-Lists/blob/master/ProgrammingLanguage/JavaScript/JavaScript-List.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/javascript]() 查看使用 JavaScript 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
 
 # 基础语法
 

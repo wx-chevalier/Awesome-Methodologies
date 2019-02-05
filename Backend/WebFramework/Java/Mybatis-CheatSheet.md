@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
 > 本文整理自 [Awesome CheatSheet/Java & Spring 系列]()，[Mybatis Links]() 或者 [微服务架构与实践](https://github.com/wxyyxc1992/Backend-Series)。
 

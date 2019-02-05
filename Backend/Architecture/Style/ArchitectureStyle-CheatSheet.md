@@ -1,6 +1,6 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
-# Backend Architecture | 服务端架构风格/模式概述
+# Backend Architecture CheatSheets | 服务端架构风格/模式概述
 
 完整的软件体系结构由不同的模式或者风格构成，常见的风格有架构设计模式、框架设计模式与驱动模式等。
 

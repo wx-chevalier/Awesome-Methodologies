@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
 > 📌 本文很多内容源于 [Flutter 官方文档](https://flutter.io/get-started/install/)。本文主要是对于应用开发中常见的考虑进行汇总。
 

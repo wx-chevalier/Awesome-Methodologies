@@ -1,12 +1,12 @@
 # English CheatSheet | 英语备忘清单
 
-> 本文从属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheet) 的 [英语备忘清单](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Zen/English-CheatSheet.md)，鉴于很多单词的美音与英音发音不一致，只要日常读音较为符合任一发音规则，笔者也未收录。
+> 本文从属于 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheets) 的 [英语备忘清单](https://github.com/wxyyxc1992/Awesome-CheatSheets/blob/master/Zen/English-CheatSheet.md)，鉴于很多单词的美音与英音发音不一致，只要日常读音较为符合任一发音规则，笔者也未收录。
 
 # 易错单词
 
 在很多的交流，或者演讲中，虽是小小的单词发音错误也可能导致交流不畅，乃至于整段垮掉；或者对于某些缩写仅知其形不知其义。勿以词小而不改，本篇收录了笔者日常工作交流中感受的读音易错的单词。
 
-本文内容不多，希望能抛砖引玉，得到更多指导；欢迎[提交](https://github.com/wxyyxc1992/Awesome-CheatSheet/issues)新的易错单词，举一反三，相互印证。
+本文内容不多，希望能抛砖引玉，得到更多指导；欢迎[提交](https://github.com/wxyyxc1992/Awesome-CheatSheets/issues)新的易错单词，举一反三，相互印证。
 
 - A
 

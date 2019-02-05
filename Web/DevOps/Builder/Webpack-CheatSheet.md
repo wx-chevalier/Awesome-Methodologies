@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheet)
+[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
 # Webpack CheatSheet | Webpack 基础与实践清单
 
@@ -141,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 # 开发环境
 
-题注：本文是 [Webpack CheatSheet | Webpack 基础与实践清单](https://github.com/wxyyxc1992/Awesome-CheatSheet/blob/master/Web/DevOps/Bundler/Webpack-CheatSheet.md)的一部分，项目代码可以参考 [fe-boilerplate | 多技术栈前端项目模板](https://github.com/wxyyxc1992/fe-boilerplate)。
+题注：本文是 [Webpack CheatSheet | Webpack 基础与实践清单](https://github.com/wxyyxc1992/Awesome-CheatSheets/blob/master/Web/DevOps/Bundler/Webpack-CheatSheet.md)的一部分，项目代码可以参考 [fe-boilerplate | 多技术栈前端项目模板](https://github.com/wxyyxc1992/fe-boilerplate)。
 
 ## 路径解析
 
