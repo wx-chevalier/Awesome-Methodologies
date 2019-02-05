@@ -106,3 +106,47 @@ jwt.verify(token, 'shhhhh', function(err, decoded) {
 ## 单点登录
 
 ## 2FA 双因子认证
+
+# HTTP Based Authorization
+
+## Basic Authorization
+
+桌面应用程序也通过 HTTP 协议跟 Web 服务器交互， 桌面应用程序一般不会使用 cookie, 而是把 " 用户名 + 冒号 + 密码 " 用 BASE64 算法加密后的字符串放在 http request 中的 header Authorization 中发送给服务端， 这种方式叫 HTTP 基本认证 (Basic Authentication)
+
+当浏览器访问使用基本认证的网站的时候， 浏览器会提示你输入用户名和密码，如下图
+
+![](http://pic002.cnblogs.com/images/2012/263119/2012092510283354.png)
+
+假如用户名密码错误的话， 服务器会返回 401 如下图
+
+![](http://pic002.cnblogs.com/images/2012/263119/2012092510293780.png)
+
+HTTP 基本认证的过程
+
+第一步 : 客户端发送 http request 给服务器，
+
+第二步 : 因为 request 中没有包含 Authorization header, 服务器会返回一个 401 Unauthozied 给客户端，并且在 Response 的 header "WWW-Authenticate" 中添加信息。
+
+![](http://pic002.cnblogs.com/images/2012/263119/2012092121494456.png)
+
+第三步：客户端把用户名和密码用 BASE64 加密后，放在 Authorization header 中发送给服务器， 认证成功。
+
+第四步：服务器将 Authorization header 中的用户名密码取出，进行验证， 如果验证通过，将根据请求，发送资源给客户端
+
+![](http://pic002.cnblogs.com/images/2012/263119/2012092121495881.png)
+
+使用 Fiddler Inspectors 下的 Auth 选项卡，可以很方便的看到用户名和密码 :
+
+![](http://pic002.cnblogs.com/images/2012/263119/2012092121505442.png)
+
+HTTP 基本认证的优点
+
+HTTP 基本认证，简单明了。Rest API 就是经常使用基本认证的。
+
+每次都要进行认证
+
+http 协议是无状态的， 同一个客户端对 服务器的每个请求都要求认证。
+
+## Token Based Authorization-JWT
+
+笔者在这里以 JWT 为例。

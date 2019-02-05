@@ -15,3 +15,55 @@ Also, a Repository is generally a narrower interface. It should be simply a coll
 It's a repository of a specific type of objects - it allows you to search for a specific type of objects as well as store them. Usually it will ONLY handle one type of objects. E.g. AppleRepository would allow you to do AppleRepository.findAll(criteria) or AppleRepository.save(juicyApple). Note that the Repository is using Domain Model terms (not DB terms - nothing related to how data is persisted anywhere).
 
 A repository will most likely store all data in the same table, whereas the pattern doesn't require that. The fact that it only handles one type of data though, makes it logically connected to one main table (if used for DB persistence).
+
+# 层级划分与实体类
+
+![image](https://user-images.githubusercontent.com/5803001/44942628-05bc1e80-ade9-11e8-9aea-25c51404638a.png)
+
+| 对象名                     | 层名              | 描述                                                |
+| -------------------------- | ----------------- | --------------------------------------------------- |
+| Transfer Object/TO         | Controller        | 接入与返回层，提供视图数据聚合与统一的查询/返回格式 |
+| Business Object/BO         | Service/Connector | 数据业务层，提供业务数据的聚合                      |
+| Database Access Object/DAO | Model             | 元数据访问层，与数据库进行直接交互                  |
+
+在设计数据库的时候，我们尽量避免给属性列添加额外的前缀，并且使用嵌套的结构返回多表联查的数据：
+
+```json
+{
+  "user": {
+    "uuid": "{uuid}",
+    "name": "{name}"
+  },
+  "asset": {
+    "uuid": "{uuid}",
+    "name": "{name}"
+  },
+  "lessonss": []
+}
+```
+
+```sh
+/api/resource/get
+/api/resource/getByIds
+
+# 在交互层级上同样应该有所隐藏
+/api/resource/getRelatedResourceById
+/api/related-resource/getRelatedResourceByResourceId
+```
+
+```gql
+query {
+  Resources{
+    id
+  }
+}
+
+query {
+  Resource($id: 1){
+    id
+    statisticsField(){}
+    oneToOneField() {}
+    oneToManyField(){}
+  }
+}
+```
