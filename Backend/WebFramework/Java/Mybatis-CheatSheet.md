@@ -97,9 +97,7 @@ public interface BlogMapper {
 
 ## Spring Boot 中集成使用
 
-在 [SPRING INITIALIZR](https://start.spring.io/) 可以直接创建包含 Mybatis 的项目模板，也可以前往 [Backend-Boilerplate/spring](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/java/spring) 查看相关模板。
-
-我们首先需要引入 `org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2` 依赖，然后在 Application 中添加 Mapper 扫描路径，或者在相关的 Mapper 类中添加注解：
+在 [SPRING INITIALIZR](https://start.spring.io/) 可以直接创建包含 Mybatis 的项目模板，也可以前往 [Backend-Boilerplate/spring](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/java/spring) 查看相关模板。我们首先需要引入 `org.mybatis.spring.boot:mybatis-spring-boot-starter:1.3.2` 依赖，然后在 Application 中添加 Mapper 扫描路径，或者在相关的 Mapper 类中添加注解：
 
 ```java
 // 自定义 Mapper
