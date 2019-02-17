@@ -1,5 +1,8 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
+[![database](https://user-images.githubusercontent.com/5803001/36406446-d148bbb2-1631-11e8-89c8-fc2a60e5577a.png)
+](https://www.processon.com/view/link/5a8b96cee4b024b99bfd650a)
+
 # 数据库技术清单盘点
 
 ![](https://cdn-images-1.medium.com/max/1600/1*YRTutyyz56U7IaT3EzpQJw.png)
