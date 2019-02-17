@@ -8,7 +8,7 @@
 
 [Awesome CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheets) 是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://wxyyxc1992.github.io/home/#/perspective)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
 
-![default](https://i.postimg.cc/7Lq1rwBT/image.png)
+![default](https://i.postimg.cc/MHBjgpQR/image.png)
 
 # Nav | 导航
 
