@@ -101,7 +101,9 @@ $ docker swarm join \
 10.196.108.176:2377
 ```
 
-## 代理设置
+## 常用配置
+
+### 代理
 
 鉴于 gcr 域名的不可用，我们需要利用 [ss-privoxy](https://hub.docker.com/r/bluebu/shadowsocks-privoxy/) 等工具搭建 Docker 源代理，也可以参考[这里](https://www.jianshu.com/p/13f4b23824d8)手动配置客户端：
 
@@ -158,6 +160,10 @@ Environment="HTTP_PROXY=127.0.0.1:8118" "HTTPS_PROXY=127.0.0.1:8118" "NO_PROXY=l
 ```
 
 环境变量 `NO_PROXY` 顾名思义，它不支持 CIDR 应该，所以需要你枚举一下集群主机地址。
+
+### 存储与日志
+
+线上系统中我们往往也需要对于 Docker 产生的
 
 # 镜像
 
