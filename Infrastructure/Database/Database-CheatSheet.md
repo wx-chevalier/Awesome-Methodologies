@@ -1,11 +1,6 @@
 [![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
 
-[![database](https://user-images.githubusercontent.com/5803001/36406446-d148bbb2-1631-11e8-89c8-fc2a60e5577a.png)
-](https://www.processon.com/view/link/5a8b96cee4b024b99bfd650a)
-
-# 数据库技术清单盘点
-
-![](https://cdn-images-1.medium.com/max/1600/1*YRTutyyz56U7IaT3EzpQJw.png)
+# DataBase CheatSheet | 数据库技术清单盘点
 
 The field of databases has a long history. Many different kinds of databases have been developed since the first relational DB was invented in 1970. For the longest time, relational databases, such as MySQL and Oracle, were state-of-the-art for any type of application that was developed. At that time, monoliths were the standard architecture for application development.
 
