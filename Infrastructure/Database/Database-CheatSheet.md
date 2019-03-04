@@ -2,14 +2,6 @@
 
 # DataBase CheatSheet | 数据库技术清单盘点
 
-The field of databases has a long history. Many different kinds of databases have been developed since the first relational DB was invented in 1970. For the longest time, relational databases, such as MySQL and Oracle, were state-of-the-art for any type of application that was developed. At that time, monoliths were the standard architecture for application development.
-
-At some point, NoSQL databases entered the game. MongoDB, Redis and Neo4j, to name a few, fall into that category. The goal of NoSQL was to either provide a simpler interface to working with data or cater to specific use cases and choose different optimization strategies.
-
-Nowadays, databases are becoming available as globally distributed systems such as Google Spanner or CockroachDB. These kinds of databases are horizontally scalable and come with automatic replication features as well as guarantees for consistency, availability and scalability.
-
-![](https://cdn-images-1.medium.com/max/1600/1*el8WJKzpZYR2r9k0TvaJag.png)
-
 Similar to the historic development of database technologies, the ways how databases are hosted also has evolved quite a bit over the past decades.
 
 In the early days of the web everybody had to run databases on their own physical servers. EC2 and Digital Ocean made this easier, but a deep technical understanding is still required to manually operate database.
@@ -17,12 +9,6 @@ In the early days of the web everybody had to run databases on their own physica
 Managed services such as Heroku’s Postgres Service, AWS RDS and Mongo Atlas abstracted away a lot of the complex details. Database management has become simpler, but the underlying model is still the same, requiring developers to provision compute capacity upfront.
 
 The most recent development, serverless databases, frees developers from worrying about infrastructure, as their database simply scales up and down to match the current load while paying based on actual usage. Aurora Serverless and CosmosDB are prominent examples.
-
-然而，不支持事务始终是 NoSQL 的痛点，让它无法在关键系统中使用。2012 年，Google 发布了 Spanner 论文，从此既支持分布式又支持事务的数据库逐渐诞生，以 TiDB、蟑螂数据库等为代表的 NewSQL 身兼传统关系数据库和 NoSQL 的优点，开始崭露头角。
-
-2009 年 MongoDB 开源，掀开了 NoSQL 的序幕，一时之间 NoSQL 的概念受人追捧，MongoDB 也因为其易用性迅速在社区普及。NoSQL 抛弃了传统关系数据库中的事务和数据一致性，从而在性能上取得了极大提升，并且天然支持分布式集群。
-
-2014 年亚马逊又推出一个重磅炸弹：基于新型 NVME SSD 虚拟存储层的 Aurora，它实现了完全兼容 MySQL（甚至连 bug 都兼容）的超大单机数据库，同时在性能上高出 5 倍以上。另外，各种不同用途的数据库也纷纷诞生并取得了较大的发展，比如用于 LBS 的地理信息数据库，用于监控和物联网的时序数据库，用于知识图谱的图数据库等。
 
 # 数据库划分
 
