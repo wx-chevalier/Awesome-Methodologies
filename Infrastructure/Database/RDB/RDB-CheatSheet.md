@@ -33,8 +33,6 @@
 
 ### Practices & Resources
 
-- [How does a relational database work ](http://coding-geek.com/how-databases-work/)
-
 # 数据库组件
 
 ## 客户端管理器
