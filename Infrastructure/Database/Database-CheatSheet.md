@@ -2,25 +2,7 @@
 
 # DataBase CheatSheet | 数据库技术清单盘点
 
-Similar to the historic development of database technologies, the ways how databases are hosted also has evolved quite a bit over the past decades.
-
-In the early days of the web everybody had to run databases on their own physical servers. EC2 and Digital Ocean made this easier, but a deep technical understanding is still required to manually operate database.
-
-Managed services such as Heroku’s Postgres Service, AWS RDS and Mongo Atlas abstracted away a lot of the complex details. Database management has become simpler, but the underlying model is still the same, requiring developers to provision compute capacity upfront.
-
-The most recent development, serverless databases, frees developers from worrying about infrastructure, as their database simply scales up and down to match the current load while paying based on actual usage. Aurora Serverless and CosmosDB are prominent examples.
-
-# 数据库划分
-
-## RDB | 关系型数据库
-
-ACID
-
 ## NoSQL
-
-在[分布式系统导论](https://parg.co/rG1)一文中
-
-2017 年的 Oracle Open World 大会上，Oracle 总裁拉里·埃里森公布了新杀器，Oracle 自治数据库云。这款全球首款“自动驾驶”的数据库，集成了人工智能和自适应的机器学习技术，实现全面自动化。Oracle 自治数据库云，消除了复杂性、人为错误和人工管理，能够以更低的成本提供更高的可靠性、安全性和运营效率。
 
 NoSQL 运动帮助了数据库社区明白了两件事。首先，并非每个应用程序都需要 ACID，并且，放宽 ACID 以能扩展到互联网规模。其次，表格数据组织很适合大量的数据，但未必适合所有的数据集。但是，随着时间的流逝，SQL/NoSQL 的显著区别将会消失，DBMS 用户则会因为有了更多选择而获得收益。
 
