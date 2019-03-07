@@ -2,8 +2,6 @@
 
 # RabbitMQ CheatSheet
 
-RabbitMQ 是一个由 Erlang 开发的 AMQP(Advanved Message Queue)的开源实现，是经典的消息代理(Message Broker)/消息队列(Message Queue)；AMQP 高级消息队列协议是应用层协议的一个开放标准，为面向消息的中间件设计，基于此协议的客户端与消息中间件可传递消息，并不受产品、开发语言等条件的限制。
-
 RabbitMQ 最初起源于金融系统，用于在分布式系统中存储转发消息，在易用性、扩展性、高可用性等方面表现不俗。具体特点包括：
 
 可靠性（Reliability） RabbitMQ 使用一些机制来保证可靠性，如持久化、传输确认、发布确认。

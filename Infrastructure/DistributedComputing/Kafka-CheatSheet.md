@@ -128,12 +128,6 @@ Pulsar 是以 Segment 为中心的，因此在扩展容量时不需要数据重�
 
 # 配置与实践
 
-# 延伸阅读
-
-- [MOM CheatSheet](./MOM-CheatSheet.md)
-
-- [RabbitMQ CheatSheet](./RabbitMQ-CheatSheet.md)
-
-# Todos
+# 链接
 
 - https://www.cnblogs.com/huxi2b/p/6223228.html
