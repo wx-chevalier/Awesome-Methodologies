@@ -975,11 +975,3 @@ services:
       restart_policy:
         condition: on-failure
 ```
-
-# Further Reading
-
-- [InfraS-Lab/Focker](https://github.com/wxyyxc1992/InfraS-Lab): 仿 Docker 轻量级实现
-
-- [深入浅出分布式基础架构](https://github.com/wxyyxc1992/Distributed-Infrastructure-Series)。
-
-- [Kubernetes CheatSheet](./Kubernetes-CheatSheet.md): Kubernetes 基础概念，配置使用与实践技巧
