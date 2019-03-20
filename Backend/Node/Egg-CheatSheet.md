@@ -117,19 +117,19 @@ const sendToWormhole = require('stream-wormhole');
 ...
 const stream = await ctx.getFileStream();
 
+// 文件生成绝对路径
 const filename =
   md5(stream.filename) + path.extname(stream.filename).toLocaleLowerCase();
-//文件生成绝对路径
 
 const target = path.join(this.config.baseDir, 'app/public/uploads', filename);
 
-//生成一个文件写入文件流
+// 生成一个文件写入文件流
 const writeStream = fs.createWriteStream(target);
 try {
-  //异步把文件流写入
+  // 异步把文件流写入
   await awaitWriteStream(stream.pipe(writeStream));
 } catch (err) {
-  //如果出现错误，关闭管道
+  // 如果出现错误，关闭管道
   await sendToWormhole(stream);
   throw err;
 }
