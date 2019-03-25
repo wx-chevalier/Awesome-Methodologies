@@ -12,9 +12,10 @@ Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命�
 
 ## 文件检索
 
-使用 `ls -l` 查看目录下文件列表如统计 /home/han 目录 ( 包含子目录 ) 下的所有 js 文件则:
+使用 `ls -l` 查看目录下文件列表:
 
 ```sh
+# 统计 /home/han 目录（包含子目录）下的所有 js 文件
 $ ls -lR /home/han | grep js | wc -l
 
 $ ls -l "/home/han" | grep "js" |wc -l
@@ -22,9 +23,7 @@ $ ls -l "/home/han" | grep "js" |wc -l
 $ ls -l --sort=size --block-size=M
 ```
 
-这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKE 『John%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是`John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
-
-可以使用 [fzf](https://github.com/junegunn/fzf) 进行交互式检索，在[这里](https://github.com/junegunn/fzf-bin/releases)下载二进制文件
+这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKE 『John%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是 `John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
 
 ```sh
 # 根据文件类型搜索
@@ -36,6 +35,8 @@ $ find . -name '*.map' -exec rm {} \;
 # 批量修改文件的权限
 $ find /opt/lampp/htdocs -type f -exec chmod 644 {} \;
 ```
+
+可以使用 [fzf](https://github.com/junegunn/fzf) 进行交互式检索，在[这里](https://github.com/junegunn/fzf-bin/releases)下载二进制文件
 
 ## 文件操作
 
@@ -206,8 +207,6 @@ $ grep foo $(find . -name '*.pm' | grep -v .svn)
 $ ls -l | grep .py
 ```
 
-[ag](https://github.com/ggreer/the_silver_searcher) 是类似于 ack 但是性能更优地工具。
-
 ```sh
 # ack 默认进行递归搜索
 $ ack hello
@@ -247,6 +246,8 @@ $ ack -g hello.pyf
 $ ack -g hello --sort-files
 ```
 
+[ag](https://github.com/ggreer/the_silver_searcher) 是类似于 ack 但是性能更优地工具。
+
 # 用户权限
 
 ## SSH
@@ -278,7 +279,59 @@ $ find /opt/lampp/htdocs -type f -exec chmod 644 {} \;
 
 ## 系统基础
 
+- 使用 `hostname` 查看当前主机名，使用 `sudo hostname newName` 修改当前主机名
+
+```sh
+# 显示当前主机的信息
+$ hostnamectl
+
+# 设置主机名。
+$ sudo hostnamectl set-hostname rhel7
+```
+
+- 查看 Linux 系统版本
+
+```bash
+# 查看内核版本
+$ cat /proc/version
+Linux version 2.6.18-238.el5 (mockbuild@x86-012.build.bos.redhat.com) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-50)) #1 SMP Sun Dec 19 14:22:44 EST 2010
+
+$ uname -r
+2.6.18-238.el5
+
+$ uname -a
+Linux SOR_SYS.99bill.com 2.6.18-238.el5 #1 SMP Sun Dec 19 14:22:44 EST 2010 x86_64 x86_64 x86_64 GNU/Linux
+
+# 查看 Linux 发行版本
+$ lsb_release -a
+
+$ cat /etc/issue
+
+Red Hat Enterprise Linux Server release 5.6 (Tikanga)
+Kernel \r on an \m
+
+$ file /bin/bash
+
+/bin/bash: ELF 64-bit LSB executable, AMD x86-64, version 1 (SYSV), for GNU/Linux 2.6.9, dynamically linked (uses shared libs), for GNU/Linux 2.6.9, stripped
+```
+
 ## 运行状态
+
+我们可以使用 `uptime` 或者 `w` 来查看当前用户的接入时间：
+
+```sh
+$ w
+
+# 15:33:49 up 58 days,  5:45,  1 user,  load average: 0.12, 0.15, 0.22
+# USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
+# root     pts/1     15:15   49.00s  0.04s  0.00s w
+```
+
+查看系统当前的 CPU 与内存情况：
+
+```sh
+$ lscpu
+```
 
 ## 系统服务
 
@@ -324,64 +377,6 @@ $ systemctl show -p CPUShares httpd.service
 
 # 设置某个 Unit 的指定属性
 $ sudo systemctl set-property httpd.service CPUShares=500
-```
-
-## 系统检视
-
-### 版本型号
-
-- 使用 `hostname` 查看当前主机名，使用 `sudo hostname newName` 修改当前主机名
-
-```sh
-# 显示当前主机的信息
-$ hostnamectl
-
-# 设置主机名。
-$ sudo hostnamectl set-hostname rhel7
-```
-
-- 查看 Linux 系统版本
-
-```bash
-# 查看内核版本
-$ cat /proc/version
-Linux version 2.6.18-238.el5 (mockbuild@x86-012.build.bos.redhat.com) (gcc version 4.1.2 20080704 (Red Hat 4.1.2-50)) #1 SMP Sun Dec 19 14:22:44 EST 2010
-
-$ uname -r
-2.6.18-238.el5
-
-$ uname -a
-Linux SOR_SYS.99bill.com 2.6.18-238.el5 #1 SMP Sun Dec 19 14:22:44 EST 2010 x86_64 x86_64 x86_64 GNU/Linux
-
-# 查看 Linux 发行版本
-$ lsb_release -a
-
-$ cat /etc/issue
-
-Red Hat Enterprise Linux Server release 5.6 (Tikanga)
-Kernel \r on an \m
-
-$ file /bin/bash
-
-/bin/bash: ELF 64-bit LSB executable, AMD x86-64, version 1 (SYSV), for GNU/Linux 2.6.9, dynamically linked (uses shared libs), for GNU/Linux 2.6.9, stripped
-```
-
-### 运行状态
-
-我们可以使用 `uptime` 或者 `w` 来查看当前用户的接入时间：
-
-```sh
-$ w
-
-# 15:33:49 up 58 days,  5:45,  1 user,  load average: 0.12, 0.15, 0.22
-# USER     TTY        LOGIN@   IDLE   JCPU   PCPU WHAT
-# root     pts/1     15:15   49.00s  0.04s  0.00s w
-```
-
-查看系统当前的 CPU 与内存情况：
-
-```sh
-$ lscpu
 ```
 
 ## 进程监控
@@ -453,7 +448,7 @@ cron 假定系统持续运行。如果当某任务被调度时系统不在运行
 
 # 网络
 
-## 状态检索
+## 网络状态
 
 ```sh
 # 查看指定端口的占用情况
