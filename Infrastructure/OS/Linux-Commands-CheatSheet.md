@@ -13,7 +13,7 @@ Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命�
 - cp -R {original_name} {new_name}：复制一个文件或目录(包含内部所有文件)
 - mv {original_name} {new_name} ：移动或重命名文件
 - rm {file}：删除文件
-- rm -rf {file/folder}：永久删除文件或文件夹(小心使用)
+- rm -rf {file/folder}：永久删除文件或文件夹
 - pwb ：打印当前工作目录
 - cat or less or tail or head -n10 {file}：文件的标准输出内容
 - mkdir {directory}：创建一个空的目录
@@ -24,7 +24,7 @@ Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命�
 - htop (or top) ：任务管理器
 - sed -i "s/{find}/{replace}/g" {file}：替代文件中的一个字符串
 - find . -type f -name '\*.txt' -exec sed -i "s/{find}/{replace}/g" {} \;：替换当前目录和子目录下后缀名为 .txt 文件的一个字符串
-- tmux new -s session, tmux attach -t session：创建另一个终端会话界面而不创建新的窗口 [高级命令]
+- tmux new -s session, tmux attach -t session：创建另一个终端会话界面而不创建新的窗口
 - wget {link}：下载一个网页或网页资源
 - curl -X POST -d "{key: value}" http://www.google.com：发送一个 HTTP 请求到网站服务器
 - find <directory>：递归地列出所有目录和其子目录的内容
@@ -290,6 +290,11 @@ $ ack -g hello --sort-files
 [ag](https://github.com/ggreer/the_silver_searcher) 是类似于 ack 但是性能更优地工具。
 
 ## sed
+
+```sh
+# 替换文件名
+$ find . -type f -name '\*.txt' -exec sed -i "s/{find}/{replace}/g" {} \;
+```
 
 # 用户权限
 
