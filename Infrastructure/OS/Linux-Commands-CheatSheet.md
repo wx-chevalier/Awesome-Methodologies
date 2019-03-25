@@ -381,7 +381,7 @@ $ sudo systemctl set-property httpd.service CPUShares=500
 
 ## 进程监控
 
-- 使用 `top` 查看进程资源占用情况，也可以使用扩展 htop 或者 gtop；如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
+- 使用 `top` 查看进程资源占用情况，也可以使用扩展 [htop](https://github.com/hishamhm/htop) 或者 [glances](https://github.com/nicolargo/glances)；如果针对容器监控，可以使用 [ctop](https://github.com/bcicen/ctop)。
 
 - 使用 `pstree -p` 查看当前进程树，使用 `ps -A` 查看所有进程信息，使用 `ps -aux` 查看所有正在内存中的程序，使用 `ps -ef` 查看所有连同命令行的进程信息；使用 `ps -u root` 显示指定用户信息；使用 `ps -ef | grep ssh` 查看特定进程。
 
