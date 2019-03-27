@@ -2,6 +2,8 @@
 
 # Web 性能优化清单
 
+![web performance optimization](https://user-images.githubusercontent.com/5803001/37599891-d1460972-2bc0-11e8-8fc8-70994c739e90.png)
+
 用户体验是。良好的用户体验往往能有效提升产品的竞争力
 
 需要注意的是，性能优化并不仅仅是与技术相关，还会与你的产品逻辑，交互设计
