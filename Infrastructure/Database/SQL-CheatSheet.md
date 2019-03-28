@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # SQL 语法速览与备忘清单
 
@@ -24,7 +24,7 @@ SQL 查询优化在 OLAP 应用当中至关重要的主要原因在于 SQL 是�
 
 DDL 包含 CREATE, ALTER, DROP 等常见的数据定义语句
 
-[完整的表结构 SQL](https://gist.github.com/wxyyxc1992/ebd1ceb919a68e428e7901f7fc766f02)
+[完整的表结构 SQL](https://gist.github.com/wx-chevalier/ebd1ceb919a68e428e7901f7fc766f02)
 
 ```sql
 CREATE TABLE `product` (

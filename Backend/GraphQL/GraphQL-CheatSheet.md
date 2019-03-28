@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # GraphQL CheatSheet | GraphQL 入门指引与实践清单
 
@@ -12,11 +12,11 @@ GraphQL 是由 Facebook 开源的查询语言标准，其并非具体的后端�
 
 不过 GraphQL 并非银弹，其并未缓解业务逻辑本身的复杂度，反而图查询方式在弱化各模块间的耦合的同时带来多次查询的性能损耗，在代码规范、模块划分不当的情况下可能导致渐进式地微服务切分割离也变得麻烦。于前端，直接用 Apollo Graphql React 这样的框架替代原有的状态管理，将组件直接绑定于接口，就是在破坏前端应用的自治性，与 SOLID 背道而驰，将独立的前端应用强耦合于后端；单一的端点在网络调试时也是不甚方便。Graphql 作为前端编写，维护的数据聚合层是非常好的选择，但是小型项目也可以在前端完成自聚合；将服务端的计算查询压力，传导给分布式的，性能日渐强大的客户端，也不失一个选择。Rest 与 GraphQL 并非取舍关系，而是渐进融合，Rest 项目在自身迭代衍化的过程中也可以不断地借鉴 GraphQL 中的一些思想或者理念，来解决譬如模型分层与界定等问题。
 
-值得一提的是，[Github Explorer](https://developer.github.com/v4/explorer/) 是非常不错的在 Github GraphQL API 中实践 GraphQL 的在线练习场，也可以在 [Backend-Boilerplate/graphql](https://github.com/wxyyxc1992/Backend-Boilerplate/blob/master/node/graphql) 中了解笔者的 GraphQL 相关模板。
+值得一提的是，[Github Explorer](https://developer.github.com/v4/explorer/) 是非常不错的在 Github GraphQL API 中实践 GraphQL 的在线练习场，也可以在 [Backend-Boilerplate/graphql](https://github.com/wx-chevalier/Backend-Boilerplate/blob/master/node/graphql) 中了解笔者的 GraphQL 相关模板。
 
 ```gql
 query {
-  user(login: "wxyyxc1992") {
+  user(login: "wx-chevalier") {
     starredRepositories {
       totalCount
     }

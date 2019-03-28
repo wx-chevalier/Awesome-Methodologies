@@ -1,8 +1,8 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # Webpack CheatSheet | Webpack 基础与实践清单
 
-作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/vue/webpack) 等。
+作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wx-chevalier/fe-boilerplate/blob/master/vue/webpack) 等。
 
 ![538c4af0d21e375d6d252d38cbb8a993](https://user-images.githubusercontent.com/5803001/39744493-0e21c33a-52d7-11e8-8295-1f8deb389565.png)
 
@@ -141,7 +141,7 @@ __webpack_require__.r(__webpack_exports__);
 
 # 开发环境
 
-题注：本文是 [Webpack CheatSheet | Webpack 基础与实践清单](https://github.com/wxyyxc1992/Awesome-CheatSheets/blob/master/Web/DevOps/Bundler/Webpack-CheatSheet.md)的一部分，项目代码可以参考 [fe-boilerplate | 多技术栈前端项目模板](https://github.com/wxyyxc1992/fe-boilerplate)。
+题注：本文是 [Webpack CheatSheet | Webpack 基础与实践清单](https://github.com/wx-chevalier/Awesome-CheatSheets/blob/master/Web/DevOps/Bundler/Webpack-CheatSheet.md)的一部分，项目代码可以参考 [fe-boilerplate | 多技术栈前端项目模板](https://github.com/wx-chevalier/fe-boilerplate)。
 
 ## 路径解析
 
@@ -377,4 +377,4 @@ webpackJsonp([0], {
 
 如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
-更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 开发基础与工程实践/Webpack](https://github.com/wxyyxc1992/Web-Series) 章节。
+更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 开发基础与工程实践/Webpack](https://github.com/wx-chevalier/Web-Series) 章节。

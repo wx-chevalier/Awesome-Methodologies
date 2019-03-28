@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 ![image](https://user-images.githubusercontent.com/5803001/45699770-5d0a0f00-bb9d-11e8-8ce7-82650bfcbb39.png)
 
@@ -14,7 +14,7 @@
 
 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
 
-Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制，在 [Docker Internals CheatSheet](./Docker-Internals-CheatSheet) 中我们会有详细的讨论，或者前往 [Backend Boilerplate/docker](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/docker) 浏览常见服务/应用的 Docker 配置案例。
+Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制，在 [Docker Internals CheatSheet](./Docker-Internals-CheatSheet) 中我们会有详细的讨论，或者前往 [Backend Boilerplate/docker](https://github.com/wx-chevalier/Backend-Boilerplate/tree/master/docker) 浏览常见服务/应用的 Docker 配置案例。
 
 ![image](https://user-images.githubusercontent.com/5803001/44158672-dec2d480-a0e7-11e8-9f50-ce83c9638853.png)
 

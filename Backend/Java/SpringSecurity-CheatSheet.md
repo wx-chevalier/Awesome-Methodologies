@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # Spring Security CheatSheet
 
@@ -44,7 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 ## HTTP Basic Auth
 
-HTTP Basic Auth 是较为简单的静态用户名密码认证方式，分别需要声明路由规则与配置 AuthenticationManagerBuilder, 本部分完整代码参考 [spring-security-basic-auth](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/java/spring/spring-basic-auth)。
+HTTP Basic Auth 是较为简单的静态用户名密码认证方式，分别需要声明路由规则与配置 AuthenticationManagerBuilder, 本部分完整代码参考 [spring-security-basic-auth](https://github.com/wx-chevalier/Backend-Boilerplate/tree/master/java/spring/spring-basic-auth)。
 
 ```java
 // 声明路由规则
@@ -75,7 +75,7 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 ## Form Login | 用户名密码表单登录
 
-本部分完整代码参考 [spring-security-form-login](https://github.com/wxyyxc1992/Backend-Boilerplate/tree/master/java/spring/spring-security-login), 首先在 WebSecurityConfig 的 configure 方法中，注册路由表：
+本部分完整代码参考 [spring-security-form-login](https://github.com/wx-chevalier/Backend-Boilerplate/tree/master/java/spring/spring-security-login), 首先在 WebSecurityConfig 的 configure 方法中，注册路由表：
 
 ```java
 @Override

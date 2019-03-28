@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 > 整理自[官方文档]()以及 [Akka Links]() 中归档的参考资料。
 

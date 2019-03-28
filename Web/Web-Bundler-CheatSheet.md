@@ -1,6 +1,6 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
-题注：[Web Bundler CheatSheet](https://parg.co/YO2) 属于 [Awesome-CheatSheet](https://github.com/wxyyxc1992/Awesome-CheatSheets) 系列，盘点数个常用的开发打包工具清单。欢迎加入阿里南京前端团队，欢迎关注[阿里南京技术专刊](https://zhuanlan.zhihu.com/ali-nanjing)了解更多讯息。
+题注：[Web Bundler CheatSheet](https://parg.co/YO2) 属于 [Awesome-CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets) 系列，盘点数个常用的开发打包工具清单。欢迎加入阿里南京前端团队，欢迎关注[阿里南京技术专刊](https://zhuanlan.zhihu.com/ali-nanjing)了解更多讯息。
 
 # Web Bundler CheatSheet | Web 构建与打包工具盘点
 
@@ -8,7 +8,7 @@
 
 ![webpack](https://user-images.githubusercontent.com/5803001/39966649-02e751a6-56e2-11e8-8af1-bbbd47aa7dbb.png)
 
-尺有所短，寸有所长，不同的构建工具有其不同的适用场景。Webpack 是非常优秀的构建与打包工具，但是其提供了基础且复杂的功能支持，使得并不适用于全部的场景。Parcel 这样的零配置打包工具适合于应用型的原型项目构建，而 Rollup 或者 Microbundle 适合于库的打包，Backpack 则能够帮我们快速构建 Node.js 项目。笔者在本文中列举讨论的仅是日常工作中会使用的工具，更多的 [Browserify](https://github.com/browserify/browserify)、[Fusebox](https://github.com/fuse-box/fuse-box) 等等构建工具查看 [Web 构建与打包工具资料索引](https://parg.co/Uss)或者[现代 Web 开发实战/进阶篇](https://github.com/wxyyxc1992/Web-Series)。
+尺有所短，寸有所长，不同的构建工具有其不同的适用场景。Webpack 是非常优秀的构建与打包工具，但是其提供了基础且复杂的功能支持，使得并不适用于全部的场景。Parcel 这样的零配置打包工具适合于应用型的原型项目构建，而 Rollup 或者 Microbundle 适合于库的打包，Backpack 则能够帮我们快速构建 Node.js 项目。笔者在本文中列举讨论的仅是日常工作中会使用的工具，更多的 [Browserify](https://github.com/browserify/browserify)、[Fusebox](https://github.com/fuse-box/fuse-box) 等等构建工具查看 [Web 构建与打包工具资料索引](https://parg.co/Uss)或者[现代 Web 开发实战/进阶篇](https://github.com/wx-chevalier/Web-Series)。
 
 # NPM & Yarn
 
@@ -25,7 +25,7 @@ yarn config set fse_binary_host_mirror https://npm.taobao.org/mirrors/fsevents -
 
 # Parcel
 
-Parcel 是著名的零配置的应用打包工具，在 [TensorFlowJS](https://github.com/wxyyxc1992/AIDL-Workbench) 或者 [gh-craft](https://github.com/wxyyxc1992/xCompass/blob/master/x-home/gh-craft/README.md) 等算法实验/游戏场景构建中，都能够快速地搭建应用。
+Parcel 是著名的零配置的应用打包工具，在 [TensorFlowJS](https://github.com/wx-chevalier/AIDL-Workbench) 或者 [gh-craft](https://github.com/wx-chevalier/xCompass/blob/master/x-home/gh-craft/README.md) 等算法实验/游戏场景构建中，都能够快速地搭建应用。
 
 ```sh
 # 安装 Parcel
@@ -41,7 +41,7 @@ $ parcel build index.js
 $ parcel build index.js -d build/output
 ```
 
-Parcel 会为我们自动地下载安装依赖，并且内置了 ES、SCSS 等常见的处理器。在 [fe-boilerplate](https://github.com/wxyyxc1992/fe-boilerplate/) 中提供了 [React](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/parcel), [React & TypeScript](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/parcel-ts), [Vue.js](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/vue/parcel) 等 Parcel 常见的示例，这里以 React 为例，首先定义组件与渲染：
+Parcel 会为我们自动地下载安装依赖，并且内置了 ES、SCSS 等常见的处理器。在 [fe-boilerplate](https://github.com/wx-chevalier/fe-boilerplate/) 中提供了 [React](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/parcel), [React & TypeScript](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/parcel-ts), [Vue.js](https://github.com/wx-chevalier/fe-boilerplate/blob/master/vue/parcel) 等 Parcel 常见的示例，这里以 React 为例，首先定义组件与渲染：
 
 ```js
 // index.js
@@ -143,7 +143,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 
 # Rollup + Microbundle
 
-Rollup 是较为为纯粹的模块打包工具，其相较于 Parcel 与 Webpack 等，更适合于构建 Library，譬如 React、Vue.js、Angular、D3、Moment、Redux 等一系列优秀的库都是采用 Rollup 进行构建。。Rollup 能够将按照 ESM(ES2015 Module)规范编写的源码构建输出为 IIFE、AMD、CommonJS、UMD、ESM 等多种格式，并且其较早地支持 Tree Shaking，Scope Hoisting 等优化特性，保证模块的简洁与高效。这里我们使用的 Rollup 示例配置项目存放在了 [fe-boilerplate/rollup](https://github.com/wxyyxc1992/fe-boilerplate/tree/master/bundler/rollup)。最简单的 rollup.config.js 文件配置如下：
+Rollup 是较为为纯粹的模块打包工具，其相较于 Parcel 与 Webpack 等，更适合于构建 Library，譬如 React、Vue.js、Angular、D3、Moment、Redux 等一系列优秀的库都是采用 Rollup 进行构建。。Rollup 能够将按照 ESM(ES2015 Module)规范编写的源码构建输出为 IIFE、AMD、CommonJS、UMD、ESM 等多种格式，并且其较早地支持 Tree Shaking，Scope Hoisting 等优化特性，保证模块的简洁与高效。这里我们使用的 Rollup 示例配置项目存放在了 [fe-boilerplate/rollup](https://github.com/wx-chevalier/fe-boilerplate/tree/master/bundler/rollup)。最简单的 rollup.config.js 文件配置如下：
 
 ```js
 export default {
@@ -174,7 +174,7 @@ export default {
 //# sourceMappingURL=data:application/json;charset=utf-8;base64,...
 ```
 
-Rollup 同样具有丰富的插件系统，在 [fe-boilerplate/rollup](https://github.com/wxyyxc1992/fe-boilerplate/tree/master/bundler/rollup) 中我们也引入了常见的别名、ESLint、环境变量定义、包体压缩与分析等插件。这里我们以最常用的 Babel 与 TypeScript 为例，如果我们需要在项目中引入 Babel，则同样在根目录配置 `.babelrc` 文件，然后引入 rollup-plugin-babel 插件即可：
+Rollup 同样具有丰富的插件系统，在 [fe-boilerplate/rollup](https://github.com/wx-chevalier/fe-boilerplate/tree/master/bundler/rollup) 中我们也引入了常见的别名、ESLint、环境变量定义、包体压缩与分析等插件。这里我们以最常用的 Babel 与 TypeScript 为例，如果我们需要在项目中引入 Babel，则同样在根目录配置 `.babelrc` 文件，然后引入 rollup-plugin-babel 插件即可：
 
 ```js
 import { rollup } from 'rollup';
@@ -202,7 +202,7 @@ export default {
 };
 ```
 
-[Microbundle](https://github.com/developit/microbundle) 则是 Developit 基于 Rollup 封装的零配置的轻量级打包工具，其目前已经内建支持 TypeScript 与 Flow，不需要额外的配置；笔者在 [js-swissgear/x-fetch](https://github.com/wxyyxc1992/js-swissgear) 项目的打包中也使用了该工具。
+[Microbundle](https://github.com/developit/microbundle) 则是 Developit 基于 Rollup 封装的零配置的轻量级打包工具，其目前已经内建支持 TypeScript 与 Flow，不需要额外的配置；笔者在 [js-swissgear/x-fetch](https://github.com/wx-chevalier/js-swissgear) 项目的打包中也使用了该工具。
 
 ```json
 {
@@ -220,7 +220,7 @@ export default {
 
 # Webpack
 
-作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wxyyxc1992/fe-boilerplate/blob/master/vue/webpack) 等。
+作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wx-chevalier/fe-boilerplate/blob/master/vue/webpack) 等。
 
 ![538c4af0d21e375d6d252d38cbb8a993](https://user-images.githubusercontent.com/5803001/39744493-0e21c33a-52d7-11e8-8295-1f8deb389565.png)
 
@@ -458,7 +458,7 @@ webpackJsonp([0], {
 
 如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
-更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 开发基础与工程实践/Webpack](https://github.com/wxyyxc1992/Web-Series) 章节。
+更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 开发基础与工程实践/Webpack](https://github.com/wx-chevalier/Web-Series) 章节。
 
 # Backpack
 
@@ -479,7 +479,7 @@ $ npm i backpack-core --save
 }
 ```
 
-在 [Backend-Boilerplate/node](https://github.com/wxyyxc1992/Backend-Boilerplate) 中可以查看 Backpack 的典型应用，我们也可以覆盖默认的 Webpack 配置：
+在 [Backend-Boilerplate/node](https://github.com/wx-chevalier/Backend-Boilerplate) 中可以查看 Backpack 的典型应用，我们也可以覆盖默认的 Webpack 配置：
 
 ```js
 // backpack.config.js

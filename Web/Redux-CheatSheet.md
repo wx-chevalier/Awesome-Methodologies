@@ -199,7 +199,7 @@ const first = () => {
 };
 ```
 
-我们也可以自己实现 Promise 中间件，可以参考 [redux/promiseMiddleware](https://github.com/wxyyxc1992/coding-snippets/tree/master/web/redux) 的源代码实现。在实际应用中，我们往往需要等待某个操作处理结束进行刷新等附加响应；此时我们即可以创建自定义的 Thunk，也可以直接在类方法中使用 await 来等待 dispatch 函数返回的 Promise:
+我们也可以自己实现 Promise 中间件，可以参考 [redux/promiseMiddleware](https://github.com/wx-chevalier/coding-snippets/tree/master/web/redux) 的源代码实现。在实际应用中，我们往往需要等待某个操作处理结束进行刷新等附加响应；此时我们即可以创建自定义的 Thunk，也可以直接在类方法中使用 await 来等待 dispatch 函数返回的 Promise:
 
 ```js
 const { fetchThing } = bindActionCreators({ fetchThing }, dispatch);

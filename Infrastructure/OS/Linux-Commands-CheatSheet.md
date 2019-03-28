@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 > 📌 相较于这些参考资料本文希望能够更为生动详细，并且不仅仅局限于 Bash 本身，而是包含具有一定价值的其他扩展命令，从而更贴近于日常工作中的需要。
 
@@ -315,7 +315,7 @@ ssh-copy-id username@remote-server
 
 生成的 id_rsa.pub 公钥文件也可以用于配置 Git 仓库的 SSH 访问等。我们可以使用 ssh 登录到本机(切换用户)或者远端 Linux 设备中，通过将本机生成的公钥文件写入目标机器的 authorized_keys 即可以实现免密码登录。scp 命令能够用于在服务器之间传递文件：
 
-```sh
+```sh#
 $ scp -P 8822 local_file remote_username@remote_ip:remote_folder
 ```
 

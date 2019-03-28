@@ -1,8 +1,8 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wxyyxc1992/Awesome-CheatSheets)
+[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # React CheatSheet | React 设计理念，语法纵览与实践清单
 
-这是一篇非常冗长的文章，是笔者 [现代 Web 开发基础与工程实践-React 篇](https://github.com/wxyyxc1992/Web-Series/tree/master/React) 系列的提炼。
+这是一篇非常冗长的文章，是笔者 [现代 Web 开发基础与工程实践-React 篇](https://github.com/wx-chevalier/Web-Series/tree/master/React) 系列的提炼。
 
 # Principles | 设计理念
 
