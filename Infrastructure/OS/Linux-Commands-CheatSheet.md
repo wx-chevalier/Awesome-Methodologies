@@ -94,15 +94,17 @@ mkdir -m a=rwx backup
 mkdir -p -m 777 backup/server/2011/11/30
 ```
 
+tar/zip 等命令能够用于创建压缩包或者解压缩：
+
 ```sh
-# 将文件解压到指定文件名
+# 将文件解压缩到指定文件名 -c 表示压缩，-x 表示解压缩
 $ tar -xvzf fileName.tar.gz -C newFileName
 
-# 将文件夹压缩到指定目录
+# 将文件夹解压缩到指定目录
 $ tar -czf target.tar.fz file1 file2 file3
 
 # 指定文件名创建压缩包
-$ tar -cv -f archive.tar file1.txt file2.txt
+$ tar -cvz -f archive.tar file1.txt file2.txt
 
 # 过滤某个文件夹下面的某些子文件夹
 $ tar cfvz --exclude='<dir1>' --exclude='<dir2>' target.tgz target_dir
@@ -298,7 +300,7 @@ $ find . -type f -name '\*.txt' -exec sed -i "s/{find}/{replace}/g" {} \;
 
 # 用户权限
 
-## SSH
+## SSH & SCP
 
 ```sh
 # 生成名为 id_rsa 的私钥文件和名为 id_rsa.pub 的公钥文件
@@ -311,7 +313,11 @@ $ ssh-keygen -b 4096 -t rsa
 ssh-copy-id username@remote-server
 ```
 
-生成的 id_rsa.pub 公钥文件也可以用于配置 Git 仓库的 SSH 访问等。我们可以使用 ssh 登录到本机(切换用户)或者远端 Linux 设备中，通过将本机生成的公钥文件写入目标机器的 authorized_keys 即可以实现免密码登录。
+生成的 id_rsa.pub 公钥文件也可以用于配置 Git 仓库的 SSH 访问等。我们可以使用 ssh 登录到本机(切换用户)或者远端 Linux 设备中，通过将本机生成的公钥文件写入目标机器的 authorized_keys 即可以实现免密码登录。scp 命令能够用于在服务器之间传递文件：
+
+```sh
+$ scp -P 8822 local_file remote_username@remote_ip:remote_folder
+```
 
 ## 用户管理
 
