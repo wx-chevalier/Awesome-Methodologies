@@ -291,6 +291,38 @@ $ ack -g hello --sort-files
 
 [ag](https://github.com/ggreer/the_silver_searcher) 是类似于 ack 但是性能更优地工具。
 
+## awk
+
+awk 是一种可以处理数据、产生格式化报表的语言。awk 的工作方式是读取数据文件，将每一行数据视为一条记录，每条记录以分隔符分成若干字段，然后输出。
+
+```sh
+$ echo 'BEGIN' | awk '{print $0 "\nline one\nline two\nline three"}'
+BEGIN
+line one
+line two
+line three
+
+# 输出指定分割参数
+$ route -n | awk '/UG[ \t]/{print $2}'
+
+# 计算文件中的数值和
+$ awk '{s+=$1} END {printf "%.0f", s}' mydatafile
+# 显示含 La 的数据行
+awk '/La/' 1.log
+# 显示每一行的第1和第2个字段
+awk '{print $1, $2}' 1.log
+# 将含有 La 关键词的数据行的第 1 以及第 2 个字段显示出来
+awk '/La/{print $1, $2}' 1.log
+
+# EGIN 后紧跟的操作，在 awk 命令开始匹配第一行时执行，END 后面紧跟的操作在处理完后执行
+$ awk 'BEGIN {count=0}{count++} END{print count}' /etc/passwd
+$ awk -F ':' 'BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i < NR; i++) print i, name[i]}' /etc/passwd
+# 仅显示前 5 行
+$ awk -F : 'NR > 1 && NR <=5 {print $1}' /etc/passwd
+# 显示与 root 相关的用户
+$ awk -F : '/^root/{print $1, $2}'  /etc/passwd
+```
+
 ## sed
 
 ```sh
@@ -315,8 +347,12 @@ ssh-copy-id username@remote-server
 
 生成的 id_rsa.pub 公钥文件也可以用于配置 Git 仓库的 SSH 访问等。我们可以使用 ssh 登录到本机(切换用户)或者远端 Linux 设备中，通过将本机生成的公钥文件写入目标机器的 authorized_keys 即可以实现免密码登录。scp 命令能够用于在服务器之间传递文件：
 
-```sh#
+```sh
+# 上传本地文件
 $ scp -P 8822 local_file remote_username@remote_ip:remote_folder
+
+# 复制目录
+$ scp -r local_folder remote_username@remote_ip:remote_folder
 ```
 
 ## 用户管理
@@ -513,11 +549,11 @@ $ lsof -p <pid> | grep TCP
 
 # 查看 TCP 连接数
 $ netstat -an
-# 统计80端口连接数
-$ netstat -nat|grep -i "80"|wc -l
+# 统计 80 端口连接数
+$ netstat -nat | grep -i "80" | wc -l
 # 统计 IP 地址连接数
-$ netstat -na|grep ESTABLISHED|awk {print $5}|awk -F: {print $1}| sort |uniq -c|sort -r +0n
-$ netstat -na|grep SYN|awk {print $5}|awk -F: {print $1}|sort|uniq -c|sort -r +0n
+$ netstat -na | grep ESTABLISHED | awk {print $5} | awk -F: {print $1} | sort | uniq -c | sort -r +0n
+$ netstat -na | grep SYN | awk {print $5} | awk -F: {print $1} | sort | uniq -c | sort -r +0n
 ```
 
 ## 网络配置
@@ -538,6 +574,26 @@ $ iptables -t nat -A OUTPUT -p tcp -d 192.168.4.177 --dport 80 -j DNAT --to 127.
 ```sh
 # 展示 curl 的进度
 $ curl --progress-bar -T "${SOME_LARGE_FILE}" "${UPLOAD_URL}" | tee /dev/null
+```
+
+nc 也是常见的网络监听与请求工具：
+
+```sh
+# 端口扫描
+$ nc -v -w 2 192.168.2.34 -z 21-24
+
+# 监听
+$ nc -l 1234
+$ nc 192.168.2.34 1234
+
+# 文件拷贝，从 192.168.2.33 拷贝文件到 192.168.2.34
+$ nc -l 1234 > test.txt # 192.168.2.34
+$ nc 192.168.2.34 < test.txt # 192.168.2.33
+
+# 发送端
+$ cat a.txt  |  nc -l  3333
+# 接收端
+$ nc 192.168.0.3    3333 >   a.txt
 ```
 
 # Todos
