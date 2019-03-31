@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # React CheatSheet | React 设计理念，语法纵览与实践清单
 

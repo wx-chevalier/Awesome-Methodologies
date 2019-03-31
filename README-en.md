@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # Awesome CheatSheet: Overview of syntax and features, collection of code snippets in single file, go from zero to hero at fly🚀
 

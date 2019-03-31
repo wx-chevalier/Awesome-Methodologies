@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 # Three.js CheatSheet | Three.js 入门与实践
 

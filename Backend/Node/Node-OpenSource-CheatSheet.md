@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 > 本文翻译自 David Gilbertson 的[19-things-i-learnt-reading-the-nodejs-docs](https://hackernoon.com/19-things-i-learnt-reading-the-nodejs-docs-8a2dcc7f307f#.1twxqa1tm) 本文从属于笔者的[Web 开发入门与最佳实践](https://github.com/wx-chevalier/Web-Develop-Introduction-And-Best-Practices)中[NodeJS 入门与最佳实践](https://github.com/wx-chevalier/Web-Develop-Introduction-And-Best-Practices/tree/master/Server/NodeJS)系列文章。
 

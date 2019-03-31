@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 ![image](https://user-images.githubusercontent.com/5803001/45699770-5d0a0f00-bb9d-11e8-8ce7-82650bfcbb39.png)
 

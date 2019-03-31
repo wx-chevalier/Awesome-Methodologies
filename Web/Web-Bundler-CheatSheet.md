@@ -1,4 +1,4 @@
-[![返回目录](https://parg.co/UCb)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
 题注：[Web Bundler CheatSheet](https://parg.co/YO2) 属于 [Awesome-CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets) 系列，盘点数个常用的开发打包工具清单。欢迎加入阿里南京前端团队，欢迎关注[阿里南京技术专刊](https://zhuanlan.zhihu.com/ali-nanjing)了解更多讯息。
 

@@ -1,4 +1,4 @@
-﻿[![返回目录](https://parg.co/UCb)](hhttps://github.com/wx-chevalier/Awesome-CheatSheets
+﻿[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](hhttps://github.com/wx-chevalier/Awesome-CheatSheets
 
 # 面试算法实践与国外大厂习题指南
 
