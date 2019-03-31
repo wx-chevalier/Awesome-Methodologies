@@ -139,42 +139,7 @@ pp.pprint(tup)
 
 Python 中的模块(Module)即是 Python 源码文件，其可以导出类、函数与全局变量；当我们从某个模块导入变量时，函数名往往就是命名空间(Namespace)。
 
-```py
-# 文件目录
-someDir/
-	main.py
-	siblingModule.py
-
-# siblingModule.py
-def siblingModuleFun():
-	print('Hello from siblingModuleFun')
-
-def siblingModuleFunTwo():
-	print('Hello from siblingModuleFunTwo')
-
-# main.py
-# 引入模块
-import siblingModule
-import siblingModule as sibMod
-
-sibMod.siblingModuleFun()
-
-# 直接引入对应函数名
-from siblingModule import siblingModuleFun
-siblingModuleFun()
-
-# 捕获模块异常
-try:
-    # Import 'someModuleA' that is only available in Windows
-    import someModuleA
-except ImportError:
-    try:
-	    # Import 'someModuleB' that is only available in Linux
-        import someModuleB
-    except ImportError:
-```
-
-而 Python 中的包(Package)则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口 :
+而 Python 中的包（Package）则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口 :
 
 ```py
 # 目录格式
