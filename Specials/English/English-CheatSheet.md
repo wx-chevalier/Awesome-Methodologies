@@ -23,6 +23,7 @@
   - ASCII ['æski](http://dict.youdao.com/dictvoice?audio=ASCII&type=1)，注意 k 变音
   - assign [ə'saɪn](http://dict.youdao.com/dictvoice?audio=assign&type=1)
   - asset ['æset](http://dict.youdao.com/dictvoice?audio=asset&type=1)
+  - assert ['æset](http://dict.youdao.com/dictvoice?audio=assert&type=1)
   - avatar ['ævətɑr](http://dict.youdao.com/dictvoice?audio=avatar&type=1)
 
 * B
