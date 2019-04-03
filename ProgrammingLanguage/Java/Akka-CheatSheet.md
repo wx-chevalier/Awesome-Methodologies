@@ -24,8 +24,6 @@ Akka 是一个建立在 Actors 概念和可组合 Futures 之上的并发框架,
 
 Akka 是一种高度可扩展的软件，这不仅仅表现在性能方面，也表现在它所适用的应用的大小。Akka 的核心，Akka-actor 是非常小的，可以非常方便地放进你的应用中，提供你需要的异步无锁并行功能，不会有任何困扰。你可以任意选择 Akka 的某些部分集成到你的应用中，也可以使用完整的包——Akka 微内核，它是一个独立的容器，可以直接部署你的 Akka 应用。随着 CPU 核数越来越多，即使你只使用一台电脑，Akka 也可作为一种提供卓越性能的选择。 Akka 还同时提供多种并发范型，允许用户选择正确的工具来完成工作。
 
-[Backend Boilerplate/akka]()
-
 # Actor 基础
 
 The Actor Model provides a higher level of abstraction for writing concurrent and distributed systems. It alleviates the developer from having to deal with explicit locking and thread management, making it easier to write correct concurrent and parallel systems. Actors were defined in the 1973 paper by Carl Hewitt but have been popularized by the Erlang language, and used for example at Ericsson with great success to build highly concurrent and reliable telecom systems.
