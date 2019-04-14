@@ -1118,7 +1118,7 @@ var logger *log.Logger = server.Logger
 
 ## Reflection & Generics | 反射与泛型
 
-Go 中并没有泛型，
+Go 中并没有泛型。
 
 # 并发编程
 
