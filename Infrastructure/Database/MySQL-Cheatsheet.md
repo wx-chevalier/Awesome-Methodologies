@@ -137,7 +137,7 @@ MySQL 中常见的性能问题，可能是有如下类型：
 
 - CPU 过载，慢查询，OPTIMZE TABLE
 - 内存使用问题，内存相关参数配置不合理
-- 磁盘 I/O，Buffer pool 命中率；慢查询； redo, undo, data 分开存放
+- 磁盘 IO，Buffer pool 命中率；慢查询； redo, undo, data 分开存放
 - 网络问题，非专有网络，网络路由
 - 表及查询语句问题，主要的查询性能问题：全表扫描 临时表 排序 FileSort
 

@@ -562,7 +562,7 @@ $ docker rm $(docker ps -a | grep "46 hours ago")
 ```sh
 $ docker stats redis1 redis2
 
-CONTAINER           CPU %               MEM USAGE / LIMIT     MEM %               NET I/O             BLOCK I/O
+CONTAINER           CPU %               MEM USAGE / LIMIT     MEM %               NET IO             BLOCK IO
 redis1              0.07%               796 KB / 64 MB        1.21%               788 B / 648 B       3.568 MB / 512 KB
 ```
 
