@@ -22,7 +22,7 @@ public int insertUser(UserBean user) throws Exception;
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- 不写会报错 -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wenyin.mybatis.mapper.UserMapper">
+<mapper namespace="wx.mybatis.mapper.UserMapper">
   <!-- 自定义返回结果集 -->
    <resultMap id="userMap" type="UserBean">
         <id property="id" column="id" javaType="java.lang.Integer"></id>
@@ -56,41 +56,6 @@ public int insertUser(UserBean user) throws Exception;
      select * from t_user
     </select>
 </mapper>
-```
-
-## 数据类型
-
-无论是 MyBatis 在预处理语句（PreparedStatement）中设置一个参数时，还是从结果集中取出一个值时， 都会用类型处理器将获取的值以合适的方式转换成 Java 类型。从 3.4.5 开始，MyBatis 默认支持 JSR-310(日期和时间 API) 。
-
-```
- JDBCType            JavaType
-  CHAR                String
-  VARCHAR             String
-  LONGVARCHAR         String
-  NUMERIC             java.math.BigDecimal
-  DECIMAL             java.math.BigDecimal
-  BIT                 boolean
-  BOOLEAN             boolean
-  TINYINT             byte
-  SMALLINT            short
-  INTEGER             int
-  BIGINT              long
-  REAL                float
-  FLOAT               double
-  DOUBLE              double
-  BINARY              byte[]
-  VARBINARY           byte[]
-  LONGVARBINARY               byte[]
-  DATE                java.sql.Date
-  TIME                java.sql.Time
-  TIMESTAMP           java.sql.Timestamp
-  CLOB                Clob
-  BLOB                Blob
-  ARRAY               Array
-  DISTINCT            mapping of underlying type
-  STRUCT              Struct
-  REF                 Ref
-  DATALINK            java.net.URL
 ```
 
 ## 数据查询
