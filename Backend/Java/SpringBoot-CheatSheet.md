@@ -494,7 +494,7 @@ public Book getByIsbn(String isbn) {
 
 ## Spring JDBC Template
 
-## Mybatis
+## MyBatis
 
 ## Redis
 
