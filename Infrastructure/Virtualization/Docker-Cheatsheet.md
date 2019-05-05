@@ -402,7 +402,7 @@ $ docker login myregistrydomain.com:5000
 
 随着 17.05 版本的发布，Docker 对于镜像构建这块也作了一项重要更新，那就是 multi-stage build（多阶段构建），这有助于方便源代码控制，减小镜像体积。
 
-```
+```Dockerfile
 # First stage: complete build environment
 FROM maven:3.5.0-jdk-8-alpine AS builder
 # add pom.xml and source code

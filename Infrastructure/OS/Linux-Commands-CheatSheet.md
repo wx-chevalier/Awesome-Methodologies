@@ -519,7 +519,24 @@ $ netstat -na | grep SYN | awk {print $5} | awk -F: {print $1} | sort | uniq -c 
 
 ## 网络配置
 
-iptables 可以用来配置网络访问策略，添加路由转发功能
+ifconfig 常用于进行简单的网卡地址配置：
+
+```sh
+# Set static ip address
+$ ifconfig eth0 <IP> netmask <NETMASK> broadcast <BROADCAST>
+# change mac address
+$ ifconfig eth0 hw ether <MAC_ADDRESS>
+# add alias interface
+$ ifconfig eth0:0 <ALIAS_IP>
+# enable promiscuous model
+$ ifconfig eth0 promisc
+$ ifconfig enp1s0 192.168.1.5 netmask 255.255.255.0
+
+# Set default route
+$ route add default gw 192.168.1.1
+```
+
+iptables 可以用来配置网络访问策略，添加路由转发功能：
 
 ```sh
 # 将外网访问 80 端口的数据转发到 8080 端口
