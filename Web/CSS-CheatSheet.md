@@ -2,6 +2,9 @@
 
 # CSS CheatSheet | CSS 语法速览与实践清单
 
+```css
+```
+
 # Syntax | 语法
 
 ## Selector
