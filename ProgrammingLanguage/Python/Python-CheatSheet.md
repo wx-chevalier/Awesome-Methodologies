@@ -51,6 +51,8 @@ verify_ssl = true
 name = "pypi"
 ```
 
+在这里，我们首先对于 Python 的常用语法有所了解，可以参考 [python-snippets](./python-snippets.py)。
+
 # 基础语法
 
 Python 是一门高阶、动态类型的多范式编程语言；定义 Python 文件的时候我们往往会先声明文件编码方式 :

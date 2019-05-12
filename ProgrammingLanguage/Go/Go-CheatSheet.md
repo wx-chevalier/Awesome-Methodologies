@@ -8,11 +8,11 @@
 
 Go (a.k.a. Golang) is a statically-typed programming language first developed at Google. It is derived from C with additional features such as garbage collection, type safety, dynamic-typing capabilities, additional built-in types, and a large standard library.
 
-## 环境配置与语法基础
-
 可以前往[这里](https://golang.org/dl/)下载 Go SDK 安装包，或者使用 brew 等包管理器安装。现在我们也推荐使用 [gvm](https://github.com/moovweb/gvm) 这样的专用版本管理工具，来方便地更新与切换版本。
 
 环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名(文件夹名)一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件(夹)。
+
+在这里，我们首先对于 Go 的常用语法有所了解，请参考当前目录下的 [go-snippets](https://parg.co/QNi)。
 
 # 包管理与模块机制
 
@@ -1119,149 +1119,6 @@ var logger *log.Logger = server.Logger
 ## Reflection & Generics | 反射与泛型
 
 Go 中并没有泛型。
-
-# 并发编程
-
-## Goroutines
-
-Goroutines 是轻量级的线程，可以参考[并发编程导论](https://parg.co/UnK)一文中的进程、线程与协程的讨论；Go 为我们提供了非常便捷的 Goroutines 语法：
-
-```go
-// 普通函数
-func doStuff(s string) {
-}
-
-func main() {
-    // 使用命名函数创建 Goroutine
-    go doStuff("foobar")
-
-    // 使用匿名内部函数创建 Goroutine
-    go func (x int) {
-        // function body goes here
-    }(42)
-}
-```
-
-## Channels
-
-信道(Channel)是带有类型的管道，可以用于在不同的 Goroutine 之间传递消息，其基础操作如下：
-
-```go
-// 创建类型为 int 的信道
-ch := make(chan int)
-
-// 向信道中发送值
-ch <- 42
-
-// 从信道中获取值
-v := <-ch
-
-// 读取，并且判断其是否关闭
-v, ok := <-ch
-
-// 读取信道，直至其关闭
-for i := range ch {
-    fmt.Println(i)
-}
-```
-
-譬如我们可以在主线程中等待来自 Goroutine 的消息，并且输出：
-
-```go
-// 创建信道
-messages := make(chan string)
-
-// 执行 Goroutine
-go func() { messages <- "ping" }()
-
-// 阻塞，并且等待消息
-msg := <-messages
-
-// 使用信道进行并发地计算，并且阻塞等待结果
-c := make(chan int)
-go sum(s[:len(s)/2], c)
-go sum(s[len(s)/2:], c)
-x, y := <-c, <-c // 从 c 中接收
-```
-
-如上创建的是无缓冲型信道(Non-buffered Channels)，其是阻塞型信道；当没有值时读取方会持续阻塞，而写入方则是在无读取时阻塞。我们可以创建缓冲型信道(Buffered Channel)，其读取方在信道被写满前都不会被阻塞：
-
-```go
-ch := make(chan int, 100)
-
-// 发送方也可以主动关闭信道
-close(ch)
-```
-
-Channel 同样可以作为函数参数，并且我们可以显式声明其是用于发送信息还是接收信息，从而增加程序的类型安全度：
-
-```go
-// ping 函数用于发送信息
-func ping(pings chan<- string, msg string) {
-    pings <- msg
-}
-
-// pong 函数用于从某个信道中接收信息，然后发送到另一个信道中
-func pong(pings <-chan string, pongs chan<- string) {
-    msg := <-pings
-    pongs <- msg
-}
-
-func main() {
-    pings := make(chan string, 1)
-    pongs := make(chan string, 1)
-    ping(pings, "passed message")
-    pong(pings, pongs)
-    fmt.Println(<-pongs)
-}
-```
-
-## 同步
-
-同步，是并发编程中的常见需求，这里我们可以使用 Channel 的阻塞特性来实现 Goroutine 之间的同步：
-
-```go
-func worker(done chan bool) {
-    time.Sleep(time.Second)
-    done <- true
-}
-
-func main() {
-    done := make(chan bool, 1)
-    go worker(done)
-
-	// 阻塞直到接收到消息
-    <-done
-}
-```
-
-Go 还为我们提供了 select 关键字，用于等待多个信道的执行结果：
-
-```go
-// 创建两个信道
-c1 := make(chan string)
-c2 := make(chan string)
-
-// 每个信道会以不同时延输出不同值
-go func() {
-	time.Sleep(1 * time.Second)
-	c1 <- "one"
-}()
-go func() {
-	time.Sleep(2 * time.Second)
-	c2 <- "two"
-}()
-
-// 使用 select 来同时等待两个信道的执行结果
-for i := 0; i < 2; i++ {
-	select {
-	case msg1 := <-c1:
-		fmt.Println("received", msg1)
-	case msg2 := <-c2:
-		fmt.Println("received", msg2)
-	}
-}
-```
 
 # Web 编程
 

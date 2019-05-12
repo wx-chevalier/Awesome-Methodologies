@@ -6,6 +6,10 @@
 
 JavaScript CheatSheet 是对于 JavaScript 学习/实践过程中的语法与技巧进行盘点，其属于 [Awesome CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets/) 系列，致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。本文参考了许多优秀的文章与代码示范，统一声明在了 [JavaScript Links](https://github.com/wx-chevalier/Awesome-Lists/blob/master/ProgrammingLanguage/JavaScript/JavaScript-List.md)；如果希望深入了解某方面的内容，可以继续阅读[]()，或者前往 [coding-snippets/javascript]() 查看使用 JavaScript 解决常见的数据结构与算法、设计模式、业务功能方面的代码实现。
 
+Javascript 于 1995 年由网景公司的 Brendan Eich 发明。最初它作为一种简单的，用于开发网站的脚本语言而被发明出来，是用于开发复杂网站的 Java 的补充。但由于它与网页结合度很高并且在浏览器中得到内置的支持，所以在网页前端领域 Javascript 变得比 Java 更流行了。
+
+对于 JavaScript 的语法速览可以参考本目录下的 [js-snippets](https://parg.co/QNv)。
+
 # 基础语法
 
 # 表达式与控制流
@@ -879,4 +883,22 @@ try {
 } finally {
   alert('thanks for playing!');
 }
+```
+
+# WTF
+
+```
+// 0[object Object]1
+{} + [] + {} + [1]
+
+// NaN[object Object]
+{} + [1,2] + {} + []
+```
+
+```js
+// false，等式两侧存在 NaN，则为 false
+NaN == NaN
+
+// 先进行 Bool 操作转化为 false，然后两侧都变为数字 0
+[] == ![]
 ```

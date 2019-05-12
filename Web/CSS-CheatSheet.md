@@ -3,6 +3,147 @@
 # CSS CheatSheet | CSS 语法速览与实践清单
 
 ```css
+/* 注释 */
+
+/* ####################
+   ## 选择器
+   ####################*/
+
+/* 一般而言，CSS的声明语句非常简单。 */
+选择器 {
+  属性: 值; /* 更多属性...*/
+}
+
+/* 选择器用于指定页面上的元素。
+
+针对页面上的所有元素。 */
+* {
+  color: red;
+}
+
+/*
+假定页面上有这样一个元素
+
+<div class='some-class class2' id='someId' attr='value' />
+*/
+
+/* 你可以通过类名来指定它 */
+.some-class {
+}
+
+/* 给出所有类名 */
+.some-class.class2 {
+}
+
+/* 标签名 */
+div {
+}
+
+/* id */
+#someId {
+}
+
+/* 由于元素包含attr属性，因此也可以通过这个来指定 */
+[attr] {
+  font-size: smaller;
+}
+
+/* 以及有特定值的属性 */
+[attr='value'] {
+  font-size: smaller;
+}
+
+/* 通过属性的值的开头指定 */
+[attr^='val'] {
+  font-size: smaller;
+}
+
+/* 通过属性的值的结尾来指定 */
+[attr$='ue'] {
+  font-size: smaller;
+}
+
+/* 通过属性的值的部分来指定 */
+[attr~='lu'] {
+  font-size: smaller;
+}
+
+/* 你可以把这些全部结合起来，注意不同部分间不应该有空格，否则会改变语义 */
+div.some-class[attr$='ue'] {
+}
+
+/* 你也可以通过父元素来指定。*/
+
+/* 某个元素是另一个元素的直接子元素 */
+div.some-parent > .class-name {
+}
+
+/* 或者通过该元素的祖先元素 */
+div.some-parent .class-name {
+}
+
+/* 注意，去掉空格后语义就不同了。
+你能说出哪里不同么？ */
+div.some-parent.class-name {
+}
+
+/* 你可以选择某元素前的相邻元素 */
+.i-am-before + .this-element {
+}
+
+/* 某元素之前的同级元素（相邻或不相邻） */
+.i-am-any-before ~ .this-element {
+}
+
+/* 伪类允许你基于页面的行为指定元素（而不是基于页面结构） */
+
+/* 例如，当鼠标悬停在某个元素上时 */
+:hover {
+}
+
+/* 已访问过的链接*/
+:visited {
+}
+
+/* 未访问过的链接*/
+:link {
+}
+
+/* 当前焦点的input元素 */
+:focus {
+}
+
+/* ####################
+   ## 属性
+   ####################*/
+
+选择器 {
+  /* 单位 */
+  width: 50%; /* 百分比 */
+  font-size: 2em; /* 当前字体大小的两倍 */
+  width: 200px; /* 像素 */
+  font-size: 20pt; /* 点 */
+  width: 5cm; /* 厘米 */
+  width: 50mm; /* 毫米 */
+  width: 5in; /* 英尺 */
+
+  /* 颜色 */
+  background-color: #f6e; /* 短16位 */
+  background-color: #f262e2; /* 长16位 */
+  background-color: tomato; /* 颜色名称 */
+  background-color: rgb(255, 255, 255); /* rgb */
+  background-color: rgb(10%, 20%, 50%); /*  rgb 百分比 */
+  background-color: rgba(255, 0, 0, 0.3); /*  rgb 加透明度 */
+
+  /* 图片 */
+  background-image: url(/path-to-image/image.jpg);
+
+  /* 字体 */
+  font-family: Arial;
+  font-family: 'Courier New'; /* 使用双引号包裹含空格的字体名称 */
+  font-family: 'Courier New', Trebuchet, Arial; /* 如果第一个
+                             字体没找到，浏览器会使用第二个字体，一次类推 */
+}
 ```
 
 # Syntax | 语法
@@ -21,18 +162,6 @@
 .quote {
   color: var(--red);
 }
-```
-
-```js
-// 设置变量值
-element.style.setProperty('--my-color', 'rebeccapurple');
-
-// 获取变量值
-element.style.getPropertyValue('--my-color');
-// => 'rebeccapurple'
-
-// 移除变量值
-element.style.removeProperty('--my-color');
 ```
 
 # Layout & Position | 布局与定位
@@ -118,8 +247,7 @@ p::after {
 
 ## content
 
-可以使用 css content 来避免 dom 入侵。
-我们为查找到采集的元素添加了个性化的样式 data-spmd-container ，并为该 dom 添加新属性 data-udata-value 用于记录该元素的点击数据，css 做如下定义
+可以使用 css content 来避免 dom 入侵。我们为查找到采集的元素添加了个性化的样式 data-spmd-container ，并为该 dom 添加新属性 data-udata-value 用于记录该元素的点击数据，css 做如下定义
 
 ```css
 .data-spmd-container:before {
@@ -136,8 +264,7 @@ p::after {
 }
 ```
 
-hover 图标
-这个实现简单，只需要在上面的的基础上定义新 css
+对于 Hover 图标：
 
 ```css
 .data-spmd-container:hover:before {
@@ -149,8 +276,7 @@ hover 图标
 }
 ```
 
-图标点击事件
-首先明确一点，对于 css 添加的伪元素，并不真实存在于页面元素里，所以不能直接添加点击事件 \$('.class:before')也不可能查到，不过针对于 udata 的使用情况，采用了迂回方案，即详细的图标大小是固定的，居左上角 20px \* 20px，只要监听该元素的点击范围是不是在图标范围内就可以了，js 事件如下
+还可以添加图标点击事件，首先明确一点，对于 css 添加的伪元素，并不真实存在于页面元素里，所以不能直接添加点击事件 \$('.class:before')也不可能查到，不过针对于 udata 的使用情况，采用了迂回方案，即详细的图标大小是固定的，居左上角 20px \* 20px，只要监听该元素的点击范围是不是在图标范围内就可以了，js 事件如下
 
 ```js
 dom.on('click', e => {
