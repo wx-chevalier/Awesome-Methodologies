@@ -2,6 +2,11 @@
 
 # Git CheatSheet | Git 命令速览与备忘清单
 
+```sh
+# 使用 credential 管理密码，拉取仓库时候仅需要输入一次
+$ git global config credential.helper store
+```
+
 The name "git" was given by Linus Torvalds when he wrote the very first version. He described the tool as "the stupid content tracker" and the name as (depending on your way):
 
 - random three-letter combination that is pronounceable, and not actually used by any common UNIX command. The fact that it is a mispronunciation of "get" may or may not be relevant.
