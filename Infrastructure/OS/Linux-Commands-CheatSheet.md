@@ -1,6 +1,6 @@
 [![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
-> 📌 相较于这些参考资料本文希望能够更为生动详细，并且不仅仅局限于 Bash 本身，而是包含具有一定价值的其他扩展命令，从而更贴近于日常工作中的需要。
+> [Awesome Linux Commands CheatSheet https://github.com/wx-chevalier/Awesome-CheatSheets](https://github.com/wx-chevalier/Awesome-CheatSheets) 是对于 [Linux 与操作系统 https://url.wx-coder.cn/Q0AmI](https://url.wx-coder.cn/Q0AmI) 中常用命令的总结，相较于 [Awesome Linux List https://github.com/wx-chevalier/Awesome-Lists](https://github.com/wx-chevalier/Awesome-Lists/tree/master/Infrastructure/OS/Linux) 中的参考资料，本文希望能够更为生动详细，并且不仅仅局限于 Bash 本身，而是包含具有一定价值的其他扩展命令，从而更贴近于日常工作中的需要。
 
 # Linux Commands CheatSheet | 常用命令与技巧清单
 
@@ -19,9 +19,7 @@ Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命�
 ```sh
 # 统计 /home/han 目录（包含子目录）下的所有 js 文件
 $ ls -lR /home/han | grep js | wc -l
-
 $ ls -l "/home/han" | grep "js" |wc -l
-
 $ ls -l --sort=size --block-size=M
 ```
 
@@ -30,10 +28,8 @@ $ ls -l --sort=size --block-size=M
 ```sh
 # 根据文件类型搜索
 $ find * -type f | fzf > selected
-
 # 根据文件名匹配
 $ find . -name '*.map' -exec rm {} \;
-
 # 批量修改文件的权限
 $ find /opt/lampp/htdocs -type f -exec chmod 644 {} \;
 ```
@@ -42,17 +38,25 @@ $ find /opt/lampp/htdocs -type f -exec chmod 644 {} \;
 
 ## 文件操作
 
+我们可以使用 mkdir, cp 等命令进行文件夹的创建与复制操作：
+
 ```shell
 # 创建文件夹
 mkdir <name>
-
 # 递归创建父文件夹
 mkdir -p / --parents backup/old
-
 # 创建文件夹时同时指定权限
 mkdir -m a=rwx backup
-
 mkdir -p -m 777 backup/server/2011/11/30
+
+# 拷贝单个或者多个文件
+$ cp myfile.txt /home/office
+$ cp file_1.txt file_2.txt file_3.txt /home/office
+# 递归拷贝目录
+$ cp -r directory_1 /home/office
+# 强制拷贝
+$ cp -f *.txt -v ../office
+$ cp --remove-destination *.txt -v ../office
 ```
 
 tar/zip 等命令能够用于创建压缩包或者解压缩：
@@ -128,15 +132,12 @@ $ umount /data2
 ```sh
 # 查看磁盘剩余空间
 $ df -ah
-
 $ df --block-size=GB/-k/-m
 
 # 查看当前目录下的目录空间占用
 $ du -h --max-depth=1 /var/ | sort
-
 # 查看 tmp 目录的磁盘占用
 $ du -sh /tmp
-
 # 查看当前目录包含子目录的大小
 $ du -sm .
 
