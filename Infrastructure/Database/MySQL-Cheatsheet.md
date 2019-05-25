@@ -162,7 +162,7 @@ MySQL 中常见的性能问题，可能是有如下类型：
 - innodb_flush_log_at_trx_commit
   要求高可靠性，设置为 1。不要求高可靠性，可设置为 0 或 2.
 - sync_binlog
-  binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
+  Binlog 的可靠性设置，高可靠性设置为 1，但对于性能影响比较大。如果已经配置了 Slave，这个参数可设置为 0
 - innodb_flush_method
   Linux 下设置为 O_DIRECT
 
