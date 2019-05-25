@@ -1,3 +1,4 @@
+
 # 用井字符开头的是单行注释
 
 """ 多行字符串用三个引号
@@ -6,10 +7,15 @@
 """
 
 ####################################################
-## 1. 原始数据类型和运算符
+# 1. 原始数据类型和运算符
 ####################################################
 
 # 整数
+from functools import wraps
+import math as m
+from math import *
+from math import ceil, floor
+import math
 3  # => 3
 
 # 算术没有什么出乎意料的
@@ -23,18 +29,18 @@
 
 # 整数除法的结果都是向下取整
 5 // 3     # => 1
-5.0 // 3.0 # => 1.0 # 浮点数也可以
+5.0 // 3.0  # => 1.0 # 浮点数也可以
 -5 // 3  # => -2
--5.0 // 3.0 # => -2.0
+-5.0 // 3.0  # => -2.0
 
 # 浮点数的运算结果也是浮点数
-3 * 2.0 # => 6.0
+3 * 2.0  # => 6.0
 
 # 模除
-7 % 3 # => 1
+7 % 3  # => 1
 
 # x的y次方
-2**4 # => 16
+2**4  # => 16
 
 # 用括号决定优先级
 (1 + 3) * 2  # => 8
@@ -48,15 +54,15 @@ not True  # => False
 not False  # => True
 
 # 逻辑运算符，注意and和or都是小写
-True and False # => False
-False or True # => True
+True and False  # => False
+False or True  # => True
 
 # 整数也可以当作布尔值
-0 and 2 # => 0
--5 or 0 # => -5
-0 == False # => True
-2 == True # => False
-1 == True # => True
+0 and 2  # => 0
+-5 or 0  # => -5
+0 == False  # => True
+2 == True  # => False
+1 == True  # => True
 
 # 用==判断相等
 1 == 1  # => True
@@ -90,11 +96,12 @@ False or True # => True
 "{} can be {}".format("strings", "interpolated")
 
 # 可以重复参数以节省时间
-"{0} be nimble, {0} be quick, {0} jump over the {1}".format("Jack", "candle stick")
+"{0} be nimble, {0} be quick, {0} jump over the {1}".format(
+    "Jack", "candle stick")
 # => "Jack be nimble, Jack be quick, Jack jump over the candle stick"
 
 # 如果不想数参数，可以用关键字
-"{name} wants to eat {food}".format(name="Bob", food="lasagna") 
+"{name} wants to eat {food}".format(name="Bob", food="lasagna")
 # => "Bob wants to eat lasagna"
 
 # 如果你的Python3程序也要在Python2.5以下环境运行，也可以用老式的格式化语法
@@ -111,12 +118,12 @@ None is None  # => True
 # 所有其他值都是True
 bool(0)  # => False
 bool("")  # => False
-bool([]) # => False
-bool({}) # => False
+bool([])  # => False
+bool({})  # => False
 
 
 ####################################################
-## 2. 变量和集合
+# 2. 变量和集合
 ####################################################
 
 # print是内置的打印函数
@@ -241,7 +248,8 @@ filled_dict.setdefault("five", 5)  # filled_dict["five"]设为5
 filled_dict.setdefault("five", 6)  # filled_dict["five"]还是5
 
 # 字典赋值
-filled_dict.update({"four":4}) # => {"one": 1, "two": 2, "three": 3, "four": 4}
+# => {"one": 1, "two": 2, "three": 3, "four": 4}
+filled_dict.update({"four": 4})
 filled_dict["four"] = 4  # 另一种赋值方法
 
 # 用del删除
@@ -275,7 +283,7 @@ filled_set | other_set   # => {1, 2, 3, 4, 5, 6}
 
 
 ####################################################
-## 3. 流程控制和迭代器
+# 3. 流程控制和迭代器
 ####################################################
 
 # 先随便定义一个变量
@@ -342,7 +350,7 @@ else:   # else语句是可选的，必须在所有的except之后
 
 filled_dict = {"one": 1, "two": 2, "three": 3}
 our_iterable = filled_dict.keys()
-print(our_iterable) # => dict_keys(['one', 'two', 'three'])，是一个实现可迭代接口的对象
+print(our_iterable)  # => dict_keys(['one', 'two', 'three'])，是一个实现可迭代接口的对象
 
 # 可迭代对象可以遍历
 for i in our_iterable:
@@ -363,21 +371,21 @@ our_iterator.__next__()  # => "two"
 our_iterator.__next__()  # => "three"
 
 # 当迭代器所有元素都取出后，会抛出StopIteration
-our_iterator.__next__() # 抛出StopIteration
+our_iterator.__next__()  # 抛出StopIteration
 
 # 可以用list一次取出迭代器所有的元素
 list(filled_dict.keys())  # => Returns ["one", "two", "three"]
 
 
-
 ####################################################
-## 4. 函数
+# 4. 函数
 ####################################################
 
 # 用def定义新函数
 def add(x, y):
     print("x is {} and y is {}".format(x, y))
     return x + y    # 用return语句返回
+
 
 # 调用函数
 add(5, 6)   # => 印出"x is 5 and y is 6"并且返回11
@@ -390,12 +398,14 @@ add(y=6, x=5)   # 关键字参数可以用任何顺序
 def varargs(*args):
     return args
 
+
 varargs(1, 2, 3)   # => (1, 2, 3)
 
 
 # 我们也可以定义一个关键字可变参数函数
 def keyword_args(**kwargs):
     return kwargs
+
 
 # 我们来看看结果是什么：
 keyword_args(big="foot", loch="ness")   # => {"big": "foot", "loch": "ness"}
@@ -405,6 +415,8 @@ keyword_args(big="foot", loch="ness")   # => {"big": "foot", "loch": "ness"}
 def all_the_args(*args, **kwargs):
     print(args)
     print(kwargs)
+
+
 """
 all_the_args(1, 2, a=3, b=4) prints:
     (1, 2)
@@ -422,16 +434,19 @@ all_the_args(*args, **kwargs)   # 相当于 foo(1, 2, 3, 4, a=3, b=4)
 # 函数作用域
 x = 5
 
+
 def setX(num):
     # 局部作用域的x和全局域的x是不同的
-    x = num # => 43
-    print (x) # => 43
+    x = num  # => 43
+    print(x)  # => 43
+
 
 def setGlobalX(num):
     global x
-    print (x) # => 5
-    x = num # 现在全局域的x被赋值
-    print (x) # => 6
+    print(x)  # => 5
+    x = num  # 现在全局域的x被赋值
+    print(x)  # => 6
+
 
 setX(43)
 setGlobalX(6)
@@ -442,6 +457,7 @@ def create_adder(x):
     def adder(y):
         return x + y
     return adder
+
 
 add_10 = create_adder(10)
 add_10(3)   # => 13
@@ -458,7 +474,7 @@ filter(lambda x: x > 5, [3, 4, 5, 6, 7])   # => [6, 7]
 [x for x in [3, 4, 5, 6, 7] if x > 5]   # => [6, 7]
 
 ####################################################
-## 5. 类
+# 5. 类
 ####################################################
 
 
@@ -510,42 +526,38 @@ Human.grunt()   # => "*grunt*"
 
 
 ####################################################
-## 6. 模块
+# 6. 模块
 ####################################################
 
 # 用import导入模块
-import math
 print(math.sqrt(16))  # => 4.0
 
 # 也可以从模块中导入个别值
-from math import ceil, floor
 print(ceil(3.7))  # => 4.0
 print(floor(3.7))   # => 3.0
 
 # 可以导入一个模块中所有值
 # 警告：不建议这么做
-from math import *
 
 # 如此缩写模块名字
-import math as m
 math.sqrt(16) == m.sqrt(16)   # => True
 
 # Python模块其实就是普通的Python文件。你可以自己写，然后导入，
 # 模块的名字就是文件的名字。
 
 # 你可以这样列出一个模块里所有的值
-import math
 dir(math)
 
 
 ####################################################
-## 7. 高级用法
+# 7. 高级用法
 ####################################################
 
 # 用生成器(generators)方便地写惰性运算
 def double_numbers(iterable):
     for i in iterable:
         yield i + i
+
 
 # 生成器只有在需要时才计算下一个值。它们每一次循环只生成一个值，而不是把所有的
 # 值全部算好。
@@ -565,7 +577,6 @@ for i in double_numbers(range_):
 # 装饰器(decorators)
 # 这个例子中，beg装饰say
 # beg会先调用say。如果返回的say_please为真，beg会改变返回的字符串。
-from functools import wraps
 
 
 def beg(target_function):
