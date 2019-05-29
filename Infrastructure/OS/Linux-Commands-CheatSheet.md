@@ -30,6 +30,8 @@ $ ls -l --sort=size --block-size=M
 $ find * -type f | fzf > selected
 # 根据文件名匹配
 $ find . -name '*.map' -exec rm {} \;
+# 根据路径匹配
+$ find /usr/ -path "*local*"
 # 批量修改文件的权限
 $ find /opt/lampp/htdocs -type f -exec chmod 644 {} \;
 ```
