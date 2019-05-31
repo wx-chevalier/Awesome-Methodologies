@@ -283,6 +283,8 @@ $ awk -F ':' 'BEGIN {count=0;} {name[count] = $1;count++;}; END{for (i = 0; i < 
 $ awk -F : 'NR > 1 && NR <=5 {print $1}' /etc/passwd
 # 显示与 root 相关的用户
 $ awk -F : '/^root/{print $1, $2}'  /etc/passwd
+# 移除重复行
+$ awk '!visited[$0]++' your_file > deduplicated_file
 ```
 
 ## sed
