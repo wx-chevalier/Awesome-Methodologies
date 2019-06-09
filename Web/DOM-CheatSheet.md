@@ -511,5 +511,3 @@ function onInitFs(fs) {
 
 window.requestFileSystem(window.TEMPORARY, 1024 * 1024, onInitFs, errorHandler);
 ```
-
-# Event Loop 与 Worker
