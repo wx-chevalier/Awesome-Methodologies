@@ -555,8 +555,14 @@ $ iptables -t nat -A OUTPUT -p tcp -d 192.168.4.177 --dport 80 -j DNAT --to 127.
 ## 网络请求
 
 ```sh
+# Redirecting Output
+$ wget -O filename.zip http://www.domain.com/filename-4.0.1.zip
 # 递归下载整个站点
 $ wget --recursive http://url.com
+# Downloading in the background
+$ wget -b http://domain.com/filename.tar.gz
+# Limiting the download speed
+$ wget --limit-rate=200k http://www.domain.com/filename.tar.gz
 
 # 展示 curl 的进度
 $ curl --progress-bar -T "${SOME_LARGE_FILE}" "${UPLOAD_URL}" | tee /dev/null
