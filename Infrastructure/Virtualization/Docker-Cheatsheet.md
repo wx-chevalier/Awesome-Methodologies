@@ -510,6 +510,9 @@ $ docker ps --filter "name=nostalgic"
 
 # 显示正在运行的容器列表
 $ docker stats --all
+
+# 批量查看日志
+for i in $(docker ps -qf name=wsat_slave*); do echo "==================$i" && docker logs $i  | grep aisec; done
 ```
 
 ## 管理配置
