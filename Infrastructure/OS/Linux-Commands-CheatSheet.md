@@ -79,6 +79,9 @@ $ tar cvf dir.tar.gz --exclude='/dir/subdir/subsubdir/*' dir
 
 # 向压缩包中添加文件
 $ tar -rf archive.tar file3.txt
+
+# 使用密码压缩
+$ zip -P password -r F.zip F
 ```
 
 有时候我们还需要将大型文件进行切割处理：
