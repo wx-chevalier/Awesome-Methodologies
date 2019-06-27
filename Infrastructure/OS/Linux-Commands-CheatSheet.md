@@ -218,8 +218,7 @@ grep（global search regular expression(RE) and print out the line，全面搜�
 $ grep match_pattern file_name
 $ grep "match_pattern" file_1 file_2 file_3 ...
 
-# 仅显示不匹配的文本
-$ grep -v "match_pattern" file_1 file_2 file_3 ...
+$ grep -v "match_pattern" file_1 file_2 file_3 ... # 仅显示不匹配的文本
 
 # 搜索多个文件并查找匹配文本在哪些文件中
 $ grep -l "text" file1 file2 file3...
@@ -255,6 +254,14 @@ $ seq 10 | grep "5" -A 3
 # 与其他命令协同使用
 $ grep foo $(find . -name '*.pm' | grep -v .svn)
 $ ls -l | grep .py
+
+# ripgrep 是性能更优的 grep 替代
+$ rg 'fast\w+' README.md
+$ rg clap -g '*.toml'
+$ rg 'fn run' -g '*.rs'
+$ rg 'fn run' --type rust
+$ rg 'int main' -g '*.{c,h}'
+$ rg fast README.md --replace FAST # Replacements
 ```
 
 ```sh
@@ -556,12 +563,9 @@ $ kill -9 $(lsof -t -i:8080)
 # 查看某个进程的 TCP 连接
 $ lsof -p <pid> | grep TCP
 
-# 查看 TCP 连接数
-$ netstat -an
-# 统计 80 端口连接数
-$ netstat -nat | grep -i "80" | wc -l
-# 统计 IP 地址连接数
-$ netstat -na | grep ESTABLISHED | awk {print $5} | awk -F: {print $1} | sort | uniq -c | sort -r +0n
+$ netstat -an # 查看 TCP 连接数
+$ netstat -nat | grep -i "80" | wc -l # 统计 80 端口连接数
+$ netstat -na | grep ESTABLISHED | awk {print $5} | awk -F: {print $1} | sort | uniq -c | sort -r +0n # 统计 IP 地址连接数
 $ netstat -na | grep SYN | awk {print $5} | awk -F: {print $1} | sort | uniq -c | sort -r +0n
 ```
 
