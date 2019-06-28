@@ -14,17 +14,23 @@
 
 # Nav | 导航
 
-建议前往 [xCompass](https://wx-chevalier.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程，或者直接浏览本仓库的目录以了解更多内容，也可以使用 [alfred-sg](https://github.com/wx-chevalier/Soogle/tree/master/alfred-sg) 在 MAC 设备上进行快速检索。
+您可以通过以下任一方式阅读笔者的系列文章，涵盖了技术资料归纳、编程语言与理论、Web 与大前端、服务端开发与基础架构、云计算与大数据、数据科学与人工智能、产品设计等多个领域：
 
-- 如果希望实践掌握 **Web 开发**，可以阅读 [JavaScript CheatSheet](https://parg.co/rdm)/[ProgrammingLanguage-Series/JavaScript](https://github.com/wx-chevalier/ProgrammingLanguage-Series/tree/master/JavaScript)，[DOM CheatSheet](https://parg.co/rdG)/[CSS CheatSheet](https://parg.co/rdo)，[React CheatSheet](https://parg.co/rdA)/[Vue CheatSheet](https://parg.co/rdd)，[现代 Web 开发基础与工程实践](https://github.com/wx-chevalier/Web-Series)/[Web Tuning CheatSheet](https://parg.co/rd0) 等。
+- 在 Gitbook 中在线浏览，每个系列对应各自的 Gitbook 仓库。
 
-- Java 微服务开发
+| [Awesome Lists](https://ngte-al.gitbook.io/i/) | [Awesome CheatSheets](https://ngte-ac.gitbook.io/i/) | [Awesome Interviews](https://github.com/wx-chevalier/Developer-Zero-To-Mastery/tree/master/Interview) | [Awesome RoadMaps](https://github.com/wx-chevalier/Developer-Zero-To-Mastery/tree/master/RoadMap) |
+| ---------------------------------------------- | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- |
 
-- 如果希望深入浅出 **分布式系统，分布式计算，分布式存储，数据库，操作系统，虚拟化** 等内容，可以参阅 [深入浅出分布式基础架构](https://github.com/wx-chevalier/Distributed-Infrastructure-Series)， [DistributedSystem CheatSheet](./Infrastructure/DistributedSystem/DistributedSystem-CheatSheet.md), [Database CheatSheet](./Infrastructure/Database/Database-CheatSheet.md), [Linux CheatSheet](./Infrastructure/OS/Linux/Linux-Commands-CheatSheet.md), [MySQL CheatSheet](./Infrastructure/Database/RDB/MySQL/MySQL-Cheatsheet.md), [Docker CheatSheet](./Infrastructure/Virtualization/Docker-Cheatsheet.md), [Flink CheatSheet](./Infrastructure/DistributedComputing/Streaming/Flink-CheatSheet.md), [Kafka CheatSheet](./Infrastructure/DistributedComputing/MOM/Kafka-CheatSheet.md) 等。
 
-- DevOps
+| [编程语言理论与实践](https://ngte-pl.gitbook.io/i/) | [软件工程、数据结构与算法、设计模式、软件架构](https://ngte-se.gitbook.io/i/) | [现代 Web 开发基础与工程实践](https://ngte-web.gitbook.io/i/) | [大前端混合开发与数据可视化](https://ngte-fe.gitbook.io/i/) | [服务端开发实践与工程架构](https://ngte-be.gitbook.io/i/) | [分布式基础架构](https://ngte-infras.gitbook.io/i/) | [数据科学，人工智能与深度学习](https://ngte-aidl.gitbook.io/i/) | [产品设计与用户体验](https://ngte-pd.gitbook.io/i/) |
+| --------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------- | --------------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
 
-- 人工智能与深度学习基础
+
+- 前往 [xCompass https://wx-chevalier.github.io](https://wx-chevalier.github.io/home/#/search) 交互式地检索、查找需要的文章/链接/书籍/课程。
+
+![](https://i.postimg.cc/3RVYtbsv/image.png)
+
+- 在下文的 [MATRIX 文章与代码矩阵 https://github.com/wx-chevalier/Developer-Zero-To-Mastery](https://github.com/wx-chevalier/Developer-Zero-To-Mastery) 中查看文章与项目的源代码。
 
 # Preface | 前言
 
