@@ -1,6 +1,6 @@
 # Summary 
 
-## Backend 
+## [Backend](../Backend) 
 
 - [Backend-CheatSheet](../Backend/Backend-CheatSheet.md) 
 - [DevOps](../Backend/DevOps/README.md) 
@@ -38,7 +38,7 @@
 - [WebServer](../Backend/WebServer/README.md) 
   - [Nginx-CheatSheet](../Backend/WebServer/Nginx-CheatSheet.md) 
 
-## DataScienceAI 
+## [DataScienceAI](../DataScienceAI) 
 
 - [AI-CheatSheet](../DataScienceAI/AI-CheatSheet.md) 
 - [DataScienceAI-MindMap](../DataScienceAI/DataScienceAI-MindMap.md) 
@@ -68,7 +68,12 @@
   - [TFJS-CheatSheet](../DataScienceAI/Toolkit/TFJS-CheatSheet.md) 
   - [Tensorflow-CheatSheet](../DataScienceAI/Toolkit/Tensorflow-CheatSheet.md) 
 
-## Frontend 
+## [Digests](../Digests) 
+
+- [2014-Steve-Don’t Make Me Think](../Digests/2014-Steve-Don’t Make Me Think.md) 
+- [2018-美团机器学习实践](../Digests/2018-美团机器学习实践.md) 
+
+## [Frontend](../Frontend) 
 
 - [DataVisualization](../Frontend/DataVisualization/README.md) 
   - [DataVisualization-CheatSheet](../Frontend/DataVisualization/DataVisualization-CheatSheet.md) 
@@ -83,13 +88,13 @@
   - [Android-CheatSheet](../Frontend/Mobile/Android-CheatSheet.md) 
   - [Flutter-CheatSheet](../Frontend/Mobile/Flutter-CheatSheet.md) 
 
-## InfoSecurity 
+## [InfoSecurity](../InfoSecurity) 
 
 - [Codec-CheatSheet](../InfoSecurity/Codec-CheatSheet.md) 
 - [InfoSecurity-CheatSheet](../InfoSecurity/InfoSecurity-CheatSheet.md) 
 - [WebSecurity-CheatSheet](../InfoSecurity/WebSecurity-CheatSheet.md) 
 
-## Infrastructure 
+## [Infrastructure](../Infrastructure) 
 
 - [Infrastructure-CheatSheet](../Infrastructure/Infrastructure-CheatSheet.md) 
 - [Infrastructure-Terms-CheatSheet](../Infrastructure/Infrastructure-Terms-CheatSheet.md) 
@@ -133,7 +138,7 @@
   - [Virtualization-CheatSheet](../Infrastructure/Virtualization/Virtualization-CheatSheet.md) 
   - [Xen-CheatSheet](../Infrastructure/Virtualization/Xen-CheatSheet.md) 
 
-## Product 
+## [Product](../Product) 
 
 - [Product-CheatSheet](../Product/Product-CheatSheet.md) 
 - [Analytics](../Product/Analytics/README.md) 
@@ -148,7 +153,7 @@
 - [UI](../Product/UI/README.md) 
   - [UI-CheatSheet](../Product/UI/UI-CheatSheet.md) 
 
-## ProgrammingLanguage 
+## [ProgrammingLanguage](../ProgrammingLanguage) 
 
 - [ProgrammingLanguage-CheatSheet](../ProgrammingLanguage/ProgrammingLanguage-CheatSheet.md) 
 - [C](../ProgrammingLanguage/C/README.md) 
@@ -159,7 +164,6 @@
   - [go-snippets.go](../ProgrammingLanguage/Go/go-snippets.goREADME.md) 
 - [Java](../ProgrammingLanguage/Java/README.md) 
   - [Gradle-CheatSheet](../ProgrammingLanguage/Java/Gradle-CheatSheet.md) 
-  - [JVM-CheatSheet](../ProgrammingLanguage/Java/JVM-CheatSheet.md) 
   - [JVM-Tuning-CheatSheet](../ProgrammingLanguage/Java/JVM-Tuning-CheatSheet.md) 
   - [Java-CheatSheet](../ProgrammingLanguage/Java/Java-CheatSheet.md) 
   - [Java-ConcurrentProgramming-CheatSheet](../ProgrammingLanguage/Java/Java-ConcurrentProgramming-CheatSheet.md) 
@@ -191,7 +195,7 @@
 - [Swift](../ProgrammingLanguage/Swift/README.md) 
   - [Swift-CheatSheet](../ProgrammingLanguage/Swift/Swift-CheatSheet.md) 
 
-## SoftwareEngineering 
+## [SoftwareEngineering](../SoftwareEngineering) 
 
 - [SoftwareEngineering-CheatSheet](../SoftwareEngineering/SoftwareEngineering-CheatSheet.md) 
 - [AlgoDS](../SoftwareEngineering/AlgoDS/README.md) 
@@ -221,16 +225,7 @@
   - [Git-Cheatsheet](../SoftwareEngineering/Workflow/Git-Cheatsheet.md) 
   - [VSCode-Cheatsheet](../SoftwareEngineering/Workflow/VSCode-Cheatsheet.md) 
 
-## Specials 
-
-- [Learning-CheatSheet](../Specials/Learning-CheatSheet.md) 
-- [Workbench-CheatSheet.en](../Specials/Workbench-CheatSheet.en.md) 
-- [Workbench-CheatSheet](../Specials/Workbench-CheatSheet.md) 
-- [English](../Specials/English/README.md) 
-  - [English-CheatSheet](../Specials/English/English-CheatSheet.md) 
-  - [Quotations](../Specials/English/Quotations.md) 
-
-## Web 
+## [Web](../Web) 
 
 - [CSS-CheatSheet](../Web/CSS-CheatSheet.md) 
 - [DOM-CheatSheet](../Web/DOM-CheatSheet.md) 
