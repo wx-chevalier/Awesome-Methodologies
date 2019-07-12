@@ -14,7 +14,7 @@ JavaScript 本身乃动态类型的语言，即是在运行时才进行类型校
 
 ## 快速开始
 
-可以参考 [fe-boilerplat/\*-ts]() 或者 [Backend-Boilerplate/node]()，如果想了解 TypeScript 在 React 中的应用，可以参考 [React CheatSheet/TypeScript 节]()。们可以通过 npm 安装 TypeScript 的依赖包：
+可以参考 [`fe-boilerplate/*-ts`]() 或者 [`Backend-Boilerplate/node`]()，如果想了解 TypeScript 在 React 中的应用，可以参考 [React CheatSheet/TypeScript 节]()。们可以通过 npm 安装 TypeScript 的依赖包：
 
 ```sh
 # 全局安装
