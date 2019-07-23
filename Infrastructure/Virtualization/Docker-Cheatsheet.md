@@ -921,7 +921,7 @@ Swarm Deamon 只是一个调度器(Scheduler)和路由器(Router)，Swarm 自己
 
 Swarm 在 Scheduler 节点运行容器的时候，会根据指定的策略来计算最适合运行容器的节点，目前支持的策略有：Random, Binpack, Spread。
 
-Random 顾名思义，就是随机选择一个 Node 来运行容器，一般用作调试用。Spread 和 Binpack 策略会根据各个节点的可用的 CPU, RAM 以及正在运行的容器的数量来计算应该运行容器的节点。在同等条件下，Spread 策略会选择运行容器最少的那台节点来运行新的容器，binpack 策略会选择运行容器最集中的那台机器来运行新的节点。
+Random 顾名思义，就是随机选择一个 Node 来运行容器，一般用作调试用。Spread 和 Binpack 策略会根据各个节点的可用的 CPU, RAM 以及正在运行的容器的数量来计算应该运行容器的节点。在同等条件下，Spread 策略会选择运行容器最少的那台节点来运行新的容器，Binpack 策略会选择运行容器最集中的那台机器来运行新的节点。
 
 使用 Spread 策略会使得容器会均衡的分布在集群中的各个节点上运行，一旦一个节点挂掉了只会损失少部分的容器。Binpack 策略最大化的避免容器碎片化，就是说 Binpack 策略尽可能的把还未使用的节点留给需要更大空间的容器运行，尽可能的把容器运行在一个节点上面。
 
@@ -954,6 +954,14 @@ $ docker service ps nginx
 
 # 服务的详细信息
 $ docker service inspect nginx
+
+# 增加和删除DNS
+$ docker service update --dns-add 222.222.222.222 tender_hofstadter
+$ docker service update --dns-rm 222.222.222.222 tender_hofstadter
+
+# 增加和删除端口映射
+$ docker service update --publish-add 80:80 xenodochial_ritchie
+$ docker service update --publish-rm 80:80 xenodochial_ritchie
 ```
 
 我们也可以使用 Docker Compose 的脚本来进行批次部署：
