@@ -911,6 +911,18 @@ volumes:
   dbdata:
 ```
 
+如果某个数据卷天然需要映射到本地文件，则可以指定 driver 的类型为 local:
+
+```yaml
+volumes:
+  wsat_etc:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: /etc/wsat/
+```
+
 ## Docker Swarm
 
 Swarm 是 Docker 公司在 2014 年 12 月初发布的一套较为简单的工具，用来管理 Docker 集群，它将一群 Docker 宿主机变成一个单一的，虚拟的主机。Swarm 使用标准的 Docker API 接口作为其前端访问入口，换言之，各种形式的 Docker Client(dockerclient in go, docker_py, docker 等)均可以直接与 Swarm 通信。
