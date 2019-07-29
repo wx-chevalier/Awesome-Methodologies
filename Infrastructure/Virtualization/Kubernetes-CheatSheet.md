@@ -6,15 +6,9 @@
 
 Kubernetes 是支持多种底层容器虚拟化技术的分布式容器编排架构，具有完备的功能用于支撑分布式系统以及微服务架构，同时具备超强的横向扩容能力；它提供了自动化容器的部署和复制，随时扩展或收缩容器规模，将容器组织成组，并且提供容器间的负载均衡，提供容器弹性等特性。
 
-[Kubernetes Links]()
-
-[官方的交互式教程](https://kubernetes.io/docs/tutorials/)也是非常不错的入门资源。
-
-![image](https://user-images.githubusercontent.com/5803001/50947031-4cc4c980-14d7-11e9-8bb4-5da3b9da1dea.png)
+建议首先浏览 [官方的交互式教程](https://kubernetes.io/docs/tutorials/)也是非常不错的入门资源。
 
 # Concepts & Terminology | 概念与术语
-
-kubeadm 是集群的安装配置脚手架，kubectl 是集群管理工具，kubelet 是工作节点上的代理 Daemon 服务, 负责与 Master 节点进行通信。
 
 ## 架构
 
@@ -171,125 +165,7 @@ Kubernetes Volume 支持将 Pod 存储卷挂载到 Google 公有云提供的 Per
 
 # 配置与实践
 
-推荐首先使用 [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) 搭建简单的本地化集群，其需要依次安装 [VirtualBox](https://www.virtualbox.org/wiki/Downloads), [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) 以及 [minikube](https://github.com/kubernetes/minikube/releases) 等工具；在生产环境下，我们常常需要离线安装，此时可以参考[离线安装 K8S](https://parg.co/AT5)。
-
 ## 集群初始化
-
-kubeadm 用于搭建并启动一个集群，kubelet 用于集群中所有节点上都有的用于做诸如启动 pod 或容器这种事情，kubectl 则是与集群交互的命令行接口。kubelet 和 kubectl 并不会随 kubeadm 安装而自动安装，需要手工安装。
-
-在安装 kubeadm 时候，如果碰到需要翻墙的情况，可以使用 USTC 的源：
-
-```sh
-# 添加源并且更新
-$ vim /etc/apt/sources.list.d/kubernetes.list
-$ deb http://mirrors.ustc.edu.cn/kubernetes/apt/ kubernetes-xenial main
-$ apt-get update
-
-$ apt-get install -y kubelet kubeadm kubectl --allow-unauthenticated
-$ apt-mark hold kubelet kubeadm kubectl
-```
-
-配置 cgroup driver, 保证和 docker 的一样:
-
-```sh
-$ docker info | grep -i cgroup
-
-# 编辑配置文件
-$ vim /etc/default/kubelet
-
-# 添加如下配置
-KUBELET_KUBEADM_EXTRA_ARGS=--cgroup-driver=<value>
-
-# 配置修改后重启
-$ systemctl daemon-reload
-$ systemctl restart kubelet
-```
-
-kubeadm 安装完毕后，可以初始化 Master 节点：
-
-```sh
-$ kubeadm init
-
-# 如果存在网络问题，则可以使用代理访问
-$ HTTP_PROXY=127.0.0.1:8118 HTTPS_PROXY=127.0.0.1:8118 kubeadm init
-
-# 接下来我们还需要设置配置文件以最终启动集群
-$ mkdir -p $HOME/.kube
-$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
-
-# 或者 Root 用户还可以添加如下映射
-$ export KUBECONFIG=/etc/kubernetes/admin.conf
-```
-
-值得一提的是，如果无法通过代理访问，还可以使用国内的镜像数据，可以使用[如下脚本](https://github.com/anjia0532/gcr.io_mirror)便捷录取墙外镜像:
-
-```sh
-# credits: https://github.com/anjia0532/gcr.io_mirror
-
-images=$(cat img.txt)
-
-eval $(echo ${images}|
-        sed 's/k8s\.gcr\.io/anjia0532\/google-containers/g;s/gcr\.io/anjia0532/g;s/\//\./g;s/ /\n/g;s/anjia0532\./anjia0532\//g' |
-        uniq |
-        awk '{print "docker pull "$1";"}'
-       )
-
-for img in $(docker images --format "{{.Repository}}:{{.Tag}}"| grep "anjia0532"); do
-  n=$(echo ${img}| awk -F'[/.:]' '{printf "gcr.io/%s",$2}')
-  image=$(echo ${img}| awk -F'[/.:]' '{printf "/%s",$3}')
-  tag=$(echo ${img}| awk -F'[:]' '{printf ":%s",$2}')
-  docker tag $img "${n}${image}${tag}"
-  [[ ${n} == "gcr.io/google-containers" ]] && docker tag $img "k8s.gcr.io${image}${tag}"
-done
-```
-
-Master 节点初始化完毕后，我们需要加入工作节点，或者设置 Master 节点上可调度 Pods
-
-```sh
-# 如果是单机节点，要在 Master 机器上调度 Pods，还需解锁 Master 限制
-$ kubectl taint nodes --all node-role.kubernetes.io/master-
-
-# 创建并且打印出工作节点加入集群的命令
-$ sudo kubeadm token create --print-join-command
-
-# 查看 Token 列表
-$ kubeadm token list
-
-# 工作节点加入集群
-$ kubeadm join --token <token> <master-ip>:<master-port> --discovery-token-ca-cert-hash sha256:<hash>
-```
-
-我们还需要配置节点间通信的网络:
-
-```sh
-# 安装 Weave 网络
-$ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
-
-# 或者安装 Flannel 网络
-$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-$ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
-```
-
-我们也可以使用自定义的配置文件来配置 K8S 集群，譬如可以手工指定默认网关使用的网络接口，完整配置文件可以参考[这里](https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/#config-file):
-
-```yaml
-apiVersion: kubeadm.k8s.io/v1alpha1
-kind: MasterConfiguration
-networking:
-  podSubnet: 10.244.0.0/16 # 使用 flannel
-```
-
-可以配置 kubernetes-dashboard 作为首个服务:
-
-```sh
-# 安装 Dashboard
-$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/master/src/deploy/recommended/kubernetes-dashboard.yaml
-
-$ kubectl proxy --address 0.0.0.0 --accept-hosts '.*'
-
-# http://localhost:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
-```
 
 ## 基础命令
 
@@ -729,5 +605,3 @@ Spinnaker 可作为当前所有主流的云环境自托管平台，像 Armory �
 容器即进程，Kubernetes 则解决了如何部署和运行应用的问题。对于任何一个部署在 Kubernetes 的应用而言，通常都可以由几个固定的部分组成：Ingress、Service、Deployment 等。直接使用 Kubernetes 原生的 YAML 定义服务，虽然能一定程度上简化应用的部署，但是对于大部分研发人员来说编写和使用 YAML 依然是一件相对痛苦的事情。Helm 应运而生，Helm 作为 Kubernetes 下的包管理工具，对原生服务定义过程进行了增强，通过模板化，参数化的形式大大简化用户部署 Kubernetes 应用的复杂度。
 
 # Todos
-
-- https://mp.weixin.qq.com/s/WC5TQSBHiHsAIDtpDsZ1qw
