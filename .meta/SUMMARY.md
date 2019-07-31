@@ -78,6 +78,7 @@
 
 - [2014-Steve-Don’t Make Me Think](../Digests/2014-Steve-Don’t Make Me Think.md) 
 - [2018-美团机器学习实践](../Digests/2018-美团机器学习实践.md) 
+- [Designing Data-Intensive Applications](../Digests/Designing Data-Intensive Applications.md) 
 
 ## [Frontend](../Frontend/README.md) 
 
