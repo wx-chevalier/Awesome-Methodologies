@@ -1,10 +1,8 @@
 # Designing Data-Intensive Applications
 
-What a great book Designing Data-Intensive Applications is! It covers databases and distributed systems in clear language, great detail and without any fluff. I particularly like that the author Martin Kleppmann knows the theory very well, but also seems to have a lot of practical experience of the types of systems he describes.
+《Designing Data-Intensive Applications》着实是一本非常优秀的讲解数据库与分布式系统底层实现原理的书籍，特别是 Martin Kleppmann 从理论到实践深入浅出地介绍了这些系统的实现路径。
 
-There is so much to learn for me in this book, so I have summarized the main points from each chapter, with a special emphasis on what I found most interesting.
-
-There are three parts in the book: Foundations of Data Systems (chapters 1 – 4), Distributed Data (chapters 5 – 9), and Derived Data (chapters 10 – 12). Each chapter ends with lots of references (between 30 and 110). I really like the mix of references – some are to computer science papers from the 1970s and onwards, and many are to various blog posts.
+本书主要分为三个部分：1~4 章介绍 Foundations of Data Systems，5~9 章介绍了 Distributed Data，10~12 章介绍了 Derived Data。
 
 # 1. Foundations of Data Systems
 
@@ -65,7 +63,7 @@ This is the first chapter in the Distributed Data section. Replication means tha
 
 Three different models are covered: single leader, multi-leader, and leaderless. Replication can either be synchronous or asynchronous. If it is synchronous, the leader and all followers acknowledge a write before it is acknowledged back to the user. This can block all writes if any one of the followers is slow or has failed. Therefore asynchronous replication is more common.
 
-There are many tricky aspects of replication.  The first is when setting up a new follower. Since data is constantly changing in the leader, typically you take a consistent snapshot of the leader’s database and copy it to the new follower. Then you need to process the backlog of changes that happened during the copying process.
+There are many tricky aspects of replication. The first is when setting up a new follower. Since data is constantly changing in the leader, typically you take a consistent snapshot of the leader’s database and copy it to the new follower. Then you need to process the backlog of changes that happened during the copying process.
 
 If a follower fails, it needs to catch up once it recovers. This means it needs to keep track of which transactions from the leader it had already processed before failing. If the leader fails, a new leader needs to be selected. This is called failover. Many things can go wrong here. If asynchronous replication is used, the new leader may not have received all the writes. If the former leader rejoins the cluster after a new leader is selected, what should happen to those not-replicated writes?
 
@@ -105,9 +103,9 @@ When multiple clients concurrently read and update data, there are an amazing nu
 
 The most basic level is read committed. It means that when reading, you will only see committed data, not data in the process of being written but not yet committed. When writing to the database, you will only overwrite data that has been committed. This is also known as no dirty reads and no dirty writes.
 
-Snapshot isolation deals with consistency between different parts. If you have two accounts with $500 in each, and you read the balance from the first, then the balance from the second (both reads in the same transaction), they should sum to $1000. However, between the first and second read, there could be a concurrent transaction moving $100 from the second account to the first. So the first read could give $500, while the second read returns $400 (since $100 has already been subtracted here). If we repeat the same account reads again, we would get $600 for the first, and $400 for the second, so now they sum to $1000 as expected. If the problem of the sum changing is avoided, it is called snapshot isolation, also known as repeatable read.
+Snapshot isolation deals with consistency between different parts. If you have two accounts with $500 in each, and you read the balance from the first, then the balance from the second (both reads in the same transaction), they should sum to $1000. However, between the first and second read, there could be a concurrent transaction moving $100 from the second account to the first. So the first read could give $500, while the second read returns $400 (since $100 has already been subtracted here). If we repeat the same account reads again, we would get $600 for the first, and $400 for the second, so now they sum to \$1000 as expected. If the problem of the sum changing is avoided, it is called snapshot isolation, also known as repeatable read.
 
-The problem is that we want what we see in the database at a given point in time to be consistent. We don’t want to see the case where the total is only $900 in the example above. This is important for example when taking a backup. It may take hours to make the backup, and the data keeps changing, but we want what we store in the backup to be consistent. The same goes for long-running queries – we want them to be executed on a consistent snapshot. A common solution for this is to use multi-version concurrency control (MVCC). The database can keep several different committed versions of an object, because various in-progess transactions may need to see the state of the database at different points in time.
+The problem is that we want what we see in the database at a given point in time to be consistent. We don’t want to see the case where the total is only \$900 in the example above. This is important for example when taking a backup. It may take hours to make the backup, and the data keeps changing, but we want what we store in the backup to be consistent. The same goes for long-running queries – we want them to be executed on a consistent snapshot. A common solution for this is to use multi-version concurrency control (MVCC). The database can keep several different committed versions of an object, because various in-progess transactions may need to see the state of the database at different points in time.
 
 When two transactions both write data, there is a risk of lost updates. For example if two users concurrently read a counter, increment it, and write back the result, the final counter value may only have been updated by one, not by two. If a transactions read some information, bases a decision on the information, and writes the result, there can be write skew. This means that by the time the result is written, the premise it was based on is no longer true. For example, a meeting room booking systems that tries to avoid double-bookings.
 
@@ -193,17 +191,17 @@ Throughout the book there were lots of nuggets of information that I found reall
 
 - In-memory databases are not faster than ones with disk-based storage because they can read from memory, and the traditional ones read from disk. The operating system caches recently used disk blocks in memory anyway. Instead, the speed advantage comes from not having to encode the in-memory data structures to a format suitable for writing to disk (page 89).
 
-- The built-in hash functions in some languages are not suitable for getting partitioning keys, because the same key may have different hash value in different processes.  For example Object.hashCode() in Java and Object#hash in Ruby (page 203).
+- The built-in hash functions in some languages are not suitable for getting partitioning keys, because the same key may have different hash value in different processes. For example Object.hashCode() in Java and Object#hash in Ruby (page 203).
 
 - At Google, a MapReduce task that runs for an hour has a 5% risk of being terminated. This rate is more than an order of magnitude higher than the rate of failure due to hardware issues, machine reboots etc. The reason MapReduce is designed to tolerate frequent unexpected task termination is not because the hardware is particularly unreliable, it’s because the freedom to arbitrarily terminate processes enables better resource utilization in a computing cluster (page 418).
 
 Every chapter starts with a quote. Two of them I particularly like. The first, from chapter 5, is one of my all-time favorite quotes on software development:
 
-A complex system that works is invariably found to have evolved from a simple system that works. The inverse proposition also appears to be true: A complex system designed from scratch never works and cannot be made to work.  – John Gall, Systemantics (1975)
+A complex system that works is invariably found to have evolved from a simple system that works. The inverse proposition also appears to be true: A complex system designed from scratch never works and cannot be made to work. – John Gall, Systemantics (1975)
 
 Here is the second quote, from chapter 11:
 
-The major difference between a thing that might go wrong and a thing that cannot possibly go wrong is that when a thing that cannot possibly go wrong goes wrong it usually turns out to be impossible to get at or repair.  – Douglas Adams, Mostly Harmless (1992)
+The major difference between a thing that might go wrong and a thing that cannot possibly go wrong is that when a thing that cannot possibly go wrong goes wrong it usually turns out to be impossible to get at or repair. – Douglas Adams, Mostly Harmless (1992)
 
 # Conclusion
 
