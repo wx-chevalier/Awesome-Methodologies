@@ -4,7 +4,7 @@
 
 ```sh
 # 使用 credential 管理密码，拉取仓库时候仅需要输入一次
-$ git global config credential.helper store
+$ git config --global credential.helper store
 ```
 
 The name "git" was given by Linus Torvalds when he wrote the very first version. He described the tool as "the stupid content tracker" and the name as (depending on your way):
