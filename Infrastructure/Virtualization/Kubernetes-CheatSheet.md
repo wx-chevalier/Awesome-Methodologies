@@ -378,20 +378,6 @@ $ kubectl get pods --selector="run=load-balancer-example" --output=wide
 $ curl http://<public-node-ip>:<node-port>
 ```
 
-kubernetes 支持两种方式将 service 开放到公网 IP，NodePort、LoadBalancer。
-service type
-ClusterIP： 使用集群内的私有 ip —— 默认值。
-NodePort： 除了使用 ClusterIP 外，也将 service 的 port 映射到每个 node 的一个指定内部 port 上，映射的每个 node 的内部 port 都一样，支持 TCP/UDP。
-LoadBalancer： 使用一个 ClusterIP & NodePort，会向 cloud provider 申请映射到 service 本身的负载均衡，支持 TCP。
-
-```yaml
-spec:
-  ports:
-    - protocol: 'TCP'
-    - port: 80
-    - targetPort: 9376
-```
-
 # 网络模型
 
 在 Kubernetes 网络中存在两种 IP（Pod IP 和 Service Cluster IP），Pod IP 地址是实际存在于某个网卡(可以是虚拟设备)上的，Service Cluster IP 它是一个虚拟 IP，是由 kube-proxy 使用 Iptables 规则重新定向到其本地端口，再均衡到后端 Pod 的。每个 Pod 都拥有一个独立的 IP 地址（IPper Pod），而且假定所有的 pod 都在一个可以直接连通的、扁平的网络空间中。用户不需要额外考虑如何建立 Pod 之间的连接，也不需要考虑将容器端口映射到主机端口等问题。
@@ -590,7 +576,7 @@ containers:
 
 Kubernetes 应用暴露了大量的像 deployments（部署），services（服务），ingress controllers（入口控制器），persistant volumes（持久化挂载目录）等更多的元素。Helm 则通过提供统一安装工具，将云原生应用程序所有依赖关系聚合到称之为图表的部署单元中。
 
-4. Spinnaker
+1. Spinnaker
    云原生技术最值得关注之一的是软件的交付速度。Spinnaker 是一个最初在 Netflix 上构建的开源项目，它实现了这一承诺。Spinnaker 是一个版本管理工具，它添加部署云原生应用的模板。通过对比传统的 Iass 环境（像 Amazon EC2 和当代运行在 Kubernetes 上的 Cass 平台），无缝填补了传统虚拟机和容器之间的空白。其多云功能使得其成为跨不同云平台部署应用程序的理想平台。
 
 Spinnaker 可作为当前所有主流的云环境自托管平台，像 Armory 这样的初创公司目前正在提供 SLA 下的商业级，企业级 Spinnaker。
