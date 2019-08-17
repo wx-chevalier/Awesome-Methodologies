@@ -45,7 +45,6 @@
 - [Introduction](../DataScienceAI/README.md) 
 
 - [AI-CheatSheet](../DataScienceAI/AI-CheatSheet.md) 
-- [DataScienceAI-MindMap](../DataScienceAI/DataScienceAI-MindMap.md) 
 - [Application](../DataScienceAI/Application/README.md) 
   - [CommunityDetection-CheatSheet](../DataScienceAI/Application/CommunityDetection-CheatSheet.md) 
   - [Personas-CheatSheet](../DataScienceAI/Application/Personas-CheatSheet.md) 
@@ -219,7 +218,6 @@
 - [SoftwareEngineering-CheatSheet](../SoftwareEngineering/SoftwareEngineering-CheatSheet.md) 
 - [AlgoDS](../SoftwareEngineering/AlgoDS/README.md) 
   - [AlgoDS-CheatSheet](../SoftwareEngineering/AlgoDS/AlgoDS-CheatSheet.md) 
-  - [AlgoDS-MindMap](../SoftwareEngineering/AlgoDS/AlgoDS-MindMap.md) 
   - [BTree-CheatSheet](../SoftwareEngineering/AlgoDS/BTree-CheatSheet.md) 
   - [DateTime-CheatSheet](../SoftwareEngineering/AlgoDS/DateTime-CheatSheet.md) 
   - [Hash-CheatSheet](../SoftwareEngineering/AlgoDS/Hash-CheatSheet.md) 
