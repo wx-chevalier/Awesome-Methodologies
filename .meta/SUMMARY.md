@@ -157,8 +157,6 @@
 - [Product-CheatSheet](../Product/Product-CheatSheet.md) 
 - [Analytics](../Product/Analytics/README.md) 
   - [BI-CheatSheet](../Product/Analytics/BI-CheatSheet.md) 
-- [Business](../Product/Business/README.md) 
-  - [Ideas](../Product/Business/Ideas.md) 
 - [Management](../Product/Management/README.md) 
   - [Agile-CheatSheet](../Product/Management/Agile-CheatSheet.md) 
   - [LaTex-CheatSheet](../Product/Management/LaTex-CheatSheet.md) 
