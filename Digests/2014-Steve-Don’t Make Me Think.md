@@ -1,6 +1,6 @@
 # Don't Make Me Think. A Common Sense Approach to Web Usability.
 
-早些年从后端逐步迈入前端，也没有什么艺术细菌，也多是从技术角度考虑而忽略了产品、交互以及视觉。在[产品经理必读书单](https://github.com/wx-chevalier/Awesome-Lists/blob/master/SoftwareEngineering/Product/Product-List.md)以及[年度总结中](https://zhuanlan.zhihu.com/p/53717740)，都会有想要逐步培养些产品思维，无论是自己平日工作中拧紧的螺丝钉还是手工做的小产品，都想赋予些设计而不仅仅是功能的堆叠。[Don't Make Me Think](https://parg.co/64R) 成书较早，提供的一些交互设计事例或者具体的交互方式可能有些成就，但是贯穿全书的简单至上的理念也是让我在某些方面有了更深刻的认识；也可以前往 [Awesome-CS-Books-Warehouse](https://github.com/wx-chevalier/Awesome-CS-Books-Warehouse/) 浏览更多产品、交互、软件工程方面的书籍。
+早些年从后端逐步迈入前端，也没有什么艺术细菌，也多是从技术角度考虑而忽略了产品、交互以及视觉。在[产品经理必读书单](https://github.com/wx-chevalier/Awesome-Lists/blob/master/SoftwareEngineering/Product/Product-List.md)以及[年度总结中](https://zhuanlan.zhihu.com/p/53717740)，都会有想要逐步培养些产品思维，无论是自己平日工作中拧紧的螺丝钉还是手工做的小产品，都想赋予些设计而不仅仅是功能的堆叠。[Don't Make Me Think](https://parg.co/64R) 成书较早，提供的一些交互设计事例或者具体的交互方式可能有些成就，但是贯穿全书的简单至上的理念也是让我在某些方面有了更深刻的认识；也可以前往 [Awesome-CS-Books](https://github.com/wx-chevalier/Awesome-CS-Books/) 浏览更多产品、交互、软件工程方面的书籍。
 
 Here are a few things you **won't** find in this book:
 
