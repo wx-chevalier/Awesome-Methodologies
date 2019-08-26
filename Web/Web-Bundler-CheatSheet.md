@@ -41,7 +41,7 @@ $ parcel build index.js
 $ parcel build index.js -d build/output
 ```
 
-Parcel 会为我们自动地下载安装依赖，并且内置了 ES、SCSS 等常见的处理器。在 [fe-boilerplate](https://github.com/wx-chevalier/fe-boilerplate/) 中提供了 [React](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/parcel), [React & TypeScript](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/parcel-ts), [Vue.js](https://github.com/wx-chevalier/fe-boilerplate/blob/master/vue/parcel) 等 Parcel 常见的示例，这里以 React 为例，首先定义组件与渲染：
+Parcel 会为我们自动地下载安装依赖，并且内置了 ES、SCSS 等常见的处理器。在 [fe-boilerplate](https://github.com/wx-chevalier/fe-boilerplates/) 中提供了 [React](https://github.com/wx-chevalier/fe-boilerplates/blob/master/react/parcel), [React & TypeScript](https://github.com/wx-chevalier/fe-boilerplates/blob/master/react/parcel-ts), [Vue.js](https://github.com/wx-chevalier/fe-boilerplates/blob/master/vue/parcel) 等 Parcel 常见的示例，这里以 React 为例，首先定义组件与渲染：
 
 ```js
 // index.js
@@ -143,7 +143,7 @@ pub fn add(a: i32, b: i32) -> i32 {
 
 # Rollup + Microbundle
 
-Rollup 是较为为纯粹的模块打包工具，其相较于 Parcel 与 Webpack 等，更适合于构建 Library，譬如 React、Vue.js、Angular、D3、Moment、Redux 等一系列优秀的库都是采用 Rollup 进行构建。。Rollup 能够将按照 ESM(ES2015 Module)规范编写的源码构建输出为 IIFE、AMD、CommonJS、UMD、ESM 等多种格式，并且其较早地支持 Tree Shaking，Scope Hoisting 等优化特性，保证模块的简洁与高效。这里我们使用的 Rollup 示例配置项目存放在了 [fe-boilerplate/rollup](https://github.com/wx-chevalier/fe-boilerplate/tree/master/bundler/rollup)。最简单的 rollup.config.js 文件配置如下：
+Rollup 是较为为纯粹的模块打包工具，其相较于 Parcel 与 Webpack 等，更适合于构建 Library，譬如 React、Vue.js、Angular、D3、Moment、Redux 等一系列优秀的库都是采用 Rollup 进行构建。。Rollup 能够将按照 ESM(ES2015 Module)规范编写的源码构建输出为 IIFE、AMD、CommonJS、UMD、ESM 等多种格式，并且其较早地支持 Tree Shaking，Scope Hoisting 等优化特性，保证模块的简洁与高效。这里我们使用的 Rollup 示例配置项目存放在了 [fe-boilerplate/rollup](https://github.com/wx-chevalier/fe-boilerplates/tree/master/bundler/rollup)。最简单的 rollup.config.js 文件配置如下：
 
 ```js
 export default {
@@ -174,7 +174,7 @@ export default {
 //# sourceMappingURL=data:application/json;charset=utf-8;base64,...
 ```
 
-Rollup 同样具有丰富的插件系统，在 [fe-boilerplate/rollup](https://github.com/wx-chevalier/fe-boilerplate/tree/master/bundler/rollup) 中我们也引入了常见的别名、ESLint、环境变量定义、包体压缩与分析等插件。这里我们以最常用的 Babel 与 TypeScript 为例，如果我们需要在项目中引入 Babel，则同样在根目录配置 `.babelrc` 文件，然后引入 rollup-plugin-babel 插件即可：
+Rollup 同样具有丰富的插件系统，在 [fe-boilerplate/rollup](https://github.com/wx-chevalier/fe-boilerplates/tree/master/bundler/rollup) 中我们也引入了常见的别名、ESLint、环境变量定义、包体压缩与分析等插件。这里我们以最常用的 Babel 与 TypeScript 为例，如果我们需要在项目中引入 Babel，则同样在根目录配置 `.babelrc` 文件，然后引入 rollup-plugin-babel 插件即可：
 
 ```js
 import { rollup } from 'rollup';
@@ -220,7 +220,7 @@ export default {
 
 # Webpack
 
-作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wx-chevalier/fe-boilerplate/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wx-chevalier/fe-boilerplate/blob/master/vue/webpack) 等。
+作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wx-chevalier/fe-boilerplates/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wx-chevalier/fe-boilerplates/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wx-chevalier/fe-boilerplates/blob/master/vue/webpack) 等。
 
 ![538c4af0d21e375d6d252d38cbb8a993](https://user-images.githubusercontent.com/5803001/39744493-0e21c33a-52d7-11e8-8295-1f8deb389565.png)
 
