@@ -1,5 +1,14 @@
 # Summary 
 
+## [.github](../.github/README.md) 
+
+- [Introduction](../.github/README.md) 
+
+- [ISSUE_TEMPLATE](../.github/ISSUE_TEMPLATE/README.md) 
+  - [bug_report](../.github/ISSUE_TEMPLATE/bug_report.md) 
+  - [custom](../.github/ISSUE_TEMPLATE/custom.md) 
+  - [feature_request](../.github/ISSUE_TEMPLATE/feature_request.md) 
+
 ## [Backend](../Backend/README.md) 
 
 - [Introduction](../Backend/README.md) 
@@ -70,14 +79,6 @@
   - [Scikit-CheatSheet](../DataScienceAI/Toolkit/Scikit-CheatSheet.md) 
   - [TFJS-CheatSheet](../DataScienceAI/Toolkit/TFJS-CheatSheet.md) 
   - [Tensorflow-CheatSheet](../DataScienceAI/Toolkit/Tensorflow-CheatSheet.md) 
-
-## [Digests](../Digests/README.md) 
-
-- [Introduction](../Digests/README.md) 
-
-- [2014-Steve-Don’t Make Me Think](../Digests/2014-Steve-Don’t Make Me Think.md) 
-- [2017-Designing Data Intensive Applications](../Digests/2017-Designing Data Intensive Applications.md) 
-- [2018-美团机器学习实践](../Digests/2018-美团机器学习实践.md) 
 
 ## [Frontend](../Frontend/README.md) 
 
