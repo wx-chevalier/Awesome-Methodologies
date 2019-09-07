@@ -162,6 +162,7 @@
 - [Introduction](../ProgrammingLanguage/README.md) 
 
 - [ProgrammingLanguage-CheatSheet](../ProgrammingLanguage/ProgrammingLanguage-CheatSheet.md) 
+- [StyleGuide-CheatSheet](../ProgrammingLanguage/StyleGuide-CheatSheet.md) 
 - [C](../ProgrammingLanguage/C/README.md) 
   - [CPP-CheatSheet](../ProgrammingLanguage/C/CPP-CheatSheet.md) 
 - [Go](../ProgrammingLanguage/Go/README.md) 
