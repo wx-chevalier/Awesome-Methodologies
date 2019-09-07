@@ -1,7 +1,5 @@
 [![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
-> [Awesome Linux Commands CheatSheet https://github.com/wx-chevalier/Awesome-CheatSheets](https://github.com/wx-chevalier/Awesome-CheatSheets) 是对于 [Linux 与操作系统 https://url.wx-coder.cn/Q0AmI](https://url.wx-coder.cn/Q0AmI) 中常用命令的总结，相较于 [Awesome Linux List https://github.com/wx-chevalier/Awesome-Lists](https://github.com/wx-chevalier/Awesome-Lists/tree/master/Infrastructure/OS/Linux) 中的参考资料，本文希望能够更为生动详细，并且不仅仅局限于 Bash 本身，而是包含具有一定价值的其他扩展命令，从而更贴近于日常工作中的需要。
-
 # Linux Commands CheatSheet | 常用命令与技巧清单
 
 Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命名语言解释器（Command-Language Interpreter），Bash(Bourne Again Shell) 则是 Bourne Shell(Sh) 的扩展，其优化了原本用户输入处理的不足，提供了多种便捷用户输入的方式。
