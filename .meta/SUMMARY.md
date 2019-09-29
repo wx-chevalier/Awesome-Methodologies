@@ -78,7 +78,6 @@
 - [DataVisualization](../Frontend/DataVisualization/README.md) 
   - [DataVisualization-CheatSheet](../Frontend/DataVisualization/DataVisualization-CheatSheet.md) 
   - [Mo-CheatSheet](../Frontend/DataVisualization/Mo-CheatSheet.md) 
-  - [Svg-CheatSheet](../Frontend/DataVisualization/Svg-CheatSheet.md) 
   - [Three.js-CheatSheet](../Frontend/DataVisualization/Three.js-CheatSheet.md) 
 - [IoT](../Frontend/IoT/README.md) 
   - [3DPrinting-CheatSheet](../Frontend/IoT/3DPrinting-CheatSheet.md) 
