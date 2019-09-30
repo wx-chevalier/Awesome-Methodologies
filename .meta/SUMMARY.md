@@ -21,6 +21,7 @@
 - [Introduction](../Business/README.md) 
 
 - [3DPrinting-CheatSheet](../Business/3DPrinting-CheatSheet.md) 
+- [Live-CheatSheet](../Business/Live-CheatSheet.md) 
 
 ## [DataScienceAI](../DataScienceAI/README.md) 
 
@@ -141,8 +142,6 @@
 
 - [Introduction](../ProgrammingLanguage/README.md) 
 
-- [ProgrammingLanguage-CheatSheet](../ProgrammingLanguage/ProgrammingLanguage-CheatSheet.md) 
-- [StyleGuide-CheatSheet](../ProgrammingLanguage/StyleGuide-CheatSheet.md) 
 - [C](../ProgrammingLanguage/C/README.md) 
   - [CPP-CheatSheet](../ProgrammingLanguage/C/CPP-CheatSheet.md) 
 - [Go](../ProgrammingLanguage/Go/README.md) 
@@ -186,26 +185,9 @@
 
 - [Introduction](../SoftwareEngineering/README.md) 
 
+- [AlgoDS-CheatSheet](../SoftwareEngineering/AlgoDS-CheatSheet.md) 
+- [DesignPattern-CheatSheet](../SoftwareEngineering/DesignPattern-CheatSheet.md) 
 - [Git-Cheatsheet](../SoftwareEngineering/Git-Cheatsheet.md) 
-- [AlgoDS](../SoftwareEngineering/AlgoDS/README.md) 
-  - [AlgoDS-CheatSheet](../SoftwareEngineering/AlgoDS/AlgoDS-CheatSheet.md) 
-  - [BTree-CheatSheet](../SoftwareEngineering/AlgoDS/BTree-CheatSheet.md) 
-  - [DateTime-CheatSheet](../SoftwareEngineering/AlgoDS/DateTime-CheatSheet.md) 
-  - [Hash-CheatSheet](../SoftwareEngineering/AlgoDS/Hash-CheatSheet.md) 
-  - [LinkedList-CheatSheet](../SoftwareEngineering/AlgoDS/LinkedList-CheatSheet.md) 
-  - [Regex-CheatSheet](../SoftwareEngineering/AlgoDS/Regex-CheatSheet.md) 
-  - [Sort-CheatSheet](../SoftwareEngineering/AlgoDS/Sort-CheatSheet.md) 
-  - [Tree-CheatSheet](../SoftwareEngineering/AlgoDS/Tree-CheatSheet.md) 
+- [Refactor-CheatSheet](../SoftwareEngineering/Refactor-CheatSheet.md) 
 - [Architecture](../SoftwareEngineering/Architecture/README.md) 
-  - [CQRS-CheatSheet](../SoftwareEngineering/Architecture/CQRS-CheatSheet.md) 
-  - [DDD-CheatSheet](../SoftwareEngineering/Architecture/DDD-CheatSheet.md) 
-  - [EDA-CheatSheet](../SoftwareEngineering/Architecture/EDA-CheatSheet.md) 
   - [REST-CheatSheet](../SoftwareEngineering/Architecture/REST-CheatSheet.md) 
-- [DesignPattern](../SoftwareEngineering/DesignPattern/README.md) 
-  - [Java-DesignPattern-CheatSheet](../SoftwareEngineering/DesignPattern/Java-DesignPattern-CheatSheet.md) 
-  - [OOP-DesignPattern-CheatSheet](../SoftwareEngineering/DesignPattern/OOP-DesignPattern-CheatSheet.md) 
-  - [PHP-DesignPattern-CheatSheet](../SoftwareEngineering/DesignPattern/PHP-DesignPattern-CheatSheet.md) 
-  - [Refactor-CheatSheet](../SoftwareEngineering/DesignPattern/Refactor-CheatSheet.md) 
-  - [TypeScript-DesignPattern-CheatSheet](../SoftwareEngineering/DesignPattern/TypeScript-DesignPattern-CheatSheet.md) 
-- [FunctionalDomain](../SoftwareEngineering/FunctionalDomain/README.md) 
-  - [Live-CheatSheet](../SoftwareEngineering/FunctionalDomain/Live-CheatSheet.md) 

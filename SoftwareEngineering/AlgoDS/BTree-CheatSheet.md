@@ -1,3 +1,0 @@
-# BTree CheatSheet
-
-# LSM Tree
