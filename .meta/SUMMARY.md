@@ -40,6 +40,13 @@
     - [Node-CheatSheet](../Backend/WebFramework/Node/Node-CheatSheet.md) 
     - [Node-OpenSource-CheatSheet](../Backend/WebFramework/Node/Node-OpenSource-CheatSheet.md) 
 
+## [Business](../Business/README.md) 
+
+- [Introduction](../Business/README.md) 
+
+- [Intelligent-Manufacturing](../Business/Intelligent-Manufacturing/README.md) 
+  - [3DPrinting-CheatSheet](../Business/Intelligent-Manufacturing/3DPrinting-CheatSheet.md) 
+
 ## [DataScienceAI](../DataScienceAI/README.md) 
 
 - [Introduction](../DataScienceAI/README.md) 
@@ -79,13 +86,20 @@
   - [DataVisualization-CheatSheet](../Frontend/DataVisualization/DataVisualization-CheatSheet.md) 
   - [Mo-CheatSheet](../Frontend/DataVisualization/Mo-CheatSheet.md) 
   - [Three.js-CheatSheet](../Frontend/DataVisualization/Three.js-CheatSheet.md) 
-- [IoT](../Frontend/IoT/README.md) 
-  - [3DPrinting-CheatSheet](../Frontend/IoT/3DPrinting-CheatSheet.md) 
-  - [ESP-CheatSheet](../Frontend/IoT/ESP-CheatSheet.md) 
-  - [Raspberry-CheatSheet](../Frontend/IoT/Raspberry-CheatSheet.md) 
 - [Mobile](../Frontend/Mobile/README.md) 
   - [Android-CheatSheet](../Frontend/Mobile/Android-CheatSheet.md) 
   - [Flutter-CheatSheet](../Frontend/Mobile/Flutter-CheatSheet.md) 
+- [Web](../Frontend/Web/README.md) 
+  - [CSS-CheatSheet](../Frontend/Web/CSS-CheatSheet.md) 
+  - [DOM-CheatSheet](../Frontend/Web/DOM-CheatSheet.md) 
+  - [MobX-CheatSheet](../Frontend/Web/MobX-CheatSheet.md) 
+  - [React-CheatSheet](../Frontend/Web/React-CheatSheet.md) 
+  - [Redux-CheatSheet](../Frontend/Web/Redux-CheatSheet.md) 
+  - [Vue-CheatSheet](../Frontend/Web/Vue-CheatSheet.md) 
+  - [Web-Bundler-CheatSheet](../Frontend/Web/Web-Bundler-CheatSheet.md) 
+  - [Web-Optimization-CheatSheet](../Frontend/Web/Web-Optimization-CheatSheet.md) 
+  - [WebAssembly-CheatSheet](../Frontend/Web/WebAssembly-CheatSheet.md) 
+  - [Webpack-CheatSheet](../Frontend/Web/Webpack-CheatSheet.md) 
 
 ## [InfoSecurity](../InfoSecurity/README.md) 
 
@@ -121,7 +135,6 @@
   - [StreamingComputing-CheatSheet](../Infrastructure/DistributedComputing/StreamingComputing-CheatSheet.md) 
 - [DistributedSystem](../Infrastructure/DistributedSystem/README.md) 
   - [Blockchain-CheatSheet](../Infrastructure/DistributedSystem/Blockchain-CheatSheet.md) 
-  - [ConcurrentProgramming-CheatSheet](../Infrastructure/DistributedSystem/ConcurrentProgramming-CheatSheet.md) 
   - [DistributedSystem-CheatSheet](../Infrastructure/DistributedSystem/DistributedSystem-CheatSheet.md) 
   - [ZooKeeper-CheatSheet](../Infrastructure/DistributedSystem/ZooKeeper-CheatSheet.md) 
 - [Network](../Infrastructure/Network/README.md) 
@@ -130,9 +143,12 @@
   - [TCPIP-CheatSheet](../Infrastructure/Network/TCPIP-CheatSheet.md) 
 - [OS](../Infrastructure/OS/README.md) 
   - [CentOS-CheatSheet](../Infrastructure/OS/CentOS-CheatSheet.md) 
+  - [ConcurrentProgramming-CheatSheet](../Infrastructure/OS/ConcurrentProgramming-CheatSheet.md) 
+  - [ESP-CheatSheet](../Infrastructure/OS/ESP-CheatSheet.md) 
   - [Linux-CheatSheet](../Infrastructure/OS/Linux-CheatSheet.md) 
   - [Linux-Commands-CheatSheet](../Infrastructure/OS/Linux-Commands-CheatSheet.md) 
   - [Linux-Harden-CheatSheet](../Infrastructure/OS/Linux-Harden-CheatSheet.md) 
+  - [Raspberry-CheatSheet](../Infrastructure/OS/Raspberry-CheatSheet.md) 
   - [Storage-CheatSheet](../Infrastructure/OS/Storage-CheatSheet.md) 
 - [Virtualization](../Infrastructure/Virtualization/README.md) 
   - [Docker-Cheatsheet](../Infrastructure/Virtualization/Docker-Cheatsheet.md) 
@@ -231,18 +247,3 @@
 - [Workflow](../SoftwareEngineering/Workflow/README.md) 
   - [Git-Cheatsheet](../SoftwareEngineering/Workflow/Git-Cheatsheet.md) 
   - [VSCode-Cheatsheet](../SoftwareEngineering/Workflow/VSCode-Cheatsheet.md) 
-
-## [Web](../Web/README.md) 
-
-- [Introduction](../Web/README.md) 
-
-- [CSS-CheatSheet](../Web/CSS-CheatSheet.md) 
-- [DOM-CheatSheet](../Web/DOM-CheatSheet.md) 
-- [MobX-CheatSheet](../Web/MobX-CheatSheet.md) 
-- [React-CheatSheet](../Web/React-CheatSheet.md) 
-- [Redux-CheatSheet](../Web/Redux-CheatSheet.md) 
-- [Vue-CheatSheet](../Web/Vue-CheatSheet.md) 
-- [Web-Bundler-CheatSheet](../Web/Web-Bundler-CheatSheet.md) 
-- [Web-Optimization-CheatSheet](../Web/Web-Optimization-CheatSheet.md) 
-- [WebAssembly-CheatSheet](../Web/WebAssembly-CheatSheet.md) 
-- [Webpack-CheatSheet](../Web/Webpack-CheatSheet.md) 
