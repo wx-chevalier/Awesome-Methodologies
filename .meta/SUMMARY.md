@@ -125,7 +125,6 @@
   - [Raspberry-CheatSheet](../Infrastructure/OS/Raspberry-CheatSheet.md) 
   - [Storage-CheatSheet](../Infrastructure/OS/Storage-CheatSheet.md) 
 - [Virtualization](../Infrastructure/Virtualization/README.md) 
-  - [Docker-Internals-CheatSheet](../Infrastructure/Virtualization/Docker-Internals-CheatSheet.md) 
   - [Kubernetes-CheatSheet](../Infrastructure/Virtualization/Kubernetes-CheatSheet.md) 
   - [Virtualization-CheatSheet](../Infrastructure/Virtualization/Virtualization-CheatSheet.md) 
   - [Xen-CheatSheet](../Infrastructure/Virtualization/Xen-CheatSheet.md) 
@@ -187,7 +186,7 @@
 
 - [Introduction](../SoftwareEngineering/README.md) 
 
-- [SoftwareEngineering-CheatSheet](../SoftwareEngineering/SoftwareEngineering-CheatSheet.md) 
+- [Git-Cheatsheet](../SoftwareEngineering/Git-Cheatsheet.md) 
 - [AlgoDS](../SoftwareEngineering/AlgoDS/README.md) 
   - [AlgoDS-CheatSheet](../SoftwareEngineering/AlgoDS/AlgoDS-CheatSheet.md) 
   - [BTree-CheatSheet](../SoftwareEngineering/AlgoDS/BTree-CheatSheet.md) 
@@ -210,6 +209,3 @@
   - [TypeScript-DesignPattern-CheatSheet](../SoftwareEngineering/DesignPattern/TypeScript-DesignPattern-CheatSheet.md) 
 - [FunctionalDomain](../SoftwareEngineering/FunctionalDomain/README.md) 
   - [Live-CheatSheet](../SoftwareEngineering/FunctionalDomain/Live-CheatSheet.md) 
-- [Workflow](../SoftwareEngineering/Workflow/README.md) 
-  - [Git-Cheatsheet](../SoftwareEngineering/Workflow/Git-Cheatsheet.md) 
-  - [VSCode-Cheatsheet](../SoftwareEngineering/Workflow/VSCode-Cheatsheet.md) 
