@@ -2,7 +2,7 @@
 
 ![node js banner](https://user-images.githubusercontent.com/5803001/45264152-98546180-b46a-11e8-982d-132da74f5216.png)
 
-> 本文节选自 [Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧](https://parg.co/m56)，也可以阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [现代 Web 开发基础与工程实践](https://github.com/wx-chevalier/Web-Series) 了解更多 JavaScript/Node.js 的实际应用。
+> 本文节选自 [Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧](https://parg.co/m56)，也可以阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [现代 Web 全栈开发与工程架构](https://github.com/wx-chevalier/Web-Series) 了解更多 JavaScript/Node.js 的实际应用。
 
 # Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧
 

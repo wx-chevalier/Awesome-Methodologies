@@ -377,4 +377,4 @@ webpackJsonp([0], {
 
 如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
-更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 开发基础与工程实践/Webpack](https://github.com/wx-chevalier/Web-Series) 章节。
+更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 全栈开发与工程架构/Webpack](https://github.com/wx-chevalier/Web-Series) 章节。
