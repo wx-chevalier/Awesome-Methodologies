@@ -1,27 +1,120 @@
-[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+[![返回目录](https://camo.githubusercontent.com/2be802997dee98af3435d3b9231e348ff137b93e/68747470733a2f2f706172672e636f2f554362)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
-# Network CheatSheet
+# HTTP CheatSheet | HTTP 相关必知必会：TCP/HTTP2/HTTPS/DNS，请求，响应，缓存
 
-**IPAM：**IP 地址管理；这个 IP 地址管理并不是容器所特有的，传统的网络比如说 DHCP 其实也是一种 IPAM，到了容器时代我们谈 IPAM，主流的两种方法： 基于 CIDR 的 IP 地址段分配地或者精确为每一个容器分配 IP。但总之一旦形成一个容器主机集群之后，上面的容器都要给它分配一个全局唯一的 IP 地址，这就涉及到 IPAM 的话题。
+HTTP, 等网络协议是我们日常开发、面试中常见的知识要点。
 
-**Overlay：**在现有二层或三层网络之上再构建起来一个独立的网络，这个网络通常会有自己独立的 IP 地址空间、交换或者路由的实现。
+```sh
+http://rob:abcd1234@www.example.co.uk/path/index.html?query1=test&silly=willy&field[0]=zero&field[2]=two#test=hash&chucky=cheese
+```
 
-**IPSesc：**一个点对点的一个加密通信协议，一般会用到 Overlay 网络的数据通道里。
+# 基础
 
-**vxLAN：**由 VMware、Cisco、RedHat 等联合提出的这么一个解决方案，这个解决方案最主要是解决 VLAN 支持虚拟网络数量（4096）过少的问题。因为在公有云上每一个租户都有不同的 VPC，4096 明显不够用。就有了 vxLAN，它可以支持 1600 万个虚拟网络，基本上公有云是够用的。
+## URI & URL
 
-**网桥 Bridge：** 连接两个对等网络之间的网络设备，但在今天的语境里指的是 Linux Bridge，就是大名鼎鼎的 Docker0 这个网桥。
+The difference between them is straightforward after knowing their definitions:
 
-**BGP：** 主干网自治网络的路由协议，今天有了互联网，互联网由很多小的自治网络构成的，自治网络之间的三层路由是由 BGP 实现的。
+- **Uniform Resource Identifier (URI)** − a sequence of characters that allows the complete identification of any abstract or physical resource
+- **Uniform Resource Locator (URL)** − a subset of URI that, in addition to identifying where a resource is available, describes the primary mechanism to access it
 
-**SDN、Openflow：** 软件定义网络里面的一个术语，比如说我们经常听到的流表、控制平面，或者转发平面都是 Openflow 里的术语。
+Every URI, regardless if it’s a URL or not, follows a particular form:
 
-# TCP/IP
+```
+scheme:[//authority][/path][?query][#fragment]
+```
 
-## Socket
+Where each part is described as follows:
 
-一个连接的唯一标识是[server ip, server port, client ip, client port]也就是说。操作系统，接收到一个端口发来的数据时，会在该端口，产生的连接中，查找到符合这个唯一标识的并传递信息到对应缓冲区。
+- **\*scheme\*** − for URLs, is the name of the protocol used to access the resource, for other URIs, is a name that refers to a specification for assigning identifiers within that scheme
+- **authority** − an optional part comprised of user authentication information, a host and an optional port
+- **\*path\*** − it serves to identify a resource within the scope of its _scheme_ and _authority_
+- **\*query\*** − additional data that, along with the _path,_ serves to identify a resource. For URLs, this is the query string
+- **\*fragment\*** − an optional identifier to a specific part of the resource
 
-1.一个端口同一时间只能 bind 给一个 SOCKET。就是同一时间一个端口只可能有一个监听线程(监听 listen 之前要 bind)。
+**To easily identify if a particular URI is also a URL, we can check its scheme**. Every URL has to start with any of these schemes: _ftp_, _http_, _https,_ _gopher_, _mailto_, _news_, _nntp_, _telnet_, _wais_, _file_, or _prospero_. If it doesn’t start with it, then it’s not a URL.
 
-2.为什么一个端口能建立多个 TCP 连接，同一个端口也就是说 server ip 和 server port 是不变的。那么只要[client ip 和 client port]不相同就可以了。能保证接唯一标识[server ip, server port, client ip, client port]的唯一性。
+# 请求
+
+# 响应
+
+## 常用响应头
+
+- Content-Disposition
+
+Content-Disposition 属性是作为对下载文件的一个标识字段，属性有两种类型: inline 将文件内容直接显示在页面, attachment 弹出对话框让用户下载:
+
+```
+Content-Type: image/jpeg
+Content-Disposition: inline;filename=hello.jpg
+Content-Description: just a small picture of me
+```
+
+# 缓存
+
+# TCP
+
+![image](https://user-images.githubusercontent.com/5803001/48391511-ea06ba00-e741-11e8-832f-ac9d994f0b21.png)
+
+这是因为 Linux 不像其他操作系统在收到 SYN 为该连接立马分配一块内存空间用于存储相关的数据和结构，而是延迟到接收到 client 的 ACK，即三次握手 真正完成后才分配空间，这是为了防范 SYN flooding 攻击。如果是这种情况，那么就会出现 client 端未 ESTABLISHED 状态，server 为 SYN_RECV 状态。
+
+| CLOSED       | 没有使用这个套接字[netstat 无法显示 closed 状态]                                                                                          |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| LISTEN       | 套接字正在监听连接[调用 listen 后]                                                                                                        |
+| SYN_SENT     | 套接字正在试图主动建立连接[发送 SYN 后还没有收到 ACK]                                                                                     |
+| SYN_RECEIVED | 正在处于连接的初始同步状态[收到对方的 SYN，但还没收到自己发过去的 SYN 的 ACK]                                                             |
+| ESTABLISHED  | 连接已建立                                                                                                                                |
+| CLOSE_WAIT   | 远程套接字已经关闭：正在等待关闭这个套接字[被动关闭的一方收到 FIN]                                                                        |
+| FIN_WAIT_1   | 套接字已关闭，正在关闭连接[发送 FIN，没有收到 ACK 也没有收到 FIN]                                                                         |
+| CLOSING      | 套接字已关闭，远程套接字正在关闭，暂时挂起关闭确认[在 FIN_WAIT_1 状态下收到被动方的 FIN]                                                  |
+| LAST_ACK     | 远程套接字已关闭，正在等待本地套接字的关闭确认[被动方在 CLOSE_WAIT 状态下发送 FIN]                                                        |
+| FIN_WAIT_2   | 套接字已关闭，正在等待远程套接字关闭[在 FIN_WAIT_1 状态下收到发过去 FIN 对应的 ACK]                                                       |
+| TIME_WAIT    | 这个套接字已经关闭，正在等待远程套接字的关闭传送[FIN、ACK、FIN、ACK 都完毕，这是主动方的最后一个状态，在过了 2MSL 时间后变为 CLOSED 状态] |
+
+TCP 协议规定，对于已经建立的连接，网络双方要进行四次握手才能成功断开连接，如果缺少了其中某个步骤，将会使连接处于假死状态，连接本身占用的资源不会被释放。网络服务器程序要同时管理大量连接，所以很有必要保证无用连接完全断开，否则大量僵死的连接会浪费许多服务器资源。在众多 TCP 状态中，最值得注意的状态有两个：CLOSE_WAIT 和 TIME_WAIT。
+
+CLOSE_WAIT 对方主动关闭连接或者网络异常导致连接中断，这时我方的状态会变成 CLOSE_WAIT 此时我方要调用 close()来使得连接正确关闭；TIME_WAIT 是我方主动调用 close()断开连接，收到对方确认后状态变为 TIME_WAIT。TCP 协议规定 TIME_WAIT 状态会一直持续 2MSL(即两倍的分段最大生存期)，以此来确保旧的连接状态不会对新连接产生影响。处于 TIME_WAIT 状态的连接占用的资源不会被内核释放，所以作为服务器，在可能的情况下，尽量不要主动断开连接，以减少 TIME_WAIT 状态造成的资源浪费。
+
+# HTTPS
+
+HTTPS 要使客户端与服务器端的通信过程得到安全保证，必须使用的对称加密算法，但是协商对称加密算法的过程，需要使用非对称加密算法来保证安全，然而直接使用非对称加密的过程本身也不安全，会有中间人篡改公钥的可能性，所以客户端与服务器不直接使用公钥，而是使用数字证书签发机构颁发的证书来保证非对称加密过程本身的安全。这样通过这些机制协商出一个对称加密算法，就此双方使用该算法进行加密解密。从而解决了客户端与服务器端之间的通信安全问题。
+
+![image](https://user-images.githubusercontent.com/5803001/51544221-6502f400-1e9a-11e9-99c0-a35ddac96da6.png)
+
+![image](https://user-images.githubusercontent.com/5803001/51544246-72b87980-1e9a-11e9-96ce-7768ad206811.png)
+
+# HTTP/2
+
+# WebSocket
+
+# DNS
+
+Dns 系统主要是依靠权威 dns，和递归 dns 来工作的。权威 dns 做的事情主要是管理某个或多个特定域的 dns 服务。一般大一点的公司，都有自己的权威 dns
+
+比如所有”.alipay.com”结尾的域名都由 alipay 来管理
+
+所有”.alibaba.com”结尾的域名都由 alibaba 来管理(alipay 和 alibaba 实际又是同一家公司来管理)
+
+所有“.baidu.com”结尾的域名都由 baidu 来管理
+
+Alibaba 和 baidu 各管各的，没有交互。一级域要去根上注册，像 com 域，net 域就属于一级域
+
+Com 域（也就是所有以“.com”结尾的老祖 com 域）要去根上注册 com 域的域名服务器（nameserver）列表。
+
+Net 域（也就是所有以”.net”结尾的老祖 net 域）要去根上注册 net 域的域名服务器（nameserver）列表。 二级域一般要到一级域上去注册
+
+alibaba.com 要到 com 域去注册自己的域名服务器 nameserver 列表
+
+Baidu.com 也要到 com 域去注册自己的域名服务器 nameserver 列表
+
+![i20180520_181112_186](https://user-images.githubusercontent.com/5803001/40573917-a5b3da1c-60fb-11e8-8be9-7ad479c05daa.jpg)
+
+递归 DNS（Recursion DNS）
+
+那用户访问 www.alibaba.com，请求又是如何到 alibaba 的权威 dns 服务器上面找到 www.alibaba.com 的 ip 呢？
+
+这个时候递归 dns（我们一般叫做 local dns）就介入了。递归 dns 也就是我们常说的缓存 dns，local dns，公共 dns（提供专门递归服务的 dns），这样一步步的从根“.”到"com",再到“alibaba.com”,最后到“www.alibaba.com”的过程叫做递归过程
+Dns 请求一般是 udp 报文（也可以是 tcp 的报文），所以同样也是要有源 ip，目标 ip，等等这些网络数据包的底层信息，递归过程的每一步，目标 ip 都必须是很明确的
+各个域的 namserver 实际上是有多台的，比如根的 namserver 的 ip 有 13 个，com 的 namserver 的 ip 也有 13 个，递归 dns 在进行递归时需要选择其中一个 ip 作为目标 ip 进行下一步请求即可（目前主流 dns 实现软件，如 bind 会选择延时最小的那个 ip 作为下一步请求的目标 ip）dns 中用的多的是 anycast 技术，一个 ip 实际上对了很多个物理服务器，到各个权威 nameserver 上，也有 lvs，ospf 等等一些负载均衡技术把同一个 ip 对应到多个物理服务器上面。
+递归 dns 还会把图中递归第一步，第二步，第三步向各级权威 dns 发起的请求结果给缓存到自己的内存中，直到这条结果的 ttl 超期失效（超期时间一般为几分钟到几小时几天等等），在这个 ttl 超期之前，任何其他用户发起的 www.alibaba.com 的 dns 请求，递归 dns 都会直接从自己的内存中把缓存结果直接返回给客户端（不会去递归了）。如果 ttl 超期了，才会去重新递归。
+
+有的 dns 既是权威 dns，又是递归 dns，这并不冲突，这种 dns 在遇到域名是自己管理的域的后缀结尾时，会直接进行应答（无论是否存在结果），如果不是自己管理的域的后缀域名，则进行递归，同样吧递归结果进行缓存。
