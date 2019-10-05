@@ -10,17 +10,17 @@
 
   - [ ] 参考 https://parg.co/UiC
 
-* [ ] Bash CheatSheet
+- [ ] Bash CheatSheet
 
   - [ ] https://devhints.io/bash
 
-* [ ] MySQL CheatSheet
+- [ ] MySQL CheatSheet
 
   - [ ] https://mp.weixin.qq.com/s/87BoE2-0mW_3qALyNSpiTw
 
-* [ ] Elastic Search CheatSheet
+- [ ] Elastic Search CheatSheet
 
-* [ ] Git CheatSheet
+- [ ] Git CheatSheet
 
 - [ ] Web Performance CheatSheet
 
@@ -105,16 +105,16 @@
 
   - [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e
 
-* [ ] MobX CheatSheet
+- [ ] MobX CheatSheet
 
   - [ ] https://semaphoreci.com/community/tutorials/how-to-`test`-react-and-mobx-with-jest
 
-* [ ] Web Test CheatSheet
+- [ ] Web Test CheatSheet
 
   - [ ] [2018-End-to-end testing React apps with Puppeteer and Jest](https://blog.logrocket.com/end-to-end-testing-react-apps-with-puppeteer-and-jest-ce2f414b4fd7)
   - [ ] https://hackernoon.com/what-is-kubernetes-how-to-get-started-with-it-93e6815c0b6e?source=linkShare-fe48c4221a4c-1525916860
 
-* [ ] TensorFlow CheatSheet
+- [ ] TensorFlow CheatSheet
 
   - [什么是张量-知乎问答](https://www.zhihu.com/question/20695804/answer/64920043)
 

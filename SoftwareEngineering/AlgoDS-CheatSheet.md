@@ -16,15 +16,15 @@
 
 ## 在线练习
 
-* [LeetCode](https://leetcode.com/)
-* [Virtual Judge](https://vjudge.net/)
-* [CareerCup](https://www.careercup.com/)
-* [HackerRank](https://www.hackerrank.com/)
-* [CodeFights](https://codefights.com/)
+- [LeetCode](https://leetcode.com/)
+- [Virtual Judge](https://vjudge.net/)
+- [CareerCup](https://www.careercup.com/)
+- [HackerRank](https://www.hackerrank.com/)
+- [CodeFights](https://codefights.com/)
 
 ## 在线面试编程
 
-* [Gainlo](http://www.gainlo.co/#!/)
+- [Gainlo](http://www.gainlo.co/#!/)
 
 ## 数据结构
 
@@ -286,11 +286,11 @@ _ 二叉树即是每个节点最多包含左子节点与右子节点这两个节
 ## 视频教程
 
 * Data Structures
-   * [UC Berkeley Data Structures](https://www.youtube.com/watch?v=mFPmKGIrQs4&index=1&list=PL-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd)
-   * [MIT Advanced Data Structures](https://www.youtube.com/watch?v=T0yzrZL1py0&list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf&index=1)
+   - [UC Berkeley Data Structures](https://www.youtube.com/watch?v=mFPmKGIrQs4&index=1&list=PL-XXv-cvA_iAlnI-BQr9hjqADPBtujFJd)
+   - [MIT Advanced Data Structures](https://www.youtube.com/watch?v=T0yzrZL1py0&list=PLUl4u3cNGP61hsJNdULdudlRL493b-XZf&index=1)
 * Algorithms
-   * [MIT Introduction to Algorithms](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=1)
-   * [MIT Advanced Algorithms](https://www.youtube.com/playlist?list=PL6ogFv-ieghdoGKGg2Bik3Gl1glBTEu8c)
+   - [MIT Introduction to Algorithms](https://www.youtube.com/watch?v=HtSuA80QTyo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=1)
+   - [MIT Advanced Algorithms](https://www.youtube.com/playlist?list=PL6ogFv-ieghdoGKGg2Bik3Gl1glBTEu8c)
 
 ## 面试书籍
 
@@ -300,7 +300,7 @@ _ 二叉树即是每个节点最多包含左子节点与右子节点这两个节
 
 ## 计算机科学与技术资讯
 
-* [Hacker News](https://news.ycombinator.com/)
+- [Hacker News](https://news.ycombinator.com/)
 
 ## 文件结构
 

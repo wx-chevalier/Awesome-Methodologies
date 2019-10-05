@@ -122,24 +122,24 @@ sObjective-C Bridging Header : $(SRCROOT)/Sources/SwiftBridging.h
 
 ### Tutorial & Docs
 
-* [中文版 Apple 官方 Swift 教程《The Swift Programming Language》][1]
-* [Swift 学习笔记](http://www.cnblogs.com/dson/p/4550129.html)
+- [中文版 Apple 官方 Swift 教程《The Swift Programming Language》][1]
+- [Swift 学习笔记](http://www.cnblogs.com/dson/p/4550129.html)
 
 ### Forum & Lessons
 
-* [Awesome-Swift-Education](https://github.com/hsavit1/Awesome-Swift-Education)
+- [Awesome-Swift-Education](https://github.com/hsavit1/Awesome-Swift-Education)
 
 ### Blog & News
 
-* [SwiftGG](http://swift.gg/)
+- [SwiftGG](http://swift.gg/)
 
 - [2016 中国 Swift 开发者大会源文件，包括 keynote, pdf 和源工程文件 ](https://github.com/atConf/atswift-2016-resources)
 
-* [腾讯 Bugly 干货分享：浅谈 Swift 在实际项目中的应用][2]
+- [腾讯 Bugly 干货分享：浅谈 Swift 在实际项目中的应用][2]
 
 ### Book & Resources
 
-* [Awesome Swift](https://github.com/matteocrippa/awesome-swift?utm_source=tuicool&utm_medium=referral)
+- [Awesome Swift](https://github.com/matteocrippa/awesome-swift?utm_source=tuicool&utm_medium=referral)
 
 # 流程控制
 
@@ -879,7 +879,7 @@ var maxAmplitudeFound = AudioSample.min // maxAmplitudeFound 现在是 0
 
 ## 可选类型(Optional)
 
-> * [Swift 之 ? 和 !](http://joeyio.com/ios/2014/06/04/swift---/)
+> - [Swift 之 ? 和 !](http://joeyio.com/ios/2014/06/04/swift---/)
 
 ```
 Swift语言使用var定义变量，但和别的语言不同，Swift里不会自动给变量赋初始值，也就是说变量不会有默认值，所以要求使用变量之前必须要对其初始化。如果在使用变量之前不进行初始化就会报错：
