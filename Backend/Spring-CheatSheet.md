@@ -12,7 +12,7 @@ Spring 的设计目标是为我们提供一个一站式的轻量级应用开发�
 
 ## Java Web 关键技术
 
-Java Servlet（Java 服务器小程序）是一个基于 Java 技术的 Web 组件，运行在服务器端，它由 Servlet 容器所管理，用于生成动态的内容。 Servlet 是平台独立的 Java 类，编写一个 Servlet，实际上就是按照 Servlet 规范编写一个 Java 类。Servlet 被编译为平台独立 的字节码，可以被动态地加载到支持 Java 技术的 Web 服务器中运行。
+Java Servlet（Java 服务器小程序）是一个基于 Java 技术的 Web 组件，运行在服务器端，它由 Servlet 容器所管理，用于生成动态的内容。Servlet 是平台独立的 Java 类，编写一个 Servlet，实际上就是按照 Servlet 规范编写一个 Java 类。Servlet 被编译为平台独立 的字节码，可以被动态地加载到支持 Java 技术的 Web 服务器中运行。
 
 Servlet 容器也叫做 Servlet 引擎，是 Web 服务器或应用程序服务器的一部分，用于在发送的请求和响应之上提供网络服务，解码基于 MIME 的请求，格式化基于 MIME 的响应。Servlet 没有 main 方法，不能独立运行，它必须被部署到 Servlet 容器中，由容器来实例化和调用 Servlet 的方法（如 doGet()和 doPost()），Servlet 容器在 Servlet 的生命周期内包容和管理 Servlet。在 JSP 技术 推出后，管理和运行 Servlet/JSP 的容器也称为 Web 容器。
 

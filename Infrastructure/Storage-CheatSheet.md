@@ -36,7 +36,7 @@ Unix 的 5 种 IO 模型：阻塞式 IO, 非阻塞式 IO，IO 复用模型，信
 
 - IO 复用(select,poll)
 
-IO 多路复用通过把多个 IO 的阻塞复用到同一个 select 的阻塞上，从而使得系统在单线程的情况可以同时处理多个客户端请求。 目前支持 IO 多路复用的**系统调用**有 select，pselect，poll，epoll，在 linux 网络编程过程中，很长一段时间都是用 select 做轮询和网络事件通知，然而 select 的一些固有缺陷导致了它的应用受到了很大的限制，最终 linux 不得不载新的内核版本中寻找 select 的替代方案，最终选择了 epoll。
+IO 多路复用通过把多个 IO 的阻塞复用到同一个 select 的阻塞上，从而使得系统在单线程的情况可以同时处理多个客户端请求。目前支持 IO 多路复用的**系统调用**有 select，pselect，poll，epoll，在 linux 网络编程过程中，很长一段时间都是用 select 做轮询和网络事件通知，然而 select 的一些固有缺陷导致了它的应用受到了很大的限制，最终 linux 不得不载新的内核版本中寻找 select 的替代方案，最终选择了 epoll。
 
 ![multplexing_io](https://lukangping.gitbooks.io/java-nio/content/resources/multiplexing_io.jpg)
 

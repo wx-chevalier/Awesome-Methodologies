@@ -362,7 +362,7 @@ randIter.next(); // Each exectuion gives a random value, expression is evaluated
 
 ## Monad
 
-> 一个 Monad 就是拥有[`of`](#pointed-functor)以及`chain`函数的对象。 `Chain` 类似于 [map](#functor)只不过它会扁平化最终求得的嵌套式结果。
+> 一个 Monad 就是拥有[`of`](#pointed-functor)以及`chain`函数的对象。`Chain` 类似于 [map](#functor)只不过它会扁平化最终求得的嵌套式结果。
 
 ```js
 ['cat,dog', 'fish,bird']

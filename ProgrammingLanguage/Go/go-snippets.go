@@ -183,7 +183,7 @@ func learnFlowControl() {
 	}
 	// 如果你只想要值，那就用前面讲的下划线扔掉没用的
 	for _, name := range []string{"Bob", "Bill", "Joe"} {
-		fmt.Printf("你是。。 %s\n", name)
+		fmt.Printf("你是。。%s\n", name)
 	}
 
 	// 和for一样，if中的:=先给y赋值，然后再和x作比较。

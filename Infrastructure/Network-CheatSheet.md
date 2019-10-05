@@ -100,7 +100,7 @@ Alibaba 和 baidu 各管各的，没有交互。一级域要去根上注册，�
 
 Com 域（也就是所有以“.com”结尾的老祖 com 域）要去根上注册 com 域的域名服务器（nameserver）列表。
 
-Net 域（也就是所有以”.net”结尾的老祖 net 域）要去根上注册 net 域的域名服务器（nameserver）列表。 二级域一般要到一级域上去注册
+Net 域（也就是所有以”.net”结尾的老祖 net 域）要去根上注册 net 域的域名服务器（nameserver）列表。二级域一般要到一级域上去注册
 
 alibaba.com 要到 com 域去注册自己的域名服务器 nameserver 列表
 

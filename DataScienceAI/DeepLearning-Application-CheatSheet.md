@@ -8,19 +8,19 @@
 
 # [图片增强](https://github.com/alexjc/neural-enhance)
 
-如果你手里只有一大堆低分辨率的图片，DeepLearning 可以帮你预测高分辨率的图片会是什么样子，然后自动地帮你添加遗失的细节。 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/QQ20161105-0.png) 对于你的[二次元小伙伴](https://github.com/nagadomi/waifu2x)一样有用的奥 : ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/1-Gkg7yPVtjkF0wOPIWZtxBQ.png)
+如果你手里只有一大堆低分辨率的图片，DeepLearning 可以帮你预测高分辨率的图片会是什么样子，然后自动地帮你添加遗失的细节。![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/QQ20161105-0.png) 对于你的[二次元小伙伴](https://github.com/nagadomi/waifu2x)一样有用的奥 : ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/1-Gkg7yPVtjkF0wOPIWZtxBQ.png)
 
 # [文本转换为语音](https://deepmind.com/blog/wavenet-generative-model-raw-audio/)
 
-DeepLearning 能够构建一个文本转语音的系统，基本上合成出来的语音效果和真人没啥区别。可以参考[wavenet-generative-model-raw-audio](https://deepmind.com/blog/wavenet-generative-model-raw-audio)这篇文章。 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/749BE442-C681-436A-BA0C-0653B51569AE.png)
+DeepLearning 能够构建一个文本转语音的系统，基本上合成出来的语音效果和真人没啥区别。可以参考[wavenet-generative-model-raw-audio](https://deepmind.com/blog/wavenet-generative-model-raw-audio)这篇文章。![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/749BE442-C681-436A-BA0C-0653B51569AE.png)
 
 # [音乐合成](https://deepmind.com/blog/wavenet-generative-model-raw-audio/)
 
-DeepLearning 能够帮你合成传统的音乐，效果跟真人合成的相比也是分辨不出来。 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/QQ20161105-0aa.png)
+DeepLearning 能够帮你合成传统的音乐，效果跟真人合成的相比也是分辨不出来。![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/QQ20161105-0aa.png)
 
 # [绘画风格替换](https://research.googleblog.com/2016/10/supercharging-style-transfer.html)
 
-DeepLearning 能够帮你给选定的图片替换风格样式。 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/1-WsAKFc_5-IJL0O7O0KIE0w.png)
+DeepLearning 能够帮你给选定的图片替换风格样式。![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/1-WsAKFc_5-IJL0O7O0KIE0w.png)
 
 # [字体生成](https://erikbern.com/2016/01/21/analyzing-50k-fonts-using-deep-neural-networks/)
 
@@ -28,7 +28,7 @@ DeepLearning 能够帮你给选定的图片替换风格样式。 ![](https://cod
 
 # [图片填充](https://bamos.github.io/2016/08/09/deep-completion/)
 
-DeepLearning 能够自动帮你补全图片中遗失的部分。 ![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/1-wPaRi774o4z-9QTtDqvhxQ.gif)
+DeepLearning 能够自动帮你补全图片中遗失的部分。![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/11/1/1-wPaRi774o4z-9QTtDqvhxQ.gif)
 
 # [机器人](https://blogs.nvidia.com/blog/2016/01/15/deep-learning-robot-walk/)
 

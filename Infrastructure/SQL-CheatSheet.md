@@ -14,7 +14,7 @@ SQL 作为一项图灵奖级别的发明，其重要意义不单单是发明了�
 
 所谓关系代数，是 SQL 从语句到执行计划的一种中间表示。首先它不是单纯的抽象语法树(AST)， 而是一种经过进一步处理得到的中间表示(可以类比一般编程语言的 IR)。
 
-SQL 查询优化在 OLAP 应用当中至关重要的主要原因在于 SQL 是一种声明式(Declarative)的编程语言， 相比一般的编程语言描述的是程序执行的过程，这类编程语言则是描述问题或者需要的结果本身。 具体的执行步骤则交由程序自己决定。
+SQL 查询优化在 OLAP 应用当中至关重要的主要原因在于 SQL 是一种声明式(Declarative)的编程语言， 相比一般的编程语言描述的是程序执行的过程，这类编程语言则是描述问题或者需要的结果本身。具体的执行步骤则交由程序自己决定。
 
 从使用的角度，SQL 作为一种可以被非相关技术人员快速入手的编程语言， 其主要优点就在于即使用户因并不了解数据库内部的实现细节而写出来十分糟糕的查询语句， 只要表达的意思准确清楚，数据库就可以在一定程度上将其转化为合理的执行方案高效的返回结果， 极大的降低了使用门槛。因此一个好的查询优化器，也是关系型数据库重要的卖点之一。
 
@@ -148,7 +148,7 @@ CREATE TABLE `product` (
 
 表必备三字段：id, gmt_create, gmt_modified。其中 id 必为主键，类型为 unsigned bigint、单表时自增、步长为 1。gmt_create, gmt_modified 的类型均为 datetime 类型，前者现在时表示主动创建，后者过去分词表示被动更新。
 
-任何字段如果为非负数，必须是 unsigned。小数类型为 decimal，禁止使用 float 和 double。 float 和 double 在存储的时候，存在精度损失的问题，很可能在值的比较时，得到不正确的结果。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数分开存储。
+任何字段如果为非负数，必须是 unsigned。小数类型为 decimal，禁止使用 float 和 double。float 和 double 在存储的时候，存在精度损失的问题，很可能在值的比较时，得到不正确的结果。如果存储的数据范围超过 decimal 的范围，建议将数据拆成整数和小数分开存储。
 
 表达是与否概念的字段，必须使用 is_xxx 的方式命名，数据类型是 unsigned tinyint(1 表示是，0 表示否)。但是 POJO 类的布尔属性不能加 is，要求在 resultMap 中进行字段与属性之间的映射。
 
@@ -325,7 +325,7 @@ Inner Join 是在做排除操作，任一行在两个表中不匹配，注定将
 
 ## Outer Join | 外联接
 
-Outer Join 包含了 Left Outer Join 与 Right Outer Join. 其实简写可以写成 Left Join 与 Right Join。left join，right join 要理解并区分左表和右表的概念，A 可以看成左表,B 可以看成右表。left join 是以左表为准的.,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).B 表记录不足的地方均为 NULL。 right join 和 left join 的结果刚好相反,这次是以右表(B)为基础的,A 表不足的地方用 NULL 填充。
+Outer Join 包含了 Left Outer Join 与 Right Outer Join. 其实简写可以写成 Left Join 与 Right Join。left join，right join 要理解并区分左表和右表的概念，A 可以看成左表,B 可以看成右表。left join 是以左表为准的.,左表(A)的记录将会全部表示出来,而右表(B)只会显示符合搜索条件的记录(例子中为: A.aID = B.bID).B 表记录不足的地方均为 NULL。right join 和 left join 的结果刚好相反,这次是以右表(B)为基础的,A 表不足的地方用 NULL 填充。
 
 ## Full Join | 全连接
 
