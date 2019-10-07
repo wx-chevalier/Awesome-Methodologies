@@ -269,7 +269,7 @@ Regexp
 
 # MiniTest
 
-> [Github 上 MiniTest 的主页][1]
+- [Github 上 MiniTest 的主页][1]
 
 ## UnitTest
 
@@ -380,7 +380,7 @@ end
 
 # RSpec
 
-> [rspec 入门教程][2]
+- [rspec 入门教程][2]
 
 ## Quick Start
 
