@@ -68,6 +68,8 @@ $ ls -l --sort=size --block-size=M
 $ find * -type f | fzf > selected
 # 根据文件名匹配
 $ find . -name '*.map' -exec rm {} \;
+$ find . -type d -name "node_modules" -prune -exec rm -rf {} \;
+
 # 根据路径匹配
 $ find /usr/ -path "*local*"
 # 批量修改文件的权限
