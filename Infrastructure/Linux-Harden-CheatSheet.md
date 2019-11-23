@@ -25,3 +25,7 @@ firewall-cmd --zone=public --add-port=80/tcp --permanent
 --permanent #永久生效，没有此参数重启后失效
 重启防火墙
 firewall-cmd --reload
+
+# 链接
+
+- https://www.freebuf.com/articles/system/218407.html?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io 最全 Linux 应急响应技巧
