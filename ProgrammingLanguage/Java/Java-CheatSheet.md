@@ -122,7 +122,7 @@ longtimeElapsed=startTime-finishTime;
 System.out.println(timeElapsed);
 ```
 
-# Collections | 集合类型
+# Collection | 集合类型
 
 ## 数组
 
