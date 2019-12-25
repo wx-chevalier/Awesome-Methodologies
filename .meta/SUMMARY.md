@@ -82,7 +82,7 @@
 - [DistributedSystem-CheatSheet](../Infrastructure/DistributedSystem-CheatSheet.md) 
 - [Docker-Cheatsheet](../Infrastructure/Docker-Cheatsheet.md) 
 - [Linux-CheatSheet](../Infrastructure/Linux-CheatSheet.md) 
-- [Linux-Commands-CheatSheet](../Infrastructure/Linux-Commands-CheatSheet.md) 
+- [Linux-Command-CheatSheet](../Infrastructure/Linux-Command-CheatSheet.md) 
 - [Linux-Harden-CheatSheet](../Infrastructure/Linux-Harden-CheatSheet.md) 
 - [MongoDB-CheatSheet](../Infrastructure/MongoDB-CheatSheet.md) 
 - [MySQL-Cheatsheet](../Infrastructure/MySQL-Cheatsheet.md) 
