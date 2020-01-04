@@ -1,5 +1,7 @@
 [![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
+> 导读：本文收集了来自 《[深入浅出 Linux]()》、《[K8s & Docker 实战]()》、[Spring 微服务实战]()、《[Web 全栈开发与工程架构]()》等系列笔记中有关 Linux 下从开发到部署的常用的命令。
+
 # Linux Commands CheatSheet | 常用命令与技巧清单
 
 Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命名语言解释器（Command-Language Interpreter），Bash(Bourne Again Shell) 则是 Bourne Shell(Sh) 的扩展，其优化了原本用户输入处理的不足，提供了多种便捷用户输入的方式。
@@ -344,6 +346,9 @@ $ awk '!visited[$0]++' your_file > deduplicated_file
 ```sh
 # 替换文件名
 $ find . -type f -name '\*.txt' -exec sed -i "s/{find}/{replace}/g" {} \;
+
+# 批量替换文件内容
+$ find . -type f | xargs grep -l 'registerUser' | xargs sed -i '' -e 's/registerUser/registerAdmin/g'
 ```
 
 # 用户权限
