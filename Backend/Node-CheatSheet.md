@@ -116,7 +116,7 @@ setImmediate()的回调函数
 该阶段执行关闭请求的回调函数，比如 socket.on('close', ...)。
 
 ```js
-const fs = require('fs');
+const fs = require("fs");
 
 const timeoutScheduled = Date.now();
 
@@ -127,7 +127,7 @@ setTimeout(() => {
 }, 100);
 
 // 异步任务二：至少需要 200ms 的文件读取
-fs.readFile('test.js', () => {
+fs.readFile("test.js", () => {
   const startCallback = Date.now();
   while (Date.now() - startCallback < 200) {
     // 什么也不做
@@ -159,9 +159,9 @@ setImmediate(() => console.log(2));
 但是，下面的代码一定是先输出 2，再输出 1。
 
 ```js
-const fs = require('fs');
+const fs = require("fs");
 
-fs.readFile('test.js', () => {
+fs.readFile("test.js", () => {
   setTimeout(() => console.log(1));
   setImmediate(() => console.log(2));
 });
@@ -201,20 +201,20 @@ stats.isSocket()
 
 ```js
 // 同步读取
-const contents = fs.readFileSync('DATA', 'utf8');
+const contents = fs.readFileSync("DATA", "utf8");
 
 // 异步读取
-const { promisify } = require('util');
-const fs = require('fs');
+const { promisify } = require("util");
+const fs = require("fs");
 const readFileAsync = promisify(fs.readFile); // (A)
 const filePath = process.argv[2];
 
-readFileAsync(filePath, { encoding: 'utf8' })
+readFileAsync(filePath, { encoding: "utf8" })
   .then(text => {
-    console.log('CONTENT:', text);
+    console.log("CONTENT:", text);
   })
   .catch(err => {
-    console.log('ERROR:', err);
+    console.log("ERROR:", err);
   });
 ```
 
@@ -266,9 +266,9 @@ $ journalctl -u node-sample
 ## Cluster | 集群模式
 
 ```js
-const cluster = require('cluster');
-const http = require('http');
-const numCPUs = require('os').cpus().length;
+const cluster = require("cluster");
+const http = require("http");
+const numCPUs = require("os").cpus().length;
 
 if (cluster.isMaster) {
   console.log(`Master ${process.pid} is running`);
@@ -278,7 +278,7 @@ if (cluster.isMaster) {
     cluster.fork();
   }
 
-  cluster.on('exit', (worker, code, signal) => {
+  cluster.on("exit", (worker, code, signal) => {
     console.log(`worker ${worker.process.pid} died`);
   });
 } else {
@@ -287,7 +287,7 @@ if (cluster.isMaster) {
   http
     .createServer((req, res) => {
       res.writeHead(200);
-      res.end('hello world\n');
+      res.end("hello world\n");
     })
     .listen(8000);
 
@@ -331,21 +331,21 @@ knex
 当我们使用 innerJoin 查询多个关联项时，可以使用 knexnest:
 
 ```js
-const knexnest = require('knexnest');
+const knexnest = require("knexnest");
 
 const sql = knex
   .select(
-    'c.id    AS _id',
-    'c.title AS _title',
-    't.id    AS _teacher_id',
-    't.name  AS _teacher_name',
-    'l.id    AS _lesson__id',
-    'l.title AS _lesson__title'
+    "c.id    AS _id",
+    "c.title AS _title",
+    "t.id    AS _teacher_id",
+    "t.name  AS _teacher_name",
+    "l.id    AS _lesson__id",
+    "l.title AS _lesson__title"
   )
-  .from('course AS c')
-  .innerJoin('teacher AS t', 't.id', 'c.teacher_id')
-  .innerJoin('course_lesson AS cl', 'cl.course_id', 'c.id')
-  .innerJoin('lesson AS l', 'l.id', 'cl.lesson_id');
+  .from("course AS c")
+  .innerJoin("teacher AS t", "t.id", "c.teacher_id")
+  .innerJoin("course_lesson AS cl", "cl.course_id", "c.id")
+  .innerJoin("lesson AS l", "l.id", "cl.lesson_id");
 knexnest(sql).then(function(data) {
   result = data;
 });
@@ -365,23 +365,23 @@ Kenx 同样支持子查询，我们可以将某个查询语句当做源表或者
 ```js
 // 源表
 const subQuery = this.app.knex
-  .select('asset_id as asset_id_1')
-  .count('_id as component_num')
-  .from('asset_component')
-  .groupBy('asset_id')
-  .as('ac');
+  .select("asset_id as asset_id_1")
+  .count("_id as component_num")
+  .from("asset_component")
+  .groupBy("asset_id")
+  .as("ac");
 
 const assets = await this.app
-  .knex('asset')
-  .select('*')
-  .leftJoin(subQuery, 'asset.asset_id', 'ac.asset_id_1')
-  .orderBy('updated_at', 'desc');
+  .knex("asset")
+  .select("*")
+  .leftJoin(subQuery, "asset.asset_id", "ac.asset_id_1")
+  .orderBy("updated_at", "desc");
 
 // 计算列
-const components = await knexCamel('component').select(
-  '*',
+const components = await knexCamel("component").select(
+  "*",
   knexCamel.raw(
-    '(SELECT count(*) from vuln where vuln.c_id = component.c_id) as vuln_count'
+    "(SELECT count(*) from vuln where vuln.c_id = component.c_id) as vuln_count"
   )
 );
 ```
@@ -401,43 +401,43 @@ function upsert(table, data, updateData?) {
   const updateSql = this.knex(table)
     .update(updateData)
     .toString()
-    .replace(/^update .* set /i, '');
+    .replace(/^update .* set /i, "");
 
-  return this.knex.raw(insert + ' on duplicate key update ' + updateSql);
+  return this.knex.raw(insert + " on duplicate key update " + updateSql);
 }
 ```
 
 [Bookshelf](https://github.com/bookshelf/bookshelf) 则是基于 Knex 的 ORM 框架，其能够自动地从数据库中抓取表结构信息，并且支持事务、多态以及 One-to-One, One-to-Many, Many-to-Mant 等多种关系映射。
 
 ```js
-const knex = require('knex')({
-  client: 'mysql',
+const knex = require("knex")({
+  client: "mysql",
   connection: process.env.MYSQL_DATABASE_CONNECTION
 });
-const bookshelf = require('bookshelf')(knex);
+const bookshelf = require("bookshelf")(knex);
 
 const User = bookshelf.Model.extend({
-  tableName: 'users',
+  tableName: "users",
   posts: function() {
     return this.hasMany(Posts);
   }
 });
 
 const Posts = bookshelf.Model.extend({
-  tableName: 'messages',
+  tableName: "messages",
   tags: function() {
     return this.belongsToMany(Tag);
   }
 });
 
 const Tag = bookshelf.Model.extend({
-  tableName: 'tags'
+  tableName: "tags"
 });
 
-User.where('id', 1)
-  .fetch({ withRelated: ['posts.tags'] })
+User.where("id", 1)
+  .fetch({ withRelated: ["posts.tags"] })
   .then(function(user) {
-    console.log(user.related('posts').toJSON());
+    console.log(user.related("posts").toJSON());
   })
   .catch(function(err) {
     console.error(err);
@@ -447,22 +447,22 @@ User.where('id', 1)
 ## 日志
 
 ```js
-const env = process.env.NODE_ENV || 'development';
-const logDir = 'log';
+const env = process.env.NODE_ENV || "development";
+const logDir = "log";
 
 // Create the log directory if it does not exist
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
-const filename = path.join(logDir, 'results.log');
+const filename = path.join(logDir, "results.log");
 
 const logger = createLogger({
   // change level if in dev environment versus production
-  level: env === 'production' ? 'info' : 'debug',
+  level: env === "production" ? "info" : "debug",
   format: format.combine(
     format.label({ label: path.basename(module.parent.filename) }),
-    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' })
+    format.timestamp({ format: "YYYY-MM-DD HH:mm:ss" })
   ),
   transports: [
     new transports.Console({
@@ -530,7 +530,7 @@ b1）Egg.js
 
 阿里开源的企业级 Node.js 框架 Egg 发布 2.0，基于 Koa 2.x，异步解决方案直接基于 Async Function。框架层优化不含 Node 8 带来的提升外，带来 30% 左右的性能提升。
 
-Egg 采用的是 『微内核 + 插件 + 上层框架』 模式，对于定制，生态，快速开发有明显提升，另外值得关注的是稳定性和安全上，也是极为出色的。
+Egg 采用的是微内核 + 插件 + 上层框架 模式，对于定制，生态，快速开发有明显提升，另外值得关注的是稳定性和安全上，也是极为出色的。
 
 b2）Nest
 

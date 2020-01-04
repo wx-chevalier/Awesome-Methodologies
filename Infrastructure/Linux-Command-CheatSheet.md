@@ -63,7 +63,7 @@ $ ls -l "/home/han" | grep "js" |wc -l
 $ ls -l --sort=size --block-size=M
 ```
 
-这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKE 『John%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是 `John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
+这类似于 SQL 中的 % 符号，例如，使用 `WHERE first_name LIKEJohn%` 搜索所有以 John 起始的名字。在 Bash 中，相应的命令是 `John*`。如果想列出一个文件夹中所有以 `.json` 结尾的文件，可以输入 `ls *.json`。
 
 ```sh
 # 根据文件类型搜索
