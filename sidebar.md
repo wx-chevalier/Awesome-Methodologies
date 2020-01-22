@@ -1,13 +1,11 @@
   - Backend
     - [Auth CheatSheet](/Backend/Auth-CheatSheet.md)
-    - [Backend Ops CheatSheet](/Backend/Backend-Ops-CheatSheet.md)
     - [Cache CheatSheet](/Backend/Cache-CheatSheet.md)
     - [GraphQL CheatSheet](/Backend/GraphQL-CheatSheet.md)
     - [HA CheatSheet](/Backend/HA-CheatSheet.md)
     - [MicroService CheatSheet](/Backend/MicroService-CheatSheet.md)
     - [Nginx CheatSheet](/Backend/Nginx-CheatSheet.md)
     - [Node CheatSheet](/Backend/Node-CheatSheet.md)
-    - [SoftwareTest CheatSheet](/Backend/SoftwareTest-CheatSheet.md)
     - [Spring CheatSheet](/Backend/Spring-CheatSheet.md)
     - [SpringBoot CheatSheet](/Backend/SpringBoot-CheatSheet.md)
   - Business
@@ -31,6 +29,9 @@
     - [Statistics CheatSheet](/DataScienceAI/Statistics-CheatSheet.md)
     - [Symbol CheatSheet](/DataScienceAI/Symbol-CheatSheet.md)
     - [Tensorflow CheatSheet](/DataScienceAI/Tensorflow-CheatSheet.md)
+  - DevOps
+    - [Backend Ops CheatSheet](/DevOps/Backend-Ops-CheatSheet.md)
+    - [SoftwareTest CheatSheet](/DevOps/SoftwareTest-CheatSheet.md)
   - Frontend
     - [Android CheatSheet](/Frontend/Android-CheatSheet.md)
     - [CSS CheatSheet](/Frontend/CSS-CheatSheet.md)
@@ -113,8 +114,8 @@
     - Swift
       - [Swift CheatSheet](/ProgrammingLanguage/Swift/Swift-CheatSheet.md)
   - [README en](/README-en.md)
-  - SoftwareEngineering
-    - [AlgoDS CheatSheet](/SoftwareEngineering/AlgoDS-CheatSheet.md)
-    - [DesignPattern CheatSheet](/SoftwareEngineering/DesignPattern-CheatSheet.md)
-    - [Git Cheatsheet](/SoftwareEngineering/Git-Cheatsheet.md)
-    - [Refactor CheatSheet](/SoftwareEngineering/Refactor-CheatSheet.md)
+  - SoftwareArchitecture
+    - [AlgoDS CheatSheet](/SoftwareArchitecture/AlgoDS-CheatSheet.md)
+    - [DesignPattern CheatSheet](/SoftwareArchitecture/DesignPattern-CheatSheet.md)
+    - [Git Cheatsheet](/SoftwareArchitecture/Git-Cheatsheet.md)
+    - [Refactor CheatSheet](/SoftwareArchitecture/Refactor-CheatSheet.md)
