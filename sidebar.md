@@ -35,7 +35,7 @@
     - [Android CheatSheet](/Frontend/Android-CheatSheet.md)
     - [CSS CheatSheet](/Frontend/CSS-CheatSheet.md)
     - [DOM CheatSheet](/Frontend/DOM-CheatSheet.md)
-    - [DataVisualization CheatSheet](/Frontend/DataVisualization-CheatSheet.md)
+    - [DataVis CheatSheet](/Frontend/DataVis-CheatSheet.md)
     - [Flutter CheatSheet](/Frontend/Flutter-CheatSheet.md)
     - [Mo CheatSheet](/Frontend/Mo-CheatSheet.md)
     - [MobX CheatSheet](/Frontend/MobX-CheatSheet.md)
