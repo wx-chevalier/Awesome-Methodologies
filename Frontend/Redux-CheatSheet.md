@@ -259,7 +259,7 @@ export default function* rootSaga() {
 }
 ```
 
-Sagas 为我们定义了三种不同的 Saga，其中 Worker Saga 负责 API 调用、异步请求、结果处理等具体的任务；Watcher Saga 则监听被 dispatch 的 actions，当接收到 action 或者知道其被触发时，调用 worker saga 执行任务。而 Root Saga 则是立即启动 Sagas 的唯一入口。Saga 使用 Generator 函数来 yield Effect，其利用生成器可以暂停执行，再次执行的时候从上次暂停的地方继续执行的特性。Effect 是一个简单的对象，该对象包含了一些给 middleware 解释执行的信息。可以通过使用 effects API， 如 fork，call，take，put，cancel 等来创建 Effect。
+Sagas 为我们定义了三种不同的 Saga，其中 Worker Saga 负责 API 调用、异步请求、结果处理等具体的任务；Watcher Saga 则监听被 dispatch 的 actions，当接收到 action 或者知道其被触发时，调用 worker saga 执行任务。而 Root Saga 则是立即启动 Sagas 的唯一入口。Saga 使用 Generator 函数来 yield Effect，其利用生成器可以暂停执行，再次执行的时候从上次暂停的地方继续执行的特性。Effect 是一个简单的对象，该对象包含了一些给 middleware 解释执行的信息。可以通过使用 effects API，如 fork，call，take，put，cancel 等来创建 Effect。
 
 如 `yield call(fetch, '/user')` 即 `yield` 了下面的对象，`call` 创建了一条描述结果的信息，然后，`redux-saga` middleware 将确保执行这些指令并将指令的结果返回给生成器：
 

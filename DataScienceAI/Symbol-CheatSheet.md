@@ -85,7 +85,7 @@
 
 示例：$\sum_1^n\frac{1}{x^2}，\prod_{i=0}^n\frac{1}{x^2}$
 
-效果：∑n11x2， ∏ni=01x2
+效果：∑n11x2，∏ni=01x2
 3.11 希腊字母
 
 希腊字符示例：$$\alpha　A　\beta　B　\gamma　\Gamma　\delta　\Delta　\epsilon　E \varepsilon　　\zeta　Z　\eta　H　\theta　\Theta　\vartheta \iota　I　\kappa　K　\lambda　\Lambda　\mu　M　\nu　N \xi　\Xi　o　O　\pi　\Pi　\varpi　　\rho　P \varrho　　\sigma　\Sigma　\varsigma　　\tau　T　\upsilon　\Upsilon \phi　\Phi　\varphi　　\chi　X　\psi　\Psi　\omega　\Omega$$

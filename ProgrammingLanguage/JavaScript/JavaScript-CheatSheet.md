@@ -649,7 +649,7 @@ Debouncing will bunch a series of sequential calls to a function into a single c
 - 当生成器执行到 `yield` 操作符时会立即执行 `yield` 之后的语句并且暂停，语句的值作为上一步 `next` 函数的返回值，其是形如 `{done:false, value:x}` 的对象。
 - 继续调用 `next` 函数会使生成器继续执行，此处 `next` 函数的参数值会作为整个 `yield` 语句的值；生成器继续执行直到再次遇到 `yield`，或是遇到 `return`/`throw` 生成器就退出。
 - `next` 函数的返回值具有三种情况：
-  - 如果再次遇到 `yield` ， `next` 返回值中的 `value` 属性是紧接在这条 `yield` 之后的语句执行之后的返回值；
+  - 如果再次遇到 `yield` ，`next` 返回值中的 `value` 属性是紧接在这条 `yield` 之后的语句执行之后的返回值；
   - 如果遇到的是 `return` ，那么返回对象 `{done:true, value}` 则是 `return` 的返回值；
   - 其他情况下，返回对象 `{done:false, value:undefined}` ;
 

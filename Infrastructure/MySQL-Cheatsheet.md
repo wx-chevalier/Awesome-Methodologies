@@ -137,7 +137,7 @@ MySQL 中常见的性能问题，可能是有如下类型：
 
 - CPU 过载，慢查询，OPTIMZE TABLE
 - 内存使用问题，内存相关参数配置不合理
-- 磁盘 IO，Buffer pool 命中率；慢查询； redo, undo, data 分开存放
+- 磁盘 IO，Buffer pool 命中率；慢查询；redo, undo, data 分开存放
 - 网络问题，非专有网络，网络路由
 - 表及查询语句问题，主要的查询性能问题：全表扫描 临时表 排序 FileSort
 
@@ -174,7 +174,7 @@ MySQL 中常见的性能问题，可能是有如下类型：
   需要根据你的磁盘的 IOPS 处理能力进行相应设置。
   innodb_io_capacity~= IOPS
 - query_cache_type
-  是否使用 Query Cache，对于读/写， 80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
+  是否使用 Query Cache，对于读/写，80%+/20%-的应用可考虑打开。写入请求过多的应用，需要关闭，不然反而影响性能。
 - tmp_table_size/ max_heap_table_size
   通过查看状态变量 Created_tmp_disk_tables 及 Created_tmp_tables，决定是否合适
 
@@ -215,7 +215,7 @@ mysql> explain select * from (select * from ( select * from t1 where id=2602) a)
 
 type 表示 MySQL 在表中找到所需行的方式，又称“访问类型”。常用的类型有： ALL, index, range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）：
 
-- ALL：Full Table Scan， MySQL 将遍历全表以找到匹配的行
+- ALL：Full Table Scan，MySQL 将遍历全表以找到匹配的行
 
 - index: Full Index Scan，index 与 ALL 区别为 index 类型只遍历索引树
 

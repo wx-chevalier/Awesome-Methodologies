@@ -60,7 +60,7 @@ System.out.print("result: " + result);
 
 ## Atomic Variables | 原子性与原子变量
 
-从 Java5.0 开始，提供了一组原子类变量(例如 AtomicInteger,AtomicLong,AtomicBoolean,AtomicReference 等)， 来支持对单个变量的原子性操作。内置的监视器锁，是一种悲观锁，任何时候只有一个线程可以持有该锁，其它想获取该锁的线程必须阻塞等待。而 Atomic 类提供了一种乐观机制，任何线程都可以尝试获取资源并更新，如果在更新的过程中存在来自其它线程的干扰，那么这个操作将失败并可以重试。
+从 Java5.0 开始，提供了一组原子类变量(例如 AtomicInteger,AtomicLong,AtomicBoolean,AtomicReference 等)，来支持对单个变量的原子性操作。内置的监视器锁，是一种悲观锁，任何时候只有一个线程可以持有该锁，其它想获取该锁的线程必须阻塞等待。而 Atomic 类提供了一种乐观机制，任何线程都可以尝试获取资源并更新，如果在更新的过程中存在来自其它线程的干扰，那么这个操作将失败并可以重试。
 
 Atomic 的实现依赖于处理器提供的 CAS(Compare and Swap)指令。CAS 是一个原子性操作，包含三个操作数：需要读写的内存位置 V、旧值 A 和拟写入的新值 B。线程读取 V 的值，如果等于 A，则将 V 的值更新为 B，返回成功，否则返回失败。
 

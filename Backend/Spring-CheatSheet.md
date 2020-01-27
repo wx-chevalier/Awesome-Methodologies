@@ -16,7 +16,7 @@ Java Servlet（Java 服务器小程序）是一个基于 Java 技术的 Web 组�
 
 Servlet 容器也叫做 Servlet 引擎，是 Web 服务器或应用程序服务器的一部分，用于在发送的请求和响应之上提供网络服务，解码基于 MIME 的请求，格式化基于 MIME 的响应。Servlet 没有 main 方法，不能独立运行，它必须被部署到 Servlet 容器中，由容器来实例化和调用 Servlet 的方法（如 doGet()和 doPost()），Servlet 容器在 Servlet 的生命周期内包容和管理 Servlet。在 JSP 技术 推出后，管理和运行 Servlet/JSP 的容器也称为 Web 容器。
 
-有了 Servlet 之后，用户通过单击某个链接或者直接在浏览器的地址栏中输入 URL 来访问 Servlet，Web 服务器接收到该请求后，并不是将 请求直接交给 Servlet，而是交给 Servlet 容器。Servlet 容器实例化 Servlet，调用 Servlet 的一个特定方法对请求进行处理， 并产生一个响应。这个响应由 Servlet 容器返回给 Web 服务器，Web 服务器包装这个响应，以 HTTP 响应的形式发送给 Web 浏览器。
+有了 Servlet 之后，用户通过单击某个链接或者直接在浏览器的地址栏中输入 URL 来访问 Servlet，Web 服务器接收到该请求后，并不是将 请求直接交给 Servlet，而是交给 Servlet 容器。Servlet 容器实例化 Servlet，调用 Servlet 的一个特定方法对请求进行处理，并产生一个响应。这个响应由 Servlet 容器返回给 Web 服务器，Web 服务器包装这个响应，以 HTTP 响应的形式发送给 Web 浏览器。
 
 ### Servlet 容器
 

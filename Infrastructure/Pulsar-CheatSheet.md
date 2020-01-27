@@ -34,7 +34,7 @@ Broker 集群在 Apache Pulsar 中形成无状态服务层。服务层是“无�
 
 Apache BookKeeper 是 Apache Pulsar 的持久化存储层。Apache Pulsar 中的每个主题分区本质上都是存储在 Apache BookKeeper 中的分布式日志。每个分布式日志又被分为 Segment 分段。每个 Segment 分段作为 Apache BookKeeper 中的一个 Ledger，均匀分布并存储在 BookKeeper 群集中的多个 Bookie（Apache BookKeeper 的存储节点）中。
 
-Segment 的创建时机包括以下几种：基于配置的 Segment 大小；基于配置的滚动时间；或者当 Segment 的所有者被切换。通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。这意味着主题分区的大小不仅受一个节点容量的限制； 相反，它可以扩展到整个 BookKeeper 集群的总容量。
+Segment 的创建时机包括以下几种：基于配置的 Segment 大小；基于配置的滚动时间；或者当 Segment 的所有者被切换。通过 Segment 分段的方式，主题分区中的消息可以均匀和平衡地分布在群集中的所有 Bookie 中。这意味着主题分区的大小不仅受一个节点容量的限制；相反，它可以扩展到整个 BookKeeper 集群的总容量。
 
 下面的图说明了一个分为 x 个 Segment 段的主题分区。每个 Segment 段存储 3 个副本。所有 Segment 都分布并存储在 4 个 Bookie 中。
 

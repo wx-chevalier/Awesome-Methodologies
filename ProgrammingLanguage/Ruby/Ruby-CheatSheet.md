@@ -496,7 +496,7 @@ end
 ### 修饰器
 
 这两个方法很多测试框架都支持，需要说明的是这两个方法的参数，例子中为符号’:each’，表明对于每一个测试用例，先执行 before()方法中的代码，用例完成后执行 after()方法中的代码，若参数为’:all’，则表示在所有的测试用例执行之前，先执行 before()方法中的代码，所有的用例完成后执行 after()方法中的代码。
-RSpec 还提供 around()方法，暂不懂其用法，之后的报告中补上。帮助方法：所谓的帮助方法就是把多个测试用例中重复的操作抽出作为一个公用的方法，提高代码重用度。如例子中的 work_hard()方法。共享行为：系统的某一个行为是很多场景下都具有的，那么我们可以把它定义为一个共享行为，我们通过 share_examples_for()方法 定义共享行为，使用 it_behaves_like()方法共享定义过的系统行为，如例子中的 share_examples_for “any people”， it_behaves_like “any people”。
+RSpec 还提供 around()方法，暂不懂其用法，之后的报告中补上。帮助方法：所谓的帮助方法就是把多个测试用例中重复的操作抽出作为一个公用的方法，提高代码重用度。如例子中的 work_hard()方法。共享行为：系统的某一个行为是很多场景下都具有的，那么我们可以把它定义为一个共享行为，我们通过 share_examples_for()方法 定义共享行为，使用 it_behaves_like()方法共享定义过的系统行为，如例子中的 share_examples_for “any people”，it_behaves_like “any people”。
 
 ## Mocks
 
