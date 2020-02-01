@@ -1,6 +1,8 @@
   - Backend
     - [Auth CheatSheet](/Backend/Auth-CheatSheet.md)
     - [Cache CheatSheet](/Backend/Cache-CheatSheet.md)
+    - Domain
+      - [Live CheatSheet](/Backend/Domain/Live-CheatSheet.md)
     - [GraphQL CheatSheet](/Backend/GraphQL-CheatSheet.md)
     - [HA CheatSheet](/Backend/HA-CheatSheet.md)
     - [MicroService CheatSheet](/Backend/MicroService-CheatSheet.md)
@@ -9,8 +11,12 @@
     - [Spring CheatSheet](/Backend/Spring-CheatSheet.md)
     - [SpringBoot CheatSheet](/Backend/SpringBoot-CheatSheet.md)
   - Business
-    - [3DPrinting CheatSheet](/Business/3DPrinting-CheatSheet.md)
-    - [Live CheatSheet](/Business/Live-CheatSheet.md)
+    - Industry
+      - [3DPrinting CheatSheet](/Business/Industry/3DPrinting-CheatSheet.md)
+    - Product
+      - [LaTex CheatSheet](/Business/Product/LaTex-CheatSheet.md)
+      - [Product CheatSheet](/Business/Product/Product-CheatSheet.md)
+      - [UI CheatSheet](/Business/Product/UI-CheatSheet.md)
   - DataScienceAI
     - [AI CheatSheet](/DataScienceAI/AI-CheatSheet.md)
     - [CommunityDetection CheatSheet](/DataScienceAI/CommunityDetection-CheatSheet.md)
@@ -75,10 +81,6 @@
     - [TCPIP CheatSheet](/Infrastructure/TCPIP-CheatSheet.md)
     - [Xen CheatSheet](/Infrastructure/Xen-CheatSheet.md)
     - [ZooKeeper CheatSheet](/Infrastructure/ZooKeeper-CheatSheet.md)
-  - Product
-    - [LaTex CheatSheet](/Product/LaTex-CheatSheet.md)
-    - [Product CheatSheet](/Product/Product-CheatSheet.md)
-    - [UI CheatSheet](/Product/UI-CheatSheet.md)
   - ProgrammingLanguage
     - [Awesome HelloWords](/ProgrammingLanguage/Awesome-HelloWords.md)
     - C
