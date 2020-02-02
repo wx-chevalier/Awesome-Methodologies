@@ -1,5 +1,3 @@
-
-
 # Feature Engineering CheatSheet | 特征工程理论盘点
 
 <!-- prettier-ignore-start -->
@@ -16,7 +14,7 @@ PCA 和 LDA 是最常见的线性降维方法，它们按照某种准则为数�
 　　我们使用的是 z-score 标准化方法，与离差标准化的不同之处在于，离差标准化仅仅仅仅对原数据的的方差与均差进行了倍数缩减，而标准差标准化则使标准化的数据方差为一。这对许多的算法更加有利，但是其缺点在于假如原始数据没有呈高斯分布，标准化的数据分布效果并不好。所以我们使用 z-score 标准化方法的前提假设是数据分布符合正态分布（及高斯分布）。
 
 - [Machine Learning: Measuring Similarity and Distance](https://dzone.com/articles/machine-learning-measuring)
->
+  >
 - [漫谈：机器学习中距离和相似性度量方法](http://www.cnblogs.com/daniel-D/p/3244718.html)
 
 ## 数值点距离(numeric data points)
@@ -174,7 +172,7 @@ Jacard 相似性直观的概念来自，两个集合有多相似，显然，Jaca
 
 =
 
-​ $\frac{\sum x_iy_i-\frac{\sum x_i\sum y_i}{n}}{\sqrt{\sum x_i^2-\frac{(\sum x_i)^2}{n}}\sqrt{\sum y_i^2-\frac{(\sum y_i)^2}{n}}}$
+$\frac{\sum x_iy_i-\frac{\sum x_i\sum y_i}{n}}{\sqrt{\sum x_i^2-\frac{(\sum x_i)^2}{n}}\sqrt{\sum y_i^2-\frac{(\sum y_i)^2}{n}}}$
 
 在推荐系统中，我们常用皮尔逊相关系数来衡量两个用户兴趣的相似度，它是判断两组数据与某一直线拟合程度的一种度量。它在用户对物品的评分数据差别大时(如有些用户评分普遍较高，有些用户评分普遍偏低)时的效果更好。也即它修正了“夸大分值”的情况，如果某个用户总是倾向于给出比另一个人更高的分值，而两者的分值之差又始终保持一致，则两者间依然可能存在很好地相关性。
 
