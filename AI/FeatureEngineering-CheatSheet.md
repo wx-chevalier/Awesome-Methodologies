@@ -1,4 +1,4 @@
-[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+
 
 # Feature Engineering CheatSheet | 特征工程理论盘点
 

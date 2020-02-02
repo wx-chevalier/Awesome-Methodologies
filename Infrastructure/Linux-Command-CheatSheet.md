@@ -1,4 +1,4 @@
-[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+
 
 > 导读：本文收集了来自 《[深入浅出 Linux]()》、《[K8s & Docker 实战]()》、[Spring 微服务实战]()、《[Web 全栈开发与工程架构]()》等系列笔记中有关 Linux 下从开发到部署的常用的命令。
 

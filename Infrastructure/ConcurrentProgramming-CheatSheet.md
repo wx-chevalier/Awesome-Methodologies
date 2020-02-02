@@ -1,5 +1,3 @@
-- [并发编程导论](https://parg.co/OR4)是对于分布式计算-[并发编程 https://url.wx-coder.cn/Yagu8 ](https://url.wx-coder.cn/Yagu8)系列的总结与归纳。
-
 ![](https://i.postimg.cc/Pf6zWygZ/image.png)
 
 # 并发编程导论

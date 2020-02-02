@@ -1,4 +1,4 @@
-[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
+
 
 # SQL 语法速览与备忘清单
 

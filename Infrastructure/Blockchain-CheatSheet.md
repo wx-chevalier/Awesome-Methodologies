@@ -1,5 +1,3 @@
-[![返回目录](https://i.postimg.cc/JzFTMvjF/image.png)](https://github.com/wx-chevalier/Awesome-CheatSheets)
-
 # 区块链
 
 In essence, the blockchain is a shared, programmable, cryptographically secure and therefore trusted ledger which no single user controls and which can be inspected by anyone.- Klaus Schwab
@@ -35,7 +33,7 @@ In essence, the blockchain is a shared, programmable, cryptographically secure a
 
 虚拟资产一般包括有金融资产、游戏代币、数字版权、域名、 用户流量等。由于虚拟资产不需要与实体资产进行挂钩，所以在对应到区块链上更为方便。它具体的应用形式在供应链金融、票据市场都有所体现。
 
-我们在这里，简单从技术的角度介绍一下 ICO，ICO 的中文名是首次代币发行，又称为区块链众筹，这是一种新型的融资模式，投资者可以用手中的比特币  或其他代币投  到一些区块链创始项目。
+我们在这里，简单从技术的角度介绍一下 ICO，ICO 的中文名是首次代币发行，又称为区块链众筹，这是一种新型的融资模式，投资者可以用手中的比特币 或其他代币投 到一些区块链创始项目。
 
 # 区块链的衍化
 
@@ -208,8 +206,8 @@ DPoS：简单来理解就是将 PoS 共识算法中的记账者转换为指定�
 
 区块链中的共识算法目前具有工业成熟度的是 PoW，另外两种比较成熟的是 PoS 和 DPoS，其次还有一些变种和单一币种使用的共识算法，例如 Ripple 共识、PoC 共识（概念性证明）、PoE 共识（存在性证明）。
 
-在使用 PoW 共识算法的情况下，容错阈值是 50%，而 PBFT 及其变种的容错阈值是 33% 左右，这里的百分比是指作弊节点占全网节点的  比例。
+在使用 PoW 共识算法的情况下，容错阈值是 50%，而 PBFT 及其变种的容错阈值是 33% 左右，这里的百分比是指作弊节点占全网节点的 比例。
 
-PoX 类的算法其实都延续了 PoW 的设计理念，相比较经典分布式一致性算法，PoX 类算法通过  概率选择记账者降低了潜在的提案者，另外是延长了达成最终一致性的时间。
+PoX 类的算法其实都延续了 PoW 的设计理念，相比较经典分布式一致性算法，PoX 类算法通过 概率选择记账者降低了潜在的提案者，另外是延长了达成最终一致性的时间。
 
 第一条降低了系统通信复杂度，每次记账系统的确定性其实是概率确定的，又由于被选中需要付出成本，此处才提高了记账成本阈值，结合区块链的基础代币设计，是一个非常天才的想法。
