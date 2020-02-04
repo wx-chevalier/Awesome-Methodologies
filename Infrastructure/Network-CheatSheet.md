@@ -1,5 +1,3 @@
-[![返回目录](https://camo.githubusercontent.com/2be802997dee98af3435d3b9231e348ff137b93e/68747470733a2f2f706172672e636f2f554362)](https://github.com/wx-chevalier/Awesome-CheatSheets)
-
 # HTTP CheatSheet | HTTP 相关必知必会：TCP/HTTP2/HTTPS/DNS，请求，响应，缓存
 
 HTTP, 等网络协议是我们日常开发、面试中常见的知识要点。
