@@ -1,5 +1,3 @@
-
-
 # Scikit-Learn
 
 Scikit-learn 是开源的 Python 机器学习库，提供了数据预处理、交叉验证、算法与可视化算法等一系列接口。
@@ -47,28 +45,28 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
 ### 监督学习
 
-* Linear Regression
+- Linear Regression
 
 ```py
 >>> from sklearn.linear_model import LinearRegression
 >>> lr = LinearRegression(normalize=True)
 ```
 
-* Support Vector Machines
+- Support Vector Machines
 
 ```py
 >>> from sklearn.svm import SVC
 >>> svc = SVC(kernel='linear')
 ```
 
-* Naive Bayes
+- Naive Bayes
 
 ```
 >>> from sklearn.naive_bayes import GaussianNB
 >>> gnb = GaussianNB()
 ```
 
-* KNN
+- KNN
 
 ```
 >>> from sklearn import neighbors
@@ -77,14 +75,14 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
 ### 无监督学习
 
-* Principal Component Analysis
+- Principal Component Analysis
 
 ```
 >>> from sklearn.decomposition import PCA
 >>> pca = PCA(n_components=0.95)
 ```
 
-* KMeans
+- KMeans
 
 ```
 >>> from sklearn.cluster import KMeans
@@ -128,7 +126,7 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
 ### 分类度量
 
-* Accuracy Scope
+- Accuracy Scope
 
 ```
 >>> knn.score(X_test, y_test)
@@ -136,14 +134,14 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 >>> accuracy_score(y_test, y_pred)
 ```
 
-* Classification Report
+- Classification Report
 
 ```
 >>> from sklearn.metrics import classification_report
 >>> print(classification_report(y_test, y_pred))
 ```
 
-* Confusion Matrix
+- Confusion Matrix
 
 ```
 >>> from sklearn.metrics import confusion_matrix
@@ -152,7 +150,7 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
 ### 回归度量
 
-* Mean Absolute Error
+- Mean Absolute Error
 
 ```
 >>> from sklearn.metrics import mean_absolute_error
@@ -160,14 +158,14 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 >>> mean_absolute_error(y_true, y_pred)
 ```
 
-* Mean Squared Error
+- Mean Squared Error
 
 ```
 >>> from sklearn.metrics import mean_squared_error
 >>> mean_squared_error(y_test, y_pred)
 ```
 
-* R2 Score
+- R2 Score
 
 ```
 >>> from sklearn.metrics import r2_score
@@ -176,21 +174,21 @@ NumPy 还提供了方便的接口帮我们划分训练数据与测试数据：
 
 ### 聚类度量
 
-* Adjusted Rand Index
+- Adjusted Rand Index
 
 ```
 >>> from sklearn.metrics import adjusted_rand_score
 >>> adjusted_rand_score(y_true, y_pred)
 ```
 
-* Homogeneity
+- Homogeneity
 
 ```
 >>> from sklearn.metrics import homogeneity_score
 >>> homogeneity_score(y_true, y_pred)
 ```
 
-* V-measure
+- V-measure
 
 ```
 >>> from sklearn.metrics import v_measure_score

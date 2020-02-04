@@ -1,5 +1,3 @@
-
-
 # Modern JavaScript Syntax and Practices CheatSheet
 
 # Variable & Expression
@@ -8,7 +6,7 @@
 
 ## Regex
 
-* Symbols
+- Symbols
 
 | Term | Description                                                    |
 | ---- | -------------------------------------------------------------- |
@@ -17,9 +15,9 @@
 | +    | Matches the preceding expression 1 or more times.              |
 | ?    | Preceding expression is optional (Matches 0 or 1 times).       |
 | ^    | Matches the beginning of the string.                           |
-| $    | Matches the end of the string.                                 |
+| \$   | Matches the end of the string.                                 |
 
-* Character groups
+- Character groups
 
 | Term   | Description                                                                                                               |
 | ------ | ------------------------------------------------------------------------------------------------------------------------- |
@@ -29,7 +27,7 @@
 | [XYZ]+ | Matches one or more of any of the characters in the set.                                                                  |
 | [^a-z] | Inside a character set, the ^ is used for negation. In this example, match anything that is NOT an uppercase letter.      |
 
-* Flags:
+- Flags:
   There are five optional flags. They can be used separately or together and are placed after the closing slash. Example: /[A-Z]/g I’ll only be introducing 2 here.
 
 | Term | Description             |
@@ -37,7 +35,7 @@
 | g    | Global search           |
 | i    | case insensitive search |
 
-* Advanced
+- Advanced
 
 | Term   | Description                                                               |
 | ------ | ------------------------------------------------------------------------- |

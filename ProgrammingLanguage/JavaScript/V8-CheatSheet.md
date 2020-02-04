@@ -1,5 +1,3 @@
-
-
 # V8 CheatSheet | JavaScript V8 引擎必知必会
 
 ![image](https://user-images.githubusercontent.com/5803001/45958159-46563300-c049-11e8-8541-9084b5f818ea.png)

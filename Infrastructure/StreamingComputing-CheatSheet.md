@@ -1,5 +1,3 @@
-
-
 # Streaming Computing CheatSheet | 流计算原理与机制概述
 
 自从数据处理需求超过了传统数据库能有效处理的数据量之后，Hadoop 等各种基于 MapReduce 的海量数据处理系统应运而生。从 2004 年 Google 发表 MapReduce 论文开始，经过近 10 年的发展，基于 Hadoop 开源生态或者其它相应系统的海量数据处理已经成为业界的基本需求。

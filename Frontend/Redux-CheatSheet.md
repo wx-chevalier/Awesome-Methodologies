@@ -16,16 +16,17 @@ Redux 是受 Flux 启发的，类似于 Event Sourcing 的事件驱动型框架�
 // widgets.js
 
 // Actions
-const LOAD   = 'my-app/widgets/LOAD';
-const CREATE = 'my-app/widgets/CREATE';
-const UPDATE = 'my-app/widgets/UPDATE';
-const REMOVE = 'my-app/widgets/REMOVE';
+const LOAD = "my-app/widgets/LOAD";
+const CREATE = "my-app/widgets/CREATE";
+const UPDATE = "my-app/widgets/UPDATE";
+const REMOVE = "my-app/widgets/REMOVE";
 
 // Reducer
 export default function reducer(state = {}, action = {}) {
   switch (action.type) {
     // do reducer stuff
-    default: return state;
+    default:
+      return state;
   }
 }
 
@@ -48,8 +49,9 @@ export function removeWidget(widget) {
 
 // side effects, only as applicable
 // e.g. thunks, epics, etc
-export function getWidget () {
-  return dispatch => get('/widget').then(widget => dispatch(updateWidget(widget)))
+export function getWidget() {
+  return dispatch =>
+    get("/widget").then(widget => dispatch(updateWidget(widget)));
 }
 ```
 
@@ -63,8 +65,8 @@ MAY export its action types as UPPER_SNAKE_CASE, if an external reducer needs to
 在外部使用时，我们可以导出默认的 reducer:
 
 ```js
-import { combineReducers } from 'redux';
-import * as reducers from './ducks/index';
+import { combineReducers } from "redux";
+import * as reducers from "./ducks/index";
 
 const rootReducer = combineReducers(reducers);
 export default rootReducer;
@@ -73,13 +75,13 @@ export default rootReducer;
 在组件中，可以导出所有的 Action:
 
 ```js
-import * as widgetActions from './ducks/widgets';
+import * as widgetActions from "./ducks/widgets";
 ```
 
 # redux-actions
 
 ```js
-import { createActions, handleActions, combineActions } from 'redux-actions';
+import { createActions, handleActions, combineActions } from "redux-actions";
 
 const defaultState = { counter: 10 };
 
@@ -139,7 +141,7 @@ export default store;
 
 ```js
 const promiseAction = () => ({
-  type: 'PROMISE',
+  type: "PROMISE",
   payload: Promise.resolve()
 });
 ```
@@ -154,25 +156,25 @@ const promiseAction = () => ({
 
 ```js
 // 创建简单的异步 Action
-createAction('FETCH_THING', async id => {
+createAction("FETCH_THING", async id => {
   const result = await somePromise;
   return result.someValue;
 });
 
 // 与自定义的 WebAPI 协同使用
-import { WebAPI } from '../utils/WebAPI';
+import { WebAPI } from "../utils/WebAPI";
 
-export const getThing = createAction('GET_THING', WebAPI.getThing);
-export const createThing = createAction('POST_THING', WebAPI.createThing);
-export const updateThing = createAction('UPDATE_THING', WebAPI.updateThing);
-export const deleteThing = createAction('DELETE_THING', WebAPI.deleteThing);
+export const getThing = createAction("GET_THING", WebAPI.getThing);
+export const createThing = createAction("POST_THING", WebAPI.createThing);
+export const updateThing = createAction("UPDATE_THING", WebAPI.updateThing);
+export const deleteThing = createAction("DELETE_THING", WebAPI.deleteThing);
 ```
 
 [redux-promise-middleware](https://github.com/pburtchaell/redux-promise-middleware) 为我们提供了类似的异步处理功能，其能够接受某个 Promise，并且依次分发 Pending, Fulfilled, 以及 Rejected 这几个不同状态的 Action:
 
 ```js
 const promiseAction = () => ({
-  type: 'PROMISE',
+  type: "PROMISE",
   payload: Promise.resolve()
 });
 ```
@@ -181,14 +183,14 @@ const promiseAction = () => ({
 
 ```js
 const secondAction = data => ({
-  type: 'TWO',
+  type: "TWO",
   payload: data
 });
 
 const first = () => {
   return dispatch => {
     const response = dispatch({
-      type: 'ONE',
+      type: "ONE",
       payload: Promise.resolve()
     });
 
@@ -237,20 +239,20 @@ sagaMiddleware.run(rootSaga);
 ```js
 // helloSaga 会在 sagaMiddleware.run 时即刻执行
 export function* helloSaga() {
-  console.log('Hello Saga!');
+  console.log("Hello Saga!");
 }
 
 // worker saga
 export function* incrementAsync() {
   yield call(delay, 1000);
   // 继续分发事件
-  yield put({ type: 'SAGA_INCREMENT' });
+  yield put({ type: "SAGA_INCREMENT" });
 }
 
 // watcher saga
 export function* watchIncrementAsync() {
   // 监听 Action，并执行关联操作
-  yield takeEvery('SAGA_INCREMENT_ASYNC', incrementAsync);
+  yield takeEvery("SAGA_INCREMENT_ASYNC", incrementAsync);
 }
 
 // root saga
@@ -274,13 +276,13 @@ Sagas 为我们定义了三种不同的 Saga，其中 Worker Saga 负责 API 调
 我们也可以并发执行多个任务：
 
 ```js
-const [users, repos] = yield[(call(fetch, '/users'), call(fetch, '/repos'))];
+const [users, repos] = yield[(call(fetch, "/users"), call(fetch, "/repos"))];
 ```
 
 同样以常见的接口请求，与结果处理为例：
 
 ```js
-import { take, fork, call, put } from 'redux-saga/effects';
+import { take, fork, call, put } from "redux-saga/effects";
 
 // The worker: perform the requested task
 function* fetchUrl(url) {
@@ -288,14 +290,14 @@ function* fetchUrl(url) {
   const data = yield call(fetch, url);
 
   // 指示中间件发起一个 action 到 Store
-  yield put({ type: 'FETCH_SUCCESS', data });
+  yield put({ type: "FETCH_SUCCESS", data });
 }
 
 // The watcher: watch actions and coordinate worker tasks
 function* watchFetchRequests() {
   while (true) {
     // 指示中间件等待 Store 上指定的 action，即监听 action
-    const action = yield take('FETCH_REQUEST');
+    const action = yield take("FETCH_REQUEST");
 
     // 指示中间件以无阻塞调用方式执行 fetchUrl
     yield fork(fetchUrl, action.url);
@@ -310,7 +312,7 @@ function* watchFetchRequests() {
 ## redux-actions
 
 ```js
-import { createActions, handleActions, combineActions } from 'redux-actions';
+import { createActions, handleActions, combineActions } from "redux-actions";
 
 const defaultState = { counter: 10 };
 
@@ -370,7 +372,7 @@ export default store;
 
 ```js
 const promiseAction = () => ({
-  type: 'PROMISE',
+  type: "PROMISE",
   payload: Promise.resolve()
 });
 ```
@@ -447,4 +449,5 @@ class Com extends Component {
 在 Provider.js 中：
 
 ```
+
 ```

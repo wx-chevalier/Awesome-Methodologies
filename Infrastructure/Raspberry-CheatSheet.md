@@ -1,5 +1,3 @@
-
-
 # Raspberry CheatSheet | 树莓派资料索引
 
 - 博通 BCM2837B0 SoC，集成四核 ARM Cortex-A53（ARMv8）64 位@ 1.4GHz CPU，集成博通 Videocore-IV GPU

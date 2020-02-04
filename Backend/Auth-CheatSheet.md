@@ -1,5 +1,3 @@
-
-
 # Auth CheatSheet | 权限认证机制概述
 
 可以阅读 [Web 安全实践清单](https://parg.co/GWc) 了解权限校验、密码规范等安全相关知识。WebAPI 或者 RPC 接口，[HTTP CheatSheet]()，[DOM CheatSheet/数据存储]()

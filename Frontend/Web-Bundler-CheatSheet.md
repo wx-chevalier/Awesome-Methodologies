@@ -1,5 +1,3 @@
-
-
 题注：[Web Bundler CheatSheet](https://parg.co/YO2) 属于 [Awesome-CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets) 系列，盘点数个常用的开发打包工具清单。欢迎加入阿里南京前端团队，欢迎关注[阿里南京技术专刊](https://zhuanlan.zhihu.com/ali-nanjing)了解更多讯息。
 
 # Web Bundler CheatSheet | Web 构建与打包工具盘点
@@ -45,10 +43,10 @@ Parcel 会为我们自动地下载安装依赖，并且内置了 ES、SCSS 等�
 
 ```js
 // index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import logo from '../public/logo.svg';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import logo from "../public/logo.svg";
+import "./index.css";
 
 const App = () => (
   <div className="App">
@@ -57,7 +55,7 @@ const App = () => (
   </div>
 );
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // Hot Module Replacement
 if (module.hot) {
@@ -69,20 +67,17 @@ if (module.hot) {
 
 ```html
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Parcel React Example</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Parcel React Example</title>
-
-</head>
-
-<body>
-  <div id="root"></div>
-  <script src="./index.js"></script>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script src="./index.js"></script>
+  </body>
 </html>
 ```
 
@@ -90,10 +85,10 @@ if (module.hot) {
 
 ```js
 // someModule.js
-console.log('someModule.js loaded');
+console.log("someModule.js loaded");
 module.exports = {
   render: function(element) {
-    element.innerHTML = 'You clicked a button';
+    element.innerHTML = "You clicked a button";
   }
 };
 ```
@@ -101,12 +96,12 @@ module.exports = {
 在入口文件中使用 import 进行异步加载：
 
 ```js
-console.log('index.js loaded');
+console.log("index.js loaded");
 window.onload = function() {
-  document.querySelector('#bt').addEventListener('click', function(evt) {
-    console.log('Button Clicked');
-    import('./someModule').then(function(page) {
-      page.render(document.querySelector('.holder'));
+  document.querySelector("#bt").addEventListener("click", function(evt) {
+    console.log("Button Clicked");
+    import("./someModule").then(function(page) {
+      page.render(document.querySelector(".holder"));
     });
   });
 };
@@ -116,19 +111,19 @@ window.onload = function() {
 
 ```js
 // synchronous import
-import {add} from './add.wasm';
+import { add } from "./add.wasm";
 console.log(add(2, 3));
 
 // asynchronous import
-const {add} = await import('./add.wasm');
+const { add } = await import("./add.wasm");
 console.log(add(2, 3));
 
 // synchronous import
-import {add} from './add.rs';
+import { add } from "./add.rs";
 console.log(add(2, 3));
 
 // asynchronous import
-const {add} = await import('./add.rs');
+const { add } = await import("./add.rs");
 console.log(add(2, 3));
 ```
 
@@ -148,13 +143,13 @@ Rollup 是较为为纯粹的模块打包工具，其相较于 Parcel 与 Webpack
 ```js
 export default {
   // 指定模块入口
-  entry: 'src/scripts/main.js',
+  entry: "src/scripts/main.js",
   // 指定包体文件名
-  dest: 'build/js/main.min.js',
+  dest: "build/js/main.min.js",
   // 指定文件格式
-  format: 'iife',
+  format: "iife",
   // 指定 SourceMap 格式
-  sourceMap: 'inline'
+  sourceMap: "inline"
 };
 ```
 
@@ -193,10 +188,10 @@ rollup({
 对于 TypeScript 则是引入 rollup-plugin-typescript 插件：
 
 ```js
-import typescript from 'rollup-plugin-typescript';
+import typescript from "rollup-plugin-typescript";
 
 export default {
-  entry: './main.ts',
+  entry: "./main.ts",
 
   plugins: [typescript()]
 };
@@ -243,15 +238,15 @@ $ npm install webpack webpack-cli webpack-dev-server --save-dev
 const config = {
   // 定义入口
   entry: {
-    app: path.join(__dirname, 'app')
+    app: path.join(__dirname, "app")
   },
   // 定义包体文件
   output: {
     // 输出目录
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, "build"),
 
     // 输出文件名
-    filename: '[name].js'
+    filename: "[name].js"
     // 使用 hash 作为文件名
     // filename: "[name].[chunkhash].js",
   },
@@ -260,7 +255,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: "babel-loader",
         exclude: /node_modules/
       }
     ]
@@ -311,14 +306,14 @@ const config = {
       {
         // **Conditions**
         test: /\.js$/, // Match files
-        enforce: 'pre', // "post" too
+        enforce: "pre", // "post" too
 
         // **Restrictions**
-        include: path.join(__dirname, 'app'),
+        include: path.join(__dirname, "app"),
         exclude: path => path.match(/node_modules/),
 
         // **Actions**
-        use: 'babel-loader'
+        use: "babel-loader"
       }
     ]
   }
@@ -327,10 +322,10 @@ const config = {
 
 ```js
 // Process foo.png through url-loader and other matches
-import 'url-loader!./foo.png';
+import "url-loader!./foo.png";
 
 // Override possible higher level match completely
-import '!!url-loader!./bar.png';
+import "!!url-loader!./bar.png";
 ```
 
 babel-loader 或者 awesome-typescript-loader 来处理 JavaScript 或者 TypeScript 文件
@@ -384,14 +379,14 @@ splitChunks: {
     maxInitialRequests: 3,
     automaticNameDelimiter: '~',
     name: true,
-    
+
     // 自定义配置，会覆写通用配置
     cacheGroups: {
         vendors: {
             test: /[\\/]node_modules[\\/]/,
             priority: -10
         },
-    
+
     // 默认的切割规则
     default: {
             minChunks: 2,
@@ -436,7 +431,7 @@ Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被�
 
 ```js
 // Webpack 3 之后支持显式指定 Chunk 名
-import(/* webpackChunkName: "optional-name" */ './module')
+import(/* webpackChunkName: "optional-name" */ "./module")
   .then(module => {
     /* ... */
   })
@@ -508,11 +503,11 @@ Configurable module loader enabling backwards compatibility workflows for ES mod
 
 ```html
 <script type="systemjs-packagemap">
-{
-  "packages": {
-    "lodash": "https://unpkg.com/lodash@4.17.10/lodash.js"
+  {
+    "packages": {
+      "lodash": "https://unpkg.com/lodash@4.17.10/lodash.js"
+    }
   }
-}
 </script>
 <!-- Alternatively:
 <script type="systemjs-packagemap" src="path/to/map.json">
@@ -520,7 +515,7 @@ Configurable module loader enabling backwards compatibility workflows for ES mod
 <!-- SystemJS must be loaded after the package map -->
 <script src="system.js"></script>
 <script>
-  System.import('/js/main.js');
+  System.import("/js/main.js");
 </script>
 ```
 
@@ -532,44 +527,43 @@ To load ES modules directly in older browsers with SystemJS we can install and u
 <script src="plugin-babel/dist/babel-transform.js"></script>
 <script>
   // main and all its dependencies will now run through transform before loading
-  System.import('/js/main.js');
+  System.import("/js/main.js");
 </script>
 ```
 
 ```js
-import moment from 'moment';
+import moment from "moment";
 
 export function test() {
-    const m1 = moment().format('LLL');
-    const m2 = moment().fromNow();
-    return `The moment is ${m1}, which was ${m2}`;
+  const m1 = moment().format("LLL");
+  const m2 = moment().fromNow();
+  return `The moment is ${m1}, which was ${m2}`;
 }
- 
 ```
 
 ```js
-const SystemJS = require('systemjs');
+const SystemJS = require("systemjs");
 
 SystemJS.config({
-    map: {
-        'traceur': 'node_modules/traceur/bin/traceur.js',
-        'moment': 'node_modules/moment/src'
-    },
-    packages: {
-        'moment': {
-            main: 'moment.js'
-        }
+  map: {
+    traceur: "node_modules/traceur/bin/traceur.js",
+    moment: "node_modules/moment/src"
+  },
+  packages: {
+    moment: {
+      main: "moment.js"
     }
+  }
 });
 
-SystemJS.import('./test.js')
-    .then(function(test) {
-        var t = test.test();
-        console.log(t);
-    })
-    .catch(function(e) {
-        console.error(e)
-    });
+SystemJS.import("./test.js")
+  .then(function(test) {
+    var t = test.test();
+    console.log(t);
+  })
+  .catch(function(e) {
+    console.error(e);
+  });
 ```
 
 ## RequireJS

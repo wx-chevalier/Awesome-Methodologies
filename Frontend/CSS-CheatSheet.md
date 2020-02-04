@@ -1,5 +1,3 @@
-
-
 # CSS CheatSheet | CSS 语法速览与实践清单
 
 ```css
@@ -49,27 +47,27 @@ div {
 }
 
 /* 以及有特定值的属性 */
-[attr='value'] {
+[attr="value"] {
   font-size: smaller;
 }
 
 /* 通过属性的值的开头指定 */
-[attr^='val'] {
+[attr^="val"] {
   font-size: smaller;
 }
 
 /* 通过属性的值的结尾来指定 */
-[attr$='ue'] {
+[attr$="ue"] {
   font-size: smaller;
 }
 
 /* 通过属性的值的部分来指定 */
-[attr~='lu'] {
+[attr~="lu"] {
   font-size: smaller;
 }
 
 /* 你可以把这些全部结合起来，注意不同部分间不应该有空格，否则会改变语义 */
-div.some-class[attr$='ue'] {
+div.some-class[attr$="ue"] {
 }
 
 /* 你也可以通过父元素来指定。*/
@@ -140,8 +138,8 @@ div.some-parent.class-name {
 
   /* 字体 */
   font-family: Arial;
-  font-family: 'Courier New'; /* 使用双引号包裹含空格的字体名称 */
-  font-family: 'Courier New', Trebuchet, Arial; /* 如果第一个
+  font-family: "Courier New"; /* 使用双引号包裹含空格的字体名称 */
+  font-family: "Courier New", Trebuchet, Arial; /* 如果第一个
                              字体没找到，浏览器会使用第二个字体，一次类推 */
 }
 ```
@@ -200,7 +198,7 @@ p {
 }
 
 p::after {
-  content: '...';
+  content: "...";
   font-weight: bold;
   position: absolute;
   bottom: 0;
@@ -279,7 +277,7 @@ p::after {
 还可以添加图标点击事件，首先明确一点，对于 css 添加的伪元素，并不真实存在于页面元素里，所以不能直接添加点击事件 \$('.class:before')也不可能查到，不过针对于 udata 的使用情况，采用了迂回方案，即详细的图标大小是固定的，居左上角 20px \* 20px，只要监听该元素的点击范围是不是在图标范围内就可以了，js 事件如下
 
 ```js
-dom.on('click', e => {
+dom.on("click", e => {
   if (e.offsetX < 20 && e.offsetY < 20) {
     //do something for udata info
     return false;
@@ -440,7 +438,7 @@ div:hover {
 ## Less
 
 ```less
-@sectionHeight: calc(~'100vh - 130px');
+@sectionHeight: calc(~"100vh - 130px");
 ```
 
 # CSS Modularization | CSS 模块化
@@ -448,7 +446,7 @@ div:hover {
 ## CSS Modules
 
 ```js
-import styles from './style.css';
+import styles from "./style.css";
 // import { className } from "./style.css";
 
 element.innerHTML = '<div class="' + styles.className + '">';
@@ -478,6 +476,6 @@ CSS Modules 中也支持设置全局样式：
 
 // 合并来自其他文件的样式
 .otherClassName {
-  composes: className from './style.css';
+  composes: className from "./style.css";
 }
 ```

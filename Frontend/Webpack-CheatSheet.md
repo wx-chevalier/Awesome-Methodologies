@@ -1,5 +1,3 @@
-
-
 # Webpack CheatSheet | Webpack 基础与实践清单
 
 作为著名的打包工具，Webpack 允许我们指定项目的入口地址，然后自动将用到的资源，经由 Loader 与 Plugin 的转换，打包到包体文件中。Webpack 相关的项目模板可以参考：[fe-boilerplate/react-webpack](https://github.com/wx-chevalier/fe-boilerplates/blob/master/react/webpack), [fe-boilerplate/react-webpack-ts](https://github.com/wx-chevalier/fe-boilerplates/blob/master/react/webpack-ts), [fe-boilerplate/vue-webpack](https://github.com/wx-chevalier/fe-boilerplates/blob/master/vue/webpack) 等。
@@ -25,15 +23,15 @@ $ npm install webpack webpack-cli webpack-dev-server --save-dev
 const config = {
   // 定义入口
   entry: {
-    app: path.join(__dirname, 'app')
+    app: path.join(__dirname, "app")
   },
   // 定义包体文件
   output: {
     // 输出目录
-    path: path.join(__dirname, 'build'),
+    path: path.join(__dirname, "build"),
 
     // 输出文件名
-    filename: '[name].js'
+    filename: "[name].js"
     // 使用 hash 作为文件名
     // filename: "[name].[chunkhash].js",
   },
@@ -42,7 +40,7 @@ const config = {
     rules: [
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: "babel-loader",
         exclude: /node_modules/
       }
     ]
@@ -93,14 +91,14 @@ const config = {
       {
         // **Conditions**
         test: /\.js$/, // Match files
-        enforce: 'pre', // "post" too
+        enforce: "pre", // "post" too
 
         // **Restrictions**
-        include: path.join(__dirname, 'app'),
+        include: path.join(__dirname, "app"),
         exclude: path => path.match(/node_modules/),
 
         // **Actions**
-        use: 'babel-loader'
+        use: "babel-loader"
       }
     ]
   }
@@ -109,10 +107,10 @@ const config = {
 
 ```js
 // Process foo.png through url-loader and other matches
-import 'url-loader!./foo.png';
+import "url-loader!./foo.png";
 
 // Override possible higher level match completely
-import '!!url-loader!./bar.png';
+import "!!url-loader!./bar.png";
 ```
 
 babel-loader 或者 awesome-typescript-loader 来处理 JavaScript 或者 TypeScript 文件
@@ -148,22 +146,22 @@ __webpack_require__.r(__webpack_exports__);
 随着需求的迭代与功能的完善，我们的项目也会愈发庞大而复杂，目录层级结构也会不断深化；以 [React 实践清单](https://parg.co/YWj)中讨论的 React 项目组织方式为例，我们常会分为 components, containers, services, apis, ducks, store, i18n 等等目录，如果全部以相对路径方式引入，可能会变成这个样子：
 
 ```js
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import { someConstant } from './../../config/constants';
-import MyComponent from './../../../components/MyComponent';
-import { myActionCreator } from './../../../ducks/someReducer';
+import { someConstant } from "./../../config/constants";
+import MyComponent from "./../../../components/MyComponent";
+import { myActionCreator } from "./../../../ducks/someReducer";
 ```
 
 毫无疑问，这样繁多的引用不可避免地会导致代码之间耦合度的增加，使得更难以重构或者优化。在适当地模块划分的基础上，我们希望在跨模块引用时，能够以绝对路径的方式，譬如：
 
 ```js
-import React from 'react';
-import { connect } from 'react-redux';
-import { someConstant } from 'Config/constants';
-import MyComponent from 'Components/MyComponent';
-import { myActionCreator } from 'Ducks/someReducer';
+import React from "react";
+import { connect } from "react-redux";
+import { someConstant } from "Config/constants";
+import MyComponent from "Components/MyComponent";
+import { myActionCreator } from "Ducks/someReducer";
 ```
 
 当然，我们并不提倡过度地使用绝对路径引入，对于相对关系固定的组件，还是应该优先使用相对路径方式引入。
@@ -175,11 +173,11 @@ import { myActionCreator } from 'Ducks/someReducer';
 ```js
 module.resolve = {
   alias: {
-    Config: path.resolve(__dirname, '..', 'src', 'config'),
-    Components: path.resolve(__dirname, '..', 'src', 'components'),
-    Ducks: path.resolve(__dirname, '..', 'src', 'ducks'),
-    Shared: path.resolve(__dirname, '..', 'src', 'shared'),
-    App: path.join(__dirname, '..', 'src')
+    Config: path.resolve(__dirname, "..", "src", "config"),
+    Components: path.resolve(__dirname, "..", "src", "components"),
+    Ducks: path.resolve(__dirname, "..", "src", "ducks"),
+    Shared: path.resolve(__dirname, "..", "src", "shared"),
+    App: path.join(__dirname, "..", "src")
   }
 };
 ```
@@ -213,7 +211,7 @@ ESLint 同样是前端开发不可或缺的部分，我们可以使用 [eslint-i
 ```yaml
 ---
 settings:
-  import/resolver: webpack  # take all defaults
+  import/resolver: webpack # take all defaults
 ```
 
 或者指定文件名：
@@ -223,8 +221,8 @@ settings:
 settings:
   import/resolver:
     webpack:
-      config: 'webpack.dev.config.js'
-      config-index: 1   # optional, take the config at index 1
+      config: "webpack.dev.config.js"
+      config-index: 1 # optional, take the config at index 1
 ```
 
 对于未使用 Webpack 的项目，则可以考虑使用 [eslint-import-resolver-alias](https://www.npmjs.com/package/eslint-import-resolver-alias):
@@ -233,15 +231,15 @@ settings:
 // .eslintrc.js
 module.exports = {
   settings: {
-    'import/resolver': {
+    "import/resolver": {
       alias: {
         map: [
-          ['babel-polyfill', 'babel-polyfill/dist/polyfill.min.js'],
-          ['helper', './utils/helper'],
-          ['material-ui/DatePicker', '../custom/DatePicker'],
-          ['material-ui', 'material-ui-ie10']
+          ["babel-polyfill", "babel-polyfill/dist/polyfill.min.js"],
+          ["helper", "./utils/helper"],
+          ["material-ui/DatePicker", "../custom/DatePicker"],
+          ["material-ui", "material-ui-ie10"]
         ],
-        extensions: ['.ts', '.js', '.jsx', '.json']
+        extensions: [".ts", ".js", ".jsx", ".json"]
       }
     }
   }
@@ -355,7 +353,7 @@ Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被�
 
 ```js
 // Webpack 3 之后支持显式指定 Chunk 名
-import(/* webpackChunkName: "optional-name" */ './module')
+import(/* webpackChunkName: "optional-name" */ "./module")
   .then(module => {
     /* ... */
   })

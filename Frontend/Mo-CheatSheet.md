@@ -21,7 +21,7 @@ Mo.js 是一个"简洁、高效"图形动画库，拥有流畅的动画和惊人
 
 ```js
 let rect = new mojs.Shape({
-  shape: 'rect', // 定义形状为矩形
+  shape: "rect", // 定义形状为矩形
   isShowStart: true // 定义初始化之后就显示
 });
 ```
@@ -419,10 +419,10 @@ btn.el.addEventListener(); // el表示svg的上层包裹dom
 ```js
 // 效果参考 https://codepen.io/sol0mka/pen/bbd4fe6c1ac8519c76bc18828844e2c3
 const circle = new mojs.Shape({
-  shape: 'circle',
+  shape: "circle",
   scale: { 0: 1 },
-  left: '25%',
-  fill: { cyan: 'yellow' },
+  left: "25%",
+  fill: { cyan: "yellow" },
   radius: 25,
 
   duration: 2000,
@@ -430,14 +430,14 @@ const circle = new mojs.Shape({
 }).play();
 
 const rect = new mojs.Shape({
-  shape: 'rect',
-  left: '50%',
-  fill: 'none',
+  shape: "rect",
+  left: "50%",
+  fill: "none",
   radius: 20,
-  stroke: { 'rgba(0,255,255, 1)': 'magenta' },
+  stroke: { "rgba(0,255,255, 1)": "magenta" },
   strokeWidth: { 10: 0 },
-  strokeDasharray: '100%',
-  strokeDashoffset: { '-100%': '100%' },
+  strokeDasharray: "100%",
+  strokeDashoffset: { "-100%": "100%" },
   angle: { 0: 180 },
 
   duration: 2000,
@@ -445,12 +445,12 @@ const rect = new mojs.Shape({
 }).play();
 
 const polygon = new mojs.Shape({
-  shape: 'polygon',
+  shape: "polygon",
   points: 5,
-  left: '75%',
-  fill: { deeppink: '#00F87F' },
-  x: { 'rand(-100%, -200%)': 0 },
-  angle: { 0: 'rand(0, 360)' },
+  left: "75%",
+  fill: { deeppink: "#00F87F" },
+  x: { "rand(-100%, -200%)": 0 },
+  angle: { 0: "rand(0, 360)" },
   radius: 25,
 
   duration: 2000,

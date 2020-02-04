@@ -1,5 +1,3 @@
-
-
 > 本文节选自 [Live CheatSheet | 直播技术理论基础与实践概论](https://github.com/wx-chevalier/Awesome-CheatSheets/blob/master/IndustrialApplication/IM/Live-CheatSheet.md)，**很多内容非作者原创**，而是对 [Live Links](https://github.com/wx-chevalier/Awesome-Lists/blob/master/IndustrialApplication/IM/Live-List.md) 中列举出的多篇文章的盘点总结，更多直播相关内容可以前往 [xCompass](https://wx-chevalier.github.io/home/#/search?query=%E7%9B%B4%E6%92%AD) 交互式检索或 [MushiChat](https://github.com/wx-chevalier/MushiChat) 查看代码。
 
 # Live CheatSheet | 直播技术理论基础与实践概论
@@ -344,14 +342,14 @@ UDP 在传输过程还会出现丢包，丢失的原因有多种，例如：网�
 MSE 全称就是 Media Source Extensions。它是一套处理视频流技术的简称，里面包括了一系列 API：Media Source，Source Buffer 等。在没有 MSE 出现之前，前端对 video 的操作，仅仅局限在对视频文件的操作，而并不能对视频流做任何相关的操作。现在 MSE 提供了一系列的接口，使开发者可以直接提供 media stream。
 
 ```js
-const vidElement = document.querySelector('video');
+const vidElement = document.querySelector("video");
 
 if (window.MediaSource) {
   const mediaSource = new MediaSource();
   vidElement.src = URL.createObjectURL(mediaSource);
-  mediaSource.addEventListener('sourceopen', sourceOpen);
+  mediaSource.addEventListener("sourceopen", sourceOpen);
 } else {
-  console.log('The Media Source Extensions API is not supported.');
+  console.log("The Media Source Extensions API is not supported.");
 }
 
 function sourceOpen(e) {
@@ -359,14 +357,14 @@ function sourceOpen(e) {
   const mime = 'video/webm; codecs="opus, vp9"';
   const mediaSource = e.target;
   const sourceBuffer = mediaSource.addSourceBuffer(mime);
-  const videoUrl = 'droid.webm';
+  const videoUrl = "droid.webm";
   fetch(videoUrl)
     .then(function(response) {
       return response.arrayBuffer();
     })
     .then(function(arrayBuffer) {
-      sourceBuffer.addEventListener('updateend', function(e) {
-        if (!sourceBuffer.updating && mediaSource.readyState === 'open') {
+      sourceBuffer.addEventListener("updateend", function(e) {
+        if (!sourceBuffer.updating && mediaSource.readyState === "open") {
           mediaSource.endOfStream();
         }
       });

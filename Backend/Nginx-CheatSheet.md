@@ -1,5 +1,3 @@
-
-
 ![](http://blog.commando.io/content/images/2014/11/1-Tg9FYCN99FlNj0gn9u8s7A-5-2.jpeg)
 
 # Nginx CheatSheet | Nginx 配置详解与生产环境实践
@@ -190,7 +188,7 @@ location /blog {
     alias /home/barret/www/blog/;
 }
 location ~ ^/blog/(\d+)/([\w-]+)$ {
-    # /blog/20141202/article-name  
+    # /blog/20141202/article-name
     # -> /blog/20141202-article-name.md
     alias /home/barret/www/blog/$1-$2.md;
 }
@@ -380,14 +378,14 @@ $ letsencrypt renew --dry-run --agree-tos
 基本的 HTTPS 支持配置如下:
 
 ```
-server {  
-    listen 192.168.1.11:443 ssl;  #ssl端口  
-    server_name  test.com;  
-    #为一个server{......}开启ssl支持  
+server {
+    listen 192.168.1.11:443 ssl;  #ssl端口
+    server_name  test.com;
+    #为一个server{......}开启ssl支持
     #指定PEM格式的证书文件
     ssl_certificate      /etc/nginx/test.pem;
-    #指定PEM格式的私钥文件  
-    ssl_certificate_key  /etc/nginx/test.key;  
+    #指定PEM格式的私钥文件
+    ssl_certificate_key  /etc/nginx/test.key;
     ssl_session_cache    shared:SSL:1m;
     ssl_session_timeout  5m;
 
@@ -398,7 +396,7 @@ server {
          root   html;
          index  index.html index.htm;
      }
-}  
+}
 ```
 
 在真实的生产环境中，我们的配置如下:
@@ -422,7 +420,7 @@ server {
     ssl_session_cache shared:SSL:10m;
 
     #这个是伪静态根据自己的需求改成其他或删除
-    include wordpress.conf;  
+    include wordpress.conf;
 
     #error_page 404 /404.html;
 
@@ -456,11 +454,11 @@ server {
 ### Nginx Rewrite
 
 ```
-server {  
-    listen  192.168.1.111:80;  
-    server_name test.com;  
-    rewrite ^(.*)$  https://$host$1 permanent;  
-}  
+server {
+    listen  192.168.1.111:80;
+    server_name test.com;
+    rewrite ^(.*)$  https://$host$1 permanent;
+}
 ```
 
 ### Nginx 497 错误码
@@ -468,20 +466,20 @@ server {
 利用 error_page 命令将 497 状态码的链接重定向到https://test.com这个域名上
 
 ```
-server {  
-    listen       192.168.1.11:443;  #ssl端口  
-    listen       192.168.1.11:80;   #用户习惯用http访问，加上80，后面通过497状态码让它自动跳到443端口  
-    server_name  test.com;  
-    #为一个server{......}开启ssl支持  
-    ssl                  on;  
+server {
+    listen       192.168.1.11:443;  #ssl端口
+    listen       192.168.1.11:80;   #用户习惯用http访问，加上80，后面通过497状态码让它自动跳到443端口
+    server_name  test.com;
+    #为一个server{......}开启ssl支持
+    ssl                  on;
     #指定PEM格式的证书文件
     ssl_certificate      /etc/nginx/test.pem;
-    #指定PEM格式的私钥文件  
-    ssl_certificate_key  /etc/nginx/test.key;  
+    #指定PEM格式的私钥文件
+    ssl_certificate_key  /etc/nginx/test.key;
 
     #让http请求重定向到https请求
-    error_page 497  https://$host$uri?$args;  
-}  
+    error_page 497  https://$host$uri?$args;
+}
 ```
 
 ### Meta 刷新，前端跳转
@@ -489,23 +487,23 @@ server {
 在 HTTP 正常返回的页面中添加 meta 属性：
 
 ```
-<html>  
-<meta http-equiv="refresh" content="0;url=https://test.com/">  
-</html>  
+<html>
+<meta http-equiv="refresh" content="0;url=https://test.com/">
+</html>
 ```
 
 ```
-server {  
-    listen 192.168.1.11:80;  
-    server_name test.com;  
+server {
+    listen 192.168.1.11:80;
+    server_name test.com;
 
-    location / {  
-                #index.html放在虚拟主机监听的根目录下  
-        root /srv/www/http.test.com/;  
-    }  
-        #将404的页面重定向到https的首页  
-    error_page  404 https://test.com/;  
-}  
+    location / {
+                #index.html放在虚拟主机监听的根目录下
+        root /srv/www/http.test.com/;
+    }
+        #将404的页面重定向到https的首页
+    error_page  404 https://test.com/;
+}
 ```
 
 ## 反向 HTTPS 转发到内部 HTTP

@@ -74,10 +74,10 @@ Ubuntu
     $ source ~/.rvm/scripts/rvm
     然后就安装好 rvm 了
     [plain] view plaincopyprint?
-1.  $ rvm -v
+1.  \$ rvm -v
 1.  rvm install 2.2.1
-1.  $ gem source -r https://rubygems.org/
-1.  $ gem source -a http://ruby.taobao.org
+1.  \$ gem source -r https://rubygems.org/
+1.  \$ gem source -a http://ruby.taobao.org
 
 数据结构变量
 Ruby 中常用的内置的变量对象种类有：对象类
@@ -97,7 +97,7 @@ File
 Symbol
 
 命名
-Ruby 中常用的变量类型有：局部变量：以英文字母或者\_开头全局变量：以$开头实例变量：以@开头类变量：以@@开头赋值常量保留字类型判断基本数据类型空值
+Ruby 中常用的变量类型有：局部变量：以英文字母或者\_开头全局变量：以\$开头实例变量：以@开头类变量：以@@开头赋值常量保留字类型判断基本数据类型空值
 String
 长度
 array.size
@@ -273,7 +273,7 @@ Regexp
 
 ## UnitTest
 
-* 待测试类
+- 待测试类
 
 ```ruby
 class Meme
@@ -287,7 +287,7 @@ class Meme
 end
 ```
 
-* 测试类
+- 测试类
 
 ```ruby
 require "minitest/autorun"
@@ -311,7 +311,7 @@ class TestMeme < Minitest::Test
 end
 ```
 
-* 运行测试直接运行 `ruby people_test.rb`即可得到结果
+- 运行测试直接运行 `ruby people_test.rb`即可得到结果
 
 ```
 Run options: --seed 10922
@@ -348,7 +348,7 @@ end
 
 ## Benchmarks
 
-* 添加到 UnitTest 中
+- 添加到 UnitTest 中
 
 ```
 # optionally run benchmarks, good for CI-only work!
@@ -364,7 +364,7 @@ class TestMeme < Minitest::Benchmark
 end
 ```
 
-* 添加到 Specs 中
+- 添加到 Specs 中
 
 ```
 describe "Meme Benchmark" do
@@ -454,9 +454,9 @@ Finished in 0.00111 seconds (files took 0.08931 seconds to load)
 
 再 RSpec 中，用 describe、context 与 it 结合使用的方式来定义一个测试用例。
 
-* describe
+- describe
   我们用 describe()方法定义一个测试用例组，describe()方法的参数可以是我们要测试的对象(如例中的 People)，可以是一个字符串，用来描述该组，describe 方法后的字符串所描述的内容可以对应一个用户故事。注意 describe()方法是可以嵌套的，两个 describe()方法衔接起来可以更细化一个用户故事，如上边的里面的 describe()方法内就表示：”People have enough money pay for house”。
-* context
+- context
   context 与 describe 都可以用于描述一个用户的故事，但是 describe 往往用于描述只执行一次的情况，而 context 用于描述可能存在多种情况的故事。
 
 ```ruby
@@ -490,7 +490,7 @@ describe "launch the rocket" do
 end
 ```
 
-* it
+- it
   我们用 it()方法定义一个具体的测试用例(在 RSpec 中，称一个测试用例为一个 example)。其后的字符串为该方法的参数，用来描述一个具体的场景，it 方法体就是我们对系统在该场景下的行为的定义。It()方法和 describe()方法衔接起来，可以完整的描述一个系统行为，以上边的最后的一个测试用例为：”People have enough money pay for house should travel ”。
 
 ### 修饰器
@@ -576,5 +576,5 @@ We can see that there’s 85.71% of code coverage on string_ops.rb, if you click
 [2]: http://www.jianshu.com/p/1db9ee327357
 [3]: http://www.rubydoc.info/gems/rspec-expectations/frames
 [4]: https://github.com/rspec/rspec-mocks
-[5]: C:\wamp\www\md-repo\1429896390839.jpg '1429896390839.jpg'
-[6]: C:\wamp\www\md-repo/1429896405807.jpg '1429896405807.jpg'
+[5]: C:\wamp\www\md-repo\1429896390839.jpg "1429896390839.jpg"
+[6]: C:\wamp\www\md-repo/1429896405807.jpg "1429896405807.jpg"

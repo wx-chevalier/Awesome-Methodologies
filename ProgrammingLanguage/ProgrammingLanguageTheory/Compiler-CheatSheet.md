@@ -1,5 +1,3 @@
-
-
 # Compiler CheatSheet | 编译原理概览
 
 Compiler theory is the theory of writing compilers (or more generally, translators); programs which translate a program written in one language into another form. The actions of a compiler are traditionally broken up into syntax analysis (scanning and parsing), semantic analysis (determining what a program should do), optimization (improving the performance of a program as indicated by some metric; typically execution speed) and code generation (generation and output of an equivalent program in some target language; often the instruction set of a CPU).

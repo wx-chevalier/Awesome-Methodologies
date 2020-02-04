@@ -67,14 +67,14 @@ Atomic 的实现依赖于处理器提供的 CAS(Compare and Swap)指令。CAS �
 ```java
 @ThreadSafe
 public class SafeSequence {
-    private AtomicInteger value;
+  private AtomicInteger value;
 
-    /**
-     * Returns a unique value.
-     */
-    public int getNext() {
-        return value.getAndIncrement();
-    }
+  /**
+   * Returns a unique value.
+   */
+  public int getNext() {
+    return value.getAndIncrement();
+  }
 }
 ```
 
@@ -125,33 +125,31 @@ public class TestHarness {
 信号量 Semaphore，用来控制同时访问某个特定资源的操作数量。Semaphore 中管理着一组虚拟许可，如果没有许可，则 acquire 操作将阻塞直到有许可。可以把锁看做一种特殊的二元信号量。
 
 ```java
-public class BoundedHashSet <T> {
-    private final Set<T> set;
-    private final Semaphore sem;
+public class BoundedHashSet<T> {
+  private final Set<T> set;
+  private final Semaphore sem;
 
-    public BoundedHashSet(int bound) {
-        this.set = Collections.synchronizedSet(new HashSet<T>());
-        sem = new Semaphore(bound);
-    }
+  public BoundedHashSet(int bound) {
+    this.set = Collections.synchronizedSet(new HashSet<T>());
+    sem = new Semaphore(bound);
+  }
 
-    public boolean add(T o) throws InterruptedException {
-        sem.acquire();
-        boolean wasAdded = false;
-        try {
-            wasAdded = set.add(o);
-            return wasAdded;
-        } finally {
-            if (!wasAdded)
-                sem.release();
-        }
+  public boolean add(T o) throws InterruptedException {
+    sem.acquire();
+    boolean wasAdded = false;
+    try {
+      wasAdded = set.add(o);
+      return wasAdded;
+    } finally {
+      if (!wasAdded) sem.release();
     }
+  }
 
-    public boolean remove(Object o) {
-        boolean wasRemoved = set.remove(o);
-        if (wasRemoved)
-            sem.release();
-        return wasRemoved;
-    }
+  public boolean remove(Object o) {
+    boolean wasRemoved = set.remove(o);
+    if (wasRemoved) sem.release();
+    return wasRemoved;
+  }
 }
 ```
 
@@ -161,21 +159,22 @@ Lock 类提供了一种可轮询的、定时的以及可中断的锁获取操作
 
 ```java
 public class TimedLocking {
-    private Lock lock = new ReentrantLock();
+  private Lock lock = new ReentrantLock();
 
-    public boolean trySendOnSharedLine(String message,
-                                       long timeout, TimeUnit unit)
-            throws InterruptedException {
-        long nanosToLock = unit.toNanos(timeout)
-                - estimatedNanosToSend(message);
-        if (!lock.tryLock(nanosToLock, NANOSECONDS))
-            return false;
-        try {
-            return sendOnSharedLine(message);
-        } finally {
-            lock.unlock();
-        }
+  public boolean trySendOnSharedLine(
+    String message,
+    long timeout,
+    TimeUnit unit
+  )
+    throws InterruptedException {
+    long nanosToLock = unit.toNanos(timeout) - estimatedNanosToSend(message);
+    if (!lock.tryLock(nanosToLock, NANOSECONDS)) return false;
+    try {
+      return sendOnSharedLine(message);
+    } finally {
+      lock.unlock();
     }
+  }
 }
 ```
 

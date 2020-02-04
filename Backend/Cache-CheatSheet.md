@@ -1,5 +1,3 @@
-
-
 # Web 架构缓存概览：从 CPU 到浏览器
 
 Web caches sit between the user and the application server, where they save and serve copies of certain responses. In the diagram below, we can see three users fetching the same resource one after the other:

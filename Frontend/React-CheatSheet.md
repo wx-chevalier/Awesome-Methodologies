@@ -1,5 +1,3 @@
-
-
 # React CheatSheet | React 设计理念，语法纵览与实践清单
 
 这是一篇非常冗长的文章，是笔者 [现代 Web 全栈开发与工程架构-React 篇](https://github.com/wx-chevalier/Web-Series/tree/master/React) 系列的提炼。
@@ -249,8 +247,8 @@ function onClick(event) {
 ### 样式类
 
 ```js
-import cx from 'classnames';
-import styles from './capsule.css';
+import cx from "classnames";
+import styles from "./capsule.css";
 
 // 使用 classnames
 let className = cx(styles.base, {
@@ -262,7 +260,7 @@ return <div className={className} />;
 // 使用朴素的数组操作
 return (
   <div
-    classNames={[styles.base, styles.clickable, styles.withIcon].join(' ')}
+    classNames={[styles.base, styles.clickable, styles.withIcon].join(" ")}
   />
 );
 ```
@@ -274,7 +272,7 @@ return (
 React Transition Group 提供了 Transition, CSSTransition, TransitionGroup 三个辅助组件，来根据组件的状态添加合适的过渡动画。Transition 组件提供了简单的声明式接口，来向子组件传递当前的动画状态：
 
 ```js
-import Transition from 'react-transition-group/Transition';
+import Transition from "react-transition-group/Transition";
 
 const duration = 300;
 
@@ -324,7 +322,7 @@ CSSTransition 则是自动为不同的动画状态匹配不同的样式类：
     <HelpBlock>
       Your name rocks!
       <CSSTransition
-        in={state === 'entered'}
+        in={state === "entered"}
         timeout={300}
         classNames="star"
         unmountOnExit
@@ -360,13 +358,13 @@ classNames={{
 PropTypes.array, PropTypes.bool, PropTypes.func, PropTypes.number, PropTypes.object, PropTypes.string, PropTypes.symbol, 对于 React 可渲染的类型还包括 PropTypes.node 与 PropTypes.element
 
 ```js
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 MyComponent.propTypes = {
   // 指定类实例
   optionalMessage: PropTypes.instanceOf(Message), // 枚举类型
 
-  optionalEnum: PropTypes.oneOf(['News', 'Photos']), // 可能为多种类型
+  optionalEnum: PropTypes.oneOf(["News", "Photos"]), // 可能为多种类型
 
   optionalUnion: PropTypes.oneOfType([
     PropTypes.string,
@@ -444,16 +442,16 @@ class Sort extends React.Component {
   render() {
     const children = React.Children.toArray(this.props.children);
     // Sort and render the children
-    return <p>{children.sort().join(' ')}</p>;
+    return <p>{children.sort().join(" ")}</p>;
   }
 }
 
 <Sort>
   // We use expression containers to make sure our strings // are passed as
   three children, not as one string
-  {'bananas'}
-  {'oranges'}
-  {'apples'}
+  {"bananas"}
+  {"oranges"}
+  {"apples"}
 </Sort>;
 ```
 
@@ -560,10 +558,10 @@ React 中的组件又可以分为受控组件与非受控组件，所谓的非�
 React 16.3 之后引入了新的 Context API，允许我们以 renderProps 的方式使用上下文中的值：
 
 ```js
-const ThemeContext = React.createContext('light');
+const ThemeContext = React.createContext("light");
 
 class ThemeProvider extends React.Component {
-  state = { theme: 'light' };
+  state = { theme: "light" };
 
   render() {
     return (
@@ -695,7 +693,7 @@ class MyComponent extends React.Component {
   };
 
   componentWillMount() {
-    import('./components/Bar').then(Bar => {
+    import("./components/Bar").then(Bar => {
       this.setState({ Bar });
     });
   }
@@ -714,10 +712,10 @@ class MyComponent extends React.Component {
 [react-loadable](https://github.com/jamiebuilds/react-loadable) 是非常不错的异步组件加载库，同时能够支持服务端渲染等多种场景：
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from "react-loadable";
 
 const LoadableBar = Loadable({
-  loader: () => import('./components/Bar'),
+  loader: () => import("./components/Bar"),
   loading() {
     return <div>Loading...</div>;
   }
@@ -753,12 +751,12 @@ Proton Native does the same to desktop that React Native did to mobile. Build cr
 React 的 TypeScript 类型声明可以参考 [types/react](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/react)，[antd](https://github.com/ant-design/ant-design) 也是非常不错的使用 TypeScript 开发的大型 React 项目。
 
 ```ts
-import * as React from 'react';
-import formatPrice from '../utils/formatPrice';
+import * as React from "react";
+import formatPrice from "../utils/formatPrice";
 
 export interface IPriceProps {
   num: number;
-  symbol: '$' | '€' | '£';
+  symbol: "$" | "€" | "£";
 }
 
 const Price: React.SFC<IPriceProps> = ({ num, symbol }: IPriceProps) => (
@@ -775,7 +773,7 @@ export function positionStyle<T>(
   return (props: any) => {
     const { top, left, ...rest } = props;
     return (
-      <div style={{ position: 'absolute', top, left }}>
+      <div style={{ position: "absolute", top, left }}>
         <Component {...rest} />
       </div>
     );

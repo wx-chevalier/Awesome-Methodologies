@@ -1,5 +1,3 @@
-
-
 # Functional Programming CheatSheet
 
 # Functional Programming Jargon | 函数式编程术语
@@ -26,13 +24,13 @@ console.log(arity);
 如果一个函数，除了返回值之外，还会修改某些其它状态，或者与外部函数等有可观测的交互，那么就称其有副作用:
 
 ```js
-console.log('IO is a side effect!');
+console.log("IO is a side effect!");
 ```
 
 一个没有任何副作用，并且返回值只由输入决定的函数成为纯函数:
 
 ```js
-let greet = 'yo';
+let greet = "yo";
 
 greet.toUpperCase(); // YO;
 
@@ -82,7 +80,7 @@ const filter = (pred, xs) => {
 const is = type => x => Object(x) instanceof type;
 
 // 执行过滤
-filter(is(Number), [0, '1', 2, null]); //=> [0, 2]
+filter(is(Number), [0, "1", 2, null]); //=> [0, 2]
 ```
 
 ### Partial Application | 局部封装
@@ -204,13 +202,13 @@ Object.freeze({name: 'John', age: 30}) // The `freeze` function enforces immutab
 
 ```js
 const five = 5;
-const john = { name: 'John', age: 30 };
+const john = { name: "John", age: 30 };
 ```
 
 常量一般认为是透明的，也就是说，它们可以被值本身代替而不影响最终的计算结果，上面的两个常量也可以用下述方式表述：
 
 ```js
-john.age + five === { name: 'John', age: 30 }.age + 5;
+john.age + five === { name: "John", age: 30 }.age + 5;
 ```
 
 上述表达式会一直返回真。
@@ -294,7 +292,7 @@ lift((a, b)  => a * b)([1, 2], [3]); // [3, 6]
 譬如我们有一个叫`greet`的引用
 
 ```js
-let greet = () => 'Hello World!';
+let greet = () => "Hello World!";
 ```
 
 ## 任何对于`greet()`的调用都可以被`Hello World!`直接替换，因此可以将`greet`称为透明引用。
@@ -365,13 +363,13 @@ randIter.next(); // Each exectuion gives a random value, expression is evaluated
 > 一个 Monad 就是拥有[`of`](#pointed-functor)以及`chain`函数的对象。`Chain` 类似于 [map](#functor)只不过它会扁平化最终求得的嵌套式结果。
 
 ```js
-['cat,dog', 'fish,bird']
-  .chain(a => a.split(',')) // ['cat','dog','fish','bird']
+["cat,dog", "fish,bird"]
+  .chain(a => a.split(",")) // ['cat','dog','fish','bird']
 
   [
     //Contrast to map
-    ('cat,dog', 'fish,bird')
-  ].map(a => a.split(',')); // [['cat','dog'], ['fish','bird']]
+    ("cat,dog", "fish,bird")
+  ].map(a => a.split(",")); // [['cat','dog'], ['fish','bird']]
 ```
 
 You may also see `of` and `chain` referred to as `return` and `bind` (not be confused with the JS keyword/function...) in languages which provide Monad-like constructs as part of their standard library (e.g. Haskell, F#), on [Wikipedia](https://en.wikipedia.org/wiki/Monad_%28functional_programming%29) and in other literature. It's also important to note that `return` and `bind` are not part of the [Fantasy Land spec](https://github.com/fantasyland/fantasy-land) and are mentioned here only for the sake of people interested in learning more about Monads.

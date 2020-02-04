@@ -2,7 +2,7 @@
 ![designpattern](https://user-images.githubusercontent.com/5803001/36413335-ddd675f0-1658-11e8-9326-4f4eb7aace4e.png)
 ](https://www.processon.com/view/link/5a8bd7f3e4b064e9ddc6783e)
 
-# Design Pattern CheatSheet 
+# Design Pattern CheatSheet
 
 Design patterns are solutions to recurring problems; guidelines on how to tackle certain problems. They are not classes, packages or libraries that you can plug into your application and wait for the magic to happen. These are, rather, guidelines on how to tackle certain problems in certain situations.
 
@@ -62,10 +62,3 @@ Structural patterns are mostly concerned with object composition or in other wor
 # Behavioral Design Patterns
 
 It is concerned with assignment of responsibilities between the objects. What makes them different from structural patterns is they don't just specify the structure but also outline the patterns for message passing/communication between them. Or in other words, they assist in answering "How to run a behavior in software component?"
-
-
-
-
-
-
-

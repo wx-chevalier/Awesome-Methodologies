@@ -1,5 +1,3 @@
-
-
 # DOM CheatSheet | DOM 语法速览与实践清单
 
 ```js
@@ -7,7 +5,7 @@ const bodyRect = document.body.getBoundingClientRect(),
   elemRect = element.getBoundingClientRect(),
   offset = elemRect.top - bodyRect.top;
 
-console.log('Element is ' + offset + ' vertical pixels from <body>');
+console.log("Element is " + offset + " vertical pixels from <body>");
 ```
 
 ```js
@@ -16,7 +14,7 @@ var sheets = document.styleSheets; // returns an Array-like StyleSheet List
 var sheet = document.styleSheets[0];
 
 // 添加样式规则
-sheet.insertRule('header { float: left; opacity: 0.8; }', 1);
+sheet.insertRule("header { float: left; opacity: 0.8; }", 1);
 ```
 
 # 界面事件
@@ -85,11 +83,11 @@ function delegate(criteria, listener) {
 ## 自定义事件
 
 ```js
-const event = new Event('build');
+const event = new Event("build");
 
 // Listen for the event.
 elem.addEventListener(
-  'build',
+  "build",
   function(e) {
     /* ... */
   },
@@ -103,22 +101,22 @@ elem.dispatchEvent(event);
 # 路由
 
 ```js
-const stateObj = { foo: 'bar' };
+const stateObj = { foo: "bar" };
 
 // 将当前 URL 替换为 http://mozilla.org/bar.html
-history.pushState(stateObj, 'page 2', 'bar.html');
+history.pushState(stateObj, "page 2", "bar.html");
 ```
 
 浏览器也为我们提供了 onhashchange 函数来监听 Hash 的变化：
 
 ```js
-if ('onhashchange' in window) {
+if ("onhashchange" in window) {
   //no alert
-  console.log('The browser supports the hashchange event!');
+  console.log("The browser supports the hashchange event!");
 }
 
 function locationHashChanged() {
-  if (location.hash === '#somecoolfeature') {
+  if (location.hash === "#somecoolfeature") {
     somecoolfeature();
   }
 }
@@ -132,15 +130,15 @@ window.onhashchange = locationHashChanged;
 
 ```js
 var xhr = new XMLHttpRequest();
-xhr.open('GET', url);
-xhr.responseType = 'json';
+xhr.open("GET", url);
+xhr.responseType = "json";
 
 xhr.onload = function() {
   console.log(xhr.response);
 };
 
 xhr.onerror = function() {
-  console.log('Booo');
+  console.log("Booo");
 };
 
 xhr.send();
@@ -151,7 +149,7 @@ xhr.send();
 XMLHttpRequest (XHR) 是经典的浏览器中网络请求框架，jQuery 则为我们封装了 jQuery.ajax(), jQuery.get(), jQuery.post() 等辅助方法。而 Fetch API 正逐步成为跨平台的基于 Promise 的异步网络请求标准，其基本用法如下：
 
 ```js
-fetch('./file.json')
+fetch("./file.json")
   .then(response => {
     response.json().then(data => {
       console.log(data);
@@ -170,10 +168,10 @@ fetch 函数允许传入 Request 对象，我们可以在封装 Request 对象�
 ```js
 // Headers 对象用于设置请求头
 const headers = new Headers();
-headers.append('Content-Type', 'application/json');
+headers.append("Content-Type", "application/json");
 
-const request = new Request('./file.json', {
-  headers: new Headers({ 'Content-Type': 'application/json' })
+const request = new Request("./file.json", {
+  headers: new Headers({ "Content-Type": "application/json" })
 });
 
 fetch(request);
@@ -183,14 +181,14 @@ fetch(request);
 
 ```js
 const options = {
-  method: 'post',
+  method: "post",
   headers: {
-    'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
   },
-  body: 'foo=bar&test=1'
+  body: "foo=bar&test=1"
 };
 fetch(url, options).catch(err => {
-  console.error('Request failed', err);
+  console.error("Request failed", err);
 });
 ```
 
@@ -209,7 +207,7 @@ fetch(url, options).catch(err => {
 参照上文，
 
 ```js
-fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
+fetch("http://some-site.com/cors-enabled/some.json", { mode: "cors" });
 ```
 
 ### Response
@@ -217,7 +215,7 @@ fetch('http://some-site.com/cors-enabled/some.json', { mode: 'cors' });
 fetch 函数会返回 [Stream](https://streams.spec.whatwg.org/) 类型的对象，其包含了关于请求以及响应的信息，可以通过如下方式访问元数据：
 
 ```js
-fetch('./file.json').then(response => {
+fetch("./file.json").then(response => {
   // 返回状态码
   console.log(response.status);
   // 状态描述
@@ -225,8 +223,8 @@ fetch('./file.json').then(response => {
   // 101, 204, 205, or 304 is a null body status
   // 200 to 299, inclusive, is an OK status (success)
   // 301, 302, 303, 307, or 308 is a redirect
-  console.log(response.headers.get('Content-Type'));
-  console.log(response.headers.get('Date'));
+  console.log(response.headers.get("Content-Type"));
+  console.log(response.headers.get("Date"));
 });
 ```
 
@@ -252,15 +250,15 @@ fetch(url).then(function(response) {
 相较于 XHR，fetch 优势即在于能够访问到底层的数据流，并且添加自定义的操作以进行局部响应(避免接受全部内容)，或者在 ServiceWorker 中进行流转化：
 
 ```js
-self.addEventListener('fetch', function(event) {
+self.addEventListener("fetch", function(event) {
   event.respondWith(
-    fetch('video.unknowncodec').then(function(response) {
+    fetch("video.unknowncodec").then(function(response) {
       var h264Stream = response.body
         .pipeThrough(codecDecoder)
         .pipeThrough(h264Encoder);
 
       return new Response(h264Stream, {
-        headers: { 'Content-type': 'video/h264' }
+        headers: { "Content-type": "video/h264" }
       });
     })
   );
@@ -297,10 +295,10 @@ fetch(url).then(function(response) {
 BroadcastChannel 能够用于同源不同页面之间完成通信的功能。它与 window.postMessage 的区别就是，BroadcastChannel 只能用于同源的页面之间进行通信，而 window.postMessage 却可以用于任何的页面之间；BroadcastChannel 可以认为是 window.postMessage 的一个实例，它承担了 window.postMessage 的一个方面的功能。
 
 ```js
-const channel = new BroadcastChannel('channel-name');
+const channel = new BroadcastChannel("channel-name");
 
-channel.postMessage('some message');
-channel.postMessage({ key: 'value' });
+channel.postMessage("some message");
+channel.postMessage({ key: "value" });
 
 channel.onmessage = function(e) {
   const message = e.data;
@@ -315,9 +313,9 @@ Shared Worker 类似于 Web Workers，不过其会被来自同源的不同浏览
 
 ```js
 // main.js
-const worker = new SharedWorker('shared-worker.js');
+const worker = new SharedWorker("shared-worker.js");
 
-worker.port.postMessage('some message');
+worker.port.postMessage("some message");
 
 worker.port.onmessage = function(e) {
   const message = e.data;
@@ -345,7 +343,7 @@ onmessage = function(e) {
 localStorage 是常见的持久化同源存储机制，其会在内容变化时触发事件，也就可以用作同源界面的数据通信。
 
 ```js
-localStorage.setItem('key', 'value');
+localStorage.setItem("key", "value");
 
 window.onstorage = function(e) {
   const message = e.newValue; // previous value at e.oldValue
@@ -371,9 +369,9 @@ postMessage
 Blob 是 JavaScript 中的对象，表示不可变的类文件对象，里面可以存储大量的二进制编码格式的数据。Blob 对象的创建方式与其他并无区别，构造函数可接受数据序列与类型描述两个参数：
 
 ```js
-const debug = { hello: 'world' };
+const debug = { hello: "world" };
 let blob = new Blob([JSON.stringify(debug, null, 2)], {
-  type: 'application/json'
+  type: "application/json"
 });
 // Blob(22) {size: 22, type: "application/json"}
 
@@ -382,12 +380,12 @@ const url = URL.createObjectURL(blob);
 // "blob:https://developer.mozilla.org/88c5b6de-3735-4e02-8937-a16cc3b0e852"
 
 // 设置自定义的样式类
-blob = new Blob(['body { background-color: yellow; }'], {
-  type: 'text/css'
+blob = new Blob(["body { background-color: yellow; }"], {
+  type: "text/css"
 });
 
-link = document.createElement('link');
-link.rel = 'stylesheet';
+link = document.createElement("link");
+link.rel = "stylesheet";
 //createObjectURL returns a blob URL as a string.
 link.href = URL.createObjectURL(blob);
 ```
@@ -396,16 +394,16 @@ link.href = URL.createObjectURL(blob);
 
 ```js
 const content = '<a id="a"><b id="b">hey!</b></a>'; // the body of the new file...
-const blob = new Blob([content], { type: 'text/xml' });
+const blob = new Blob([content], { type: "text/xml" });
 
-formData.append('webmasterfile', blob);
+formData.append("webmasterfile", blob);
 ```
 
 slice 方法会返回一个新的 Blob 对象，包含了源 Blob 对象中指定范围内的数据。其实就是对这个 blob 中的数据进行切割，我们在对文件进行分片上传的时候需要使用到这个方法，即把一个需要上传的文件进行切割，然后分别进行上传到服务器：
 
 ```js
 const BYTES_PER_CHUNK = 1024 * 1024; // 每个文件切片大小定为1MB .
-const blob = document.getElementById('file').files[0];
+const blob = document.getElementById("file").files[0];
 const slices = Math.ceil(blob.size / BYTES_PER_CHUNK);
 const blobs = [];
 Array.from({ length: slices }).forEach(function(item, index) {
@@ -417,12 +415,12 @@ Array.from({ length: slices }).forEach(function(item, index) {
 
 ```js
 const reader = new FileReader();
-reader.addEventListener('loadend', function() {
+reader.addEventListener("loadend", function() {
   // reader.result 包含了 Typed Array 格式的 Blob 内容
 });
 reader.readAsArrayBuffer(blob);
 
-blob = new Blob(['This is my blob content'], { type: 'text/plain' });
+blob = new Blob(["This is my blob content"], { type: "text/plain" });
 read.readAsText(bolb); // 读取为文本
 
 // reader.readAsArrayBuffer   //将读取结果封装成 ArrayBuffer ，如果想使用一般需要转换成 Int8Array 或 DataView
@@ -460,7 +458,7 @@ const fr = new FileReader();
 for (let i = 0; i < cbd.items.length; i++) {
   const item = cbd.items[i];
 
-  if (item.kind == 'file') {
+  if (item.kind == "file") {
     const blob = item.getAsFile();
     if (blob.size === 0) {
       return;
@@ -486,21 +484,21 @@ window.requestFileSystem(type, size, successCallback, opt_errorCallback);
 ```js
 function onInitFs(fs) {
   fs.root.getFile(
-    'log.txt',
+    "log.txt",
     { create: true },
     function(fileEntry) {
       // Create a FileWriter object for our FileEntry (log.txt).
       fileEntry.createWriter(function(fileWriter) {
         fileWriter.onwriteend = function(e) {
-          console.log('Write completed.');
+          console.log("Write completed.");
         };
 
         fileWriter.onerror = function(e) {
-          console.log('Write failed: ' + e.toString());
+          console.log("Write failed: " + e.toString());
         };
 
         // Create a new Blob and write it to log.txt.
-        var blob = new Blob(['Lorem Ipsum'], { type: 'text/plain' });
+        var blob = new Blob(["Lorem Ipsum"], { type: "text/plain" });
 
         fileWriter.write(blob);
       }, errorHandler);

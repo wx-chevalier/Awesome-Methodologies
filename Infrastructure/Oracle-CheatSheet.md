@@ -1,5 +1,3 @@
-
-
 # Oracle CheatSheet
 
 ## Query

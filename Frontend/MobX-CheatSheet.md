@@ -1,5 +1,3 @@
-
-
 # MobX CheatSheet | MobX 语法基础，实践技巧与设计理念
 
 MobX 遵循透明函数响应式编程 TFRP 的设计理念，允许我们按照惯有的面向对象的思想来编写代码，而不需要去学习很多新的范式或者抽象概念。
@@ -14,23 +12,23 @@ MobX 遵循透明函数响应式编程 TFRP 的设计理念，允许我们按照
 class MessageStore {
   // bad
   markMessageAsRead = message => {
-    if (message.status === 'new') {
+    if (message.status === "new") {
       fetch({
-        method: 'GET',
+        method: "GET",
         path: `/notification/read/${message.id}`
-      }).then(() => (message.status = 'read'));
+      }).then(() => (message.status = "read"));
     }
   };
   // good
   markMessageAsRead = message => {
-    if (message.status !== 'new') {
-      return Promise.reject('Message is not new');
+    if (message.status !== "new") {
+      return Promise.reject("Message is not new");
     }
     // it's now easily mockable
     return api.markMessageAsRead(message).then(() => {
       // this is a pure function
       // you can test it easily
-      return this.updateMessage(message, { status: ' read' });
+      return this.updateMessage(message, { status: " read" });
     });
   };
 }
@@ -54,12 +52,12 @@ Secondly, Redux offers many constraints that make it easy to write generic algor
 
 ```js
 await this.props.actions.choose({
-    workShiftIdList: _.map(items, d => d.workShiftId)
+  workShiftIdList: _.map(items, d => d.workShiftId)
 });
 this.trace("batch-chose", { size: items.length });
 await this.fetchTableData();
 
-actions.chooseWorks = (works) => (dispatch) => {
+actions.chooseWorks = works => dispatch => {
   choose(works).then(
     () => {
       // 更新结果信息
@@ -79,14 +77,14 @@ actions.chooseWorks = (works) => (dispatch) => {
 # WebSocket
 
 ```ts
-import { onBecomeObserved, onBecomeUnobserved } from 'mobx';
-import { observable, decorate } from 'mobx';
+import { onBecomeObserved, onBecomeUnobserved } from "mobx";
+import { observable, decorate } from "mobx";
 class AutoObservable<T> {
   data: T;
 
   constructor(onObserved: () => void, onUnobserved: () => void) {
-    onBecomeObserved(this, 'data', onObserved);
-    onBecomeUnobserved(this, 'data', onUnobserved);
+    onBecomeObserved(this, "data", onObserved);
+    onBecomeUnobserved(this, "data", onUnobserved);
   }
 }
 decorate(AutoObservable, {
@@ -98,8 +96,8 @@ decorate(AutoObservable, {
 let autoObservable: AutoObservable<number>;
 let socket: Websocket;
 const openStream = () => {
-  socket = new Websocket('ws://localhost:8080');
-  socket.on('message', message => {
+  socket = new Websocket("ws://localhost:8080");
+  socket.on("message", message => {
     autoObservable.data = message;
   });
 };

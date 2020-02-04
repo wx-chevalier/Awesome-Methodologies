@@ -1,5 +1,3 @@
-
-
 # Java StyleGuide CheatSheet | Java 样式指南
 
 当我们敲下每个点号时，都应该考虑：

@@ -1,5 +1,3 @@
-
-
 # Spring Boot CheatSheet
 
 Spring Boot 应用本质上就是一个基于 Spring 框架的应用，它是 Spring 对“约定优先于配置”理念的最佳实践产物，它能够帮助开发者更快速高效地构建基于 Spring 生态圈的应用；最重要的 4 大核心特性包括了自动配置、起步依赖、Actuator、命令行界面(CLI) 。
@@ -10,6 +8,7 @@ Spring Boot 应用本质上就是一个基于 Spring 框架的应用，它是 Sp
 // @SpringBootApplication 整合了 @Configuration + @ComponentScan + @EnableAutoConfiguration，其会自动进行组件扫描与配置
 @SpringBootApplication
 public class FooApplication {
+
   public static void main(String[] args) {
     // Bootstrap the application
     SpringApplication.run(FooApplication.class, args);
@@ -29,7 +28,7 @@ public class FooApplication {
 
 ```java
 @Component
-public class MyComponent{}
+public class MyComponent {}
 ```
 
 在 Spring2.0 之前的版本中，@Repository 注解可以标记在任何的类上，用来表明该类是用来执行与数据库相关的操作（即 dao 对象），并支持自动处理数据库操作产生的异常
@@ -60,7 +59,7 @@ Class conditions allow us to specify that a configuration bean will be included 
 @Configuration
 @ConditionalOnClass(DataSource.class)
 public class MySQLAutoconfiguration {
-    //...
+  //...
 }
 ```
 
@@ -177,11 +176,17 @@ Spring Boot 为我们提供了两个接口，CommandLineRunner 与 ApplicationRu
 ```java
 @Component
 public class CommandLineAppStartupRunner implements CommandLineRunner {
-    private static final Logger logger = LoggerFactory.getLogger(CommandLineAppStartupRunner.class);
-    @Override
-    public void run(String...args) throws Exception {
-        logger.info("Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.", Arrays.toString(args));
-    }
+  private static final Logger logger = LoggerFactory.getLogger(
+    CommandLineAppStartupRunner.class
+  );
+
+  @Override
+  public void run(String... args) throws Exception {
+    logger.info(
+      "Application started with command-line arguments: {} . \n To kill this application, press Ctrl + C.",
+      Arrays.toString(args)
+    );
+  }
 }
 ```
 
@@ -190,11 +195,17 @@ ApplicationRunner 则是对启动参数进行了二次封装：
 ```java
 @Component
 public class AppStartupRunner implements ApplicationRunner {
-    private static final Logger logger = LoggerFactory.getLogger(AppStartupRunner.class);
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
-        logger.info("Your application started with option names : {}", args.getOptionNames());
-    }
+  private static final Logger logger = LoggerFactory.getLogger(
+    AppStartupRunner.class
+  );
+
+  @Override
+  public void run(ApplicationArguments args) throws Exception {
+    logger.info(
+      "Your application started with option names : {}",
+      args.getOptionNames()
+    );
+  }
 }
 ```
 
@@ -301,16 +312,16 @@ private String authMethod;
 @RequestMapping("/persons")
 class PersonController {
 
-    @GetMapping("/{id}")
-    public Person getPerson(@PathVariable Long id) {
-        // ...
-    }
+  @GetMapping("/{id}")
+  public Person getPerson(@PathVariable Long id) {
+    // ...
+  }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody Person person) {
-        // ...
-    }
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public void add(@RequestBody Person person) {
+    // ...
+  }
 }
 ```
 
@@ -334,12 +345,12 @@ private ResponseEntity<?> queryPerson(@RequestParam(value = "query", required = 
 
 ```java
 public class Message {
-    @NotNull
-    private String title;
-    @NotNull
-    private String message;
+  @NotNull
+  private String title;
 
-    // getters/setters/etc
+  @NotNull
+  private String message;
+// getters/setters/etc
 }
 ```
 
@@ -356,37 +367,36 @@ public ResponseEntity<?> createMessage(@Valid @RequestBody Message message) {
 
 ```java
 public class InRangeValidator implements ConstraintValidator<InRange, Integer> {
+  private int min;
+  private int max;
 
-    private int min;
-    private int max;
+  @Override
+  public void initialize(InRange constraintAnnotation) {
+    this.min = constraintAnnotation.min();
+    this.max = constraintAnnotation.max();
+  }
 
-    @Override
-    public void initialize(InRange constraintAnnotation) {
-        this.min = constraintAnnotation.min();
-        this.max = constraintAnnotation.max();
-    }
-
-    @Override
-    public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        return value == null || (value >= min && value <= max);
-    }
+  @Override
+  public boolean isValid(Integer value, ConstraintValidatorContext context) {
+    return value == null || (value >= min && value <= max);
+  }
 }
 
 // 扩展 InRange 接口，添加自定义属性
-@Target({ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER})
+@Target({ ElementType.METHOD, ElementType.FIELD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Constraint(validatedBy = { InRangeValidator.class })
 public @interface InRange {
-    String message() default "Value is out of range";
+  String message() default "Value is out of range";
 
-    Class<?>[] groups() default {};
+  Class<?>[] groups() default {  };
 
-    Class<? extends Payload>[] payload() default {};
+  Class<? extends Payload>[] payload() default {  };
 
-    int min() default Integer.MIN_VALUE;
+  int min() default Integer.MIN_VALUE;
 
-    int max() default Integer.MAX_VALUE;
+  int max() default Integer.MAX_VALUE;
 }
 ```
 
@@ -509,10 +519,10 @@ public Book getByIsbn(String isbn) {
 @SpringApplicationConfiguration(classes = ReadinglistApplication.class)
 @WebAppConfiguration
 public class ReadinglistApplicationTests {
+
   // Test that the context successfully loads (the method can be empty -> the test will fail if the context cannot be loaded)
   @Test
-  public void contextLoads() {
-  }
+  public void contextLoads() {}
 }
 ```
 
@@ -526,9 +536,8 @@ public class ReadinglistApplicationTests {
 // This method with the @ContextConfiguration annotation doesn't apply extenal properites (application.properties) and logging
 // @ContextConfiguration specifies how to load the application context: A configuraiton class is passed to it as a parameter
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=PlaylistConfiguration.class)
+@ContextConfiguration(classes = PlaylistConfiguration.class)
 public class PlaylistServiceTests {
-
   @Autowired
   private PlaylistService playlistService;
 

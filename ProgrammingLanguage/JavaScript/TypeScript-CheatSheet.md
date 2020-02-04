@@ -1,5 +1,3 @@
-
-
 ![1_sso_vplej49wti_ubptvgq](https://user-images.githubusercontent.com/5803001/40587814-0000e1f2-6207-11e8-9e38-2e478a645c31.png)
 
 > 📌 本文侧重于盘点 TypeScript 中类型声明与校验规则相关的知识点，对于与 ECMAScript 语法使用重合的部分建议阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [ECMAScript CheatSheet](https://parg.co/YhW)，对于 TypeScript 在 React/Redux 中的实践可以参阅 [React CheatSheet/TypeScript]()。需要声明的是，本文参考了 [TypeScript Links]() 中列举的很多文章或书籍，特别是官方的 [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/basic-types.html) 很值得仔细阅读。

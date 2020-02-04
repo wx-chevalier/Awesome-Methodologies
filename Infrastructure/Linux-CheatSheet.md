@@ -1,5 +1,3 @@
-
-
 # Linux CheatSheet
 
 BIOS：

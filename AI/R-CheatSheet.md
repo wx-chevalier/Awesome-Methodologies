@@ -79,6 +79,7 @@ R 语言中用 median 函数求中位数：
 方差是各样本值与均值的差值的平方的和，反映了数据的离散程度。
 
 > var(gun_data3[,"total"])
+
 - [1] 12.70904
 
 ## 标准差
@@ -86,6 +87,7 @@ R 语言中用 median 函数求中位数：
 方差的平方根是标准差。R 语言用 sd()函数求标准差
 
 > sd(gun_data3[,"total"])
+
 - [1] 3.564974
 
 ## 离差
@@ -102,25 +104,27 @@ mad(x) = 1/qnorm(3/4) \* median(abs(x-median(x)))
 
 > library(timeDate)
 > skewness(gun_data3[,2])
+
 - [1] 1.109821
-> attr(,"method")
+  > attr(,"method")
 - [1] "moment"
-> skewness(gun_data4[,2])
+  > skewness(gun_data4[,2])
 - [1] 2.40715
-> attr(,"method")
+  > attr(,"method")
 - [1] "moment"
-> 从中可以看以，这两组数据都向右偏。gun_data4 偏得更厉害。
+  > 从中可以看以，这两组数据都向右偏。gun_data4 偏得更厉害。
 
 峰度
 峰度是判断这个分布是比正态分布的图更尖还是更平。
 R 中用 kurtosis()函数来计算
 
 > kurtosis(gun_data3[,2])
+
 - [1] 0.7986081
-> attr(,"method")
+  > attr(,"method")
 - [1] "excess"
-> kurtosis(gun_data4[,2])
+  > kurtosis(gun_data4[,2])
 - [1] 7.060265
-> attr(,"method")
+  > attr(,"method")
 - [1] "excess"
-> 上面的两个分布都>0，说明比正态分布都要尖。
+  > 上面的两个分布都>0，说明比正态分布都要尖。

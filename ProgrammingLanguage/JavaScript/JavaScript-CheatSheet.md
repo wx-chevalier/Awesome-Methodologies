@@ -1,5 +1,3 @@
-
-
 [🔆 中文版本](./JavaScript-CheatSheet.md) | [☀️ English Version](./JavaScript-CheatSheet.en.md)
 
 # JavaScript CheatSheet | 现代 JavaScript 语法速览与实战清单
@@ -47,7 +45,7 @@ const arr = [1, 2, ...mid, 5, 6]; // [1, 2, 3, 4, 5, 6]
 const arr = [2, 4, 8, 6, 0];
 const max = Math.max(...arr); // 8
 
-const str = 'hello';
+const str = "hello";
 const chars = [...str]; // ["h", "e", "l", "l", "o"]
 ```
 
@@ -62,10 +60,10 @@ JavaScript 内置了 6 种基础数据类型：Number, String, Boolean, null, un
 ```js
 typeof 0; // number
 typeof true; // boolean
-typeof 'Hello'; // string
+typeof "Hello"; // string
 typeof Math; // object
 typeof null; // object  !!
-typeof Symbol('Hi'); // symbol (New ES6)
+typeof Symbol("Hi"); // symbol (New ES6)
 ```
 
 ## 类型判断与变量比较
@@ -126,12 +124,12 @@ str.substring(indexStart[, indexEnd])
 const regexLiteral = /cat/;
 
 // Regular Expression Constructor
-const regexConstructor = new RegExp('cat');
+const regexConstructor = new RegExp("cat");
 
 // 也可以将两个正则表达式合并为一个
 const lower = new RegExp(/--RegexCode--/);
 const upper = new RegExp(/--RegexCode--/);
-const finalRe = new RegExp(lower.source + '|' + upper.source);
+const finalRe = new RegExp(lower.source + "|" + upper.source);
 ```
 
 - Symbols
@@ -173,16 +171,16 @@ const finalRe = new RegExp(lower.source + '|' + upper.source);
 正则表达式可以用来判断元素存在性，用于字符串替换等：
 
 ```js
-const str1 = 'the cat says meow';
+const str1 = "the cat says meow";
 const hasCat = /cat/;
 hasCat.test(str1);
 // true
 
 function removeCc(str) {
-  return str.replace(/([A-Z])/g, ' $1');
+  return str.replace(/([A-Z])/g, " $1");
 }
-removeCc('camelCase'); // 'camel Case'
-removeCc('helloWorldItIsMe'); // 'hello World It Is Me'
+removeCc("camelCase"); // 'camel Case'
+removeCc("helloWorldItIsMe"); // 'hello World It Is Me'
 
 // replace 支持回调函数，譬如用来将下划线转 camelCase
 key.replace(/\_./g, str => str[1].toUpperCase());
@@ -191,7 +189,7 @@ key.replace(/\_./g, str => str[1].toUpperCase());
 较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中。如果执行 exec 方法的正则表达式没有分组（没有括号括起来的内容），那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串; 如果没有匹配则返回 null。
 
 ```js
-const someText = 'web2.0 .net2.0';
+const someText = "web2.0 .net2.0";
 const pattern = /(\w+)(\d)\.(\d)/g;
 const outCome_exec = pattern.exec(someText);
 // [ 'net2.0', 'net', '2', '0', index: 8, input: 'web2.0 .net2.0', groups: undefined ]
@@ -209,7 +207,7 @@ while ((m = re.exec(s))) {
 }
 
 // 将字符串分割
-'1234567890'.match(/.{1,2}/g);
+"1234567890".match(/.{1,2}/g);
 // ['12', '34', '56', '78', '90'];
 ```
 
@@ -219,19 +217,19 @@ exec 与 match 的区别在于，在全局匹配模式下，match 仅会返回�
 re_once = /([a-z])([A-Z])/;
 re_glob = /([a-z])([A-Z])/g;
 
-st = 'aAbBcC';
+st = "aAbBcC";
 
 console.log(
-  'match once=' + st.match(re_once) + '  match glob=' + st.match(re_glob)
+  "match once=" + st.match(re_once) + "  match glob=" + st.match(re_glob)
 );
 console.log(
-  'exec once=' + re_once.exec(st) + '   exec glob=' + re_glob.exec(st)
+  "exec once=" + re_once.exec(st) + "   exec glob=" + re_glob.exec(st)
 );
 console.log(
-  'exec once=' + re_once.exec(st) + '   exec glob=' + re_glob.exec(st)
+  "exec once=" + re_once.exec(st) + "   exec glob=" + re_glob.exec(st)
 );
 console.log(
-  'exec once=' + re_once.exec(st) + '   exec glob=' + re_glob.exec(st)
+  "exec once=" + re_once.exec(st) + "   exec glob=" + re_glob.exec(st)
 );
 
 /*
@@ -247,7 +245,7 @@ exec once=aA,a,A   exec glob=cC,c,C
 `/g` 标识标识全局匹配。`/y` 标识(Sticky 模式)表示匹配必须从 `re.lastIndex`，即上一次匹配的末尾处开始，该行为类似于 `^` 标识，不过不强制从首部开始。
 
 ```js
-const str = '#foo#';
+const str = "#foo#";
 const regex = /foo/y;
 
 regex.lastIndex = 1;
@@ -267,7 +265,7 @@ function matcher(regex, input) {
     return { lastIndex, match };
   };
 }
-const input = 'haha haha haha';
+const input = "haha haha haha";
 const nextGlobal = matcher(/ha/g, input);
 console.log(nextGlobal()); // <- { lastIndex: 2, match: ['ha'] }
 console.log(nextGlobal()); // <- { lastIndex: 4, match: ['ha'] }
@@ -288,18 +286,18 @@ console.log(nextSticky()); // <- { lastIndex: 0, match: null }
 new Date();
 // Fri Aug 21 2015 15:51:55 GMT+0800 (中国标准时间)
 new Date(1293879600000);
-new Date('2011-01-01T11:00:00');
-new Date('2011/01/01 11:00:00');
+new Date("2011-01-01T11:00:00");
+new Date("2011/01/01 11:00:00");
 new Date(2011, 0, 1, 11, 0, 0);
-new Date('jan 01 2011,11 11:00:00');
-new Date('Sat Jan 01 2011 11:00:00');
+new Date("jan 01 2011,11 11:00:00");
+new Date("Sat Jan 01 2011 11:00:00");
 // Sat Jan 01 2011 11:00:00 GMT+0800 (中国标准时间)
-new Date('sss');
-new Date('2011/01/01T11:00:00');
-new Date('2011-01-01-11:00:00');
-new Date('1293879600000');
+new Date("sss");
+new Date("2011/01/01T11:00:00");
+new Date("2011-01-01-11:00:00");
+new Date("1293879600000");
 // Invalid Date
-new Date('2011-01-01T11:00:00') - new Date('1992/02/11 12:00:12');
+new Date("2011-01-01T11:00:00") - new Date("1992/02/11 12:00:12");
 // 596069988000
 ```
 
@@ -324,8 +322,8 @@ const arrayObj = new Array([element0[, element1[, ...[, elementN]]]]);
 
 ```js
 const arrayLike = {
-  0: 'a',
-  1: 'b',
+  0: "a",
+  1: "b",
   length: 2,
   *[Symbol.iterator]() {
     yield this[1];
@@ -449,10 +447,10 @@ arrayObj.join(separator);
 ```js
 // it contains
 // ["sumit","amit","anil","anish"]
-let set1 = new Set(['sumit', 'sumit', 'amit', 'anil', 'anish']);
+let set1 = new Set(["sumit", "sumit", "amit", "anil", "anish"]);
 
 // it contains 'f', 'o', 'd'
-let set2 = new Set('fooooooood');
+let set2 = new Set("fooooooood");
 
 // it contains [10, 20, 30, 40]
 let set3 = new Set([10, 20, 30, 30, 40, 40]);
@@ -464,7 +462,7 @@ set1
 
 console.log(set1.has(50));
 
-set1.delete('e');
+set1.delete("e");
 
 // clearing set2
 set2.clear();
@@ -575,7 +573,7 @@ JavaScript 默认不支持函数重载，但是就像 Redux 这样的库可以�
 
 ```js
 export default function createStore(reducer, preloadedState, enhancer) {
-  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') {
+  if (typeof preloadedState === "function" && typeof enhancer === "undefined") {
     enhancer = preloadedState;
     preloadedState = undefined;
   }
@@ -589,18 +587,18 @@ ES6 中引入了所谓的默认参数:
 ```js
 // 传统的默认参数编写方式
 function filterEvil(array, evil) {
-  evil = evil || 'darth vader';
+  evil = evil || "darth vader";
   return array.filter(item => item !== evil);
 }
 
 // ES6 默认参数
-function filterEvil(array, evil = 'darth vader') {
+function filterEvil(array, evil = "darth vader") {
   return array.filter(item => item !== evil);
 }
 
 // 默认参数可以用来进行必要参数检测
 const isRequired = () => {
-  throw new Error('param is required');
+  throw new Error("param is required");
 };
 
 function filterEvil(array, evil = isRequired()) {
@@ -613,8 +611,8 @@ function filterEvil(array, evil = isRequired()) {
 可以使用 apply 来连接两个数组：
 
 ```js
-let countries = ['Moldova', 'Ukraine'];
-let otherCountries = ['USA', 'Japan'];
+let countries = ["Moldova", "Ukraine"];
+let otherCountries = ["USA", "Japan"];
 countries.push.apply(countries, otherCountries);
 console.log(countries); // => ['Moldova', 'Ukraine', 'USA', 'Japan']
 ```
@@ -657,9 +655,9 @@ Debouncing will bunch a series of sequential calls to a function into a single c
 
 ```js
 const iter = (function* gen() {
-  console.log(`yield ${yield 'a' + 0}`);
-  console.log(`yield ${yield 'b' + 1}`);
-  return 'c' + 2;
+  console.log(`yield ${yield "a" + 0}`);
+  console.log(`yield ${yield "b" + 1}`);
+  return "c" + 2;
 })();
 
 console.log(`next:${iter.next(0).value}`); //输出 next:a0
@@ -696,11 +694,11 @@ let object = {
   // `let` is a valid identifier name (although it’s a reserved word); no quotes are needed
   let: 4,
   // `foo bar` is not a valid identifier name; quotes are required
-  'foo bar': 5,
+  "foo bar": 5,
   // `foo-bar` is not a valid identifier name; quotes are required
-  'foo-bar': 6,
+  "foo-bar": 6,
   // the empty string is not a valid identifier name; quotes are required
-  '': 7
+  "": 7
 };
 ```
 
@@ -709,7 +707,7 @@ let object = {
 ```js
 o = Object.create(Object.prototype, {
   // foo 会成为所创建对象的数据属性
-  foo: { writable: true, configurable: true, value: 'hello' },
+  foo: { writable: true, configurable: true, value: "hello" },
   // bar 会成为所创建对象的访问器属性
   bar: {
     configurable: false,
@@ -717,7 +715,7 @@ o = Object.create(Object.prototype, {
       return 10;
     },
     set: function(value) {
-      console.log('Setting `o.bar` to', value);
+      console.log("Setting `o.bar` to", value);
     }
   }
 });
@@ -783,13 +781,13 @@ class Sleep {
 ```
 
 ```js
-const http = require('http');
+const http = require("http");
 
 http
   .createServer(async (req, res) => {
     try {
-      let body = '';
-      req.setEncoding('utf8');
+      let body = "";
+      req.setEncoding("utf8");
       for await (const chunk of req) {
         body += chunk;
       }
@@ -874,14 +872,14 @@ import foo, * as bar, {baz as xyz} from "foo";
 
 ```js
 try {
-  let hello = prompt('Type hello');
-  if (hello !== 'hello') {
+  let hello = prompt("Type hello");
+  if (hello !== "hello") {
     throw new Error("Oops, you didn't type hello");
   }
 } catch (e) {
   alert(e.message);
 } finally {
-  alert('thanks for playing!');
+  alert("thanks for playing!");
 }
 ```
 
