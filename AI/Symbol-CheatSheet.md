@@ -75,12 +75,12 @@
 
 示例：$\int_0^1x^2{\rm d}x $
 
-效果： ∫10x2dx
+效果：∫10x2dx
 3.9 极限
 
 示例：$\lim_{n\rightarrow+\infty}\frac{1}{n(n+1)}$
 
-效果： limn→+∞1n(n+1)
+效果：limn→+∞1n(n+1)
 3.10 累加、累乘
 
 示例：$\sum_1^n\frac{1}{x^2}，\prod_{i=0}^n\frac{1}{x^2}$

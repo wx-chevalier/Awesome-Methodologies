@@ -211,7 +211,7 @@ mysql> explain select * from (select * from ( select * from t1 where id=2602) a)
 
 - UNCACHEABLE SUBQUERY: 一个子查询的结果不能被缓存，必须重新评估外链接的第一行
 
-type 表示 MySQL 在表中找到所需行的方式，又称“访问类型”。常用的类型有： ALL, index, range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）：
+type 表示 MySQL 在表中找到所需行的方式，又称“访问类型”。常用的类型有：ALL, index, range, ref, eq_ref, const, system, NULL（从左到右，性能从差到好）：
 
 - ALL：Full Table Scan，MySQL 将遍历全表以找到匹配的行
 

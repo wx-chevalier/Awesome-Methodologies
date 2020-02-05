@@ -535,7 +535,7 @@ widgets.stream()
 和以前的 Collection 操作不同，Stream 操作还有两个基础的特征：
 
 - Pipelining: 中间操作都会返回流对象本身。这样多个操作可以串联成一个管道，如同流式风格（fluent style）。这样做可以对操作进行优化，比如延迟执行(laziness)和短路( short-circuiting)。
-- 内部迭代： 以前对集合遍历都是通过 Iterator 或者 For-Each 的方式, 显式的在集合外部进行迭代，这叫做外部迭代。Stream 提供了内部迭代的方式，通过访问者模式(Visitor)实现。
+- 内部迭代：以前对集合遍历都是通过 Iterator 或者 For-Each 的方式, 显式的在集合外部进行迭代，这叫做外部迭代。Stream 提供了内部迭代的方式，通过访问者模式(Visitor)实现。
 
 ## 流构建
 

@@ -367,5 +367,5 @@ func requestServer() {
 	fmt.Println(err)
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-	fmt.Printf("\n服务器消息： `%s`", string(body))
+	fmt.Printf("\n服务器消息：`%s`", string(body))
 }
