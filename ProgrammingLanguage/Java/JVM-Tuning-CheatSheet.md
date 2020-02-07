@@ -98,7 +98,7 @@ Full GC 每小时小于个位数
 
 ## Dump
 
-JEP 328: Flight Recorder（JFR） 是 Oracle 刚刚开源的强大特性。而 JFR 是一套集成进入 JDK、JVM 内部的事件机制框架，通过良好架构和设计的框架，硬件层面的极致优化，生产环境的广泛验证，它可以做到极致的可靠和低开销。在 SPECjbb2015 等基准测试中，JFR 的性能开销最大不超过 1%。
+JEP 328: Flight Recorder（JFR）是 Oracle 刚刚开源的强大特性。而 JFR 是一套集成进入 JDK、JVM 内部的事件机制框架，通过良好架构和设计的框架，硬件层面的极致优化，生产环境的广泛验证，它可以做到极致的可靠和低开销。在 SPECjbb2015 等基准测试中，JFR 的性能开销最大不超过 1%。
 
 ```sh
 # Time-Based
