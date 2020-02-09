@@ -423,7 +423,7 @@ reader.readAsArrayBuffer(blob);
 blob = new Blob(["This is my blob content"], { type: "text/plain" });
 read.readAsText(bolb); // 读取为文本
 
-// reader.readAsArrayBuffer   //将读取结果封装成 ArrayBuffer ，如果想使用一般需要转换成 Int8Array 或 DataView
+// reader.readAsArrayBuffer   //将读取结果封装成 ArrayBuffer，如果想使用一般需要转换成 Int8Array 或 DataView
 // reader.readAsBinaryString  // 在IE浏览器中不支持改方法
 // reader.readAsTex // 该方法有两个参数，其中第二个参数是文本的编码方式，默认值为 UTF-8
 // reader.readAsDataURL  // 读取结果为DataURL

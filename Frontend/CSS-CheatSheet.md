@@ -245,7 +245,7 @@ p::after {
 
 ## content
 
-可以使用 css content 来避免 dom 入侵。我们为查找到采集的元素添加了个性化的样式 data-spmd-container ，并为该 dom 添加新属性 data-udata-value 用于记录该元素的点击数据，css 做如下定义
+可以使用 css content 来避免 dom 入侵。我们为查找到采集的元素添加了个性化的样式 data-spmd-container，并为该 dom 添加新属性 data-udata-value 用于记录该元素的点击数据，css 做如下定义
 
 ```css
 .data-spmd-container:before {

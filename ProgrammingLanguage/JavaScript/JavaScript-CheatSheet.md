@@ -647,8 +647,8 @@ Debouncing will bunch a series of sequential calls to a function into a single c
 - 当生成器执行到 `yield` 操作符时会立即执行 `yield` 之后的语句并且暂停，语句的值作为上一步 `next` 函数的返回值，其是形如 `{done:false, value:x}` 的对象。
 - 继续调用 `next` 函数会使生成器继续执行，此处 `next` 函数的参数值会作为整个 `yield` 语句的值；生成器继续执行直到再次遇到 `yield`，或是遇到 `return`/`throw` 生成器就退出。
 - `next` 函数的返回值具有三种情况：
-  - 如果再次遇到 `yield` ，`next` 返回值中的 `value` 属性是紧接在这条 `yield` 之后的语句执行之后的返回值；
-  - 如果遇到的是 `return` ，那么返回对象 `{done:true, value}` 则是 `return` 的返回值；
+  - 如果再次遇到 `yield`，`next` 返回值中的 `value` 属性是紧接在这条 `yield` 之后的语句执行之后的返回值；
+  - 如果遇到的是 `return`，那么返回对象 `{done:true, value}` 则是 `return` 的返回值；
   - 其他情况下，返回对象 `{done:false, value:undefined}` ;
 
 我们可以通过简单的例子来验证上述流程描述：
@@ -813,37 +813,37 @@ export default 42;
 export default {};
 export default [];
 export default foo;
-export default function () {}
+export default function() {}
 export default class {}
-export default function foo () {}
+export default function foo() {}
 export default class foo {}
 
 // letiables exports
 export let foo = 1;
-export let foo = function () {};
+export let foo = function() {};
 export let bar; // lazy initialization
 export let foo = 2;
 export let bar; // lazy initialization
 export const foo = 3;
-export function foo () {}
+export function foo() {}
 export class foo {}
 
 // named exports
-export {foo};
-export {foo, bar};
-export {foo as bar};
-export {foo as default};
-export {foo as default, bar};
+export { foo };
+export { foo, bar };
+export { foo as bar };
+export { foo as default };
+export { foo as default, bar };
 
 // exports from
 export * from "foo";
-export {foo} from "foo";
-export {foo, bar} from "foo";
-export {foo as bar} from "foo";
-export {foo as default} from "foo";
-export {foo as default, bar} from "foo";
-export {default} from "foo";
-export {default as foo} from "foo";
+export { foo } from "foo";
+export { foo, bar } from "foo";
+export { foo as bar } from "foo";
+export { foo as default } from "foo";
+export { foo as default, bar } from "foo";
+export { default } from "foo";
+export { default as foo } from "foo";
 ```
 
 相对应的完整的支持的导入方式如下所示：

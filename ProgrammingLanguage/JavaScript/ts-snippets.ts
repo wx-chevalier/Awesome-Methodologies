@@ -1,11 +1,11 @@
 // TypeScript 有三种基本类型，布尔类型、数值类型、字符串类型
 let isDone: boolean = false;
 let lines: number = 42;
-let name: string = 'Anders';
+let name: string = "Anders";
 
 // 如果不知道是什么类型，可以使用 "any" (任意)类型
 let notSure: any = 4;
-notSure = '可以重新赋值，转换为字符串类型';
+notSure = "可以重新赋值，转换为字符串类型";
 notSure = false; // 亦可，重新定义为布尔类型
 
 // 使用 const 关键字将一个字面量修饰为常量
@@ -27,7 +27,7 @@ let c: Color = Color.Green;
 
 // 最后是 "void"，它用于表明函数没有任何返回值的特殊情况
 function bigHorribleAlert(): void {
-  alert('我是个烦人的弹出框！');
+  alert("我是个烦人的弹出框！");
 }
 
 // 函数是"一等公民"(first class citizens), 支持使用 lambda 胖箭头表达式和类型推断
@@ -62,11 +62,11 @@ interface Person {
 }
 
 // 实现 "Person" 接口的对象，当它具备 "name" 属性和 "move" 方法之后可被视为一个 "Person"
-let p: Person = { name: 'Bobby', move: () => {} };
+let p: Person = { name: "Bobby", move: () => {} };
 // 带可选属性的对象
-let validPerson: Person = { name: 'Bobby', age: 42, move: () => {} };
-// 由于该对象 "age" 属性的类型不是 "number" ，所以这不是一个 "Person"
-let invalidPerson: Person = { name: 'Bobby', age: true };
+let validPerson: Person = { name: "Bobby", age: 42, move: () => {} };
+// 由于该对象 "age" 属性的类型不是 "number"，所以这不是一个 "Person"
+let invalidPerson: Person = { name: "Bobby", age: true };
 
 // 接口同样可以描述一个函数的类型
 interface SearchFunc {
@@ -150,14 +150,14 @@ let pairToTuple = function<T>(p: Pair<T>) {
   return new Tuple(p.item1, p.item2);
 };
 
-let tuple = pairToTuple({ item1: 'hello', item2: 'world' });
+let tuple = pairToTuple({ item1: "hello", item2: "world" });
 
 // 引用定义文件
 /// <reference path="jquery.d.ts" />
 
 // 模板字符串(使用反引号的字符串)
 // 嵌入变量的模板字符串
-let name = 'Tyrone';
+let name = "Tyrone";
 let greeting = `Hi ${name}, how are you?`;
 // 有多行内容的模板字符串
 let multiline = `This is an example
