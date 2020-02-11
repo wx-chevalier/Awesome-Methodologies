@@ -16,6 +16,11 @@
     - [Statistics CheatSheet](/AI/Statistics-CheatSheet.md)
     - [Symbol CheatSheet](/AI/Symbol-CheatSheet.md)
     - [Tensorflow CheatSheet](/AI/Tensorflow-CheatSheet.md)
+  - Architecture
+    - [AlgoDS CheatSheet](/Architecture/AlgoDS-CheatSheet.md)
+    - [DesignPattern CheatSheet](/Architecture/DesignPattern-CheatSheet.md)
+    - [Git Cheatsheet](/Architecture/Git-Cheatsheet.md)
+    - [Refactor CheatSheet](/Architecture/Refactor-CheatSheet.md)
   - Backend
     - [Auth CheatSheet](/Backend/Auth-CheatSheet.md)
     - [Cache CheatSheet](/Backend/Cache-CheatSheet.md)
@@ -81,43 +86,40 @@
     - [TCPIP CheatSheet](/Infrastructure/TCPIP-CheatSheet.md)
     - [Xen CheatSheet](/Infrastructure/Xen-CheatSheet.md)
     - [ZooKeeper CheatSheet](/Infrastructure/ZooKeeper-CheatSheet.md)
-  - ProgrammingLanguage
-    - [Awesome HelloWords](/ProgrammingLanguage/Awesome-HelloWords.md)
+  - PL
+    - [Awesome HelloWords](/PL/Awesome-HelloWords.md)
     - C
-      - [CPP CheatSheet](/ProgrammingLanguage/C/CPP-CheatSheet.md)
+      - [CPP CheatSheet](/PL/C/CPP-CheatSheet.md)
     - Go
-      - [Go CheatSheet](/ProgrammingLanguage/Go/Go-CheatSheet.md)
-      - [Go ConcurrentProgramming CheatSheet](/ProgrammingLanguage/Go/Go-ConcurrentProgramming-CheatSheet.md)
+      - [Go CheatSheet](/PL/Go/Go-CheatSheet.md)
+      - [Go ConcurrentProgramming CheatSheet](/PL/Go/Go-ConcurrentProgramming-CheatSheet.md)
     - Java
-      - [Gradle CheatSheet](/ProgrammingLanguage/Java/Gradle-CheatSheet.md)
-      - [JVM Tuning CheatSheet](/ProgrammingLanguage/Java/JVM-Tuning-CheatSheet.md)
-      - [Java CheatSheet](/ProgrammingLanguage/Java/Java-CheatSheet.md)
-      - [Java ConcurrentProgramming CheatSheet](/ProgrammingLanguage/Java/Java-ConcurrentProgramming-CheatSheet.md)
-      - [Java StyleGuide CheatSheet](/ProgrammingLanguage/Java/Java-StyleGuide-CheatSheet.md)
+      - [Gradle CheatSheet](/PL/Java/Gradle-CheatSheet.md)
+      - [JVM Tuning CheatSheet](/PL/Java/JVM-Tuning-CheatSheet.md)
+      - [Java CheatSheet](/PL/Java/Java-CheatSheet.md)
+      - [Java ConcurrentProgramming CheatSheet](/PL/Java/Java-ConcurrentProgramming-CheatSheet.md)
+      - [Java StyleGuide CheatSheet](/PL/Java/Java-StyleGuide-CheatSheet.md)
     - JavaScript
-      - [Dart CheatSheet](/ProgrammingLanguage/JavaScript/Dart-CheatSheet.md)
-      - [JavaScript CheatSheet en](/ProgrammingLanguage/JavaScript/JavaScript-CheatSheet-en.md)
-      - [JavaScript CheatSheet](/ProgrammingLanguage/JavaScript/JavaScript-CheatSheet.md)
-      - [TypeScript CheatSheet](/ProgrammingLanguage/JavaScript/TypeScript-CheatSheet.md)
-      - [V8 CheatSheet](/ProgrammingLanguage/JavaScript/V8-CheatSheet.md)
-    - ProgrammingLanguageTheory
-      - [Compiler CheatSheet](/ProgrammingLanguage/ProgrammingLanguageTheory/Compiler-CheatSheet.md)
-      - [FunctionalProgramming CheatSheet](/ProgrammingLanguage/ProgrammingLanguageTheory/FunctionalProgramming-CheatSheet.md)
-      - [GC CheatSheet](/ProgrammingLanguage/ProgrammingLanguageTheory/GC-CheatSheet.md)
-      - [MemoryManagement CheatSheet](/ProgrammingLanguage/ProgrammingLanguageTheory/MemoryManagement-CheatSheet.md)
-      - [PLT CheatSheet](/ProgrammingLanguage/ProgrammingLanguageTheory/PLT-CheatSheet.md)
-      - [ReactiveProgramming CheatSheet](/ProgrammingLanguage/ProgrammingLanguageTheory/ReactiveProgramming-CheatSheet.md)
+      - [Dart CheatSheet](/PL/JavaScript/Dart-CheatSheet.md)
+      - [JavaScript CheatSheet en](/PL/JavaScript/JavaScript-CheatSheet-en.md)
+      - [JavaScript CheatSheet](/PL/JavaScript/JavaScript-CheatSheet.md)
+      - [TypeScript CheatSheet](/PL/JavaScript/TypeScript-CheatSheet.md)
+      - [V8 CheatSheet](/PL/JavaScript/V8-CheatSheet.md)
     - Python
-      - [Python CheatSheet](/ProgrammingLanguage/Python/Python-CheatSheet.md)
+      - [Python CheatSheet](/PL/Python/Python-CheatSheet.md)
     - Ruby
-      - [Ruby CheatSheet](/ProgrammingLanguage/Ruby/Ruby-CheatSheet.md)
+      - [Ruby CheatSheet](/PL/Ruby/Ruby-CheatSheet.md)
     - Rust
-      - [Rust CheatSheet](/ProgrammingLanguage/Rust/Rust-CheatSheet.md)
+      - [Rust CheatSheet](/PL/Rust/Rust-CheatSheet.md)
     - Swift
-      - [Swift CheatSheet](/ProgrammingLanguage/Swift/Swift-CheatSheet.md)
+      - [Swift CheatSheet](/PL/Swift/Swift-CheatSheet.md)
+    - Theory
+      - [Compiler CheatSheet](/PL/Theory/Compiler-CheatSheet.md)
+      - [FunctionalProgramming CheatSheet](/PL/Theory/FunctionalProgramming-CheatSheet.md)
+      - [GC CheatSheet](/PL/Theory/GC-CheatSheet.md)
+      - [MemoryManagement CheatSheet](/PL/Theory/MemoryManagement-CheatSheet.md)
+      - [PLT CheatSheet](/PL/Theory/PLT-CheatSheet.md)
+      - [ReactiveProgramming CheatSheet](/PL/Theory/ReactiveProgramming-CheatSheet.md)
   - [README en](/README-en.md)
-  - SoftwareArchitecture
-    - [AlgoDS CheatSheet](/SoftwareArchitecture/AlgoDS-CheatSheet.md)
-    - [DesignPattern CheatSheet](/SoftwareArchitecture/DesignPattern-CheatSheet.md)
-    - [Git Cheatsheet](/SoftwareArchitecture/Git-Cheatsheet.md)
-    - [Refactor CheatSheet](/SoftwareArchitecture/Refactor-CheatSheet.md)
+  - Specials
+    - [概念术语](/Specials/概念术语.md)
