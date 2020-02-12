@@ -4,9 +4,9 @@ RabbitMQ 最初起源于金融系统，用于在分布式系统中存储转发�
 
 可靠性（Reliability）RabbitMQ 使用一些机制来保证可靠性，如持久化、传输确认、发布确认。
 
-灵活的路由（Flexible Routing）在消息进入队列之前，通过 Exchange 来路由消息的。对于典型的路由功能，RabbitMQ 已经提供了一些内置的 Exchange 来实现。针对更复杂的路由功能，可以将多个 Exchange 绑定在一起，也通过插件机制实现自己的 Exchange 。
+灵活的路由（Flexible Routing）在消息进入队列之前，通过 Exchange 来路由消息的。对于典型的路由功能，RabbitMQ 已经提供了一些内置的 Exchange 来实现。针对更复杂的路由功能，可以将多个 Exchange 绑定在一起，也通过插件机制实现自己的 Exchange。
 
-消息集群（Clustering）多个 RabbitMQ 服务器可以组成一个集群，形成一个逻辑 Broker 。
+消息集群（Clustering）多个 RabbitMQ 服务器可以组成一个集群，形成一个逻辑 Broker。
 
 高可用（Highly Available Queues）队列可以在集群中的机器上进行镜像，使得在部分节点出问题的情况下队列仍然可用。
 
@@ -36,7 +36,7 @@ RabbitMQ 主要包括以下组件：
 
 1. Server(broker): 接受客户端连接，实现 AMQP 消息队列和路由功能的进程。
 
-2. Virtual Host: 其实是一个虚拟概念，类似于权限控制组，一个 Virtual Host 里面可以有若干个 Exchange 和 Queue，但是权限控制的最小粒度是 Virtual Host。表示一批交换器、消息队列和相关对象。虚拟主机是共享相同的身份认证和加密环境的独立服务器域。每个 vhost 本质上就是一个 mini 版的 RabbitMQ 服务器，拥有自己的队列、交换器、绑定和权限机制。vhost 是 AMQP 概念的基础，必须在连接时指定，RabbitMQ 默认的 vhost 是 / 。
+2. Virtual Host: 其实是一个虚拟概念，类似于权限控制组，一个 Virtual Host 里面可以有若干个 Exchange 和 Queue，但是权限控制的最小粒度是 Virtual Host。表示一批交换器、消息队列和相关对象。虚拟主机是共享相同的身份认证和加密环境的独立服务器域。每个 vhost 本质上就是一个 mini 版的 RabbitMQ 服务器，拥有自己的队列、交换器、绑定和权限机制。vhost 是 AMQP 概念的基础，必须在连接时指定，RabbitMQ 默认的 vhost 是 /。
 
 3.Exchange:接受生产者发送的消息，并根据 Binding 规则将消息路由给服务器中的队列。ExchangeType 决定了 Exchange 路由消息的行为，例如，在 RabbitMQ 中，ExchangeType 有 direct、Fanout 和 Topic 三种，不同类型的 Exchange 路由的行为是不一样的。
 
@@ -273,6 +273,6 @@ BackingQueue 中的 5 个子队列中的消息状态，Q1 和 Q4 对应的是 Al
 
 ![image](https://user-images.githubusercontent.com/5803001/45955475-9e3d6b80-c042-11e8-9752-c588d777b89c.png)
 
-由于内存不足引起的消息换出。消息换出的条件是内存中保存的消息数量 + 等待 ACK 的消息的数量 >Target_RAM_Count 。当条件触发时，系统首先会判断如果当前进入等待 ACK 的消息的速度大于进入队列的消息的速度时，会先处理等待 ACK 的消息。步骤基本上 Q1->Q2 或者 Q3 移动，取决于 Delta 队列是否为空。Q4->Q3 移动，Q2 和 Q3 向 Delta 移动。
+由于内存不足引起的消息换出。消息换出的条件是内存中保存的消息数量 + 等待 ACK 的消息的数量 >Target_RAM_Count。当条件触发时，系统首先会判断如果当前进入等待 ACK 的消息的速度大于进入队列的消息的速度时，会先处理等待 ACK 的消息。步骤基本上 Q1->Q2 或者 Q3 移动，取决于 Delta 队列是否为空。Q4->Q3 移动，Q2 和 Q3 向 Delta 移动。
 
 为什么 Q3 队列为空即可认定整个队列为空。试想如果 Q3 为空，Delta 不空，则在 Q3 取出最后一条消息时，Delta 上的消息就会被转移到 Q3 上，与 Q3 空矛盾。如果 Q2 不空，则在 Q3 取出最后一条消息，如果 Delta 为空时，会将 Q2 的消息并入 Q3，与 Q3 为空矛盾。如果 Q1 不空，则在 Q3 取出最后一条消息，如果 Delta 和 Q3 均为空时，则将 Q1 的消息转移到 Q4 中，与 Q4 为空矛盾。这也解释了另外一个问题，即为什么 Q3 和 Delta 为空，Q2 就为空。

@@ -23,10 +23,10 @@
 两个群体的文化和价值观完全不同。第一个群体认为好的工作，对于第二个群体而言可能觉得没有技术含量，但第一个群体可能恰恰认为，简单的才好，正因为很好地抓住了问题本质，所以问题变得容易解决。第二个群体欣赏的工作，第一个群体可能觉得是故弄玄虚，看不出他想解决什么人工智能问题，根本就不是在搞人工智 能、搞计算机，但别人本来也没说自己是在「搞人工智能」、「搞计算机」，本来就不是在为人工智能做研究。两个群体各有其存在的意义，应该宽容一点，不需要去互较什么短长。但是既然顶着 Machine Learning 这个帽子的不是「一伙儿」，而是「两伙儿」，那么要「跟进」的新人就要谨慎了，先搞清楚自己更喜欢「哪伙儿」。
 
 - 加强概率与统计的基础课程，建议采用莫里斯 · 德格鲁特 (Morris H.DeGroot) 和马克 · 舍维什 (Mark J.Schervish) 合著的第四版《概率论与数理统计》(Probability and Statistics) 为教材。
-- 在线性代数课程里，加强矩阵分析的内容。教材建议使用吉尔伯特 · 斯特朗 (Gilbert Strang) 的《线性代数导论》(Introduction to Linear Algebra) 。吉尔伯特 · 斯特朗在麻省理工学院一直讲述线性代数，他的网上视频课程堪称经典。后续建议开设矩阵计算，采用特雷费森 · 劳埃德 (Trefethen N.Lloyd) 和戴维 · 鲍 (David Bau lll) 著作的《数值线性代数》(Numerical Linear Algebra) 为教科书。
+- 在线性代数课程里，加强矩阵分析的内容。教材建议使用吉尔伯特 · 斯特朗 (Gilbert Strang) 的《线性代数导论》(Introduction to Linear Algebra)。吉尔伯特 · 斯特朗在麻省理工学院一直讲述线性代数，他的网上视频课程堪称经典。后续建议开设矩阵计算，采用特雷费森 · 劳埃德 (Trefethen N.Lloyd) 和戴维 · 鲍 (David Bau lll) 著作的《数值线性代数》(Numerical Linear Algebra) 为教科书。
 - 开设机器学习课程。机器学习有许多经典的书籍，但大多不太适宜做本科生的教材。最近，麻省理工学院出版的约翰 · 凯莱赫 (John D.Kelleher) 和布瑞恩 · 麦克 · 纳米 (Brian Mac Namee) 等人著作的《机器学习基础之预测数据分析》(Fundamentals of Machine Learning for Predictive Data Analytics )，或者安得烈 · 韦伯 (Andrew R.Webb) 和基思 · 科普塞 (Keith D.Copsey) 合著的第三版《统计模式识别》(Statistical Pattern Recognition ) 比较适合作为本科生的教科书。同时建议课程设置实践环节，让学生尝试将机器学习方法应用到某些特定问题中。
 - 开设数值优化课程，建议参考教材乔治 · 诺塞达尔 (Jorge Nocedal) 和史蒂芬 · 赖特 (Stephen J.Wright) 的第二版《数值优化》(Numerical Optimization )，或者开设数值分析，建议采用蒂莫西 · 索尔的《数值分析》(Numerical Analysis) 为教材。
-- 加强算法课程，增加高级算法，比如随机算法，参考教材是迈克尔 · 米曾马克 (Michael Mitzenmacher) 和伊莱 · 阿普法 (Eli Upfal) 的《概率与计算: 随机算法与概率分析》(Probability and Computing: Randomized Algorithms and Probabilistic Analysis) 。
+- 加强算法课程，增加高级算法，比如随机算法，参考教材是迈克尔 · 米曾马克 (Michael Mitzenmacher) 和伊莱 · 阿普法 (Eli Upfal) 的《概率与计算: 随机算法与概率分析》(Probability and Computing: Randomized Algorithms and Probabilistic Analysis)。
 - 在程序设计方面，增加或加强并行计算的内容。特别是在深度学习技术的执行中，通常需要 GPU 加速，可以使用戴维 · 柯克 (David B.Kirk) 和胡文美 (Wen-mei W.Hwu) 的教材 《大规模并行处理器编程实战》(第二版)(Programming Massively Parallel Processors:A Hands-on Approach,Second Edition ) ；另外，还可以参考优达学城 (Udacity) 上英伟达 (Nvidia) 讲解 CUDA 计算的公开课。
 
 在机器学习领域称为流形学习（Manifold learning），或降维问题（Dimension reduction）。如图 18 所示，数据是在三维空间给出的（B），每个点是 3 个坐标，看起来是三维数据；但其本质上位于三维空间的一张曲面上，即二维流形曲面上（A），其本征维数是 2。因此，可以将其一一映射到平面上（C）。
@@ -41,7 +41,7 @@
 
 # 模型评估与正则化
 
-机器学习的算法或者模型的分类有很多种，其中有一种分法把模型分为 Discriminative Modeling (判别模型)和 Generative Modeling (生成模型)两种。为了写起来方便我们以下简称 DM 和 GM 。在一个基本的机器学习问题中，我们通常有输入 $x \in X$和输出 $y \in Y$两个部分，简单地来说，DM 关注于 $x$和 $y$的关系，或者说在给定某个 $x$的情况下所对应的 $y$应该满足的规律或分布，即评估对象是最大化条件概率$p(y|x)$并直接对其建模；而 GM 则试图描述 $x$和 $y$的联合分布，即模型评估对象是最大化联合概率$p(x,y)$并对其建模。其实两者的评估目标都是要得到最终的类别标签$Y$，而$Y=argmax p(y|x)$，不同的是判别式模型直接通过解在满足训练样本分布下的最优化问题得到模型参数，主要用到拉格朗日乘算法、梯度下降法，常见的判别式模型如最大熵模型、CRF、LR、SVM 等；而生成式模型先经过贝叶斯转换成$Y = argmax p(y|x) = argmax p(x|y)\*p(y)$，然后分别学习$p(y)$和$p(x|y)$的概率分布，主要通过极大似然估计的方法学习参数，如 NGram、HMM、Naive Bayes。比较而言，判别式模型会更加灵活，而生成式模型一般需要将特征加入马尔科夫链。但是判别式模型需要有指导训练，而生成式模型可以无指导训练。
+机器学习的算法或者模型的分类有很多种，其中有一种分法把模型分为 Discriminative Modeling (判别模型)和 Generative Modeling (生成模型)两种。为了写起来方便我们以下简称 DM 和 GM。在一个基本的机器学习问题中，我们通常有输入 $x \in X$和输出 $y \in Y$两个部分，简单地来说，DM 关注于 $x$和 $y$的关系，或者说在给定某个 $x$的情况下所对应的 $y$应该满足的规律或分布，即评估对象是最大化条件概率$p(y|x)$并直接对其建模；而 GM 则试图描述 $x$和 $y$的联合分布，即模型评估对象是最大化联合概率$p(x,y)$并对其建模。其实两者的评估目标都是要得到最终的类别标签$Y$，而$Y=argmax p(y|x)$，不同的是判别式模型直接通过解在满足训练样本分布下的最优化问题得到模型参数，主要用到拉格朗日乘算法、梯度下降法，常见的判别式模型如最大熵模型、CRF、LR、SVM 等；而生成式模型先经过贝叶斯转换成$Y = argmax p(y|x) = argmax p(x|y)\*p(y)$，然后分别学习$p(y)$和$p(x|y)$的概率分布，主要通过极大似然估计的方法学习参数，如 NGram、HMM、Naive Bayes。比较而言，判别式模型会更加灵活，而生成式模型一般需要将特征加入马尔科夫链。但是判别式模型需要有指导训练，而生成式模型可以无指导训练。
 
 给定某系统的若干样本，求取该系统的参数，主要分为频率学派与贝叶斯学派。
 
