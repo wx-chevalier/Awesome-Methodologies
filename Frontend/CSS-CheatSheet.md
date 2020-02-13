@@ -81,7 +81,7 @@ div.some-parent .class-name {
 }
 
 /* 注意，去掉空格后语义就不同了。
-你能说出哪里不同么？ */
+你能说出哪里不同么？*/
 div.some-parent.class-name {
 }
 

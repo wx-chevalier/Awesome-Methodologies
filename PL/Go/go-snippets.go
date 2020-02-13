@@ -194,7 +194,7 @@ func learnFlowControl() {
 	xBig := func() bool {
 		return x > 100 // x是上面声明的变量引用
 	}
-	fmt.Println("xBig:", xBig()) // true （上面把y赋给x了）
+	fmt.Println("xBig:", xBig()) // true（上面把y赋给x了）
 	x /= 1e5                     // x变成10
 	fmt.Println("xBig:", xBig()) // 现在是false
 
@@ -270,7 +270,7 @@ func learnInterfaces() {
 	fmt.Println(i.String())
 
 	// fmt包中的Println函数向对象要它们的string输出，实现了String方法就可以这样使用了。
-	// （类似java中的序列化）
+	//（类似java中的序列化）
 	fmt.Println(p) // 输出和上面一样，自动调用String函数。
 	fmt.Println(i) // 输出和上面一样。
 

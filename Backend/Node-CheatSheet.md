@@ -501,7 +501,7 @@ $ pandora start --name dashboard `pandora-dashboard-dir`
 $ pandora init server.js
 ? Which type do you like to generate ? (Use arrow keys)
   fork  # Fork 简单拉起 server.js
-❯ cluster  # Cluster 则用 Node.js 的 Cluster 模块启动 server.js （即 Master / Worker 模型）
+❯ cluster  # Cluster 则用 Node.js 的 Cluster 模块启动 server.js（即 Master / Worker 模型）
 
 $ pandora start
 Starting rest-crud at /xx/xxx/rest-crud

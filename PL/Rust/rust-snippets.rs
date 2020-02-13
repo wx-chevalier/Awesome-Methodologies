@@ -142,7 +142,7 @@ fn main() {
     let a_foo = Foo { bar: 1 };
     println!("{}", a_foo.get_bar()); // 1
 
-    // 接口（Traits） （其他语言里叫 interfaces 或 typeclasses） //
+    // 接口（Traits）（其他语言里叫 interfaces或typeclasses） //
 
     trait Frobnicate<T> {
         fn frobnicate(self) -> Option<T>;

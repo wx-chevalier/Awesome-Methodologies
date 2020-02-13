@@ -82,7 +82,7 @@
     - [SQL CheatSheet](/Infrastructure/SQL-CheatSheet.md)
     - [Sharding CheatSheet](/Infrastructure/Sharding-CheatSheet.md)
     - [Storage CheatSheet](/Infrastructure/Storage-CheatSheet.md)
-    - [StreamingComputing CheatSheet](/Infrastructure/StreamingComputing-CheatSheet.md)
+    - [StreamProcessing CheatSheet](/Infrastructure/StreamProcessing-CheatSheet.md)
     - [TCPIP CheatSheet](/Infrastructure/TCPIP-CheatSheet.md)
     - [Xen CheatSheet](/Infrastructure/Xen-CheatSheet.md)
     - [ZooKeeper CheatSheet](/Infrastructure/ZooKeeper-CheatSheet.md)

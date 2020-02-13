@@ -349,7 +349,7 @@ classNames={{
 }}
 ```
 
-最后的 TransitionGroup 则是为我们提供了多个组件的管理，譬如 `<Transition>` 或 `<TransitionGroup>`，作为状态机来管理组件挂载或者卸载时候的状态。
+最后的 TransitionGroup 则是为我们提供了多个组件的管理，譬如 `<Transition>`或`<TransitionGroup>`，作为状态机来管理组件挂载或者卸载时候的状态。
 
 # Component Dataflow | 组件数据流
 
