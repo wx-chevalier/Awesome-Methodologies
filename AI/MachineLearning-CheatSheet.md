@@ -27,7 +27,7 @@
 - 开设机器学习课程。机器学习有许多经典的书籍，但大多不太适宜做本科生的教材。最近，麻省理工学院出版的约翰 · 凯莱赫 (John D.Kelleher) 和布瑞恩 · 麦克 · 纳米 (Brian Mac Namee) 等人著作的《机器学习基础之预测数据分析》(Fundamentals of Machine Learning for Predictive Data Analytics )，或者安得烈 · 韦伯 (Andrew R.Webb) 和基思 · 科普塞 (Keith D.Copsey) 合著的第三版《统计模式识别》(Statistical Pattern Recognition ) 比较适合作为本科生的教科书。同时建议课程设置实践环节，让学生尝试将机器学习方法应用到某些特定问题中。
 - 开设数值优化课程，建议参考教材乔治 · 诺塞达尔 (Jorge Nocedal) 和史蒂芬 · 赖特 (Stephen J.Wright) 的第二版《数值优化》(Numerical Optimization )，或者开设数值分析，建议采用蒂莫西 · 索尔的《数值分析》(Numerical Analysis) 为教材。
 - 加强算法课程，增加高级算法，比如随机算法，参考教材是迈克尔 · 米曾马克 (Michael Mitzenmacher) 和伊莱 · 阿普法 (Eli Upfal) 的《概率与计算: 随机算法与概率分析》(Probability and Computing: Randomized Algorithms and Probabilistic Analysis)。
-- 在程序设计方面，增加或加强并行计算的内容。特别是在深度学习技术的执行中，通常需要 GPU 加速，可以使用戴维 · 柯克 (David B.Kirk) 和胡文美 (Wen-mei W.Hwu) 的教材 《大规模并行处理器编程实战》(第二版)(Programming Massively Parallel Processors:A Hands-on Approach,Second Edition ) ；另外，还可以参考优达学城 (Udacity) 上英伟达 (Nvidia) 讲解 CUDA 计算的公开课。
+- 在程序设计方面，增加或加强并行计算的内容。特别是在深度学习技术的执行中，通常需要 GPU 加速，可以使用戴维 · 柯克 (David B.Kirk) 和胡文美 (Wen-mei W.Hwu) 的教材 《大规模并行处理器编程实战》(第二版)(Programming Massively Parallel Processors:A Hands-on Approach,Second Edition )；另外，还可以参考优达学城 (Udacity) 上英伟达 (Nvidia) 讲解 CUDA 计算的公开课。
 
 在机器学习领域称为流形学习（Manifold learning），或降维问题（Dimension reduction）。如图 18 所示，数据是在三维空间给出的（B），每个点是 3 个坐标，看起来是三维数据；但其本质上位于三维空间的一张曲面上，即二维流形曲面上（A），其本征维数是 2。因此，可以将其一一映射到平面上（C）。
 

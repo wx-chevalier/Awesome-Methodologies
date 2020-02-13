@@ -8,10 +8,10 @@
 
 - $\because$（`\because`）
 
-  ∴ ：\therefore
-  ∀ ：\forall
-  ∃ ：\exists
-  ≠ ：\not=
+  ∴：\therefore
+  ∀：\forall
+  ∃：\exists
+  ≠：\not=
   ≯：\not>
   ⊄：\not\subset
 
@@ -95,8 +95,8 @@
 α 　 A 　 β 　 B 　 γ 　 Γ 　 δ 　 Δ 　 ϵ 　 Eε 　　 ζ 　 Z 　 η 　 H 　 θ 　 Θ 　 ϑι 　 I 　 κ 　 K 　 λ 　 Λ 　 μ 　 M 　 ν 　 Nξ 　 Ξ 　 o 　 O 　 π 　 Π 　 ϖ 　　 ρ 　 Pϱ 　　 σ 　 Σ 　 ς 　　 τ 　 T 　 υ 　 Υϕ 　 Φ 　 φ 　　 χ 　 X 　 ψ 　 Ψ 　 ω 　 Ω
 
 3.12 数学符号大汇总
-± ：\pm
-× ：\times
+±：\pm
+×：\times
 ÷：\div
 ∣：\mid
 
@@ -120,45 +120,45 @@
 ∈：\in
 ∉：\notin
 ⊂：\subset
-⊃ ：\supset
-⊆ ：\subseteq
-⊇ ：\supseteq
-⋂ ：\bigcap
-⋃ ：\bigcup
-⋁ ：\bigvee
-⋀ ：\bigwedge
-⨄ ：\biguplus
+⊃：\supset
+⊆：\subseteq
+⊇：\supseteq
+⋂：\bigcap
+⋃：\bigcup
+⋁：\bigvee
+⋀：\bigwedge
+⨄：\biguplus
 ⨆：\bigsqcup
 
 对数运算符：
-log ：\log
-lg ：\lg
-ln ：\ln
+log：\log
+lg：\lg
+ln：\ln
 
 三角运算符：
 ⊥：\bot
 ∠：\angle
 30∘：30^\circ
-sin ：\sin
-cos ：\cos
-tan ：\tan
-cot ：\cot
-sec ：\sec
-csc ：\csc
+sin：\sin
+cos：\cos
+tan：\tan
+cot：\cot
+sec：\sec
+csc：\csc
 
 微积分运算符：
 y′x：\prime
 ∫：\int
-∬ ：\iint
-∭ ：\iiint
+∬：\iint
+∭：\iiint
 ⨌：\iiiint
-∮ ：\oint
-lim ：\lim
-∞ ：\infty
+∮：\oint
+lim：\lim
+∞：\infty
 ∇：\nabla
 
 戴帽符号：
-ŷ ：\hat{y}
+ŷ：\hat{y}
 yˇ：\check{y}
 y˘：\breve{y}
 
@@ -170,16 +170,16 @@ a+b+c⏟1.0+d2.0：\overbrace{a+\underbrace{b+c}\_{1.0}+d}^
 箭头符号：
 ↑：\uparrow
 ↓：\downarrow
-⇑ ：\Uparrow
+⇑：\Uparrow
 ⇓：\Downarrow
 →：\rightarrow
-← ：\leftarrow
-⇒ ：\Rightarrow
-⇐ ：\Leftarrow
-⟶ ：\longrightarrow
-⟵ ：\longleftarrow
+←：\leftarrow
+⇒：\Rightarrow
+⇐：\Leftarrow
+⟶：\longrightarrow
+⟵：\longleftarrow
 ⟹：\Longrightarrow
-⟸ ：\Longleftarrow
+⟸：\Longleftarrow
 
 3.13 需要转义的字符
 

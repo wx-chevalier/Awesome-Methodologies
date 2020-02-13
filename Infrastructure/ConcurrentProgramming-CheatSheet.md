@@ -354,7 +354,7 @@ Linux 内核中最常见的锁，作用是在多核处理器间同步数据。�
 
 MVCC 的一种简单实现是基于 CAS（Compare-and-swap）思想的有条件更新（Conditional Update）。普通的 update 参数只包含了一个 `keyValueSet’，Conditional Update` 在此基础上加上了一组更新条件 `conditionSet { … data[keyx]=valuex, … }`，即只有在 D 满足更新条件的情况下才将数据更新为 keyValueSet’；否则，返回错误信息。这样，L 就形成了如下图所示的 `Try/Conditional Update/(Try again)` 的处理模式：
 
-对于常见的修改用户帐户信息的例子而言，假设数据库中帐户信息表中有一个 `version` 字段，当前值为 1 ；而当前帐户余额字段(balance)为 100。
+对于常见的修改用户帐户信息的例子而言，假设数据库中帐户信息表中有一个 `version` 字段，当前值为 1；而当前帐户余额字段(balance)为 100。
 
 - 操作员 A 此时将其读出（version=1），并从其帐户余额中扣除 50 (100-50)。
 
