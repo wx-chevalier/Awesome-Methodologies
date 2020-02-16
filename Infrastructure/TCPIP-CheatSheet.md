@@ -48,9 +48,9 @@ A 类网络 10.0.0.0 的默认子网掩码为 255.0.0.0，其广播地址为 10.
 
 24.0.0.0---224.2.255.255 的绝大部分地址已被使用，建议使用时避开上述地址（详细使用情况请参阅 RFC 1700）。
 224.0.0.0 基础地址，保留，不能被任何群组使用  
-224.0.0.1 全主机群组（all hosts group），指参加本 IP 组播的所有主机、路由器、网关（不是指整个互连网） 
+224.0.0.1 全主机群组（all hosts group），指参加本 IP 组播的所有主机、路由器、网关（不是指整个互连网）
 224.0.0.2 本子网上的路由器（all routers on a LAN）224.0.0.4 DVMRP*路由器（DVMRP Routers）
 224.0.0.5 本子网上的 OSPF*路由器(all OSPF routers on a LAN) 224.0.0.6 本子网上被指定的 OSPF 路由器(all designated OSPF routers on a LAN)  
 224.0.1.1 网络时间协议（Network Time Protocol，NTP）224.0.5.000-224.0.5.127 蜂窝式数字信息包数据发送主机组（CDPD Groups）
-224.1.0.0-224.1.255.255 基于流的协议组播主机组（Stream Protocol Multicast Groups） 
+224.1.0.0-224.1.255.255 基于流的协议组播主机组（Stream Protocol Multicast Groups）
 224.2.0.0-224.2.255.255 多媒体会议呼叫（Multimedia Conference Calls）\*注：DVMRP 是 Distance vector multicast routing protocol 的缩写
