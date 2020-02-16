@@ -366,4 +366,4 @@ PBFT 全称实用性拜占庭容错系统（Practical Byzantine Fault Tolerance,
 
 ## 批计算
 
-## 流计算
+## 流处理

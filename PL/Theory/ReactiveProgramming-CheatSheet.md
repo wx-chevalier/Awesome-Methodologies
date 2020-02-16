@@ -4,7 +4,7 @@ Reactive Programming is an asynchronous programming paradigm concerned with data
 
 「React to User's Input X, and respond ASAP」，而非简单地「 Response to X」。「响应」一般来说，对应的英文为「Response」、动词为「Respond」、形容词为「Responsive」。在「The Reactive Manifesto」中的「Reactive」实际上是指一个副词，表示系统总是会积极主动、甚至是智能地对内外的变化做出反应，其中包括：
 
-React to user —— Respond ASAP，尽可能快速地对用户的请求给出应答——即时响应性，这也是最终目的和核心商业价值。
+React to user：Respond ASAP，尽可能快速地对用户的请求给出应答——即时响应性，这也是最终目的和核心商业价值。
 React to load，尽可能地对上游给出的压力做出反应，包括智能限流、回压、百分比丢弃等策略，为的是尽可能地降低对用户体验的损害，同时保护系统。
 React to failure，尽可能地在系统发生失败时，对失败进行妥善处理，而非不受控的级联失败。
 

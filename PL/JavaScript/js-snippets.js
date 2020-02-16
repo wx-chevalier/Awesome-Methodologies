@@ -239,14 +239,14 @@ function myFunction() {
 myFunction(); // = undefined
 
 // javascript中函数是一等对象，所以函数也能够赋给一个变量，
-// 并且被作为参数传递 —— 比如一个事件处理函数：
+// 并且被作为参数传递：比如一个事件处理函数：
 function myFunction() {
   // 这段代码将在5秒钟后被调用
 }
 setTimeout(myFunction, 5000);
 // 注意：setTimeout不是js语言的一部分，而是由浏览器和Node.js提供的。
 
-// 函数对象甚至不需要声明名称 —— 你可以直接把一个函数定义写到另一个函数的参数中
+// 函数对象甚至不需要声明名称：你可以直接把一个函数定义写到另一个函数的参数中
 setTimeout(function() {
   // 这段代码将在5秒钟后被调用
 }, 5000);

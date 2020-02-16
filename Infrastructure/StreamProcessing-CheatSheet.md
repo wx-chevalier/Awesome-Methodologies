@@ -1,4 +1,4 @@
-# Streaming Computing CheatSheet | 流计算原理与机制概述
+# Streaming Computing CheatSheet | 流处理原理与机制概述
 
 自从数据处理需求超过了传统数据库能有效处理的数据量之后，Hadoop 等各种基于 MapReduce 的海量数据处理系统应运而生。从 2004 年 Google 发表 MapReduce 论文开始，经过近 10 年的发展，基于 Hadoop 开源生态或者其它相应系统的海量数据处理已经成为业界的基本需求。
 
@@ -32,7 +32,7 @@ Micro-Batching，大量短的 Batches 会从输入的记录中创建出然后经
 
 对于 Micro-Batching 而言，将流切分为小的 Batches 不可避免地会降低整个系统的变现性，也就是可读性。而一些类似于状态管理的或者 joins、splits 这些操作也会更加难以实现，因为系统必须去处理整个 Batch。另外，每个 Batch 本身也将架构属性与逻辑这两个本来不应该被糅合在一起的部分相连接了起来。而 Micro-Batching 的优势在于它的容错与负载均衡会更加易于实现，它只要简单地在某个节点上处理失败之后转发给另一个节点即可。最后，值得一提的是，我们可以在 Native Streaming 的基础上快速地构建 Micro-Batching 的系统。
 
-从 Spark 2.0 开始引入的 Structured Streaming 重新整理了流计算的语义，支持按事件时间处理和端到端的一致性。虽然在功能上还有不少限制，比之前已经有了长足的进步。不过 micro batch 执行方式带来的问题还是存在，特别在规模上去以后性能问题会比较突出。最近 Spark 受一些应用场景的推动，也开始开发持续执行模式。
+从 Spark 2.0 开始引入的 Structured Streaming 重新整理了流处理的语义，支持按事件时间处理和端到端的一致性。虽然在功能上还有不少限制，比之前已经有了长足的进步。不过 micro batch 执行方式带来的问题还是存在，特别在规模上去以后性能问题会比较突出。最近 Spark 受一些应用场景的推动，也开始开发持续执行模式。
 
 ### Native Streaming
 
