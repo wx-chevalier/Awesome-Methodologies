@@ -168,7 +168,7 @@ MySQL 中常见的性能问题，可能是有如下类型：
   (Cores \* 2) + (# Disks)
 - skip_name_resolve
   使用直接 IP 方式，避免 DNS 解析
-- innodb_io_capacity， innodb_io_capacity_max
+- innodb_io_capacity，innodb_io_capacity_max
   需要根据你的磁盘的 IOPS 处理能力进行相应设置。
   innodb_io_capacity~= IOPS
 - query_cache_type

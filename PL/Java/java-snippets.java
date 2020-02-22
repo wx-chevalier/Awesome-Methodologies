@@ -161,7 +161,7 @@ public class LearnJava {
         while (fooWhile < 100) {
             // System.out.println(fooWhile);
             // 增加计数器
-            // 遍历99次， fooWhile 0->99
+            // 遍历99次，fooWhile 0->99
             fooWhile++;
         }
         System.out.println("fooWhile Value: " + fooWhile);
@@ -328,7 +328,7 @@ class Bicycle {
 
 // PennyFarthing 是 Bicycle 的子类
 class PennyFarthing extends Bicycle {
-    // (Penny Farthings 是前轮很大的 Bicycle， 并且没有齿轮)
+    // (Penny Farthings 是前轮很大的 Bicycle，并且没有齿轮)
 
     public PennyFarthing(int startCadence, int startSpeed) {
         // 通过super调用父类的构造函数

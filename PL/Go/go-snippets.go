@@ -41,7 +41,7 @@ func beyondHello() {
 
 /* <- 快看快看我是跨行注释_(:з」∠)_
 Go语言的函数可以有多个参数和 *多个* 返回值。
-在这个函数中， `x`、`y` 是参数，
+在这个函数中，`x`、`y` 是参数，
 `sum`、`prod` 是返回值的标识符（可以理解为名字）且类型为int
 */
 func learnMultiple(x, y int) (sum, prod int) {
