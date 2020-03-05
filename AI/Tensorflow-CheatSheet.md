@@ -221,6 +221,6 @@ with tf.Session() as sess:
     print(sess.run(tf.argmax(B, 1)))
 ```
 
-# Todos
+# 链接
 
 - https://www.jiqizhixin.com/articles/2018-07-02-6

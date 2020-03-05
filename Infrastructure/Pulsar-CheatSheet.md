@@ -146,6 +146,6 @@ Apache BookKeeper 中的副本修复是 Segment（甚至是 Entry）级别的多
 
 ## Retention | 消息保留
 
-# Todos
+# 链接
 
 - https://mp.weixin.qq.com/s/v4A--nGiDTt58pZyIzepeg 提取其中的图片

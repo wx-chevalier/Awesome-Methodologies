@@ -660,7 +660,7 @@ BufferedWriterbw=newBufferedWriter(newFileWriter(textFile.txt));//forwriting
 {getResource("").getFile() / getResourceAsStream()}
 ```
 
-# Todos
+# 链接
 
 - https://github.com/in28minutes/java-cheat-sheet
 

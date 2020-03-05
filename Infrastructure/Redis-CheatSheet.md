@@ -22,7 +22,7 @@ RDB 保存的是 key-value 数据内容，即快照模式。
 
 # 内部原理
 
-# Todos
+# 链接
 
 - http://www.runoob.com/redis/sets-scard.html
 
