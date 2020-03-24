@@ -54,3 +54,7 @@ println!("{}", "These\n\
 # Vector
 
 ![](https://parg.co/U8w)
+
+# 链接
+
+- https://colobu.com/2020/03/05/A-half-hour-to-learn-Rust/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
