@@ -16,7 +16,7 @@ Apache Pulsar 和 Apache Kafka 之间的根本区别在于 Apache Kafka 是以�
 
 在 Pulsar 客户端中提供生产者和消费者（Producer & Consumer）接口，应用程序使用 Pulsar 客户端连接到 Broker 来发布和消费消息。Pulsar 客户端不直接与存储层 Apache BookKeeper 交互。客户端也没有直接的 Zookeeper 访问权限。这种隔离，为 Pulsar 实现安全的多租户统一身份验证模型提供了基础。
 
-Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C ++，Python，Go 和 Websockets。Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。
+Apache Pulsar 为客户端提供多种语言的支持，包括 Java，C++ ，Python，Go 和 Websockets。Apache Pulsar 还提供了一组兼容 Kafka 的 API，用户可以通过简单地更新依赖关系并将客户端指向 Pulsar 集群来迁移现有的 Kafka 应用程序，这样现有的 Kafka 应用程序可以立即与 Apache Pulsar 一起使用，无需更改任何代码。
 
 ## Broker 层：无状态服务层
 
