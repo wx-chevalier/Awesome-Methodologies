@@ -70,6 +70,7 @@
     - [Linux CheatSheet](/Infrastructure/Linux-CheatSheet.md)
     - [Linux Command CheatSheet](/Infrastructure/Linux-Command-CheatSheet.md)
     - [Linux Harden CheatSheet](/Infrastructure/Linux-Harden-CheatSheet.md)
+    - [Linux Shell CheatSheet](/Infrastructure/Linux-Shell-CheatSheet.md)
     - [MongoDB CheatSheet](/Infrastructure/MongoDB-CheatSheet.md)
     - [MySQL Cheatsheet](/Infrastructure/MySQL-Cheatsheet.md)
     - [Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
