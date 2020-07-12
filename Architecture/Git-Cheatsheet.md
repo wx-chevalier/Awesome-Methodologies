@@ -2,6 +2,19 @@
 
 对于新手而言，在日常工作中还是尽量使用 [SourceTree]()、[GitHub Desktop]()等 界面工具，避免意外操作。
 
+# 常用脚本
+
+- 快速提交
+
+```sh
+# !/bin/bash
+
+git add --all
+git commit -m "feat: ${1:=update articles or snippets}" --no-verify
+git pull
+git push
+```
+
 # Configuration | 配置
 
 ## Management | 配置管理
