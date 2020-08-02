@@ -2,7 +2,7 @@
 
 # Rust 语法速览、实践技巧与开源工具清单
 
-Rust 是为工业应用而生，并不拘泥于遵循某个范式( Paradigm )，笔者认为其最核心的特性为 Ownership 与 Lifetime；能够在没有 GC 与 Runtime 的情况下，防止近乎所有的段错误，并且保证线程安全(prevents nearly all segfaults, and guarantees thread safety )。Rust 为每个引用与指针设置了 Lifetime，对象则不允许在同一时间有两个和两个以上的可变引用，并且在编译阶段即进行了内存分配(栈或者堆)；Rust 还提供了 Closure 等函数式编程语言的特性、编译时多态(Compile-time Polymorphism)、衍生的错误处理机制、灵活的模块系统等。
+Rust 是为工业应用而生，并不拘泥于遵循某个范式（Paradigm），笔者认为其最核心的特性为 Ownership 与 Lifetime；能够在没有 GC 与 Runtime 的情况下，防止近乎所有的段错误，并且保证线程安全(prevents nearly all segfaults, and guarantees thread safety )。Rust 为每个引用与指针设置了 Lifetime，对象则不允许在同一时间有两个和两个以上的可变引用，并且在编译阶段即进行了内存分配(栈或者堆)；Rust 还提供了 Closure 等函数式编程语言的特性、编译时多态(Compile-time Polymorphism)、衍生的错误处理机制、灵活的模块系统等。
 
 对于 Rust 的语法速览可以参考本目录下的 [rust-snippets](https://parg.co/QN9)。
 
@@ -14,11 +14,10 @@ fn main() {
 }
 ```
 
-print: It is the name of a macro defined in the Rust standard library.
-!: It specifies that the preceding name indicates a macro. Without such a symbol, print would instead indicate a function. There is no such function in the Rust standard library, and so you would get a compilation error. A macro is a thing similar to a function - it’s some Rust code to which a name is associated. By using this name, you ask to insert such code in this point.
+print: 它是 Rust 标准库中定义的宏的名称。!: 指定前面的名称表示宏。如果没有这样的符号，则打印将指示功能。 Rust 标准库中没有此类函数，因此您会得到编译错误。宏与功能类似，它是一些与名称相关联的 Rust 代码。通过使用此名称，您要求此时插入此类代码。
 
 ```sh
-rustc $\* --color always 2>&1 | more
+rustc $* --color always 2>&1 | more
 ```
 
 # 表达式与控制流
@@ -49,9 +48,11 @@ println!("{}", "These\n\
 
 # 基本数据类型
 
+Rust 具有称为原始类型的简单类型。我们将从整数和 char（字符）开始。整数是没有小数点的整数。整数有两种类型：有符号整数，无符号整数。ed Integers）。
+
 # 集合类型
 
-# Vector
+## Vector
 
 ![Rust Vector](https://s1.ax1x.com/2020/08/02/aYugeI.png)
 
