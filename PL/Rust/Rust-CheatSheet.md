@@ -53,8 +53,9 @@ println!("{}", "These\n\
 
 # Vector
 
-![](https://parg.co/U8w)
+![Rust Vector](https://s1.ax1x.com/2020/08/02/aYugeI.png)
 
 # 链接
 
 - https://colobu.com/2020/03/05/A-half-hour-to-learn-Rust/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
+- https://github.com/Dhghomon/easy_rust#const-and-static
