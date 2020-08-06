@@ -4,7 +4,7 @@
 
 Rust 是为工业应用而生，并不拘泥于遵循某个范式（Paradigm），笔者认为其最核心的特性为 Ownership 与 Lifetime；能够在没有 GC 与 Runtime 的情况下，防止近乎所有的段错误，并且保证线程安全(prevents nearly all segfaults, and guarantees thread safety )。Rust 为每个引用与指针设置了 Lifetime，对象则不允许在同一时间有两个和两个以上的可变引用，并且在编译阶段即进行了内存分配(栈或者堆)；Rust 还提供了 Closure 等函数式编程语言的特性、编译时多态(Compile-time Polymorphism)、衍生的错误处理机制、灵活的模块系统等。
 
-对于 Rust 的语法速览可以参考本目录下的 [rust-snippets](https://parg.co/QN9)。
+对于 Rust 的语法速览可以参考本目录下的 [rust-snippets](./rust-snippets.rs)。
 
 # 语法基础
 
@@ -14,10 +14,81 @@ fn main() {
 }
 ```
 
-print: 它是 Rust 标准库中定义的宏的名称。!: 指定前面的名称表示宏。如果没有这样的符号，则打印将指示功能。 Rust 标准库中没有此类函数，因此您会得到编译错误。宏与功能类似，它是一些与名称相关联的 Rust 代码。通过使用此名称，您要求此时插入此类代码。
+print 是 Rust 标准库中定义的宏的名称。! 指定前面的名称表示宏。如果没有这样的符号，则打印将指示功能。Rust 标准库中没有此类函数，因此您会得到编译错误。宏与功能类似，它是一些与名称相关联的 Rust 代码。通过使用此名称，您要求此时插入此类代码。要了解 `;`，我们将创建另一个函数。首先，主要是打印数字 8：
 
-```sh
-rustc $* --color always 2>&1 | more
+```rs
+fn main() {
+    println!("Hello, world number {}!", 8);
+}
+```
+
+println! 中的 {} 表示“将变量放入此处”。这会打印 `Hello, world number 8!`。我们可以放更多：
+
+```rs
+fn main() {
+    println!("Hello, worlds number {} and {}!", 8, 9);
+}
+```
+
+下面我们可以创建新的函数：
+
+```rs
+fn main() {
+    println!("Hello, world number {}!", number());
+}
+
+fn number() -> i32 {
+    8
+}
+```
+
+函数内部只有 8，没有 `;`，所以它是返回的值。如果带有`;`，则不会返回任何内容。如果有 `;`，Rust 不会编译它，因为返回值为 i32 和 ; 返回 `()`，而不是 i32：
+
+```rs
+fn main() {
+    println!("Hello, world number {}", number());
+}
+
+fn number() -> i32 {
+    8;  // ⚠️
+}
+
+5 | fn number() -> i32 {
+  |    ------      ^^^ expected `i32`, found `()`
+  |    |
+  |    implicitly returns `()` as its body has no tail or `return` expression
+6 |     8;
+  |      - help: consider removing this semicolon
+```
+
+这意味着“您告诉我 number() 返回一个 i32，但您添加了;，因此它不返回任何内容”。因此，编译器建议删除分号。您也可以写 `return 8;` 但是在 Rust 中，仅仅删除 `;` 回来。要为函数提供变量时，请将其放在 () 中。您必须给他们起一个名字并写下类型。
+
+```rs
+fn main() {
+    multiply(8, 9); // We can give the numbers directly
+    let some_number = 10; // Or we can declare two variables
+    let some_other_number = 2;
+    multiply(some_number, some_other_number); // and put them in the function
+}
+
+fn multiply(number_one: i32, number_two: i32) { // Two i32s will enter the function. We will call them number_one and number_two.
+    let result = number_one * number_two;
+    println!("{} times {} is {}", number_one, number_two, result);
+}
+```
+
+当然，我们也可以返回一个 i32：
+
+```rs
+fn main() {
+    let multiply_result = multiply(8, 9); // We used multiply() to print and to give the result to multiply_result
+}
+
+fn multiply(number_one: i32, number_two: i32) -> i32 {
+    let result = number_one * number_two;
+    println!("{} times {} is {}", number_one, number_two, result);
+    result // this is the i32 that we return
+}
 ```
 
 # 表达式与控制流
@@ -45,6 +116,62 @@ println!("{}", "These\n\
     three lines");
 }
 ```
+
+## 变量与代码块声明
+
+使用 let 声明一个变量（声明一个变量相当于告诉 Rust 创建一个变量）。
+
+```rs
+fn main() {
+    let my_number = 8;
+    println!("Hello, number {}", my_number);
+}
+```
+
+变量在代码块 {} 中开始和结束。在此示例中，my_number 在我们调用 println！之前结束，因为它在其自己的代码块内。
+
+```rs
+fn main() {
+    {
+        let my_number = 8; // my_number starts here
+                           // my_number ends here!
+    }
+
+    println!("Hello, number {}", my_number); // ⚠️ there is no my_number and
+                                             // println!() can't find it
+}
+```
+
+您可以使用代码块返回值：
+
+```rs
+fn main() {
+    let my_number = {
+    let second_number = 8;
+        second_number + 9 // No semicolon, so the code block returns 8 + 9.
+                          // It works just like a function
+    };
+
+    println!("My number is: {}", my_number);
+}
+```
+
+如果在块内添加分号，它将返回 ()（无）：
+
+```rs
+fn main() {
+    let my_number = {
+    let second_number = 8; // declare second_number,
+        second_number + 9; // add 9 to second_number
+                           // but we didn't return it!
+                           // second_number dies now
+    };
+
+    println!("My number is: {:?}", my_number); // my_number is ()
+}
+```
+
+## 展示与调试
 
 # 基本数据类型
 
@@ -180,6 +307,77 @@ fn main() {
 }
 
 // 0, 1624
+```
+
+## Floats
+
+浮点数是带小数点的数字。 5.5 是浮点数，而 6 是整数。 5.0 也是浮点数，甚至 5. 也是浮点数。
+
+```rs
+fn main() {
+    let my_float = 5.; // Rust sees . and knows that it is a float
+}
+```
+
+但是这些类型不称为 float，它们分别称为 f32 和 f64。它与整数相同：f 后面的数字表示位数。如果您不输入类型，Rust 将选择 f64。当然，只能将相同类型的浮标一起使用。因此，您无法将 f32 添加到 f64。
+
+```rs
+fn main() {
+    let my_float: f64 = 5.0; // This is an f64
+    let my_other_float: f32 = 8.5; // This is an f32
+
+    let third_float = my_float + my_other_float; // ⚠️
+}
+
+error[E0308]: mismatched types
+ --> src\main.rs:5:34
+  |
+5 |     let third_float = my_float + my_other_float;
+  |                                  ^^^^^^^^^^^^^^ expected `f64`, found `f32`
+```
+
+当您使用错误的类型时，编译器会写 `expected(type), found(type)`。它会像这样读取您的代码：
+
+```rs
+fn main() {
+    let my_float: f64 = 5.0; // The compiler sees an f64
+    let my_other_float: f32 = 8.5; // The compiler sees an f32. It is a different type.
+    let third_float = my_float + // The compiler sees a new variable. It must be an f64 plus another f64. Now it expects an f64...
+    let third_float = my_float + my_other_float;  // ⚠️ it found an f32. It can't add them.
+}
+```
+
+当然，使用简单的数字很容易解决。您可以使用以下命令将 f32 转换为 f64：
+
+```rs
+fn main() {
+    let my_float: f64 = 5.0;
+    let my_other_float: f32 = 8.5;
+
+    let third_float = my_float + my_other_float as f64; // my_other_float as f64 = use my_other_float like an f64
+}
+```
+
+甚至更简单地，删除类型声明。 Rust 将选择可以加在一起的类型。
+
+```rs
+fn main() {
+    let my_float = 5.0; // Rust will choose f64
+    let my_other_float = 8.5; // Here again it will choose f64
+
+    let third_float = my_float + my_other_float;
+}
+```
+
+Rust 编译器很聪明，如果需要 f32，则不会选择 f64：
+
+```rs
+fn main() {
+    let my_float: f32 = 5.0;
+    let my_other_float = 8.5; // Rust will choose f32,
+
+    let third_float = my_float + my_other_float; // because it knows you need to add it to an f32
+}
 ```
 
 # 集合类型
