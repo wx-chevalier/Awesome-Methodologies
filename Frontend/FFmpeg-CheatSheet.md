@@ -7,7 +7,7 @@
 ```sh
 # Common switches
 -codecs          # list codecs
--c:v             # video codec (-vcodec) - 'copy' to copy stream
+-c:v             # video codec (-vcodec): 'copy' to copy stream
 -c:a             # audio codec (-acodec)
 -fs SIZE         # limit file size (bytes)
 
@@ -58,5 +58,27 @@ $ ffmpeg -framerate 1 -pattern_type glob -i '*.bmp' \\n  -c:v libx264 -r 30 -pix
 # 摄像头
 
 ```sh
+# 查找设备名
+$ ffmpeg -list_devices true -f dshow -i dummy
+
+# 输出为 MP4
+$ ffmpeg -f dshow -rtbufsize 1000000k -s 640×480 -r 30 -i video=”1714-INOGENI 4K2USB3″ -an -c:v libx264 -q 0 -f h264 – | ffmpeg -f h264 -i – -an -c:v copy -f mp4 file.mp4 -an -c:v copy -f h264 pipe:play | ffplay -i pipe:play
+
+# 输出为 UDP 流
 $ ffmpeg -f dshow -i video="Integrated Webcam":audio="Microphone (Realtek Audio)" -profile:v high -pix_fmt yuvj420p -level:v 4.1 -preset ultrafast -tune zerolatency -vcodec libx264 -r 10 -b:v 512k -s 640x360 -acodec aac -ac 2 -ab 32k -ar 44100 -f mpegts -flush_packets 0 udp://192.168.1.4:5000?pkt_size=1316
 ```
+
+- `-f fshow`: windows system drivers for capturing video and audio
+- `-f v4l2`: linux system drivers for capturing video
+- `-f alsa`: linux system drivers for capturing audio
+- `-i`: ffmpeg option that defines **input**
+- `-vcodec libx264`: raw video from camera will be encoded using H264 video codec
+- `-r 10`: video FPS (frames per second)
+- `-b:v 512k`: video bitrate Kb/s (kilo bits per second)
+- `-s 640x360`: video width and height
+- `-acodec aac`: raw audio from microphone will be encoded using AAC audio codec
+- `-ac 2`: 2 audio channels (stereo)
+- `-ab 32k`: audio bitrate in Kb/s
+- `-ar 44100`: audio sampling rate 44.1 KHz
+- `-f mpegts`: video and audio will be packed into [MPEG transport stream (MPEG TS)](https://en.wikipedia.org/wiki/MPEG_transport_stream)
+- `udp://192.168.1.4:5000`: MPEG transport stream is sent via UDP protocol to computer with IP address 192.168.1.4 on IP port 5000.
