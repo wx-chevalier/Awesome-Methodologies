@@ -192,3 +192,4 @@ fn main() {
 
 - https://colobu.com/2020/03/05/A-half-hour-to-learn-Rust/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
 - https://github.com/Dhghomon/easy_rust#const-and-static
+- https://cheats.rs/#data-structures
