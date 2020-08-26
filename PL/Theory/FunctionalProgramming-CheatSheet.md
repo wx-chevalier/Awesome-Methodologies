@@ -52,11 +52,8 @@ numbers; // []
 感觉有点像设计模式里的 Decorator，即能够将两个指定类型组合转化为一个新值的函数；最常见的组合即是常见的函数组合，允许你将不同的函数组合成一个返回单值的函数。
 
 ```js
-const compose = (f, g) => a => f(g(a)); // Definition
-const floorAndToString = compose(
-  val => val.toString(),
-  Math.floor
-); //Usage
+const compose = (f, g) => (a) => f(g(a)); // Definition
+const floorAndToString = compose((val) => val.toString(), Math.floor); //Usage
 floorAndToString(121.212121); // "121"
 ```
 
@@ -77,7 +74,7 @@ const filter = (pred, xs) => {
 };
 
 // 声明过滤条件
-const is = type => x => Object(x) instanceof type;
+const is = (type) => (x) => Object(x) instanceof type;
 
 // 执行过滤
 filter(is(Number), [0, "1", 2, null]); //=> [0, 2]
@@ -104,7 +101,7 @@ partial(2); //=> 42
 ```js
 let sum = (a, b) => a + b;
 
-let curriedSum = a => b => a + b;
+let curriedSum = (a) => (b) => a + b;
 
 curriedSum(40)(2); // 42.
 ```
@@ -118,7 +115,7 @@ curriedSum(40)(2); // 42.
 实现了`equals`函数的对象，即可以与其他对象进行对比判断是否属于同一类型，被称为 Setoid。下面对于原型的扩充可以将 Array 变成 Setoid。
 
 ```js
-Array.prototype.equals = arr => {
+Array.prototype.equals = (arr) => {
   var len = this.length;
   if (len != arr.length) {
     return false;
@@ -152,13 +149,13 @@ Array.prototype.equals = arr => {
 
 ```js
 // Given
-let map = fn => list => list.map(fn);
+let map = (fn) => (list) => list.map(fn);
 let add = (a, b) => a + b;
 
 // Then
 
 // Not points-free - `numbers` is an explicit parameter
-let incrementAll = numbers => map(add(1))(numbers);
+let incrementAll = (numbers) => map(add(1))(numbers);
 
 // Points-free - The list is an implicit parameter
 let incrementAll2 = map(add(1));
@@ -220,34 +217,34 @@ john.age + five === { name: "John", age: 30 }.age + 5;
 > Functor 即指那些可以引用`map`函数的对象，JavaScript 中最简单的函数就是`Array`。
 
 ```js
-[2, 3, 4].map(n => n * 2); // [4,6,8]
+[2, 3, 4].map((n) => n * 2); // [4,6,8]
 ```
 
 假设`func`构造为一个实现了`map`函数的对象，`f`、`g`则是任意的函数，只要`func`遵循以下规则就可以将`func`称为一个 functor: Let `func` be an object implementing a `map` function, and `f`, `g` be arbitrary functions, then `func` is said to be a functor if the map function adheres to the following rules:
 
 ```js
-func.map(x => x) == func;
+func.map((x) => x) == func;
 ```
 
 以及
 
 ```js
-func.map(x => f(g(x))) == func.map(g).map(f);
+func.map((x) => f(g(x))) == func.map(g).map(f);
 ```
 
 我们将`Array`称为 Functor，也是因为它遵循了以下规则：
 
 ```js
-[1, 2, 3].map(x => x); // = [1, 2, 3]
+[1, 2, 3].map((x) => x); // = [1, 2, 3]
 ```
 
 以及
 
 ```js
-let f = x => x + 1;
-let g = x => x * 2;
+let f = (x) => x + 1;
+let g = (x) => x * 2;
 
-[1, 2, 3].map(x => f(g(x))); // = [3, 5, 7]
+[1, 2, 3].map((x) => f(g(x))); // = [3, 5, 7]
 [1, 2, 3].map(g).map(f); // = [3, 5, 7]
 ```
 
@@ -260,7 +257,7 @@ let g = x => x * 2;
 Pointed Functor 在 Array 中的实现为：
 
 ```js
-Array.prototype.of = v => [v];
+Array.prototype.of = (v) => [v];
 
 [].of(1); // [1]
 ```
@@ -274,7 +271,7 @@ Array.prototype.of = v => [v];
 在单值函数下，Map 与 Lift 的作用是一致的：
 
 ```js
-lift(n => n * 2)([2, 3, 4]); // [4,6,8]
+lift((n) => n * 2)([2, 3, 4]); // [4,6,8]
 ```
 
 而 Lift 可以允许输入多个值：
@@ -308,7 +305,7 @@ let greet = () => "Hello World!";
 > Lazy evaluation 即是所谓的只有在需要某个值的时候才进行计算的机制。在函数式语言中，这个机制就允许对于那些近乎无限的列表进行操作。
 
 ```js
-let rand = function*() {
+let rand = function* () {
   while (1 < 2) {
     yield Math.random();
   }
@@ -364,12 +361,12 @@ randIter.next(); // Each exectuion gives a random value, expression is evaluated
 
 ```js
 ["cat,dog", "fish,bird"]
-  .chain(a => a.split(",")) // ['cat','dog','fish','bird']
+  .chain((a) => a.split(",")) // ['cat','dog','fish','bird']
 
   [
     //Contrast to map
     ("cat,dog", "fish,bird")
-  ].map(a => a.split(",")); // [['cat','dog'], ['fish','bird']]
+  ].map((a) => a.split(",")); // [['cat','dog'], ['fish','bird']]
 ```
 
 You may also see `of` and `chain` referred to as `return` and `bind` (not be confused with the JS keyword/function...) in languages which provide Monad-like constructs as part of their standard library (e.g. Haskell, F#), on [Wikipedia](https://en.wikipedia.org/wiki/Monad_%28functional_programming%29) and in other literature. It's also important to note that `return` and `bind` are not part of the [Fantasy Land spec](https://github.com/fantasyland/fantasy-land) and are mentioned here only for the sake of people interested in learning more about Monads.
@@ -381,10 +378,10 @@ You may also see `of` and `chain` referred to as `return` and `bind` (not be con
 > 实现了`extract`与`extend`函数的对象
 
 ```js
-let CoIdentity = v => ({
+let CoIdentity = (v) => ({
   val: v,
   extract: this.v,
-  extend: f => CoIdentity(f(this))
+  extend: (f) => CoIdentity(f(this)),
 });
 ```
 
@@ -397,7 +394,7 @@ CoIdentity(1).extract(); // 1
 Extend 则是会返回一个跟 Commonad 相同值的函数：
 
 ```js
-CoIdentity(1).extend(co => co.extract() + 1); // CoIdentity(2)
+CoIdentity(1).extend((co) => co.extract() + 1); // CoIdentity(2)
 ```
 
 ---
@@ -407,7 +404,7 @@ CoIdentity(1).extend(co => co.extract() + 1); // CoIdentity(2)
 > 一个 Applicative Functor 就是一个实现了`ap`函数的对象，`Ap`可以将某个对象中的某个值转化为另一个对象中的相同类型的值
 
 ```js
-[a => a + 1].ap([1]); // [2]
+[(a) => a + 1].ap([1]); // [2]
 ```
 
 ---
@@ -426,9 +423,9 @@ CoIdentity(1).extend(co => co.extract() + 1); // CoIdentity(2)
 
 ```js
 // Providing functions to convert in both directions makes them isomorphic.
-const pairToCoords = pair => ({ x: pair[0], y: pair[1] });
+const pairToCoords = (pair) => ({ x: pair[0], y: pair[1] });
 
-const coordsToPair = coords => [coords.x, coords.y];
+const coordsToPair = (coords) => [coords.x, coords.y];
 
 coordsToPair(pairToCoords([1, 2])); // [1, 2]
 
@@ -454,7 +451,7 @@ pairToCoords(coordsToPair({ x: 1, y: 2 })); // {x: 1, y: 2}
 > 实现了 reduce 函数，即可以将一个对象转化为其他类型的函数，的对象称为 Foldable 对象。
 
 ```js
-let sum = list => list.reduce((acc, val) => acc + val, 0);
+let sum = (list) => list.reduce((acc, val) => acc + val, 0);
 sum([1, 2, 3]); // 6
 ```
 
@@ -469,25 +466,25 @@ sum([1, 2, 3]); // 6
 > 一般来说，函数都会注释表明它们的参数类型和返回值类型
 
 ```js
-// functionName :: firstArgType -> secondArgType -> returnType
+// functionName::firstArgType -> secondArgType -> returnType
 
-// add :: Number -> Number -> Number
-let add = x => y => x + y;
+// add::Number -> Number -> Number
+let add = (x) => (y) => x + y;
 
-// increment :: Number -> Number
-let increment = x => x + 1;
+// increment::Number -> Number
+let increment = (x) => x + 1;
 ```
 
 如果一个函数接收其他函数作为参数，譬如这样：
 
 ```js
-// call :: (a -> b) -> a -> b
-let call = f => x => f(x);
+// call::(a -> b) -> a -> b
+let call = (f) => (x) => f(x);
 ```
 
 这里的`a`, `b`, `c`, `d`表明参数可以是任意类型，不过它会将类型`a`转化为另一个类型`b`，而对于下面这个 map，它的注释表明了它会输入一个 a 类型的列表，然后转化为另一个包含了 b 类型的列表。
 
 ```js
-// map :: (a -> b) -> [a] -> [b]
-let map = f => list => list.map(f);
+// map::(a -> b) -> [a] -> [b]
+let map = (f) => (list) => list.map(f);
 ```
