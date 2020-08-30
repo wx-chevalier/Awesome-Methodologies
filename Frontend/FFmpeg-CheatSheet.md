@@ -126,10 +126,10 @@ $ ffmpeg -f avfoundation -i 1 -r 30 out.yuv
 $ ffmpeg -f avfoundation -i 1:0 -r 29.97 -c:v libx264 -crf 0 -c:a libfdk_aac -profile:a aac_he_v2 -b:a 32k out.flv
 -i 1:0 冒号前面的 “1” 代表的屏幕索引号。冒号后面的"0"代表的声音索相号。
 -c:v 与参数 -vcodec 一样，表示视频编码器。c 是 codec 的缩写，v 是video的缩写。
--crf 是 x264 的参数。 0 表式无损压缩。
+-crf 是 x264 的参数。0 表式无损压缩。
 -c:a 与参数 -acodec 一样，表示音频编码器。
--profile 是 fdk_aac 的参数。 aac_he_v2 表式使用 AAC_HE v2 压缩数据。
--b:a 指定音频码率。 b 是 bitrate的缩写, a是 audio的缩与。
+-profile 是 fdk_aac 的参数。aac_he_v2 表式使用 AAC_HE v2 压缩数据。
+-b:a 指定音频码率。b 是 bitrate的缩写, a是 audio的缩与。
 
 # 录音
 $ ffmpeg -f avfoundation -i :0 out.wav
@@ -259,7 +259,7 @@ ffmpeg -i input.mov -vcodec libvpx -acodec libvorbis output.webm
 $ ffmpeg -i out.mp4 -vf scale=iw/2:-1 scale.mp4
 ```
 
-`-vf scale` 指定使用简单过滤器 scale，iw/2:-1 中的 iw 指定按整型取视频的宽度。 -1 表示高度随宽度一起变化。
+`-vf scale` 指定使用简单过滤器 scale，iw/2:-1 中的 iw 指定按整型取视频的宽度。-1 表示高度随宽度一起变化。
 
 - 视频裁剪
 
