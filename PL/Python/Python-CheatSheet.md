@@ -1807,13 +1807,13 @@ def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
 
 | Type                       | Public             | Internal                                                             |
 | -------------------------- | ------------------ | -------------------------------------------------------------------- |
-| Modules                    | lower_with_under   | \_lower_with_under                                                   |
+| Modules                    | lower_with_under   | `_lower_with_under`                                                  |
 | Packages                   | lower_with_under   |                                                                      |
-| Classes                    | CapWords           | \_CapWords                                                           |
+| Classes                    | CapWords           | `_CapWords`                                                          |
 | Exceptions                 | CapWords           |                                                                      |
 | Functions                  | lower_with_under() | \_lower_with_under()                                                 |
-| Global/Class Constants     | CAPS_WITH_UNDER    | \_CAPS_WITH_UNDER                                                    |
-| Global/Class Variables     | lower_with_under   | \_lower_with_under                                                   |
+| Global/Class Constants     | CAPS_WITH_UNDER    | `_CAPS_WITH_UNDER`                                                   |
+| Global/Class Variables     | lower_with_under   | `_lower_with_under `                                                 |
 | Instance Variables         | lower_with_under   | \_lower_with_under (protected) or \_\_lower_with_under (private)     |
 | Method Names               | lower_with_under() | \_lower_with_under() (protected) or \_\_lower_with_under() (private) |
 | Function/Method Parameters | lower_with_under   |                                                                      |
