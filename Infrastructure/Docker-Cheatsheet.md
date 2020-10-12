@@ -10,8 +10,6 @@
 
 虚拟机最大的瓶颈在于其需要特殊硬件虚拟化技术支持，并且携带完整的操作系统；而 Docker 没有硬件虚拟化，可以运行在物理机、虚拟机, 甚至嵌套运行在 Docker 容器内，并且其不携带操作系统的，会轻巧很多。在调用宿主机的内存、CPU、磁盘等等资源时，虚拟机是利用 Hypervisor 去虚拟化内存，整个调用过程是虚拟内存->虚拟物理内存->真正物理内存，但是 Docker 是利用 Docker Engine 去调用宿主的的资源，这时候过程是虚拟内存->真正物理内存。
 
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/6/1/WX20170703-131127.png)
-
 Docker 综合运用了 Cgroup, Linux Namespace，Secomp capability, Selinux 等机制，在 [Docker Internals CheatSheet](./Docker-Internals-CheatSheet) 中我们会有详细的讨论，或者前往 [Backend Boilerplate/docker](https://github.com/wx-chevalier/Backend-Boilerplate/tree/master/docker) 浏览常见服务/应用的 Docker 配置案例。
 
 ![image](https://user-images.githubusercontent.com/5803001/44158672-dec2d480-a0e7-11e8-9f50-ce83c9638853.png)

@@ -137,13 +137,9 @@ $$
 
 Sigmoid 函数的输出间隔为`[0,1]`，而 ReLU 的输出范围为`[0,infinity]`，换言之 Sigmoid 更合适 Logistic 回归而 ReLU 更适合于表示正数。深度学习中 ReLU 并不会受制于所谓的梯度消失问题(Vanishing Gradient Problem)。
 
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-QYeGYddNRbrBJjkNxzw9FQ.png)
-
 # Tanh
 
 Tanh 函数有助于将你的网络权重控制在`[-1,1]`之间，而且从上图中可以看出，越靠近 0 的地方梯度值越大，并且梯度的范围位于`[0,1]`之间，和 Sigmoid 函数的范围一致，这一点也能有助于避免梯度偏差。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-K9g9EOeQ9Ca0jdOMmXKrQg.png)
 
 # LSTM/GRU
 
@@ -156,8 +152,6 @@ Softmax 函数常用于神经网络的末端以添加分类功能，该函数主
 # L1 & L2 Regularization
 
 正则化项通过对系数添加惩罚项来避免过拟合，正则化项也能够指明模型复杂度。L1 与 L2 的区别在于 L1 能够保证模型的稀疏性。引入正则化项能够保证模型的泛化能力并且避免在训练数据中过拟合。
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-XkDC2Iwb9jSyRIWBUoDFtQ.png)
 
 # Drop out
 
@@ -184,7 +178,6 @@ Recall = True Positives / (True Positives + False Negatives)
 # Cross Entropy
 
 用于计算预测标签值与真实标签值之间的差距，基本的定义如下:
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2016/12/2/1-9ZBskBY_piVwqC4GdZRl8g.png)
 
 # 链接
 

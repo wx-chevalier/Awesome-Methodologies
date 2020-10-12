@@ -278,7 +278,7 @@ setup(
 
 ## 条件选择
 
-Python 中使用 if、elif 、els#e 来进行基础的条件选择操作：
+Python 中使用 if、elif、els#e 来进行基础的条件选择操作：
 
 ```py
 if x < 0:
@@ -657,7 +657,7 @@ x.append([4, 5]) # [1, 2, 3, [4, 5]]
 x.extend([4, 5]) # [1, 2, 3, 4, 5]，注意 extend 返回值为 None
 ```
 
-可以使用 pop、slices 、del、remove 等移除列表中元素：
+可以使用 pop、slices、del、remove 等移除列表中元素：
 
 ```py
 myList = [10,20,30,40,50]
@@ -1504,7 +1504,7 @@ os.path.dirname(os.path.realpath(__file__)) # D:\WorkSpace\OWS\tool\ui-tool-svn\
 os.getcwd()
 ```
 
-可以使用 listdir、walk 、glob 模块来进行文件枚举与检索：
+可以使用 listdir、walk、glob 模块来进行文件枚举与检索：
 
 ```py
 # 仅列举所有的文件

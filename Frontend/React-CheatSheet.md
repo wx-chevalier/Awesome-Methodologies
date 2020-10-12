@@ -25,7 +25,7 @@ React 及其相对严格的规范
 
 ```jsx
 <select value={this.state.value} onChange={this.handleChange}>
-  {somearray.map(element => (
+  {somearray.map((element) => (
     <option value={element.value}>{element.text}</option>
   ))}
 </select>
@@ -36,8 +36,6 @@ React 广泛实践了[函数式编程]()的思想，将状态到界面抽象为�
 ## Virtual DOM
 
 在组件中，我们不需要关心 DOM 是如何变更的，只需要在我们的业务逻辑中完成状态转变，React 会自动将这个变更显示在 UI 中。在浏览器渲染网页的过程中，加载到 HTML 文档后，会将文档解析并构建 DOM 树，然后将其与解析 CSS 生成的 CSSOM 树一起结合产生爱的结晶——RenderObject 树，然后将 RenderObject 树渲染成页面(当然中间可能会有一些优化，比如 RenderLayer 树)。这些过程都存在与渲染引擎之中，渲染引擎在浏览器中是于 JavaScript 引擎(JavaScriptCore 也好 V8 也好)分离开的，但为了方便 JS 操作 DOM 结构，渲染引擎会暴露一些接口供 JavaScript 调用。由于这两块相互分离，通信是需要付出代价的，因此 JavaScript 调用 DOM 提供的接口性能不咋地。各种性能优化的最佳实践也都在尽可能的减少 DOM 操作次数。而虚拟 DOM 干了什么？它直接用 JavaScript 实现了 DOM 树(大致上)。组件的 HTML 结构并不会直接生成 DOM，而是映射生成虚拟的 JavaScript DOM 结构，React 又通过在这个虚拟 DOM 上实现了一个 diff  算法找出最小变更，再把这些变更写入实际的 DOM 中。这个虚拟 DOM 以 JS 结构的形式存在，计算性能会比较好，而且由于减少了实际 DOM 操作次数，性能会有较大提升。React 渲染出来的 HTML 标记都包含了`data-reactid`属性，这有助于 React 中追踪 DOM 节点。很多人第一次学习 React 的时候都会觉得 JSX 语法看上去非常怪异，这种背离传统的 HTML 模板开发方式真的靠谱吗？(在 2.0 版本中 Vue 也引入了 JSX 语法支持)。我们并不能单纯地将 JSX 与传统的 HTML 模板相提并论，JSX 本质上是对于`React.createElement`函数的抽象，而该函数主要的作用是将朴素的 JavaScript 中的对象映射为某个 DOM 表示。其大概思想图示如下：
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/1/1/QQ20170104-01111.png)
 
 在现代浏览器中，对于 JavaScript 的计算速度远快于对 DOM 进行操作，特别是在涉及到重绘与重渲染的情况下。并且以 JavaScript 对象代替与平台强相关的 DOM，也保证了多平台的支持，譬如在 ReactNative 的协助下我们很方便地可以将一套代码运行于 iOS、Android 等多平台。总结而言，JSX 本质上还是 JavaScript，因此我们在保留了 JavaScript 函数本身在组合、语法检查、调试方面优势的同时又能得到类似于 HTML 这样声明式用法的便利与较好的可读性。
 
@@ -157,7 +155,7 @@ class VideoPlayer extends React.Component {
   constructor() {
     super();
     this.state = {
-      isPlaying: false
+      isPlaying: false,
     };
     this.handleVideoClick = this.handleVideoClick.bind(this);
   }
@@ -175,7 +173,7 @@ class VideoPlayer extends React.Component {
     return (
       <div>
         <video
-          ref={video => (this.video = video)}
+          ref={(video) => (this.video = video)}
           onClick={this.handleVideoClick}
         >
           <source src="some.url" type="video/ogg" />
@@ -253,7 +251,7 @@ import styles from "./capsule.css";
 // 使用 classnames
 let className = cx(styles.base, {
   [styles.clickable]: this.props.clickable,
-  [styles.withIcon]: !!this.props.icon
+  [styles.withIcon]: !!this.props.icon,
 });
 return <div className={className} />;
 
@@ -278,21 +276,21 @@ const duration = 300;
 
 const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0
+  opacity: 0,
 };
 
 const transitionStyles = {
   entering: { opacity: 0 },
-  entered: { opacity: 1 }
+  entered: { opacity: 1 },
 };
 
 const Fade = ({ in: inProp }) => (
   <Transition in={inProp} timeout={duration}>
-    {state => (
+    {(state) => (
       <div
         style={{
           ...defaultStyle,
-          ...transitionStyles[state]
+          ...transitionStyles[state],
         }}
       >
         I'm a fade Transition!
@@ -314,11 +312,11 @@ CSSTransition 则是自动为不同的动画状态匹配不同的样式类：
   unmountOnExit
   onExited={() => {
     this.setState({
-      showValidationButton: true
+      showValidationButton: true,
     });
   }}
 >
-  {state => (
+  {(state) => (
     <HelpBlock>
       Your name rocks!
       <CSSTransition
@@ -369,7 +367,7 @@ MyComponent.propTypes = {
   optionalUnion: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
-    PropTypes.instanceOf(Message)
+    PropTypes.instanceOf(Message),
   ]), // 包含指定类型的数组
 
   optionalArrayOf: PropTypes.arrayOf(PropTypes.number), // 包含指定值类型的对象
@@ -378,8 +376,8 @@ MyComponent.propTypes = {
 
   optionalObjectWithShape: PropTypes.shape({
     color: PropTypes.string,
-    fontSize: PropTypes.number
-  })
+    fontSize: PropTypes.number,
+  }),
 
   // ...
 };
@@ -576,7 +574,7 @@ class ThemedButton extends React.Component {
   render() {
     return (
       <ThemeContext.Consumer>
-        {theme => <Button theme={theme} />}
+        {(theme) => <Button theme={theme} />}
       </ThemeContext.Consumer>
     );
   }
@@ -689,11 +687,11 @@ The usual structure is that there is a container component at the top that passe
 ```js
 class MyComponent extends React.Component {
   state = {
-    Bar: null
+    Bar: null,
   };
 
   componentWillMount() {
-    import("./components/Bar").then(Bar => {
+    import("./components/Bar").then((Bar) => {
       this.setState({ Bar });
     });
   }
@@ -718,7 +716,7 @@ const LoadableBar = Loadable({
   loader: () => import("./components/Bar"),
   loading() {
     return <div>Loading...</div>;
-  }
+  },
 });
 
 class MyComponent extends React.Component {

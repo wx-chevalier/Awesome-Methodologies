@@ -250,7 +250,3 @@ possible_keys, 指出 MySQL 能使用哪个索引在表中找到记录，查询�
 # 链接
 
 - [ ] https://www.jianshu.com/p/486a514b0ded
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/1/%25E6%259E%2584%25E5%25BB%25BA%25E9%25AB%2598%25E6%2580%25A7%25E8%2583%25BDMySQL%25E4%25BD%2593%25E7%25B3%25BB.jpg)
-
-![](https://coding.net/u/hoteam/p/Cache/git/raw/master/2017/8/1/MySQL%25E6%2595%25B0%25E6%258D%25AE%25E5%25AE%2589%25E5%2585%25A8%25E6%2580%25A7%25E8%25AE%25A8%25E8%25AE%25BA.jpg)
