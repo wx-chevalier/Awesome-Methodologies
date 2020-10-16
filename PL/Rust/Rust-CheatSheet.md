@@ -31,21 +31,21 @@ fn main() {
 
 通过关键字定义的数据类型和存储位置。
 
-| Example                                                                                                           | Explanation                                                                                                                                                       |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `struct S {}`                                                                                                     | Define a **struct** with named fields.                                                                                                                            |
-| `struct S { x: T }`                                                                                               | Define struct with named field `x` of type `T`.                                                                                                                   |
-| `struct S` `(T);`                                                                                                 | Define "tupled" struct with numbered field `.0` of type `T`.                                                                                                      |
-| `struct S;`                                                                                                       | Define **zero sized** unit struct. Occupies no space, optimized away.                                                                                             |
-| `enum E {}`                                                                                                       | Define an **enum** , _c_. [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type), [tagged unions](https://en.wikipedia.org/wiki/Tagged_union). |
-| ` enum E { A, B``(), C {} } ` | Define variants of enum; can be unit- `A`, tuple- `B` `()` and struct-like `C{}`. |
-| `enum E { A = 1 }`                                                                                                | If variants are only unit-like, allow discriminant values, e.g., for FFI.                                                                                         |
-| `union U {}`                                                                                                      | Unsafe C-like **union** for FFI compatibility.                                                                                                                    |
-| `static X: T = T();`                                                                                              | **Global variable** with `'static` lifetime, single memory location.                                                                                              |
-| `const X: T = T();`                                                                                               | Defines **constant** . Copied into a temporary when used.                                                                                                         |
-| `let x: T;`                                                                                                       | Allocate `T` bytes on stack bound as `x`. Assignable once, not mutable.                                                                                           |
-| `let mut x: T;`                                                                                                   | Like `let`, but allow for **mutability** and mutable borrow.                                                                                                      |
-| `x = y;`                                                                                                          | Moves `y` to `x`, invalidating `y` if `T` is not **`Copy`**, and copying `y` otherwise.                                                                           |
+| Example                       | Explanation                                                                                                                                                       |
+| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `struct S {}`                 | Define a **struct** with named fields.                                                                                                                            |
+| `struct S { x: T }`           | Define struct with named field `x` of type `T`.                                                                                                                   |
+| `struct S` `(T);`             | Define "tupled" struct with numbered field `.0` of type `T`.                                                                                                      |
+| `struct S;`                   | Define **zero sized** unit struct. Occupies no space, optimized away.                                                                                             |
+| `enum E {}`                   | Define an **enum** , _c_. [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type), [tagged unions](https://en.wikipedia.org/wiki/Tagged_union). |
+| ` enum E { A, B``(), C {} } ` | Define variants of enum; can be unit- `A`, tuple- `B` `()` and struct-like `C{}`.                                                                                 |
+| `enum E { A = 1 }`            | If variants are only unit-like, allow discriminant values, e.g., for FFI.                                                                                         |
+| `union U {}`                  | Unsafe C-like **union** for FFI compatibility.                                                                                                                    |
+| `static X: T = T();`          | **Global variable** with `'static` lifetime, single memory location.                                                                                              |
+| `const X: T = T();`           | Defines **constant** . Copied into a temporary when used.                                                                                                         |
+| `let x: T;`                   | Allocate `T` bytes on stack bound as `x`. Assignable once, not mutable.                                                                                           |
+| `let mut x: T;`               | Like `let`, but allow for **mutability** and mutable borrow.                                                                                                      |
+| `x = y;`                      | Moves `y` to `x`, invalidating `y` if `T` is not **`Copy`**, and copying `y` otherwise.                                                                           |
 
 绑定变量（Bound Variables）存在于堆栈中，用于同步代码。在 `async {}` 代码中，它们成为异步状态机的一部分，可能驻留在堆上。从技术上讲，可变性和不变性是误称。不可变的绑定或共享引用可能仍包含 Cell，从而提供内部可变性。创建和访问数据结构；以及其他一些西语类型。
 
@@ -81,7 +81,7 @@ fn main() {
 | Example                     | Explanation                                                               |
 | --------------------------- | ------------------------------------------------------------------------- |
 | `!`                         | Always empty **never type**.                                              |
-| `_`                         | Unnamed variable binding, e.g., `|x, _| {}`.                              |
+| `_`                         | Unnamed variable binding, e.g., `                                         | x, \_ | {}`. |
 | `let _ = x;`                | Unnamed assignment is no-op, does **not** move out `x` or preserve scope! |
 | `_x`                        | Variable binding explicitly marked as unused.                             |
 | `1_234_567`                 | Numeric separator for visual clarity.                                     |
@@ -156,11 +156,11 @@ fn main() {
 | `async { x }`          | Used within a function, make `{ x }` an `impl Future`.                               |
 | `fn() -> S`            | **Function pointers**, , memory holding address of a callable.                       |
 | `Fn() -> S`            | **Callable Trait**, (also `FnMut`, `FnOnce`), implemented by closures, fn's ...      |
-| `|| {}`                | A **closure** that borrows its **captures**.                                         |
-| `|x| {}`               | Closure with a bound parameter `x`.                                                  |
-| `|x| x + x`            | Closure without block expression; may only consist of single expression.             |
-| `move |x| x + y`       | Closure taking ownership of its captures.                                            |
-| `return || true`       | Closures sometimes look like logical ORs (here: return a closure).                   |
+| `                      |                                                                                      | {}` | A **closure** that borrows its **captures**. |
+| `                      | x                                                                                    | {}` | Closure with a bound parameter `x`. |
+| `                      | x                                                                                    | x + x` | Closure without block expression; may only consist of single expression. |
+| `move                  | x                                                                                    | x + y` | Closure taking ownership of its captures. |
+| `return                |                                                                                      | true` | Closures sometimes look like logical ORs (here: return a closure). |
 | `unsafe`               | If you enjoy debugging segfaults Friday night; **unsafe code**.                      |
 | `unsafe f() {}`        | Sort-of means "_can cause UB, **YOU must check** requirements_".                     |
 | `unsafe {}`            | Guarantees to compiler "**\*I have checked** requirements, trust me\*".              |
@@ -228,9 +228,9 @@ fn main() {
 | `[2, .., 5] => {}`        | Match array starting with `1`, ending with `5`.                                          |
 | `[2, x @ .., 5] => {}`    | Same, but also bind `x` to slice representing middle (_c._ next entry).                  |
 | `x @ 1..=5 => {}`         | Bind matched to `x`; **pattern binding**, here `x` would be `1`, `2`, ... or `5`.        |
-| `0 | 1 => {}`             | Pattern alternatives (or-patterns).                                                      |
-| `E::A | E::Z`             | Same, but on enum variants.                                                              |
-| `E::C {x} | E::D {x}`     | Same, but bind `x` if all variants have it.                                              |
+| `0                        | 1 => {}`                                                                                 | Pattern alternatives (or-patterns). |
+| `E::A                     | E::Z`                                                                                    | Same, but on enum variants. |
+| `E::C {x}                 | E::D {x}`                                                                                | Same, but bind `x` if all variants have it. |
 | `S { x } if x > 10 => {}` | Pattern **match guards**, condition must be true as well to match.                       |
 
 ## Macros & Attributes
@@ -348,6 +348,6 @@ Generics combine with many other constructs such as struct S<T>, fn f<T>(), ...
 | `'🦀'`                 | **Character literal**, fixed 4 byte unicode '**char**'.                      |
 | `b'x'`                 | ASCII **byte literal**.                                                      |
 
-# 链接
+# TBD
 
 - https://colobu.com/2020/03/05/A-half-hour-to-learn-Rust/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io

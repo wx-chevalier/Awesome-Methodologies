@@ -405,6 +405,6 @@ git log --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git l
 $ git log --pretty='%aN' | sort | uniq -c | sort -k1 -n -r | head -n 5
 ```
 
-# 链接
+# TBD
 
 - https://learnxinyminutes.com/docs/zh-cn/git-cn/

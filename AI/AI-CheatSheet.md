@@ -179,6 +179,6 @@ Recall = True Positives / (True Positives + False Negatives)
 
 用于计算预测标签值与真实标签值之间的差距，基本的定义如下:
 
-# 链接
+# TBD
 
 - https://mp.weixin.qq.com/s/TAj6zrxEpQjp0BcwcaEWdQ

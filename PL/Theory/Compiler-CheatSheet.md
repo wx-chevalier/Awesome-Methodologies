@@ -55,4 +55,4 @@ Compiler theory is the theory of writing compilers (or more generally, translato
 这项工作比较简单，将汇编指令转化为机器指令，参考汇编指令与机器指令对照表一对一翻译。
 最终获得的文件称为可重定位或共享目标文件。
 
-# 链接
+# TBD
