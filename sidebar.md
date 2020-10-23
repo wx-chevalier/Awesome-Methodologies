@@ -23,17 +23,15 @@
     - [Refactor CheatSheet](/Architecture/Refactor-CheatSheet.md)
   - Backend
     - [Auth CheatSheet](/Backend/Auth-CheatSheet.md)
+    - [Backend Ops CheatSheet](/Backend/Backend-Ops-CheatSheet.md)
     - [Cache CheatSheet](/Backend/Cache-CheatSheet.md)
-    - DevOps
-      - [Backend Ops CheatSheet](/Backend/DevOps/Backend-Ops-CheatSheet.md)
-      - [SoftwareTest CheatSheet](/Backend/DevOps/SoftwareTest-CheatSheet.md)
-    - Domain
-      - [Live CheatSheet](/Backend/Domain/Live-CheatSheet.md)
     - [GraphQL CheatSheet](/Backend/GraphQL-CheatSheet.md)
     - [HA CheatSheet](/Backend/HA-CheatSheet.md)
+    - [Live CheatSheet](/Backend/Live-CheatSheet.md)
     - [MicroService CheatSheet](/Backend/MicroService-CheatSheet.md)
     - [Nginx CheatSheet](/Backend/Nginx-CheatSheet.md)
     - [Node CheatSheet](/Backend/Node-CheatSheet.md)
+    - [SoftwareTest CheatSheet](/Backend/SoftwareTest-CheatSheet.md)
     - [Spring CheatSheet](/Backend/Spring-CheatSheet.md)
     - [SpringBoot CheatSheet](/Backend/SpringBoot-CheatSheet.md)
   - Business
