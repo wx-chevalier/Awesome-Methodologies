@@ -259,7 +259,7 @@ IO
 Console
 Output
 print
-print “Hello , Ruby!”
+print “Hello, Ruby!”
 puts
 末尾一定会带有换行。
 p

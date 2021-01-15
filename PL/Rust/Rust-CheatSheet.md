@@ -31,21 +31,21 @@ fn main() {
 
 通过关键字定义的数据类型和存储位置。
 
-| Example                       | Explanation                                                                                                                                                       |
-| ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `struct S {}`                 | Define a **struct** with named fields.                                                                                                                            |
-| `struct S { x: T }`           | Define struct with named field `x` of type `T`.                                                                                                                   |
-| `struct S` `(T);`             | Define "tupled" struct with numbered field `.0` of type `T`.                                                                                                      |
-| `struct S;`                   | Define **zero sized** unit struct. Occupies no space, optimized away.                                                                                             |
-| `enum E {}`                   | Define an **enum** , _c_. [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type), [tagged unions](https://en.wikipedia.org/wiki/Tagged_union). |
-| ` enum E { A, B``(), C {} } ` | Define variants of enum; can be unit- `A`, tuple- `B` `()` and struct-like `C{}`.                                                                                 |
-| `enum E { A = 1 }`            | If variants are only unit-like, allow discriminant values, e.g., for FFI.                                                                                         |
-| `union U {}`                  | Unsafe C-like **union** for FFI compatibility.                                                                                                                    |
-| `static X: T = T();`          | **Global variable** with `'static` lifetime, single memory location.                                                                                              |
-| `const X: T = T();`           | Defines **constant** . Copied into a temporary when used.                                                                                                         |
-| `let x: T;`                   | Allocate `T` bytes on stack bound as `x`. Assignable once, not mutable.                                                                                           |
-| `let mut x: T;`               | Like `let`, but allow for **mutability** and mutable borrow.                                                                                                      |
-| `x = y;`                      | Moves `y` to `x`, invalidating `y` if `T` is not **`Copy`**, and copying `y` otherwise.                                                                           |
+| Example                       | Explanation                                                                                                                                                      |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `struct S {}`                 | Define a **struct** with named fields.                                                                                                                           |
+| `struct S { x: T }`           | Define struct with named field `x` of type `T`.                                                                                                                  |
+| `struct S` `(T);`             | Define "tupled" struct with numbered field `.0` of type `T`.                                                                                                     |
+| `struct S;`                   | Define **zero sized** unit struct. Occupies no space, optimized away.                                                                                            |
+| `enum E {}`                   | Define an **enum**, _c_. [algebraic data types](https://en.wikipedia.org/wiki/Algebraic_data_type), [tagged unions](https://en.wikipedia.org/wiki/Tagged_union). |
+| ` enum E { A, B``(), C {} } ` | Define variants of enum; can be unit- `A`, tuple- `B` `()` and struct-like `C{}`.                                                                                |
+| `enum E { A = 1 }`            | If variants are only unit-like, allow discriminant values, e.g., for FFI.                                                                                        |
+| `union U {}`                  | Unsafe C-like **union** for FFI compatibility.                                                                                                                   |
+| `static X: T = T();`          | **Global variable** with `'static` lifetime, single memory location.                                                                                             |
+| `const X: T = T();`           | Defines **constant** . Copied into a temporary when used.                                                                                                        |
+| `let x: T;`                   | Allocate `T` bytes on stack bound as `x`. Assignable once, not mutable.                                                                                          |
+| `let mut x: T;`               | Like `let`, but allow for **mutability** and mutable borrow.                                                                                                     |
+| `x = y;`                      | Moves `y` to `x`, invalidating `y` if `T` is not **`Copy`**, and copying `y` otherwise.                                                                          |
 
 绑定变量（Bound Variables）存在于堆栈中，用于同步代码。在 `async {}` 代码中，它们成为异步状态机的一部分，可能驻留在堆上。从技术上讲，可变性和不变性是误称。不可变的绑定或共享引用可能仍包含 Cell，从而提供内部可变性。创建和访问数据结构；以及其他一些西语类型。
 
@@ -79,7 +79,7 @@ fn main() {
 这些签名不适合任何其他类别，但是很高兴知道。
 
 | Example                     | Explanation                                                               |
-| --------------------------- | ------------------------------------------------------------------------- |
+| --------------------------- | ------------------------------------------------------------------------- | ----- | ---- |
 | `!`                         | Always empty **never type**.                                              |
 | `_`                         | Unnamed variable binding, e.g., `                                         | x, \_ | {}`. |
 | `let _ = x;`                | Unnamed assignment is no-op, does **not** move out `x` or preserve scope! |
@@ -112,7 +112,7 @@ fn main() {
 | `*r = s;`                  | If `r` is a mutable reference, move or copy `s` to target memory.                                                                                          |
 | `s = *r;`                  | Make `s` a copy of whatever `r` references, if that is `Copy`.                                                                                             |
 | `s = *my_box;`             | [Special case](https://www.reddit.com/r/rust/comments/b4so6i/what_is_exactly/ej8xwg8/) for `Box` that can also move out Box'ed content if it isn't `Copy`. |
-| `'a`                       | A **lifetime parameter**, , duration of a flow in static analysis.                                                                                         |
+| `'a`                       | A **lifetime parameter**,, duration of a flow in static analysis.                                                                                          |
 | `&'a S`                    | Only accepts a `s` with an address that lives `'a` or longer.                                                                                              |
 | `&'a mut S`                | Same, but allow content of address to be changed.                                                                                                          |
 | `struct S<'a> {}`          | Signals `S` will contain address with lifetime `'a`. Creator of `S` decides `'a`.                                                                          |
@@ -126,22 +126,22 @@ fn main() {
 
 | Example       | Explanation                                                                                                                                                                      |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type T = S;` | Create a **type alias** , i.e., another name for `S`.                                                                                                                            |
-| `Self`        | Type alias for **implementing type** , e.g. `fn new() -> Self`.                                                                                                                  |
+| `type T = S;` | Create a **type alias**, i.e., another name for `S`.                                                                                                                             |
+| `Self`        | Type alias for **implementing type**, e.g. `fn new() -> Self`.                                                                                                                   |
 | `self`        | Method subject in `fn f(self) {}`, same as `fn f(self: Self) {}`.                                                                                                                |
 | `&self`       | Same, but refers to self as borrowed, same as `f(self: &Self)`                                                                                                                   |
 | `&mut self`   | Same, but mutably borrowed, same as `f(self: &mut Self)`                                                                                                                         |
 | `self: Box`   | [Arbitrary self type](https://github.com/withoutboats/rfcs/blob/arbitray-receivers/text/0000-century-of-the-self-type.md), add methods to smart pointers (`my_box.f_of_self()`). |
 | `S as T`      | **Disambiguate** type `S` as trait `T`, e.g., `::f()`.                                                                                                                           |
 | `S as R`      | In `use` of symbol, import `S` as `R`, e.g., `use a::S as R`.                                                                                                                    |
-| `x as u32`    | Primitive **cast** , may truncate and be a bit surprising.                                                                                                                       |
+| `x as u32`    | Primitive **cast**, may truncate and be a bit surprising.                                                                                                                        |
 
 ## Functions & Behavior
 
 定义代码单元及其抽象。
 
 | Example                | Explanation                                                                          |
-| ---------------------- | ------------------------------------------------------------------------------------ |
+| ---------------------- | ------------------------------------------------------------------------------------ | ------ | ------------------------------------------------------------------------ |
 | `trait T {}`           | Define a **trait**; common behavior others can implement.                            |
 | `trait T : R {}`       | `T` is subtrait of **supertrait** `R`. Any `S` must `impl R` before it can `impl T`. |
 | `impl S {}`            | **Implementation** of functionality for a type `S`, e.g., methods.                   |
@@ -154,13 +154,13 @@ fn main() {
 | `async fn f() {}`      | **Async** function transformation, makes `f` return an `impl` **`Future`**.          |
 | `async fn f() -> S {}` | Same, but make `f` return an `impl Future`.                                          |
 | `async { x }`          | Used within a function, make `{ x }` an `impl Future`.                               |
-| `fn() -> S`            | **Function pointers**, , memory holding address of a callable.                       |
+| `fn() -> S`            | **Function pointers**,, memory holding address of a callable.                        |
 | `Fn() -> S`            | **Callable Trait**, (also `FnMut`, `FnOnce`), implemented by closures, fn's ...      |
-| `                      |                                                                                      | {}` | A **closure** that borrows its **captures**. |
-| `                      | x                                                                                    | {}` | Closure with a bound parameter `x`. |
+| `                      |                                                                                      | {}`    | A **closure** that borrows its **captures**.                             |
+| `                      | x                                                                                    | {}`    | Closure with a bound parameter `x`.                                      |
 | `                      | x                                                                                    | x + x` | Closure without block expression; may only consist of single expression. |
-| `move                  | x                                                                                    | x + y` | Closure taking ownership of its captures. |
-| `return                |                                                                                      | true` | Closures sometimes look like logical ORs (here: return a closure). |
+| `move                  | x                                                                                    | x + y` | Closure taking ownership of its captures.                                |
+| `return                |                                                                                      | true`  | Closures sometimes look like logical ORs (here: return a closure).       |
 | `unsafe`               | If you enjoy debugging segfaults Friday night; **unsafe code**.                      |
 | `unsafe f() {}`        | Sort-of means "_can cause UB, **YOU must check** requirements_".                     |
 | `unsafe {}`            | Guarantees to compiler "**\*I have checked** requirements, trust me\*".              |
@@ -169,11 +169,11 @@ fn main() {
 
 | Example            | Explanation                                                                                                                                                                                 |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `while x {}`       | **Loop** , run while expression `x` is true.                                                                                                                                                |
+| `while x {}`       | **Loop**, run while expression `x` is true.                                                                                                                                                 |
 | `loop {}`          | **Loop infinitely** until `break`. Can yield value with `break x`.                                                                                                                          |
 | `for x in iter {}` | Syntactic sugar to loop over **iterators**.                                                                                                                                                 |
 | `if x {} else {}`  | **Conditional branch** if expression is true.                                                                                                                                               |
-| `'label: loop {}`  | **Loop label** , useful for flow control in nested loops.                                                                                                                                   |
+| `'label: loop {}`  | **Loop label**, useful for flow control in nested loops.                                                                                                                                    |
 | `break`            | **Break expression** to exit a loop.                                                                                                                                                        |
 | `break x`          | Same, but make `x` value of the loop expression (only in actual `loop`).                                                                                                                    |
 | `break 'label`     | Exit not only this loop, but the enclosing one marked with `'label`.                                                                                                                        |
@@ -198,20 +198,20 @@ fn main() {
 
 | Example                     | Explanation                                                                     |
 | --------------------------- | ------------------------------------------------------------------------------- |
-| `match m {}`                | Initiate **pattern matching** , then use match arms, _c_. next table.           |
+| `match m {}`                | Initiate **pattern matching**, then use match arms, _c_. next table.            |
 | `let S(x) = get();`         | Notably, `let` also **destructures** similar to the table below.                |
 | `let S { x } = s;`          | Only `x` will be bound to value `s.x`.                                          |
 | `let (_, b, _) = abc;`      | Only `b` will be bound to value `abc.1`.                                        |
 | `let (a, ..) = abc;`        | Ignoring 'the rest' also works.                                                 |
 | `let (.., a, b) = (1, 2);`  | Specific bindings take precedence over 'the rest', here `a` is `1`, `b` is `2`. |
-| `let Some(x) = get();`      | **Won't** work if pattern can be **refuted** , use `if let` instead.            |
+| `let Some(x) = get();`      | **Won't** work if pattern can be **refuted**, use `if let` instead.             |
 | `if let Some(x) = get() {}` | Branch if pattern can be assigned (e.g., `enum` variant), syntactic sugar.      |
 | `fn f(S { x }: S)`          | Function parameters also work like `let`, here `x` bound to `s.x` of `f(s)`.    |
 
 匹配表达式中的模式匹配臂。这些臂的左侧也可以在 let 表达式中找到。
 
 | Match Arm                 | Explanation                                                                              |
-| ------------------------- | ---------------------------------------------------------------------------------------- |
+| ------------------------- | ---------------------------------------------------------------------------------------- | ------------------------------------------- |
 | `E::A => {}`              | Match enum variant `A`, _c_. **pattern matching**.                                       |
 | `E::B ( .. ) => {}`       | Match enum tuple variant `B`, wildcard any index.                                        |
 | `E::C { .. } => {}`       | Match enum struct variant `C`, wildcard any field.                                       |
@@ -228,8 +228,8 @@ fn main() {
 | `[2, .., 5] => {}`        | Match array starting with `1`, ending with `5`.                                          |
 | `[2, x @ .., 5] => {}`    | Same, but also bind `x` to slice representing middle (_c._ next entry).                  |
 | `x @ 1..=5 => {}`         | Bind matched to `x`; **pattern binding**, here `x` would be `1`, `2`, ... or `5`.        |
-| `0                        | 1 => {}`                                                                                 | Pattern alternatives (or-patterns). |
-| `E::A                     | E::Z`                                                                                    | Same, but on enum variants. |
+| `0                        | 1 => {}`                                                                                 | Pattern alternatives (or-patterns).         |
+| `E::A                     | E::Z`                                                                                    | Same, but on enum variants.                 |
 | `E::C {x}                 | E::D {x}`                                                                                | Same, but bind `x` if all variants have it. |
 | `S { x } if x > 10 => {}` | Pattern **match guards**, condition must be true as well to match.                       |
 
@@ -240,7 +240,7 @@ fn main() {
 | Example    | Explanation                                                     |
 | ---------- | --------------------------------------------------------------- |
 | `m!()`     | **Macro** invocation, also `m!{}`, `m![]` (depending on macro). |
-| `#[attr]`  | Outer **attribute**. , annotating the following item.           |
+| `#[attr]`  | Outer **attribute**., annotating the following item.            |
 | `#![attr]` | Inner attribute, annotating the surrounding item.               |
 
 在声明性宏中的示例 macro_rules！实现这些工作：
@@ -278,7 +278,7 @@ Generics combine with many other constructs such as struct S<T>, fn f<T>(), ...
 | `S`                         | Type short hand **trait bound** specification (`R` _must_ be actual trait).           |
 | `T: R, P: S`                | **Independent trait bounds** (here one for `T` and one for `P`).                      |
 | `T: R, S`                   | Compile error, you probably want compound bound `R + S` below.                        |
-| `T: R + S`                  | **Compound trait bound** , `T` must fulfill `R` and `S`.                              |
+| `T: R + S`                  | **Compound trait bound**, `T` must fulfill `R` and `S`.                               |
 | `T: R + 'a`                 | Same, but w. lifetime. `T` must fulfill `R`, if `T` has lifetimes, must outlive `'a`. |
 | `T: ?Sized`                 | Opt out of a pre-defined trait bound, here `Sized`.                                   |
 | `T: 'a`                     | Type **lifetime bound** ; if T has references, they must outlive `'a`.                |
@@ -294,9 +294,9 @@ Generics combine with many other constructs such as struct S<T>, fn f<T>(), ...
 | `type X = R;`               | Set associated type within `impl T for S { type X = R; }`.                            |
 | `impl S {}`                 | Implement functionality for any `T` in `S`.                                           |
 | `impl S {}`                 | Implement functionality for exactly `S` (e.g., `S`).                                  |
-| `fn f() -> impl T`          | **Existential types** , returns an unknown-to-caller `S` that `impl T`.               |
-| `fn f(x: &impl T)`          | Trait bound,"**impl traits**" , somewhat similar to `fn f(x: &S)`.                    |
-| `fn f(x: &dyn T)`           | Marker for **dynamic dispatch** , `f` will not be monomorphized.                      |
+| `fn f() -> impl T`          | **Existential types**, returns an unknown-to-caller `S` that `impl T`.                |
+| `fn f(x: &impl T)`          | Trait bound,"**impl traits**", somewhat similar to `fn f(x: &S)`.                     |
+| `fn f(x: &dyn T)`           | Marker for **dynamic dispatch**, `f` will not be monomorphized.                       |
 | `fn f() where Self: R;`     | In `trait T {}`, make `f` accessible only on types known to also `impl R`.            |
 | `fn f() where Self: R {}`   | Esp. useful w. default methods (non dflt. would need be impl'ed anyway).              |
 | `for<'a>`                   | **Higher-ranked trait bounds.**                                                       |

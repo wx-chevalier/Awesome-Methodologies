@@ -60,7 +60,7 @@ $\frac{\partial f}{\partial l} = \frac{\partial f}{\partial x}cos\varphi + \frac
 
 割线位于函数之上。
 
-$\forall x,y \in dome , 0 \le \theta \le 1$，有
+$\forall x,y \in dome, 0 \le \theta \le 1$，有
 
 $f(\theta x + (1 - \theta)y) \le \theta f(x) + (1 - \theta)f(y)$
 

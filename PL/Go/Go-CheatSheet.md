@@ -603,7 +603,7 @@ func Divide(value1 int,value2 int)(int, error) {
     if(value2 == 0){
         return 0, errors.New("value2 mustn't be zero")
     }
-    return value1/value2  , nil
+    return value1/value2 , nil
 }
 ```
 
