@@ -408,3 +408,4 @@ $ git log --pretty='%aN' | sort | uniq -c | sort -k1 -n -r | head -n 5
 # TBD
 
 - https://learnxinyminutes.com/docs/zh-cn/git-cn/
+- https://gist.github.com/eashish93/3eca6a90fef1ea6e586b7ec211ff72a5
