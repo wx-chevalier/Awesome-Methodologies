@@ -10,7 +10,7 @@
 
 需要注意的是，Awesome CheatSheets 中很多的文章仅有目录而无内容，这并不意味着这些文章是空白的，而是作者尚未将[具体的文档仓库](https://github.com/topics/wx-doc)中的相关主题下内容整合进来，您可以前往[感兴趣的分类仓库](https://github.com/topics/wx-doc)再行浏览。
 
-# Nav | 导读
+# Nav | 关联导航
 
 对于每个领域，Awesome CheatSheet 可能包含了以下主题的文件：
 
