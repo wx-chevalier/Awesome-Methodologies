@@ -183,7 +183,7 @@ a+b+c⏟1.0+d2.0：\overbrace{a+\underbrace{b+c}\_{1.0}+d}^
 
 3.13 需要转义的字符
 
-要输出字符　空格　#　$　%　&　_　{　}　，用命令：　\空格　#　\$　\%　\&　\_　{　}
+要输出字符　空格　#　$　%　&　\_　{　}　，用命令：　\空格　#　\$　\%　\&　\_　{　}
 
 3.14 使用指定字体
 
@@ -196,6 +196,6 @@ a+b+c⏟1.0+d2.0：\overbrace{a+\underbrace{b+c}\_{1.0}+d}^
 \mit 　数学斜体　　　　　　\tt 　　打字机字体
 \sc 　　小体大写字母
 
-# TBD
+# Links
 
 - https://wenku.baidu.com/view/fd741028453610661ed9f458.html?from=search

