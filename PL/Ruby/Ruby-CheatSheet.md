@@ -63,11 +63,12 @@ Ubuntu
     $ sudo apt-get update
     [plain] view plaincopyprint?
 1.  $ sudo apt-get install -y build-essential openssl curl libcurl3-dev libreadline6 libreadline6-dev git zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev libsqlite3-dev libmysql-ruby libmysqlclient-dev
-    $ sudo apt-get install -y build-essential openssl curl libcurl3-dev libreadline6 libreadline6-dev git zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev libsqlite3-dev libmysql-ruby libmysqlclient-dev 2. 安装 RVM
+    $ sudo apt-get install -y build-essential openssl curl libcurl3-dev libreadline6 libreadline6-dev git zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev libsqlite3-dev libmysql-ruby libmysqlclient-dev
+     2. 安装 RVM
     [html] view plaincopyprint?
 1.  $ curl -L https://get.rvm.io | bash -s stable
     $ curl -L https://get.rvm.io | bash -s stable
-    下面这步是不行的，要 logout 再次登录
+      下面这步是不行的，要 logout 再次登录
     [plain] view plaincopyprint?
 1.  $ source ~/.rvm/scripts/rvm
     $ source ~/.rvm/scripts/rvm

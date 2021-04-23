@@ -67,3 +67,7 @@ Native 相比于 H5 在交互体验方面有更多的优势，FPS 是体现页�
 
 体积小：由于浏览器运行时只加载编译成的字节码，一样的逻辑比用字符串描述的 JS 文件体积要小很多；
 加载快：由于文件体积小，再加上无需解释执行，WebAssembly 能更快的加载并实例化，减少运行前的等待时间；
+
+# Links
+
+- https://cubox.pro/c/6uliNd Web Performance 101

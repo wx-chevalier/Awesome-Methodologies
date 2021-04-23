@@ -348,6 +348,6 @@ Generics combine with many other constructs such as struct S<T>, fn f<T>(), ...
 | `'🦀'`                 | **Character literal**, fixed 4 byte unicode '**char**'.                      |
 | `b'x'`                 | ASCII **byte literal**.                                                      |
 
-# Links
+# TBD
 
 - https://colobu.com/2020/03/05/A-half-hour-to-learn-Rust/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
