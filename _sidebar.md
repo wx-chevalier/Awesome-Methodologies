@@ -70,40 +70,40 @@
     - [7.22 TCPIP CheatSheet](/Infrastructure/TCPIP-CheatSheet.md)
     - [7.23 Xen CheatSheet](/Infrastructure/Xen-CheatSheet.md)
     - [7.24 ZooKeeper CheatSheet](/Infrastructure/ZooKeeper-CheatSheet.md)
-  - 8 PL
-    - [8.1 Awesome HelloWords](/PL/Awesome-HelloWords.md)
+  - 8 Language
+    - [8.1 Awesome HelloWords](/Language/Awesome-HelloWords.md)
     - 8.2 C
-      - [8.2.1 CPP CheatSheet](/PL/C/CPP-CheatSheet.md)
+      - [8.2.1 CPP CheatSheet](/Language/C/CPP-CheatSheet.md)
     - 8.3 Go
-      - [8.3.1 Go CheatSheet](/PL/Go/Go-CheatSheet.md)
-      - [8.3.2 Go ConcurrentProgramming CheatSheet](/PL/Go/Go-ConcurrentProgramming-CheatSheet.md)
+      - [8.3.1 Go CheatSheet](/Language/Go/Go-CheatSheet.md)
+      - [8.3.2 Go ConcurrentProgramming CheatSheet](/Language/Go/Go-ConcurrentProgramming-CheatSheet.md)
     - 8.4 Java
-      - [8.4.1 Gradle CheatSheet](/PL/Java/Gradle-CheatSheet.md)
-      - [8.4.2 JVM Tuning CheatSheet](/PL/Java/JVM-Tuning-CheatSheet.md)
-      - [8.4.3 Java CheatSheet](/PL/Java/Java-CheatSheet.md)
-      - [8.4.4 Java ConcurrentProgramming CheatSheet](/PL/Java/Java-ConcurrentProgramming-CheatSheet.md)
-      - [8.4.5 Java StyleGuide CheatSheet](/PL/Java/Java-StyleGuide-CheatSheet.md)
+      - [8.4.1 Gradle CheatSheet](/Language/Java/Gradle-CheatSheet.md)
+      - [8.4.2 JVM Tuning CheatSheet](/Language/Java/JVM-Tuning-CheatSheet.md)
+      - [8.4.3 Java CheatSheet](/Language/Java/Java-CheatSheet.md)
+      - [8.4.4 Java ConcurrentProgramming CheatSheet](/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
+      - [8.4.5 Java StyleGuide CheatSheet](/Language/Java/Java-StyleGuide-CheatSheet.md)
     - 8.5 JavaScript
-      - [8.5.1 Dart CheatSheet](/PL/JavaScript/Dart-CheatSheet.md)
-      - [8.5.2 JavaScript CheatSheet en](/PL/JavaScript/JavaScript-CheatSheet-en.md)
-      - [8.5.3 JavaScript CheatSheet](/PL/JavaScript/JavaScript-CheatSheet.md)
-      - [8.5.4 TypeScript CheatSheet](/PL/JavaScript/TypeScript-CheatSheet.md)
-      - [8.5.5 V8 CheatSheet](/PL/JavaScript/V8-CheatSheet.md)
+      - [8.5.1 Dart CheatSheet](/Language/JavaScript/Dart-CheatSheet.md)
+      - [8.5.2 JavaScript CheatSheet en](/Language/JavaScript/JavaScript-CheatSheet-en.md)
+      - [8.5.3 JavaScript CheatSheet](/Language/JavaScript/JavaScript-CheatSheet.md)
+      - [8.5.4 TypeScript CheatSheet](/Language/JavaScript/TypeScript-CheatSheet.md)
+      - [8.5.5 V8 CheatSheet](/Language/JavaScript/V8-CheatSheet.md)
     - 8.6 Python
-      - [8.6.1 Python CheatSheet](/PL/Python/Python-CheatSheet.md)
+      - [8.6.1 Python CheatSheet](/Language/Python/Python-CheatSheet.md)
     - 8.7 Ruby
-      - [8.7.1 Ruby CheatSheet](/PL/Ruby/Ruby-CheatSheet.md)
+      - [8.7.1 Ruby CheatSheet](/Language/Ruby/Ruby-CheatSheet.md)
     - 8.8 Rust
-      - [8.8.1 Rust CheatSheet](/PL/Rust/Rust-CheatSheet.md)
+      - [8.8.1 Rust CheatSheet](/Language/Rust/Rust-CheatSheet.md)
     - 8.9 Swift
-      - [8.9.1 Swift CheatSheet](/PL/Swift/Swift-CheatSheet.md)
+      - [8.9.1 Swift CheatSheet](/Language/Swift/Swift-CheatSheet.md)
     - 8.10 Theory
-      - [8.10.1 Compiler CheatSheet](/PL/Theory/Compiler-CheatSheet.md)
-      - [8.10.2 FunctionalProgramming CheatSheet](/PL/Theory/FunctionalProgramming-CheatSheet.md)
-      - [8.10.3 GC CheatSheet](/PL/Theory/GC-CheatSheet.md)
-      - [8.10.4 MemoryManagement CheatSheet](/PL/Theory/MemoryManagement-CheatSheet.md)
-      - [8.10.5 PLT CheatSheet](/PL/Theory/PLT-CheatSheet.md)
-      - [8.10.6 ReactiveProgramming CheatSheet](/PL/Theory/ReactiveProgramming-CheatSheet.md)
+      - [8.10.1 Compiler CheatSheet](/Language/Theory/Compiler-CheatSheet.md)
+      - [8.10.2 FunctionalProgramming CheatSheet](/Language/Theory/FunctionalProgramming-CheatSheet.md)
+      - [8.10.3 GC CheatSheet](/Language/Theory/GC-CheatSheet.md)
+      - [8.10.4 MemoryManagement CheatSheet](/Language/Theory/MemoryManagement-CheatSheet.md)
+      - [8.10.5 PLT CheatSheet](/Language/Theory/PLT-CheatSheet.md)
+      - [8.10.6 ReactiveProgramming CheatSheet](/Language/Theory/ReactiveProgramming-CheatSheet.md)
   - 9 Product
     - [9.1 LaTex CheatSheet](/Product/LaTex-CheatSheet.md)
     - [9.2 Product CheatSheet](/Product/Product-CheatSheet.md)
