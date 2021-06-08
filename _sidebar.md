@@ -19,8 +19,9 @@
   - 2 Architecture
     - [2.1 AlgoDS CheatSheet](/Architecture/AlgoDS-CheatSheet.md)
     - [2.2 DesignPattern CheatSheet](/Architecture/DesignPattern-CheatSheet.md)
-    - [2.3 Git Cheatsheet](/Architecture/Git-Cheatsheet.md)
-    - [2.4 Refactor CheatSheet](/Architecture/Refactor-CheatSheet.md)
+    - [2.3 DesignPrincipe CheatSheet](/Architecture/DesignPrincipe-CheatSheet.md)
+    - [2.4 Git Cheatsheet](/Architecture/Git-Cheatsheet.md)
+    - [2.5 Refactor CheatSheet](/Architecture/Refactor-CheatSheet.md)
   - 3 Business
     - 3.1 Industry
       - [3.1.1 3DPrinting CheatSheet](/Business/Industry/3DPrinting-CheatSheet.md)
