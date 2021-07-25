@@ -8,8 +8,6 @@
 
 ![](https://i.postimg.cc/6p2GC796/image.png)
 
-本节主要讨论并发编程理论相关的内容，可以参阅 [[Java 并发编程 https://url.wx-coder.cn/72vCj ](https://url.wx-coder.cn/72vCj)、[Go 并发编程 https://url.wx-coder.cn/FO9EX ](https://url.wx-coder.cn/FO9EX)等了解具体编程语言中并发编程的实践，可以参阅[微服务实战 https://url.wx-coder.cn/7KZ2i ](https://url.wx-coder.cn/7KZ2i)或者[关系型数据库理论 https://url.wx-coder.cn/DJNQn ](https://url.wx-coder.cn/DJNQn)了解并发编程在实际系统中的应用。
-
 # 并发与并行
 
 并发就是可同时发起执行的程序，指程序的逻辑结构；并行就是可以在支持并行的硬件上执行的并发程序，指程序的运⾏状态。换句话说，并发程序代表了所有可以实现并发行为的程序，这是一个比较宽泛的概念，并行程序也只是他的一个子集。并发是并⾏的必要条件；但并发不是并⾏的充分条件。并发只是更符合现实问题本质的表达，目的是简化代码逻辑，⽽不是使程序运⾏更快。要是程序运⾏更快必是并发程序加多核并⾏。
@@ -202,7 +200,7 @@ Java 内存模型对一个线程所做的变动能被其它线程可见提供了
 
 ![image](https://user-images.githubusercontent.com/5803001/52271382-6fcf8580-297e-11e9-9161-de3d9461d5f4.png)
 
-在[虚拟存储管理 https://url.wx-coder.cn/PeNqS ](https://url.wx-coder.cn/PeNqS)一节中，我们介绍过它为每个进程提供了一个假象，即每个进程都在独占地使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。其虚拟地址空间最上面的区域是为操作系统中的代码和数据保留的，这对所有进程来说都是一样的；地址空间的底部区域存放用户进程定义的代码和数据。
+在《[Linux-Series](https://github.com/wx-chevalier/Linux-Series?q=)》一节中，我们介绍过它为每个进程提供了一个假象，即每个进程都在独占地使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。其虚拟地址空间最上面的区域是为操作系统中的代码和数据保留的，这对所有进程来说都是一样的；地址空间的底部区域存放用户进程定义的代码和数据。
 
 ![image](https://user-images.githubusercontent.com/5803001/52272019-52032000-2980-11e9-953c-89de286e5174.png)
 
