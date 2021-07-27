@@ -371,14 +371,6 @@ booleanisDirectory=f.isDirectory();
 System.out.println(isDirectory);//false
 ```
 
-#### :
-
-```
-
-```
-
-#### :
-
 ```java
 // 列举目录下文件
 Filedirectory=newFile("users/ege");
@@ -659,7 +651,3 @@ BufferedWriterbw=newBufferedWriter(newFileWriter(textFile.txt));//forwriting
 # Links
 
 - https://github.com/in28minutes/java-cheat-sheet
-
-```
-
-```

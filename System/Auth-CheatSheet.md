@@ -28,7 +28,7 @@ HTTP 基本认证的过程
 
 ![](http://pic002.cnblogs.com/images/2012/263119/2012092121495881.png)
 
-使用 Fiddler Inspectors 下的 Auth 选项卡，可以很方便的看到用户名和密码 :
+使用 Fiddler Inspectors 下的 Auth 选项卡，可以很方便的看到用户名和密码
 
 ![](http://pic002.cnblogs.com/images/2012/263119/2012092121505442.png)
 

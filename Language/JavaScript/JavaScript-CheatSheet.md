@@ -28,7 +28,7 @@ let a;
 ```js
 const {
   a,
-  a: { b }
+  a: { b },
 } = { a: { b: 1 } };
 
 // a = {b:1}, b = 1
@@ -117,7 +117,7 @@ str.substring(indexStart[, indexEnd])
 
 ## Regex | 正则表达式
 
-对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数 :
+对于常量正则表达式，可以使用正则字符串方式；而对于动态的正则表达式，可以使用正则表达式构造函数
 
 ```js
 // Regular Expression Literal
@@ -183,7 +183,7 @@ removeCc("camelCase"); // 'camel Case'
 removeCc("helloWorldItIsMe"); // 'hello World It Is Me'
 
 // replace 支持回调函数，譬如用来将下划线转 camelCase
-key.replace(/\_./g, str => str[1].toUpperCase());
+key.replace(/\_./g, (str) => str[1].toUpperCase());
 ```
 
 较为常用的是 match 与 exec 方法，对于预设的捕获组，其会按序排列在 `match` 数组中。如果执行 exec 方法的正则表达式没有分组（没有括号括起来的内容），那么如果有匹配，他将返回一个只有一个元素的数组，这个数组唯一的元素就是该正则表达式匹配的第一个串; 如果没有匹配则返回 null。
@@ -328,7 +328,7 @@ const arrayLike = {
   *[Symbol.iterator]() {
     yield this[1];
     yield this[0];
-  }
+  },
 };
 
 console.log(Array.from(arrayLike));
@@ -337,12 +337,12 @@ console.log(Array.from(arrayLike));
 ```js
 // 使用 Array.from 创建序列数组
 Array.from({
-  length: 100
+  length: 100,
 }).map((_, i) => i);
 ```
 
 ```js
-const uniqueArray = arr => [...new Set(arr)];
+const uniqueArray = (arr) => [...new Set(arr)];
 
 uniqueArray([1, 2, 2, 3, 4, 4, 5]);
 // [1,2,3,4,5]
@@ -393,7 +393,7 @@ arrayObj.concat([item1[, item2[, . . . [,itemN]]]]);
 ```js
 // 异步 map 操作
 await Promise.all(
-  arr.map(async item => {
+  arr.map(async (item) => {
     return await item.run();
   })
 );
@@ -411,7 +411,7 @@ let sum = arr.reduce((acc, val) => {
 });
 
 // 使用 reduce 进行数组扁平化
-const flatten = arr => arr.reduce((a, v) => a.concat(v), []);
+const flatten = (arr) => arr.reduce((a, v) => a.concat(v), []);
 // flatten([1,[2],3,4]) -> [1,2,3,4]
 
 // 深度扁平化
@@ -455,10 +455,7 @@ let set2 = new Set("fooooooood");
 // it contains [10, 20, 30, 40]
 let set3 = new Set([10, 20, 30, 30, 40, 40]);
 
-set1
-  .add(30)
-  .add(40)
-  .add(50);
+set1.add(30).add(40).add(50);
 
 console.log(set1.has(50));
 
@@ -559,7 +556,7 @@ worker.postMessage(sab);
 
 ```js
 // Function Expression
-let sum = function(a, b) {
+let sum = function (a, b) {
   return a + b;
 };
 
@@ -588,12 +585,12 @@ ES6 中引入了所谓的默认参数:
 // 传统的默认参数编写方式
 function filterEvil(array, evil) {
   evil = evil || "darth vader";
-  return array.filter(item => item !== evil);
+  return array.filter((item) => item !== evil);
 }
 
 // ES6 默认参数
 function filterEvil(array, evil = "darth vader") {
-  return array.filter(item => item !== evil);
+  return array.filter((item) => item !== evil);
 }
 
 // 默认参数可以用来进行必要参数检测
@@ -602,7 +599,7 @@ const isRequired = () => {
 };
 
 function filterEvil(array, evil = isRequired()) {
-  return array.filter(item => item !== evil);
+  return array.filter((item) => item !== evil);
 }
 ```
 
@@ -698,7 +695,7 @@ let object = {
   // `foo-bar` is not a valid identifier name; quotes are required
   "foo-bar": 6,
   // the empty string is not a valid identifier name; quotes are required
-  "": 7
+  "": 7,
 };
 ```
 
@@ -711,13 +708,13 @@ o = Object.create(Object.prototype, {
   // bar 会成为所创建对象的访问器属性
   bar: {
     configurable: false,
-    get: function() {
+    get: function () {
       return 10;
     },
-    set: function(value) {
+    set: function (value) {
       console.log("Setting `o.bar` to", value);
-    }
-  }
+    },
+  },
 });
 ```
 
@@ -748,14 +745,14 @@ console.log(o1); // { a: 1, b: 2, c: 3 }, 注意目标对象自身也会改变�
 [tj/co](https://github.com/tj/co)
 
 ```js
-co(function*() {
+co(function* () {
   var result = yield Promise.resolve(true);
   return result;
 }).then(
-  function(value) {
+  function (value) {
     console.log(value);
   },
-  function(err) {
+  function (err) {
     console.error(err.stack);
   }
 );

@@ -26,7 +26,7 @@ DeepLearning 能够自动帮你补全图片中遗失的部分。
 
 # [机器人](https://blogs.nvidia.com/blog/2016/01/15/deep-learning-robot-walk/)
 
-DeepLearning 能够辅助进行机器人训练，让它像个人类一样走路 :
+DeepLearning 能够辅助进行机器人训练，让它像个人类一样走路
 
 # [图片摘要](http://karpathy.github.io/2015/05/21/rnn-effectiveness/)
 

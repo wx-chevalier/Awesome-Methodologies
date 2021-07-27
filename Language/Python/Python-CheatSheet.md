@@ -53,7 +53,7 @@ name = "pypi"
 
 # 基础语法
 
-Python 是一门高阶、动态类型的多范式编程语言；定义 Python 文件的时候我们往往会先声明文件编码方式 :
+Python 是一门高阶、动态类型的多范式编程语言；定义 Python 文件的时候我们往往会先声明文件编码方式
 
 ```py
 # 指定脚本调用方式
@@ -79,7 +79,7 @@ Python 是一门高阶、动态类型的多范式编程语言；定义 Python �
 """
 ```
 
-人生苦短，请用 Python，大量功能强大的语法糖的同时让很多时候 Python 代码看上去有点像伪代码。譬如我们用 Python 实现的简易的快排相较于 Java 会显得很短小精悍 :
+人生苦短，请用 Python，大量功能强大的语法糖的同时让很多时候 Python 代码看上去有点像伪代码。譬如我们用 Python 实现的简易的快排相较于 Java 会显得很短小精悍
 
 ```py
 def quicksort(arr):
@@ -115,7 +115,7 @@ if __name__ == '__main__':
 # python calculator.py double --number=15  # 30
 ```
 
-Python 2 中 print 是表达式，而 Python 3 中 print 是函数；如果希望在 Python 2 中将 print 以函数方式使用，则需要自定义引入 :
+Python 2 中 print 是表达式，而 Python 3 中 print 是函数；如果希望在 Python 2 中将 print 以函数方式使用，则需要自定义引入
 
 ```py
 from __future__ import print_function
@@ -139,7 +139,7 @@ pp.pprint(tup)
 
 Python 中的模块(Module)即是 Python 源码文件，其可以导出类、函数与全局变量；当我们从某个模块导入变量时，函数名往往就是命名空间(Namespace)。
 
-而 Python 中的包（Package）则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口 :
+而 Python 中的包（Package）则是模块的文件夹，往往由 `__init__.py` 指明某个文件夹为包，Package 可以为某个目录下所有的文件设置统一入口
 
 ```py
 # 目录格式
@@ -354,7 +354,7 @@ for i in tqdm(range(10000)):
 
 # 基本数据类型
 
-可以使用内建函数进行强制类型转换(Casting ) :
+可以使用内建函数进行强制类型转换(Casting )
 
 ```py
 int(str)
@@ -363,7 +363,7 @@ str(int)
 str(float)
 ```
 
-isinstance 方法用于判断某个对象是否源自某个类 :
+isinstance 方法用于判断某个对象是否源自某个类
 
 ```py
 ex = 10
@@ -449,7 +449,7 @@ type("Guido") # string type become unicode
 # <type 'unicode'>
 ```
 
-Python 字符串支持分片、模板字符串等常见操作 :
+Python 字符串支持分片、模板字符串等常见操作
 
 ```py
 var1 = 'Hello World!'
@@ -491,7 +491,7 @@ str.islower()
 re.sub('[^A-Za-z0-9]+', '', mystring)
 ```
 
-如果需要判断是否包含某个子字符串，或者搜索某个字符串的下标 :
+如果需要判断是否包含某个子字符串，或者搜索某个字符串的下标
 
 ```py
 # in 操作符可以判断字符串
@@ -592,7 +592,7 @@ if title_search:
     title = title_search.group(1)
 ```
 
-下面列举了常见的表达式使用场景 :
+下面列举了常见的表达式使用场景
 
 ```py
 # 检测是否为 HTML 标签
@@ -687,7 +687,7 @@ print(*letters) # used a * to make it unpack you don't have to
 
 ### Iteration | 索引遍历
 
-你可以使用基本的 for 循环来遍历数组中的元素，就像下面介个样纸 :
+你可以使用基本的 for 循环来遍历数组中的元素，就像下面介个样纸
 
 ```py
 animals = ['cat', 'dog', 'monkey']
@@ -696,7 +696,7 @@ for animal in animals:
 # Prints "cat", "dog", "monkey", each on its own line.
 ```
 
-如果你在循环的同时也希望能够获取到当前元素下标，可以使用 enumerate 函数 :
+如果你在循环的同时也希望能够获取到当前元素下标，可以使用 enumerate 函数
 
 ```py
 animals = ['cat', 'dog', 'monkey']
@@ -721,7 +721,7 @@ print nums         # Prints "[0, 1, 8, 9, 4]"
 
 ### Comprehensions | 变换
 
-Python 中同样可以使用 map, reduce, filter，其中 map 用于变换数组 :
+Python 中同样可以使用 map, reduce, filter，其中 map 用于变换数组
 
 ```py
 # 使用 map 对数组中的每个元素计算平方
@@ -742,7 +742,7 @@ for i in range(5):
     print(value)
 ```
 
-reduce 用于进行归纳计算 :
+reduce 用于进行归纳计算
 
 ```py
 # reduce 将数组中的值进行归纳
@@ -752,7 +752,7 @@ product = reduce((lambda x, y: x * y), [1, 2, 3, 4])
 # Output: 24
 ```
 
-filter 则可以对数组进行过滤 :
+filter 则可以对数组进行过滤
 
 ```py
 number_list = range(-5, 5)
@@ -791,7 +791,7 @@ def merge_dicts(*dict_args):
 
 ### 索引遍历
 
-可以根据键来直接进行元素访问 :
+可以根据键来直接进行元素访问
 
 ```py
 # Python 中对于访问不存在的键会抛出 KeyError 异常，需要先行判断或者使用 get
@@ -817,7 +817,7 @@ x = OrderedDict(a=1, b=2, c=3)
 y = Counter("Hello World!")
 ```
 
-可以使用 for-in 来遍历数组 :
+可以使用 for-in 来遍历数组
 
 ```py
 # 遍历键
@@ -899,7 +899,7 @@ class Enum(set):
 
 ## 函数定义
 
-Python 中的函数使用 def 关键字进行定义，譬如 :
+Python 中的函数使用 def 关键字进行定义，譬如
 
 ```py
 def sign(x):
@@ -1014,7 +1014,7 @@ def get_primes(number):
 
 ## 装饰器
 
-装饰器是非常有用的设计模式 :
+装饰器是非常有用的设计模式
 
 ```py
 # 简单装饰器
@@ -1070,7 +1070,7 @@ example()
 
 ## 类定义
 
-Python 中对于类的定义也很直接 :
+Python 中对于类的定义也很直接
 
 ```py
 class Greeter(object):
@@ -1278,7 +1278,7 @@ Creating Instance
 
 ### 属性操作
 
-Python 中对象的属性不同于字典键，可以使用点运算符取值，直接使用 in 判断会存在问题 :
+Python 中对象的属性不同于字典键，可以使用点运算符取值，直接使用 in 判断会存在问题
 
 ```py
 class A(object):
@@ -1296,7 +1296,7 @@ print "a.prop =", a.prop
 # a.prop = 3
 ```
 
-建议使用 hasattr, getattr, setattr 这种方式对于对象属性进行操作 :
+建议使用 hasattr, getattr, setattr 这种方式对于对象属性进行操作
 
 ```py
 class Example(object):
@@ -1426,7 +1426,7 @@ for cls in [B, C, D]:
 
 ### Context Manager - with
 
-with 常用于打开或者关闭某些资源 :
+with 常用于打开或者关闭某些资源
 
 ```py
 host = 'localhost'
@@ -1484,7 +1484,7 @@ if __name__ == "__main__":
 
 ### 路径处理
 
-Python 内置的 `__file__` 关键字会指向当前文件的相对路径，可以根据它来构造绝对路径，或者索引其他文件 :
+Python 内置的 `__file__` 关键字会指向当前文件的相对路径，可以根据它来构造绝对路径，或者索引其他文件
 
 ```py
 # 获取当前文件的相对目录
@@ -1653,7 +1653,7 @@ shutil.rmtree(appName)
 
 ## Requests
 
-[Requests](https://parg.co/UrO) 是优雅而易用的 Python 网络请求库 :
+[Requests](https://parg.co/UrO) 是优雅而易用的 Python 网络请求库
 
 ```py
 import requests
