@@ -57,7 +57,7 @@
     - [5.11 Three.js CheatSheet](/Frontend/Three.js-CheatSheet.md)
     - [5.12 Vue CheatSheet](/Frontend/Vue-CheatSheet.md)
     - [5.13 Web Bundler CheatSheet](/Frontend/Web-Bundler-CheatSheet.md)
-    - [5.14 Web Optimization CheatSheet](/Frontend/Web-Optimization-CheatSheet.md)
+    - [5.14 Web Tuning CheatSheet](/Frontend/Web-Tuning-CheatSheet.md)
     - [5.15 WebAssembly CheatSheet](/Frontend/WebAssembly-CheatSheet.md)
     - [5.16 Webpack CheatSheet](/Frontend/Webpack-CheatSheet.md)
   - 6 System
