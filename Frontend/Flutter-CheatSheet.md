@@ -2,13 +2,9 @@
 
 # Flutter CheatSheet
 
-谷歌的 Flutter 为开发人员提供了一种构建 Android 和 iOS 原生用户界面的方法，
+谷歌的 Flutter 为开发人员提供了一种构建 Android 和 iOS 原生用户界面的方法，Flutter 在 Rlease 模式下直接将 Dart 编译成本地机器码，避免了代码解释运行的性能消耗。
 
-Flutter 在 Rlease 模式下直接将 Dart 编译成本地机器码，避免了代码解释运行的性能消耗。
-
-Dart 本身针对高频率循环刷新（如屏幕每秒 60 帧）在内存层面进行了优化，使得 Dart 运行时在屏幕绘制实现如鱼得水。
-
-Flutter 实现了自己的图形绘制避免了 Native 桥接。
+Dart 本身针对高频率循环刷新（如屏幕每秒 60 帧）在内存层面进行了优化，使得 Dart 运行时在屏幕绘制实现如鱼得水。Flutter 实现了自己的图形绘制避免了 Native 桥接。
 
 # Technical Overview | 架构概览
 
