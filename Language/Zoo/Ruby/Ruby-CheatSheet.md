@@ -87,7 +87,7 @@ Numeric
 String
 数组
 Array
-散列
+哈希
 Hash
 正则表达式
 Regex
