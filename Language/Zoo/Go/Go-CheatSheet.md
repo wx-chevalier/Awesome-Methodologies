@@ -6,11 +6,17 @@
 
 Go (a.k.a. Golang) is a statically-typed programming language first developed at Google. It is derived from C with additional features such as garbage collection, type safety, dynamic-typing capabilities, additional built-in types, and a large standard library.
 
-可以前往[这里](https://golang.org/dl/)下载 Go SDK 安装包，或者使用 brew 等包管理器安装。现在我们也推荐使用 [gvm](https://github.com/moovweb/gvm) 这样的专用版本管理工具，来方便地更新与切换版本。
+可以前往[这里](https://golang.org/dl/)下载 Go SDK 安装包，或者使用 brew 等包管理器安装。现在我们也推荐使用 [gvm](https://github.com/moovweb/gvm) 这样的专用版本管理工具，来方便地更新与切换版本。环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名(文件夹名)一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件(夹)。
 
-环境配置完毕后，可以使用 go get 获取依赖，go run 运行程序，go build 来编译项目生成与包名(文件夹名)一致的可执行文件。Golang 1.8 之后支持 dep 依赖管理工具，对于空的项目使用 dep init 初始化依赖配置，其会生成 `Gopkg.toml Gopkg.lock vendor/` 这三个文件(夹)。
+在这里，我们首先对于 Go 的常用语法有所了解，Go 语言设计的关键字，了解这些关键字有助于命名变量的冲突避免：
 
-在这里，我们首先对于 Go 的常用语法有所了解，请参考当前目录下的 [go-snippets](https://parg.co/QNi)。
+```
+break    default      func    interface    select
+case     defer        go      map          struct
+chan     else         goto    package      switch
+const    fallthrough  if      range        type
+continue for          import  return       var
+```
 
 # 包管理与模块机制
 
@@ -1275,3 +1281,7 @@ func Test_swap(t *testing.T) {
 	}
 }
 ```
+
+# Links
+
+- Go 基础语法宝典 https://github.com/0voice/Introduction-to-Golang/blob/main/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%AE%9D%E5%85%B8.md
