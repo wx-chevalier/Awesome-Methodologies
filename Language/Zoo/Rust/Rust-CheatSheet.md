@@ -350,4 +350,5 @@ Generics combine with many other constructs such as struct S<T>, fn f<T>(), ...
 
 # TBD
 
+- https://mojotv.cn/rust/rust-cheatsheet-01-data-structures Rust-CheatSheet 
 - https://colobu.com/2020/03/05/A-half-hour-to-learn-Rust/?hmsr=toutiao.io&utm_medium=toutiao.io&utm_source=toutiao.io
