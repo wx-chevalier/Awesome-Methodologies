@@ -82,6 +82,20 @@
 | Env                       | `/etc/systemd/system/kubelet.service.d/10-kubeadm.conf`                   |
 | Env                       | export KUBECONFIG=/etc/kubernetes/admin.conf                              |
 
+```sh
+$ kubectl logs my-pod                                 # dump pod logs (stdout)
+$ kubectl logs -l name=myLabel                        # dump pod logs, with label name=myLabel (stdout)
+$ kubectl logs my-pod --previous                      # dump pod logs (stdout) for a previous instantiation of a container
+$ kubectl logs my-pod -c my-container                 # dump pod container logs (stdout, multi-container case)
+$ kubectl logs -l name=myLabel -c my-container        # dump pod logs, with label name=myLabel (stdout)
+$ kubectl logs my-pod -c my-container --previous      # dump pod container logs (stdout, multi-container case) for a previous instantiation of a container
+$ kubectl logs -f my-pod                              # stream pod logs (stdout)
+$ kubectl logs -f my-pod -c my-container              # stream pod container logs (stdout, multi-container case)
+$ kubectl logs -f -l name=myLabel --all-containers    # stream all pods logs with label name=myLabel (stdout)
+$ kubectl logs --tail=20 nginx # Display only the most recent 20 lines of output in pod nginx
+$ kubectl logs --since=1h nginx # Show all logs from pod nginx written in the last hour
+```
+
 ## 1.5 Pod
 
 | Name                                                                             | Command                                                                                        |
@@ -124,8 +138,6 @@
 | Pause/Resume                 | `kubectl rollout pause deployment/nginx-deployment`, `resume`                                                                                                                                                                                      |
 | Rollback to previous version | `kubectl rollout undo deployment/nginx-deployment`                                                                                                                                                                                                 |
 | Reference                    | [Link: kubernetes yaml templates](https://cheatsheet.dennyzhang.com/kubernetes-yaml-templates), [Link: Pausing and Resuming a Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#pausing-and-resuming-a-deployment) |
-
-[![img](https://raw.githubusercontent.com/dennyzhang/cheatsheet.dennyzhang.com/master/images/cheatsheet_dns.png)](https://cheatsheet.dennyzhang.com/)
 
 ## 1.8 Quota & Limits & Resource
 
