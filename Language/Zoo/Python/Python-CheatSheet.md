@@ -1818,3 +1818,7 @@ def fetch_bigtable_rows(big_table, keys, other_silly_variable=None):
 | Method Names               | lower_with_under() | \_lower_with_under() (protected) or \_\_lower_with_under() (private) |
 | Function/Method Parameters | lower_with_under   |                                                                      |
 | Local Variables            | lower_with_under   |                                                                      |
+
+# Links
+
+- https://mojotv.cn/2018/12/26/python-cheat-sheet Python快速入门和查询 
