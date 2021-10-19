@@ -176,6 +176,15 @@ drop index ix_kund_name on tbl_kunde
 
 ## 查询
 
+| Name                               | Command                                                           |
+| ---------------------------------- | ----------------------------------------------------------------- |
+| Select with regexp in where clause | `select * from expenses where date regexp '2013-0[4-5]' limit 2;` |
+| Select with like in where clause   | `select * from expenses where date like '2013-0%' limit 2;`       |
+| Select unix timestamp              | `select unix_timestamp(createtime) from expenses limit 1;`        |
+| Offset limit                       | `select * from student limit 4 offset 9`                          |
+| Use replace function               | `UPDATE tb1 SET f1=REPLACE(f1, 'abc', 'def');`                    |
+| Use if function                    | select Db, IF(IFNULL(User, “”)=”“, DB, User) from db;             |
+
 ```sql
 -- Select all rows and columns from the current database's departments table.
 -- Default activity is for the interpreter to scroll the results on your screen.
@@ -346,6 +355,29 @@ delete from tbl_kunde where vorname = 'Peter' and name = 'Fischer' or vorname = 
 
 # MySQL
 
+## 数据库管理
+
+| Name                            | Command                                                                                   |
+| ------------------------------- | ----------------------------------------------------------------------------------------- |
+| mysql connect                   | `mysql -u$username -p$password -P$port -h$dbhost $dbname`                                 |
+| database encoding               | `set names utf8;`                                                                         |
+| List databases                  | `show databases;`                                                                         |
+| List tables for current db      | `show tables;`                                                                            |
+| Check table definition          | `describe $tablename;`                                                                    |
+| Run sql in non-interactive way  | =mysql -uUSER -pPASSWORD databasename -e “select \* from t limit 10”=                     |
+| Import db                       | `mysql -uUSER -pPASSWORD dbname < backup.sql`                                             |
+| export db                       | `mysqldump -uUSER -pPASSWORD DATABASE > backup.sql`                                       |
+| export db without schema        | `mysqldump -uUSER -pPASSWORD DATABASE --no-data=true --add-drop-table=false > backup.sql` |
+| Grant access                    | =GRANT SUPER ON `DBNAME`.`user` TO ‘DBUSER’@’%’=                                          |
+| Add column                      | `ALTER TABLE expenses ADD COLUMN createtime timestamp not null default now();`            |
+| Delete Column                   | `ALTER TABLE expenses DROP COLUMN createtime;`                                            |
+| Delete index                    | `DROP INDEX indexname ON table_name;`                                                     |
+| Create index                    | `create index idindex on table_name(col_name) using btree;`                               |
+| Reset password                  | UPDATE mysql.user SET Password=PASSWORD(‘MyNewPass’) WHERE User=’root’; FLUSH PRIVILEGES; |
+|                                 | `drop user 'braindenny'@'%'; flush privileges; CREATE USER...`                            |
+|                                 | `CREATE USER 'myuser'@'%' IDENTIFIED BY 'MYPASSWORD';`                                    |
+| mysql8 grant privileges to user | `GRANT ALL PRIVILEGES ON mydbname.* TO 'myuser'@'%' WITH GRANT OPTION;`                   |
+
 ```sql
 $ mysql -u root -p
 
@@ -367,5 +399,39 @@ REVOKE ALL PRIVILEGES, GRANT OPTION FROM 'someuser'@'localhost';
 
 -- Delete User
 DROP USER 'someuser'@'localhost';
+```
 
+## 时间与日期
+
+```sql
+-- 今天  
+select * from 表名 where to_days(时间字段名) = to_days(now());  
+-- 昨天  
+SELECT * FROM 表名 WHERE TO_DAYS(NOW()) - TO_DAYS(时间字段名) <= 1  
+-- 7天  
+SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 7 DAY) <= date(时间字段名)  
+-- 近30天  
+SELECT * FROM 表名 where DATE_SUB(CURDATE(), INTERVAL 30 DAY) <= date(时间字段名)  
+-- 本月  
+SELECT * FROM 表名 WHERE DATE_FORMAT( 时间字段名, '%Y%m' ) = DATE_FORMAT( CURDATE( ), '%Y%m' )  
+-- 上一月  
+SELECT * FROM 表名 WHERE PERIOD_DIFF( date_format( now( ), '%Y%m' ), date_format( 时间字段名, '%Y%m' ) ) =1  
+-- 查询本季度数据  
+select * from `ht_invoice_information` where QUARTER(create_date)=QUARTER(now());  
+-- 查询上季度数据  
+select * from `ht_invoice_information` where QUARTER(create_date)=QUARTER(DATE_SUB(now(),interval 1 QUARTER));  
+-- 查询本年数据  
+select * from `ht_invoice_information` where YEAR(create_date)=YEAR(NOW());  
+-- 查询上年数据  
+select * from `ht_invoice_information` where year(create_date)=year(date_sub(now(),interval 1 year));  
+-- 查询当前这周的数据   
+SELECT name, submittime FROM enterprise WHERE YEARWEEK(date_format(submittime,'%Y-%m-%d')) = YEARWEEK(now()); 
+-- 查询上周的数据  
+SELECT name, submittime FROM enterprise WHERE YEARWEEK(date_format(submittime,'%Y-%m-%d')) = YEARWEEK(now())-1;  
+-- 查询当前月份的数据  
+select name, submittime from enterprise where date_format(submittime,'%Y-%m')=date_format(now(),'%Y-%m')  
+-- 查询距离当前现在6个月的数据  
+select name, submittime from enterprise where submittime between date_sub(now(),interval 6 month) and now();  
+-- 查询上个月的数据  
+select name, submittime from enterprise where date_format(submittime,'%Y-%m')=date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH),'%Y-%m')  
 ```
