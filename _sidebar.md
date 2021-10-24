@@ -89,17 +89,19 @@
     - [9.12 Web Tuning CheatSheet](/Frontend/Web-Tuning-CheatSheet.md)
     - [9.13 WebAssembly CheatSheet](/Frontend/WebAssembly-CheatSheet.md)
     - [9.14 Webpack CheatSheet](/Frontend/Webpack-CheatSheet.md)
-  - 10 Infrastructure [7]
+  - 10 Infrastructure [8]
     - [10.1 Blockchain CheatSheet](/Infrastructure/Blockchain-CheatSheet.md)
-    - [10.2 Docker Cheatsheet](/Infrastructure/Docker-Cheatsheet.md)
-    - 10.3 InfoSecurity [2]
-      - [10.3.1 Codec CheatSheet](/Infrastructure/InfoSecurity/Codec-CheatSheet.md)
-      - [10.3.2 WebSecurity CheatSheet](/Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
-    - 10.4 K8s [1]
-      - [10.4.1 Kubectl CheatSheet](/Infrastructure/K8s/Kubectl-CheatSheet.md)
-    - [10.5 Linux CheatSheet](/Infrastructure/Linux-CheatSheet.md)
-    - [10.6 Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
-    - [10.7 Raspberry CheatSheet](/Infrastructure/Raspberry-CheatSheet.md)
+    - 10.2 Commands [1]
+      - [10.2.1 awk](/Infrastructure/Commands/awk.md)
+    - [10.3 Docker Cheatsheet](/Infrastructure/Docker-Cheatsheet.md)
+    - 10.4 InfoSecurity [2]
+      - [10.4.1 Codec CheatSheet](/Infrastructure/InfoSecurity/Codec-CheatSheet.md)
+      - [10.4.2 WebSecurity CheatSheet](/Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
+    - 10.5 K8s [1]
+      - [10.5.1 Kubectl CheatSheet](/Infrastructure/K8s/Kubectl-CheatSheet.md)
+    - [10.6 Linux CheatSheet](/Infrastructure/Linux-CheatSheet.md)
+    - [10.7 Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
+    - [10.8 Raspberry CheatSheet](/Infrastructure/Raspberry-CheatSheet.md)
   - 11 AI [17]
     - [11.1 AI CheatSheet](/AI/AI-CheatSheet.md)
     - [11.2 CommunityDetection CheatSheet](/AI/CommunityDetection-CheatSheet.md)
