@@ -162,7 +162,7 @@ Regression is concerned with modelling the relationship between variables that i
 
 Regression methods are a workhorse of statistics and have been cooped into statistical machine learning. This may be confusing because we can use regression to refer to the class of problem and the class of algorithm. Really, regression is a process.
 
-The most popular regression algorithms are:
+The most popular regression algorithms are:
 
 - Ordinary Least Squares Regression (OLSR)
 - Linear Regression
@@ -171,7 +171,7 @@ The most popular regression algorithms are:
 - Multivariate Adaptive Regression Splines (MARS)
 - Locally Estimated Scatterplot Smoothing (LOESS)
 
-#### Instance-based Algorithms
+#### Instance-based Algorithms
 
 ![Instance-based Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Instance-based-Algorithms.png)Instance based learning model a decision problem with instances or examples of training data that are deemed important or required to the model.
 
@@ -184,13 +184,13 @@ The most popular instance-based algorithms are:
 - Self-Organizing Map (SOM)
 - Locally Weighted Learning (LWL)
 
-#### Regularization Algorithms
+#### Regularization Algorithms
 
 ![Regularization Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Regularization-Algorithms.png)
 
 An extension made to another method (typically regression methods) that penalizes models based on their complexity, favoring simpler models that are also better at generalizing.
 
-I have listed regularization algorithms separately here because they are popular, powerful and generally simple modifications made to other methods.
+I have listed regularization algorithms separately here because they are popular, powerful and generally simple modifications made to other methods.
 
 The most popular regularization algorithms are:
 
@@ -199,11 +199,11 @@ The most popular regularization algorithms are:
 - Elastic Net
 - Least-Angle Regression (LARS)
 
-#### Decision Tree Algorithms
+#### Decision Tree Algorithms
 
 ![Decision Tree Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Decision-Tree-Algorithms.png)Decision tree methods construct a model of decisions made based on actual values of attributes in the data.
 
-Decisions fork in tree structures until a prediction decision is made for a given record. Decision trees are trained on data for classification and regression problems. Decision trees are often fast and accurate and a big favorite in machine learning.
+Decisions fork in tree structures until a prediction decision is made for a given record. Decision trees are trained on data for classification and regression problems. Decision trees are often fast and accurate and a big favorite in machine learning.
 
 The most popular decision tree algorithms are:
 
@@ -213,7 +213,7 @@ The most popular decision tree algorithms are:
 - Chi-squared Automatic Interaction Detection (CHAID)
 - Decision Stump
 - M5
-- Conditional Decision Trees
+- Conditional Decision Trees
 
 #### Bayesian Algorithms
 
@@ -228,7 +228,7 @@ The most popular Bayesian algorithms are:
 - Bayesian Belief Network (BBN)
 - Bayesian Network (BN)
 
-#### Clustering Algorithms
+#### Clustering Algorithms
 
 ![Clustering Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Clustering-Algorithms.png)Clustering, like regression describes the class of problem and the class of methods.
 
@@ -249,7 +249,7 @@ Artificial Neural Networks are models that are inspired by the structure and/or 
 
 They are a class of pattern matching that are commonly used for regression and classification problems but are really an enormous subfield comprised of hundreds of algorithms and variations for all manner of problem types.
 
-Note that I have separated out Deep Learning from neural networks because of the massive growth and popularity in the field. Here we are concerned with the more classical methods.
+Note that I have separated out Deep Learning from neural networks because of the massive growth and popularity in the field. Here we are concerned with the more classical methods.
 
 The most popular artificial neural network algorithms are:
 
@@ -266,14 +266,14 @@ They are concerned with building much larger and more complex neural networks, a
 
 The most popular deep learning algorithms are:
 
-- Deep Boltzmann Machine (DBM)
+- Deep Boltzmann Machine (DBM)
 - Deep Belief Networks (DBN)
 - Convolutional Neural Network (CNN)
 - Stacked Auto-Encoders
 
 #### Support Vector Machines
 
-#### Ensemble Algorithms
+#### Ensemble Algorithms
 
 ![Ensemble Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Ensemble-Algorithms.png)
 

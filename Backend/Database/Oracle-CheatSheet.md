@@ -6,7 +6,7 @@
 
 ```sql
 SELECT val
-FROM   rownum_order_test
+FROM   rownum_order_test
 ORDER BY val DESC
 FETCH FIRST 5 ROWS ONLY;
 ```
@@ -15,7 +15,7 @@ FETCH FIRST 5 ROWS ONLY;
 
 ```
 SELECT val
-FROM   rownum_order_test
+FROM   rownum_order_test
 ORDER BY val DESC
 FETCH FIRST 5 ROWS WITH TIES;
 ```
@@ -24,7 +24,7 @@ FETCH FIRST 5 ROWS WITH TIES;
 
 ```
 SELECT val
-FROM   rownum_order_test
+FROM   rownum_order_test
 ORDER BY val
 FETCH FIRST 20 PERCENT ROWS ONLY;
 ```
@@ -33,7 +33,7 @@ FETCH FIRST 20 PERCENT ROWS ONLY;
 
 ```
 SELECT val
-FROM   rownum_order_test
+FROM   rownum_order_test
 ORDER BY val
 OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY;
 ```
@@ -42,7 +42,7 @@ OFFSET 4 ROWS FETCH NEXT 4 ROWS ONLY;
 
 ```
 SELECT val
-FROM   rownum_order_test
+FROM   rownum_order_test
 ORDER BY val
 OFFSET 4 ROWS FETCH NEXT 20 PERCENT ROWS ONLY;
 ```

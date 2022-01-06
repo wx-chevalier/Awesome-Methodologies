@@ -43,15 +43,15 @@ PCA 和 LDA 是最常见的线性降维方法，它们按照某种准则为数�
 
 ![](http://images.cnitblog.com/blog/533521/201308/07220559-ae662025d1394f90bfd62f7c21c3d895.png)
 
-注意，当 `p < 1` 时，闵可夫斯基距离不再符合三角形法则，举个例子：当 p `<` 1, (0,0) 到 (1,1) 的距离等于`(1+1)^{1/p} > 2`, 而 (0,1) 到这两个点的距离都是 1。
+注意，当 `p < 1` 时，闵可夫斯基距离不再符合三角形法则，举个例子：当 p `<` 1, (0,0) 到 (1,1) 的距离等于`(1+1)^{1/p} > 2`, 而 (0,1) 到这两个点的距离都是 1。
 
-闵可夫斯基距离比较直观，但是它与数据的分布无关，具有一定的局限性，如果 x 方向的幅值远远大于 y 方向的值，这个距离公式就会过度放大 x 维度的作用。所以，在计算距离之前，我们可能还需要对数据进行  **z-transform**  处理，即减去均值，除以标准差：
+闵可夫斯基距离比较直观，但是它与数据的分布无关，具有一定的局限性，如果 x 方向的幅值远远大于 y 方向的值，这个距离公式就会过度放大 x 维度的作用。所以，在计算距离之前，我们可能还需要对数据进行 **z-transform** 处理，即减去均值，除以标准差：
 
 ![](http://latex.codecogs.com/gif.latex?%28x_1,%20y_1%29%5Cmapsto%20%28%5Cfrac%7Bx_1%20-%20%5Cmu%20_x%7D%7B%5Csigma%20_x%7D,%20%5Cfrac%7By_1%20-%20%5Cmu%20_y%7D%7B%5Csigma%20_y%7D%29)
 
-> ![](http://latex.codecogs.com/gif.latex?%5Cmu) : 该维度上的均值
+> ![](http://latex.codecogs.com/gif.latex?%5Cmu) : 该维度上的均值
 >
-> ![](http://latex.codecogs.com/gif.latex?%5Csigma) : 该维度上的标准差
+> ![](http://latex.codecogs.com/gif.latex?%5Csigma) : 该维度上的标准差
 
 可以看到，上述处理开始体现数据的统计特性了。这种方法在假设数据各个维度不相关的情况下利用数据分布的特性计算出不同的距离。如果维度相互之间数据相关(例如：身高较高的信息很有可能会带来体重较重的信息，因为两者是有关联的)，这时候就要用到**马氏距离**(Mahalanobis distance)了。
 
@@ -61,7 +61,7 @@ PCA 和 LDA 是最常见的线性降维方法，它们按照某种准则为数�
 
 ![](http://images.cnitblog.com/blog/533521/201308/07220637-f472bb13a779481bbfa45a9d79bd2175.png)
 
-马氏距离实际上是利用 Cholesky transformation 来消除不同维度之间的**相关性**和**尺度不同**的性质。假设样本点(列向量)之间的协方差对称矩阵是  ![](http://latex.codecogs.com/gif.latex?%5CSigma) ，通过 Cholesky Decomposition(实际上是对称矩阵 LU 分解的一种特殊形式，可参考之前的[博客](http://www.cnblogs.com/daniel-D/p/3204508.html))可以转化为下三角矩阵和上三角矩阵的乘积： ![](http://latex.codecogs.com/gif.latex?%5CSigma%20=%20LL%5ET) 。消除不同维度之间的相关性和尺度不同，只需要对样本点 x 做如下处理：![](http://latex.codecogs.com/gif.latex?z%20=%20L%5E%7B-1%7D%28x%20-%20%5Cmu%20%29) 。处理之后的欧几里得距离就是原样本的马氏距离：为了书写方便，这里求马氏距离的平方)：
+马氏距离实际上是利用 Cholesky transformation 来消除不同维度之间的**相关性**和**尺度不同**的性质。假设样本点(列向量)之间的协方差对称矩阵是 ![](http://latex.codecogs.com/gif.latex?%5CSigma) ，通过 Cholesky Decomposition(实际上是对称矩阵 LU 分解的一种特殊形式，可参考之前的[博客](http://www.cnblogs.com/daniel-D/p/3204508.html))可以转化为下三角矩阵和上三角矩阵的乘积： ![](http://latex.codecogs.com/gif.latex?%5CSigma%20=%20LL%5ET) 。消除不同维度之间的相关性和尺度不同，只需要对样本点 x 做如下处理：![](http://latex.codecogs.com/gif.latex?z%20=%20L%5E%7B-1%7D%28x%20-%20%5Cmu%20%29) 。处理之后的欧几里得距离就是原样本的马氏距离：为了书写方便，这里求马氏距离的平方)：
 
 ![](http://images.cnitblog.com/blog/533521/201308/07220659-e3270d8a52ef45c1b457d9af19b1aad1.png)
 
@@ -154,7 +154,7 @@ Jacard 相似性直观的概念来自，两个集合有多相似，显然，Jaca
 
 ![](http://latex.codecogs.com/gif.latex?Inner%28x,y%29%20=%20%5Clangle%20x,%20y%20%5Crangle%20=%20%5Csum_i%20x_i%20y_i)
 
-直观的解释是：如果 x 高的地方 y 也比较高，x 低的地方 y 也比较低，那么整体的内积是偏大的，也就是说 x 和 y 是相似的。举个例子，在一段长的序列信号 A 中寻找哪一段与短序列信号 a 最匹配，只需要将 a 从 A 信号开头逐个向后平移，每次平移做一次内积，内积最大的相似度最大。信号处理中 DFT 和 DCT 也是基于这种内积运算计算出不同频域内的信号组分(DFT 和 DCT 是正交标准基，也可以看做投影)。向量和信号都是离散值，如果是连续的函数值，比如求区间`[-1, 1]`  两个函数之间的相似度，同样也可以得到(系数)组分，这种方法可以应用于多项式逼近连续函数，也可以用到连续函数逼近离散样本点(最小二乘问题，**OLS coefficients**)中，扯得有点远了- -!。
+直观的解释是：如果 x 高的地方 y 也比较高，x 低的地方 y 也比较低，那么整体的内积是偏大的，也就是说 x 和 y 是相似的。举个例子，在一段长的序列信号 A 中寻找哪一段与短序列信号 a 最匹配，只需要将 a 从 A 信号开头逐个向后平移，每次平移做一次内积，内积最大的相似度最大。信号处理中 DFT 和 DCT 也是基于这种内积运算计算出不同频域内的信号组分(DFT 和 DCT 是正交标准基，也可以看做投影)。向量和信号都是离散值，如果是连续的函数值，比如求区间`[-1, 1]` 两个函数之间的相似度，同样也可以得到(系数)组分，这种方法可以应用于多项式逼近连续函数，也可以用到连续函数逼近离散样本点(最小二乘问题，**OLS coefficients**)中，扯得有点远了- -!。
 
 ### 余弦相似度
 
@@ -178,7 +178,7 @@ $\frac{\sum x_iy_i-\frac{\sum x_i\sum y_i}{n}}{\sqrt{\sum x_i^2-\frac{(\sum x_i)
 
 ![](http://7xlv6k.com1.z0.glb.clouddn.com/cdn_chapter2_2.png)
 
-在[统计学](http://zh.wikipedia.org/wiki/%E7%BB%9F%E8%AE%A1%E5%AD%A6)中，**皮尔逊积矩相关系数**(Pearson product-moment correlation coefficient)用于度量两个变量 X 和 Y 之间的[相关](http://zh.wikipedia.org/wiki/%E7%9B%B8%E5%85%B3)(线性相关)，其值介于-1 与 1 之间。系数的值为 1 意味着*X*  和  *Y*可以很好的由直线方程来描述，所有的数据点都很好的落在一条  [直线](http://zh.wikipedia.org/w/index.php?title=Line_%28mathematics%29&action=edit&redlink=1)上，且  *Y*  随着  *X*  的增加而增加。系数的值为?1 意味着所有的数据点都落在直线上，且  *Y*  随着  *X*  的增加而减少。系数的值为 0 意味着两个变量之间没有线性关系。当两个变量独立时，相关系数为 0.但反之并不成立。这是因为相关系数仅仅反映了两个变量之间是否线性相关。比如说，*X*是区间［－１，１］上的一个均匀分布的随机变量。*Y* = *X*2. 那么*Y*是完全由*X*确定。因此*Y*  和*X*是不独立的。但是相关系数为 0。或者说他们是不相关的。当*Y*  和*X*服从联合正态分布时，其相互独立和不相关是等价的。当且仅当  *X\*\*i* and *Y\*\*i*  均落在他们各自的均值的同一侧，则(*X\*\*i* ? *X*)(*Y\*\*i* ? *Y*) 的值为正。也就是说，如果*X\*\*i*  和  *Y\*\*i*  同时趋向于大于, 或同时趋向于小于他们各自的均值，则相关系数为正。如果  *X\*\*i*  和  *Y\*\*i*  趋向于落在他们均值的相反一侧，则相关系数为负。
+在[统计学](http://zh.wikipedia.org/wiki/%E7%BB%9F%E8%AE%A1%E5%AD%A6)中，**皮尔逊积矩相关系数**(Pearson product-moment correlation coefficient)用于度量两个变量 X 和 Y 之间的[相关](http://zh.wikipedia.org/wiki/%E7%9B%B8%E5%85%B3)(线性相关)，其值介于-1 与 1 之间。系数的值为 1 意味着*X* 和 *Y*可以很好的由直线方程来描述，所有的数据点都很好的落在一条 [直线](http://zh.wikipedia.org/w/index.php?title=Line_%28mathematics%29&action=edit&redlink=1)上，且 _Y_ 随着 _X_ 的增加而增加。系数的值为?1 意味着所有的数据点都落在直线上，且 _Y_ 随着 _X_ 的增加而减少。系数的值为 0 意味着两个变量之间没有线性关系。当两个变量独立时，相关系数为 0.但反之并不成立。这是因为相关系数仅仅反映了两个变量之间是否线性相关。比如说，*X*是区间［－１，１］上的一个均匀分布的随机变量。_Y_ = *X*2. 那么*Y*是完全由*X*确定。因此*Y* 和*X*是不独立的。但是相关系数为 0。或者说他们是不相关的。当*Y* 和*X*服从联合正态分布时，其相互独立和不相关是等价的。当且仅当 _X\*\*i_ and _Y\*\*i_ 均落在他们各自的均值的同一侧，则(_X\*\*i_ ? _X_)(_Y\*\*i_ ? _Y_) 的值为正。也就是说，如果*X\*\*i* 和 _Y\*\*i_ 同时趋向于大于, 或同时趋向于小于他们各自的均值，则相关系数为正。如果 _X\*\*i_ 和 _Y\*\*i_ 趋向于落在他们均值的相反一侧，则相关系数为负。
 
 皮尔逊相关系数具有平移不变性和尺度不变性，计算出了两个向量(维度)的相关性。不过，一般我们在谈论相关系数的时候，将 x 与 y 对应位置的两个数值看作一个样本点，皮尔逊系数用来表示这些样本点分布的相关性。
 
@@ -350,7 +350,7 @@ if __name__ == '__main__':
 
 ## 分布距离
 
-前面我们谈论的都是两个数值点之间的距离，实际上两个概率分布之间的距离是可以测量的。在统计学里面经常需要测量两组样本分布之间的距离，进而判断出它们是否出自同一个 population，常见的方法有**卡方检验**(Chi-Square)和  **KL 散度**( KL-Divergence)，下面说一说 KL 散度吧。
+前面我们谈论的都是两个数值点之间的距离，实际上两个概率分布之间的距离是可以测量的。在统计学里面经常需要测量两组样本分布之间的距离，进而判断出它们是否出自同一个 population，常见的方法有**卡方检验**(Chi-Square)和 **KL 散度**( KL-Divergence)，下面说一说 KL 散度吧。
 
 先从信息熵说起，假设一篇文章的标题叫做“黑洞到底吃什么”，包含词语分别是 {黑洞, 到底, 吃什么}, 我们现在要根据一个词语推测这篇文章的类别。哪个词语给予我们的信息最多？很容易就知道是“黑洞”，因为“黑洞”这个词语在所有的文档中出现的概率太低啦，一旦出现，就表明这篇文章很可能是在讲科普知识。而其他两个词语“到底”和“吃什么”出现的概率很高，给予我们的信息反而越少。如何用一个函数 h(x) 表示词语给予的信息量呢？第一，肯定是与 p(x) 相关，并且是负相关。第二，假设 x 和 y 是独立的(黑洞和宇宙不相互独立，谈到黑洞必然会说宇宙),即 p(x,y) = p(x)p(y), 那么获得的信息也是叠加的，即 h(x, y) = h(x) + h(y)。满足这两个条件的函数肯定是负对数形式：
 
@@ -366,7 +366,7 @@ if __name__ == '__main__':
 
 ![](http://images.cnitblog.com/blog/533521/201308/07221311-03bee2dca7e040e4889582d8182f4dde.png)
 
-KL 散度又叫**相对熵**(relative entropy)。了解机器学习的童鞋应该都知道，在 Softmax 回归(或者 Logistic 回归)，最后的输出节点上的值表示这个样本分到该类的概率，这就是一个概率分布。对于一个带有标签的样本，我们期望的概率分布是：分到标签类的概率是 1，  其他类概率是 0。但是理想很丰满，现实很骨感，我们不可能得到完美的概率输出，能做的就是尽量减小总样本的 KL 散度之和(目标函数)。这就是 Softmax 回归或者 Logistic 回归中 Cost function 的优化过程啦。(PS：因为概率和为 1，一般的 logistic 二分类的图只画了一个输出节点，隐藏了另外一个)
+KL 散度又叫**相对熵**(relative entropy)。了解机器学习的童鞋应该都知道，在 Softmax 回归(或者 Logistic 回归)，最后的输出节点上的值表示这个样本分到该类的概率，这就是一个概率分布。对于一个带有标签的样本，我们期望的概率分布是：分到标签类的概率是 1， 其他类概率是 0。但是理想很丰满，现实很骨感，我们不可能得到完美的概率输出，能做的就是尽量减小总样本的 KL 散度之和(目标函数)。这就是 Softmax 回归或者 Logistic 回归中 Cost function 的优化过程啦。(PS：因为概率和为 1，一般的 logistic 二分类的图只画了一个输出节点，隐藏了另外一个)
 
 # Feature Extraction(特征抽取)
 
@@ -393,17 +393,17 @@ Like clustering methods, dimensionality reduction seek and exploit the inherent 
 This can be useful to visualize dimensional data or to simplify data which can then be used in a supervized learning method. Many of these methods can be adapted for use in classification and regression.
 
 - Principal Component Analysis (PCA)
-- Principal Component Regression (PCR)
+- Principal Component Regression (PCR)
 - Partial Least Squares Regression (PLSR)
 - Sammon Mapping
 - Multidimensional Scaling (MDS)
 - Projection Pursuit
 - Linear Discriminant Analysis (LDA)
-- Mixture Discriminant Analysis (MDA)
-- Quadratic Discriminant Analysis (QDA)
-- Flexible Discriminant Analysis (FDA)
+- Mixture Discriminant Analysis (MDA)
+- Quadratic Discriminant Analysis (QDA)
+- Flexible Discriminant Analysis (FDA)
 
-# Association Rule Learning Algorithms
+# Association Rule Learning Algorithms
 
 ![Assoication Rule Learning Algorithms](http://3qeqpr26caki16dnhd19sv6by6v.wpengine.netdna-cdn.com/wp-content/uploads/2013/11/Assoication-Rule-Learning-Algorithms.png)
 

@@ -110,7 +110,7 @@ Total time: 2.667 secs
 
 | Name          | Type                                                                                   | Default Value                              |
 | ------------- | -------------------------------------------------------------------------------------- | ------------------------------------------ |
-| `project`     | [`Project`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html)           | The `Project` instance                     |
+| `project`     | [`Project`](https://docs.gradle.org/current/dsl/org.gradle.api.Project.html)           | The `Project` instance                     |
 | `name`        | `String`                                                                               | The name of the project directory.         |
 | `path`        | `String`                                                                               | The absolute path of the project.          |
 | `description` | `String`                                                                               | A description for the project.             |
@@ -118,7 +118,7 @@ Total time: 2.667 secs
 | `buildDir`    | `File`                                                                                 | `*projectDir*/build`                       |
 | `group`       | `Object`                                                                               | `unspecified`                              |
 | `version`     | `Object`                                                                               | `unspecified`                              |
-| `ant`         | [`AntBuilder`](https://docs.gradle.org/current/javadoc/org/gradle/api/AntBuilder.html) | An `AntBuilder` instance                   |
+| `ant`         | [`AntBuilder`](https://docs.gradle.org/current/javadoc/org/gradle/api/AntBuilder.html) | An `AntBuilder` instance                   |
 
 ## Variables | 变量
 

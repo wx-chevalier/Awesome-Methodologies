@@ -58,7 +58,7 @@ DOM 事件委托即指一种以单一通用父节点上绑定响应函数而不�
 ```js
 // document.addEventListener("click", delegate(buttonsFilter, buttonHandler));
 function delegate(criteria, listener) {
-  return function(e) {
+  return function (e) {
     var el = e.target;
     do {
       if (!criteria(el)) {
@@ -88,7 +88,7 @@ const event = new Event("build");
 // Listen for the event.
 elem.addEventListener(
   "build",
-  function(e) {
+  function (e) {
     /* ... */
   },
   false
@@ -133,11 +133,11 @@ var xhr = new XMLHttpRequest();
 xhr.open("GET", url);
 xhr.responseType = "json";
 
-xhr.onload = function() {
+xhr.onload = function () {
   console.log(xhr.response);
 };
 
-xhr.onerror = function() {
+xhr.onerror = function () {
   console.log("Booo");
 };
 
@@ -150,13 +150,13 @@ XMLHttpRequest (XHR) 是经典的浏览器中网络请求框架，jQuery 则为�
 
 ```js
 fetch("./file.json")
-  .then(response => {
-    response.json().then(data => {
+  .then((response) => {
+    response.json().then((data) => {
       console.log(data);
     });
   })
   // 使用 catch 方法容错
-  .catch(err => {
+  .catch((err) => {
     console.error(err);
   });
 ```
@@ -171,7 +171,7 @@ const headers = new Headers();
 headers.append("Content-Type", "application/json");
 
 const request = new Request("./file.json", {
-  headers: new Headers({ "Content-Type": "application/json" })
+  headers: new Headers({ "Content-Type": "application/json" }),
 });
 
 fetch(request);
@@ -183,11 +183,11 @@ fetch(request);
 const options = {
   method: "post",
   headers: {
-    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    "Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
   },
-  body: "foo=bar&test=1"
+  body: "foo=bar&test=1",
 };
-fetch(url, options).catch(err => {
+fetch(url, options).catch((err) => {
   console.error("Request failed", err);
 });
 ```
@@ -215,7 +215,7 @@ fetch("http://some-site.com/cors-enabled/some.json", { mode: "cors" });
 fetch 函数会返回 [Stream](https://streams.spec.whatwg.org/) 类型的对象，其包含了关于请求以及响应的信息，可以通过如下方式访问元数据：
 
 ```js
-fetch("./file.json").then(response => {
+fetch("./file.json").then((response) => {
   // 返回状态码
   console.log(response.status);
   // 状态描述
@@ -250,15 +250,15 @@ fetch(url).then(function(response) {
 相较于 XHR，fetch 优势即在于能够访问到底层的数据流，并且添加自定义的操作以进行局部响应(避免接受全部内容)，或者在 ServiceWorker 中进行流转化：
 
 ```js
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", function (event) {
   event.respondWith(
-    fetch("video.unknowncodec").then(function(response) {
+    fetch("video.unknowncodec").then(function (response) {
       var h264Stream = response.body
         .pipeThrough(codecDecoder)
         .pipeThrough(h264Encoder);
 
       return new Response(h264Stream, {
-        headers: { "Content-type": "video/h264" }
+        headers: { "Content-type": "video/h264" },
       });
     })
   );
@@ -268,8 +268,8 @@ self.addEventListener("fetch", function(event) {
 response 作为流对象，往往只可以被读取一次，如果需要多次读取，那么应该使用 clone 方法获取复制体；不过这也意味着原始数据需要保存在内存中，直至所有的副本被读取或者内存回收。
 
 ```js
-fetch(url).then(function(response) {
-  return response.json().catch(function() {
+fetch(url).then(function (response) {
+  return response.json().catch(function () {
     // This does not work:
     return response.text();
   });
@@ -300,7 +300,7 @@ const channel = new BroadcastChannel("channel-name");
 channel.postMessage("some message");
 channel.postMessage({ key: "value" });
 
-channel.onmessage = function(e) {
+channel.onmessage = function (e) {
   const message = e.data;
 };
 
@@ -317,20 +317,20 @@ const worker = new SharedWorker("shared-worker.js");
 
 worker.port.postMessage("some message");
 
-worker.port.onmessage = function(e) {
+worker.port.onmessage = function (e) {
   const message = e.data;
 };
 
 // shared-worker.js
 const connections = [];
 
-onconnect = function(e) {
+onconnect = function (e) {
   const port = e.ports[0];
   connections.push(port);
 };
 
-onmessage = function(e) {
-  connections.forEach(function(connection) {
+onmessage = function (e) {
+  connections.forEach(function (connection) {
     if (connection !== port) {
       connection.postMessage(e.data);
     }
@@ -345,7 +345,7 @@ localStorage 是常见的持久化同源存储机制，其会在内容变化时�
 ```js
 localStorage.setItem("key", "value");
 
-window.onstorage = function(e) {
+window.onstorage = function (e) {
   const message = e.newValue; // previous value at e.oldValue
 };
 ```
@@ -371,9 +371,9 @@ Blob 是 JavaScript 中的对象，表示不可变的类文件对象，里面可
 ```js
 const debug = { hello: "world" };
 let blob = new Blob([JSON.stringify(debug, null, 2)], {
-  type: "application/json"
+  type: "application/json",
 });
-// Blob(22) {size: 22, type: "application/json"}
+// Blob(22) {size: 22, type: "application/json"}
 
 // 也可以转化为类 URL 格式
 const url = URL.createObjectURL(blob);
@@ -381,7 +381,7 @@ const url = URL.createObjectURL(blob);
 
 // 设置自定义的样式类
 blob = new Blob(["body { background-color: yellow; }"], {
-  type: "text/css"
+  type: "text/css",
 });
 
 link = document.createElement("link");
@@ -406,7 +406,7 @@ const BYTES_PER_CHUNK = 1024 * 1024; // 每个文件切片大小定为1MB .
 const blob = document.getElementById("file").files[0];
 const slices = Math.ceil(blob.size / BYTES_PER_CHUNK);
 const blobs = [];
-Array.from({ length: slices }).forEach(function(item, index) {
+Array.from({ length: slices }).forEach(function (item, index) {
   blobs.push(blob.slice(index, index + 1));
 });
 ```
@@ -415,7 +415,7 @@ Array.from({ length: slices }).forEach(function(item, index) {
 
 ```js
 const reader = new FileReader();
-reader.addEventListener("loadend", function() {
+reader.addEventListener("loadend", function () {
   // reader.result 包含了 Typed Array 格式的 Blob 内容
 });
 reader.readAsArrayBuffer(blob);
@@ -486,14 +486,14 @@ function onInitFs(fs) {
   fs.root.getFile(
     "log.txt",
     { create: true },
-    function(fileEntry) {
+    function (fileEntry) {
       // Create a FileWriter object for our FileEntry (log.txt).
-      fileEntry.createWriter(function(fileWriter) {
-        fileWriter.onwriteend = function(e) {
+      fileEntry.createWriter(function (fileWriter) {
+        fileWriter.onwriteend = function (e) {
           console.log("Write completed.");
         };
 
-        fileWriter.onerror = function(e) {
+        fileWriter.onerror = function (e) {
           console.log("Write failed: " + e.toString());
         };
 

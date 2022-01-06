@@ -537,7 +537,7 @@ ArrayBuffer 用于表示通用的、固定长度的二进制数据缓冲，我�
 // 字节长度为 8
 const buffer = new ArrayBuffer(8);
 
-// Int32Array(2) [0, 0]
+// Int32Array(2) [0, 0]
 const view = new Int32Array(buffer);
 ```
 

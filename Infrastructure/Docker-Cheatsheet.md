@@ -186,7 +186,7 @@ Docker 支持从 Registry 拉取镜像，或者将某个容器保存为镜像：
 $ docker pull image_name
 
 # 将某个容器保存为镜像
-$ docker commit -m “commit message” -a “author”  container_name username/image_name:tag
+$ docker commit -m “commit message” -a “author”  container_name username/image_name:tag
 ```
 
 Docker 支持将镜像保存为文件，以方便镜像的导出与加载：

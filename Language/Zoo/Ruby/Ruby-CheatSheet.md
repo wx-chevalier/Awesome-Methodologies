@@ -59,25 +59,25 @@ Ubuntu
 
 1.  首先在使用 apt-get 之前，必须先 update 一下，否则有些库是安装不上的。
     [plain] view plaincopyprint?
-1.  $ sudo apt-get update
+1.  $ sudo apt-get update
     $ sudo apt-get update
     [plain] view plaincopyprint?
-1.  $ sudo apt-get install -y build-essential openssl curl libcurl3-dev libreadline6 libreadline6-dev git zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev libsqlite3-dev libmysql-ruby libmysqlclient-dev
+1.  $ sudo apt-get install -y build-essential openssl curl libcurl3-dev libreadline6 libreadline6-dev git zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev libsqlite3-dev libmysql-ruby libmysqlclient-dev
     $ sudo apt-get install -y build-essential openssl curl libcurl3-dev libreadline6 libreadline6-dev git zlib1g zlib1g-dev libssl-dev libyaml-dev libxml2-dev libxslt-dev autoconf automake libtool imagemagick libmagickwand-dev libpcre3-dev libsqlite3-dev libmysql-ruby libmysqlclient-dev
      2. 安装 RVM
     [html] view plaincopyprint?
-1.  $ curl -L https://get.rvm.io | bash -s stable
+1.  $ curl -L https://get.rvm.io | bash -s stable
     $ curl -L https://get.rvm.io | bash -s stable
       下面这步是不行的，要 logout 再次登录
     [plain] view plaincopyprint?
-1.  $ source ~/.rvm/scripts/rvm
+1.  $ source ~/.rvm/scripts/rvm
     $ source ~/.rvm/scripts/rvm
     然后就安装好 rvm 了
     [plain] view plaincopyprint?
-1.  \$ rvm -v
-1.  rvm install 2.2.1
-1.  \$ gem source -r https://rubygems.org/
-1.  \$ gem source -a http://ruby.taobao.org
+1.  \$ rvm -v
+1.  rvm install 2.2.1
+1.  \$ gem source -r https://rubygems.org/
+1.  \$ gem source -a http://ruby.taobao.org
 
 数据结构变量
 Ruby 中常用的内置的变量对象种类有：对象类
