@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "docsify-server-renderer": "^4.12.2"
+  }
+}
