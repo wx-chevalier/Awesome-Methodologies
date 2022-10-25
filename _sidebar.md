@@ -126,5 +126,6 @@
       - [12.1.1 3DPrinting CheatSheet](/Business/Industry/3DPrinting-CheatSheet.md)
     - 12.2 Product
       - [12.2.1 LaTex CheatSheet](/Business/Product/LaTex-CheatSheet.md)
-      - [12.2.2 Product CheatSheet](/Business/Product/Product-CheatSheet.md)
-      - [12.2.3 UI CheatSheet](/Business/Product/UI-CheatSheet.md)
+      - [12.2.2 Laws of UX](/Business/Product/Laws-of-UX.md)
+      - [12.2.3 Product CheatSheet](/Business/Product/Product-CheatSheet.md)
+      - [12.2.4 UI CheatSheet](/Business/Product/UI-CheatSheet.md)
