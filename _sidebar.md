@@ -96,15 +96,16 @@
       - [9.4.2 WebSecurity CheatSheet](/Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
     - 9.5 K8s
       - [9.5.1 Kubectl CheatSheet](/Infrastructure/K8s/Kubectl-CheatSheet.md)
-    - [9.6 Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
-    - 9.7 OS
-      - 9.7.1 Linux
-        - [9.7.1.1 Commands](/Infrastructure/OS/Linux/Commands/README.md)
-          - [9.7.1.1.1 Trinib Linux Commands CheatSheet](/Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
-        - [9.7.1.2 Linux CheatSheet](/Infrastructure/OS/Linux/Linux-CheatSheet.md)
-        - 9.7.1.3 Shell
-          - [9.7.1.3.1 Linux Shell CheatSheet](/Infrastructure/OS/Linux/Shell/Linux-Shell-CheatSheet.md)
-    - [9.8 Raspberry CheatSheet](/Infrastructure/Raspberry-CheatSheet.md)
+    - [9.6 Linux CheatSheet](/Infrastructure/Linux-CheatSheet.md)
+    - [9.7 Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
+    - 9.8 OS
+      - 9.8.1 Linux
+        - [9.8.1.1 Commands](/Infrastructure/OS/Linux/Commands/README.md)
+          - [9.8.1.1.1 Trinib Linux Commands CheatSheet](/Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
+        - [9.8.1.2 Linux CheatSheet](/Infrastructure/OS/Linux/Linux-CheatSheet.md)
+        - 9.8.1.3 Shell
+          - [9.8.1.3.1 Linux Shell CheatSheet](/Infrastructure/OS/Linux/Shell/Linux-Shell-CheatSheet.md)
+    - [9.9 Raspberry CheatSheet](/Infrastructure/Raspberry-CheatSheet.md)
   - 10 AI
     - [10.1 AI CheatSheet](/AI/AI-CheatSheet.md)
     - [10.2 CommunityDetection CheatSheet](/AI/CommunityDetection-CheatSheet.md)
