@@ -1,6 +1,15 @@
 # Auth CheatSheet | 权限认证机制概述
 
-可以阅读 [Web 安全实践清单](https://parg.co/GWc) 了解权限校验、密码规范等安全相关知识。WebAPI 或者 RPC 接口，[HTTP CheatSheet]()，[DOM CheatSheet/数据存储]()
+可以阅读 [Web 安全实践清单](https://parg.co/GWc) 了解权限校验、密码规范等安全相关知识。WebAPI 或者 RPC 接口，[HTTP CheatSheet]()，[DOM CheatSheet/数据存储]()。
+
+![Session, cookie, JWT, token, SSO, and OAuth 2.0](https://pic.imgdb.cn/item/63885ca816f2c2beb1ff12ce.jpg)
+
+- WWW-Authenticate 是最基本的方法，浏览器会要求你提供用户名和密码。由于无法控制登录的生命周期，现在已经很少使用了。
+- 对登录生命周期的更精细的控制是 session-cookie。服务器保持会话存储，而浏览器则保持会话的 ID，一个 cookie 通常只适用于浏览器，对移动应用不友好。
+- 使用 token 来解决兼容性问题，客户端将令牌发送给服务器，而服务器则验证令牌的有效性。缺点是需要对令牌进行加密和解密，这可能很耗时。
+- JWT 是一种代表令牌的标准方式。这种信息可以被验证和信任，因为它是数字签名的。由于 JWT 包含签名，所以不需要在服务器端保存会话信息。
+- 通过使用 SSO（单点登录），你可以只登录一次，并登录到多个网站。它使用 CAS（中央认证服务）来维护跨网站信息
+- 通过使用 OAuth 2.0，你可以授权一个网站访问你在另一个网站的信息
 
 # HTTP Basic 认证
 
@@ -48,7 +57,7 @@ Cookie 与 Session 的存在主要是为了解决 HTTP 这一无状态协议下�
 
 # 基于 Token 的认证
 
-# JSON Web Token
+## JSON Web Token
 
 # OAuth
 
