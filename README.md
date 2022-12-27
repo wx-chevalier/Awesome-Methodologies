@@ -52,11 +52,11 @@
 
 - [2018-Awesome Cheatsheets](https://github.com/LeCoupa/awesome-cheatsheets): Useful cheatsheets with everything you should know in one single-file. 🚀
 
-- [Psyduck ![code](https://shorturl.at/dlxyK)](https://github.com/SmartKeyerror/Psyduck): Record CS knowlegement with XMind, version 2.0. 使用 XMind 记录 Linux 操作系统，网络，C++，Golang 以及数据库的一些设计
+- [Psyduck ![code](https://martrix-usa.oss-accelerate.aliyuncs.com/logo/code.svg)](https://github.com/SmartKeyerror/Psyduck): Record CS knowlegement with XMind, version 2.0. 使用 XMind 记录 Linux 操作系统，网络，C++，Golang 以及数据库的一些设计
 
 - [Apply best practices via CheatSheets](https://github.com/dennyzhang/cheatsheet.dennyzhang.com): See more cheatsheets from Denny: #denny-cheatsheets
 
-- [2022-Reference ![code](https://shorturl.at/dlxyK)](https://github.com/jaywcjlove/reference): 为开发人员分享快速参考备忘清单【速查表】。
+- [2022-Reference ![code](https://martrix-usa.oss-accelerate.aliyuncs.com/logo/code.svg)](https://github.com/jaywcjlove/reference): 为开发人员分享快速参考备忘清单【速查表】。
 
 ## 版权
 
