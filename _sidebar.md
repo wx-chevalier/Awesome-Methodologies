@@ -44,6 +44,7 @@
     - 6.5 Zoo
       - 6.5.1 C
         - [6.5.1.1 CPP CheatSheet](/Language/Zoo/C/CPP-CheatSheet.md)
+        - [6.5.1.2 Morten CPP CheatSheet](/Language/Zoo/C/Morten-CPP-CheatSheet.md)
       - 6.5.2 Go
         - [6.5.2.1 Go CheatSheet](/Language/Zoo/Go/Go-CheatSheet.md)
         - [6.5.2.2 Go ConcurrentProgramming CheatSheet](/Language/Zoo/Go/Go-ConcurrentProgramming-CheatSheet.md)
