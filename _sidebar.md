@@ -1,8 +1,8 @@
-  - 1 Backend
+  - 1 Backend [15]
     - [1.1 Auth CheatSheet](/Backend/Auth-CheatSheet.md)
     - [1.2 Backend Ops CheatSheet](/Backend/Backend-Ops-CheatSheet.md)
     - [1.3 Cache CheatSheet](/Backend/Cache-CheatSheet.md)
-    - 1.4 Database
+    - 1.4 Database [4]
       - [1.4.1 MongoDB CheatSheet](/Backend/Database/MongoDB-CheatSheet.md)
       - [1.4.2 MySQL Cheatsheet](/Backend/Database/MySQL-Cheatsheet.md)
       - [1.4.3 Oracle CheatSheet](/Backend/Database/Oracle-CheatSheet.md)
@@ -18,57 +18,57 @@
     - [1.13 RocketMQ CheatSheet](/Backend/RocketMQ-CheatSheet.md)
     - [1.14 Spring CheatSheet](/Backend/Spring-CheatSheet.md)
     - [1.15 SpringBoot CheatSheet](/Backend/SpringBoot-CheatSheet.md)
-  - 2 Distributed
+  - 2 Distributed [2]
     - [2.1 ConcurrentProgramming CheatSheet](/Distributed/ConcurrentProgramming-CheatSheet.md)
     - [2.2 DistributedSystem CheatSheet](/Distributed/DistributedSystem-CheatSheet.md)
   - [3 INTRODUCTION](/INTRODUCTION.md)
   - [4 README en](/README-en.md)
-  - 5 Specials
+  - 5 Specials [2]
     - [5.1 概念术语](/Specials/概念术语.md)
     - [5.2 编程笑话](/Specials/编程笑话.md)
-  - 6 Language
-    - 6.1 AlgoDS
+  - 6 Language [5]
+    - 6.1 AlgoDS [1]
       - [6.1.1 AlgoDS CheatSheet](/Language/AlgoDS/AlgoDS-CheatSheet.md)
     - [6.2 Awesome HelloWords](/Language/Awesome-HelloWords.md)
-    - 6.3 DesignPattern
+    - 6.3 DesignPattern [3]
       - [6.3.1 DesignPattern CheatSheet](/Language/DesignPattern/DesignPattern-CheatSheet.md)
       - [6.3.2 DesignPrincipe CheatSheet](/Language/DesignPattern/DesignPrincipe-CheatSheet.md)
       - [6.3.3 Refactor CheatSheet](/Language/DesignPattern/Refactor-CheatSheet.md)
-    - 6.4 Theory
+    - 6.4 Theory [6]
       - [6.4.1 Compiler CheatSheet](/Language/Theory/Compiler-CheatSheet.md)
       - [6.4.2 FunctionalProgramming CheatSheet](/Language/Theory/FunctionalProgramming-CheatSheet.md)
       - [6.4.3 GC CheatSheet](/Language/Theory/GC-CheatSheet.md)
       - [6.4.4 MemoryManagement CheatSheet](/Language/Theory/MemoryManagement-CheatSheet.md)
       - [6.4.5 PLT CheatSheet](/Language/Theory/PLT-CheatSheet.md)
       - [6.4.6 ReactiveProgramming CheatSheet](/Language/Theory/ReactiveProgramming-CheatSheet.md)
-    - 6.5 Zoo
-      - 6.5.1 C
+    - 6.5 Zoo [8]
+      - 6.5.1 C [2]
         - [6.5.1.1 CPP CheatSheet](/Language/Zoo/C/CPP-CheatSheet.md)
         - [6.5.1.2 Morten CPP CheatSheet](/Language/Zoo/C/Morten-CPP-CheatSheet.md)
-      - 6.5.2 Go
+      - 6.5.2 Go [2]
         - [6.5.2.1 Go CheatSheet](/Language/Zoo/Go/Go-CheatSheet.md)
         - [6.5.2.2 Go ConcurrentProgramming CheatSheet](/Language/Zoo/Go/Go-ConcurrentProgramming-CheatSheet.md)
-      - 6.5.3 Java
+      - 6.5.3 Java [5]
         - [6.5.3.1 Gradle CheatSheet](/Language/Zoo/Java/Gradle-CheatSheet.md)
         - [6.5.3.2 JVM Tuning CheatSheet](/Language/Zoo/Java/JVM-Tuning-CheatSheet.md)
         - [6.5.3.3 Java CheatSheet](/Language/Zoo/Java/Java-CheatSheet.md)
         - [6.5.3.4 Java ConcurrentProgramming CheatSheet](/Language/Zoo/Java/Java-ConcurrentProgramming-CheatSheet.md)
         - [6.5.3.5 Java StyleGuide CheatSheet](/Language/Zoo/Java/Java-StyleGuide-CheatSheet.md)
-      - 6.5.4 JavaScript
+      - 6.5.4 JavaScript [5]
         - [6.5.4.1 Dart CheatSheet](/Language/Zoo/JavaScript/Dart-CheatSheet.md)
         - [6.5.4.2 JavaScript CheatSheet en](/Language/Zoo/JavaScript/JavaScript-CheatSheet-en.md)
         - [6.5.4.3 JavaScript CheatSheet](/Language/Zoo/JavaScript/JavaScript-CheatSheet.md)
         - [6.5.4.4 TypeScript CheatSheet](/Language/Zoo/JavaScript/TypeScript-CheatSheet.md)
         - [6.5.4.5 V8 CheatSheet](/Language/Zoo/JavaScript/V8-CheatSheet.md)
-      - 6.5.5 Python
+      - 6.5.5 Python [1]
         - [6.5.5.1 Python CheatSheet](/Language/Zoo/Python/Python-CheatSheet.md)
-      - 6.5.6 Ruby
+      - 6.5.6 Ruby [1]
         - [6.5.6.1 Ruby CheatSheet](/Language/Zoo/Ruby/Ruby-CheatSheet.md)
-      - 6.5.7 Rust
+      - 6.5.7 Rust [1]
         - [6.5.7.1 Rust CheatSheet](/Language/Zoo/Rust/Rust-CheatSheet.md)
-      - 6.5.8 Swift
+      - 6.5.8 Swift [1]
         - [6.5.8.1 Swift CheatSheet](/Language/Zoo/Swift/Swift-CheatSheet.md)
-  - 7 Frontend
+  - 7 Frontend [14]
     - [7.1 CSS CheatSheet](/Frontend/CSS-CheatSheet.md)
     - [7.2 DOM CheatSheet](/Frontend/DOM-CheatSheet.md)
     - [7.3 DataVis CheatSheet](/Frontend/DataVis-CheatSheet.md)
@@ -83,31 +83,31 @@
     - [7.12 Web Tuning CheatSheet](/Frontend/Web-Tuning-CheatSheet.md)
     - [7.13 WebAssembly CheatSheet](/Frontend/WebAssembly-CheatSheet.md)
     - [7.14 Webpack CheatSheet](/Frontend/Webpack-CheatSheet.md)
-  - 8 System
+  - 8 System [3]
     - [8.1 Git Cheatsheet](/System/Git-Cheatsheet.md)
     - [8.2 Kara SystemDesign CheatSheet](/System/Kara-SystemDesign-CheatSheet.md)
     - [8.3 SoftwareTest CheatSheet](/System/SoftwareTest-CheatSheet.md)
-  - 9 Infrastructure
+  - 9 Infrastructure [9]
     - [9.1 Blockchain CheatSheet](/Infrastructure/Blockchain-CheatSheet.md)
-    - 9.2 Commands
+    - 9.2 Commands [1]
       - [9.2.1 awk](/Infrastructure/Commands/awk.md)
     - [9.3 Docker Cheatsheet](/Infrastructure/Docker-Cheatsheet.md)
-    - 9.4 InfoSecurity
+    - 9.4 InfoSecurity [2]
       - [9.4.1 Codec CheatSheet](/Infrastructure/InfoSecurity/Codec-CheatSheet.md)
       - [9.4.2 WebSecurity CheatSheet](/Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
-    - 9.5 K8s
+    - 9.5 K8s [1]
       - [9.5.1 Kubectl CheatSheet](/Infrastructure/K8s/Kubectl-CheatSheet.md)
     - [9.6 Linux CheatSheet](/Infrastructure/Linux-CheatSheet.md)
     - [9.7 Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
-    - 9.8 OS
-      - 9.8.1 Linux
-        - [9.8.1.1 Commands](/Infrastructure/OS/Linux/Commands/README.md)
+    - 9.8 OS [1]
+      - 9.8.1 Linux [3]
+        - [9.8.1.1 Commands [1]](/Infrastructure/OS/Linux/Commands/README.md)
           - [9.8.1.1.1 Trinib Linux Commands CheatSheet](/Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
         - [9.8.1.2 Linux CheatSheet](/Infrastructure/OS/Linux/Linux-CheatSheet.md)
-        - 9.8.1.3 Shell
+        - 9.8.1.3 Shell [1]
           - [9.8.1.3.1 Linux Shell CheatSheet](/Infrastructure/OS/Linux/Shell/Linux-Shell-CheatSheet.md)
     - [9.9 Raspberry CheatSheet](/Infrastructure/Raspberry-CheatSheet.md)
-  - 10 AI
+  - 10 AI [17]
     - [10.1 AI CheatSheet](/AI/AI-CheatSheet.md)
     - [10.2 CommunityDetection CheatSheet](/AI/CommunityDetection-CheatSheet.md)
     - [10.3 DeepLearning Application CheatSheet](/AI/DeepLearning-Application-CheatSheet.md)
@@ -125,10 +125,10 @@
     - [10.15 Statistics CheatSheet](/AI/Statistics-CheatSheet.md)
     - [10.16 Symbol CheatSheet](/AI/Symbol-CheatSheet.md)
     - [10.17 Tensorflow CheatSheet](/AI/Tensorflow-CheatSheet.md)
-  - 11 Business
-    - 11.1 Industry
+  - 11 Business [2]
+    - 11.1 Industry [1]
       - [11.1.1 3DPrinting CheatSheet](/Business/Industry/3DPrinting-CheatSheet.md)
-    - 11.2 Product
+    - 11.2 Product [4]
       - [11.2.1 LaTex CheatSheet](/Business/Product/LaTex-CheatSheet.md)
       - [11.2.2 Laws of UX](/Business/Product/Laws-of-UX.md)
       - [11.2.3 Product CheatSheet](/Business/Product/Product-CheatSheet.md)
