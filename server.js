@@ -11,7 +11,7 @@ var renderer = new Renderer({
 });
 
 renderer
-  .renderToString("https://wx-chevalier.github.io/")
+  .renderToString("https://ng-tech.icu/books/")
   .then((html) => {
     console.log(html);
   })

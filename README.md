@@ -12,7 +12,7 @@
   </a>
 
   <p align="center">
-    <a href="https://wx-chevalier.github.io/Awesome-CheatSheets"><strong>在线阅读 >> </strong></a>
+    <a href="https://ng-tech.icu/books/Awesome-CheatSheets"><strong>在线阅读 >> </strong></a>
     <br />
     <br />
     <a href="https://github.com/wx-chevalier/Awesome-CheatSheets">速览手册</a>
@@ -30,7 +30,7 @@
 
 # [Awesome CheatSheet: 语法速览，实践备忘，从零到一，上手即用 🚀](https://github.com/wx-chevalier/Awesome-CheatSheets)
 
-[Awesome CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets) 是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://wx-chevalier.github.io/home/#/perspective)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
+[Awesome CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets) 是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://ng-tech.icu/books/home/#/perspective)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
 
 需要注意的是，Awesome CheatSheets 中很多的文章仅有目录而无内容，这并不意味着这些文章是空白的，而是作者尚未将[具体的文档仓库](https://github.com/topics/wx-doc)中的相关主题下内容整合进来，您可以前往[感兴趣的分类仓库](https://github.com/topics/wx-doc)再行浏览。
 
@@ -70,9 +70,9 @@
 
 [![技术视野](https://s3.ax1x.com/2021/02/21/yTSKdH.png)](https://github.com/wx-chevalier/Awesome-MindMaps)
 
-您还可以前往 [NGTE Books](https://wx-chevalier.github.io/books/) 主页浏览包含知识体系、编程语言、软件工程、模式与架构、Web 与大前端、服务端开发实践与工程架构、分布式基础架构、人工智能与深度学习、产品运营与创业等多类目的书籍列表：
+您还可以前往 [NGTE Books](https://ng-tech.icu/books-gallery/) 主页浏览包含知识体系、编程语言、软件工程、模式与架构、Web 与大前端、服务端开发实践与工程架构、分布式基础架构、人工智能与深度学习、产品运营与创业等多类目的书籍列表：
 
-[![NGTE Books](https://s2.ax1x.com/2020/01/18/19uXtI.png)](https://wx-chevalier.github.io/books/)
+[![NGTE Books](https://s2.ax1x.com/2020/01/18/19uXtI.png)](https://ng-tech.icu/books-gallery/)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
