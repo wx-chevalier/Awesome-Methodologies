@@ -101,8 +101,9 @@
     - [9.7 Network CheatSheet](/Infrastructure/Network-CheatSheet.md)
     - 9.8 OS [1]
       - 9.8.1 Linux [3]
-        - [9.8.1.1 Commands [1]](/Infrastructure/OS/Linux/Commands/README.md)
-          - [9.8.1.1.1 Trinib Linux Commands CheatSheet](/Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
+        - [9.8.1.1 Commands [2]](/Infrastructure/OS/Linux/Commands/README.md)
+          - [9.8.1.1.1 Bash Pitfalls](/Infrastructure/OS/Linux/Commands/Bash%20Pitfalls.md)
+          - [9.8.1.1.2 Trinib Linux Commands CheatSheet](/Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
         - [9.8.1.2 Linux CheatSheet](/Infrastructure/OS/Linux/Linux-CheatSheet.md)
         - 9.8.1.3 Shell [1]
           - [9.8.1.3.1 Linux Shell CheatSheet](/Infrastructure/OS/Linux/Shell/Linux-Shell-CheatSheet.md)
