@@ -8,41 +8,46 @@
       - [2.2.1 DesignPattern CheatSheet](/1.CS/DesignPattern/DesignPattern-CheatSheet.md)
       - [2.2.2 DesignPrincipe CheatSheet](/1.CS/DesignPattern/DesignPrincipe-CheatSheet.md)
       - [2.2.3 Refactor CheatSheet](/1.CS/DesignPattern/Refactor-CheatSheet.md)
-    - 2.3 Language [9]
+    - 2.3 Language [10]
       - [2.3.1 Awesome HelloWorlds](/1.CS/Language/Awesome-HelloWorlds.md)
-      - 2.3.2 CPP [3]
-        - [2.3.2.1 CPP CheatSheet](/1.CS/Language/CPP/CPP-CheatSheet.md)
-        - [2.3.2.2 Learn C++ in Y Minutes](/1.CS/Language/CPP/Learn%20C++%20in%20Y%20Minutes.md)
-        - [2.3.2.3 Morten CPP CheatSheet](/1.CS/Language/CPP/Morten-CPP-CheatSheet.md)
-      - 2.3.3 Go [2]
-        - [2.3.3.1 Go CheatSheet](/1.CS/Language/Go/Go-CheatSheet.md)
-        - [2.3.3.2 Go ConcurrentProgramming CheatSheet](/1.CS/Language/Go/Go-ConcurrentProgramming-CheatSheet.md)
-      - 2.3.4 Java [6]
-        - 2.3.4.1 Clojure [1]
-          - [2.3.4.1.1 Learn Clojure in Y Minutes](/1.CS/Language/Java/Clojure/Learn%20Clojure%20in%20Y%20Minutes.md)
-        - 2.3.4.2 Gradle [1]
-          - [2.3.4.2.1 Gradle CheatSheet](/1.CS/Language/Java/Gradle/Gradle-CheatSheet.md)
-        - 2.3.4.3 JVM [1]
-          - [2.3.4.3.1 JVM Tuning CheatSheet](/1.CS/Language/Java/JVM/JVM-Tuning-CheatSheet.md)
-        - [2.3.4.4 Java CheatSheet](/1.CS/Language/Java/Java-CheatSheet.md)
-        - [2.3.4.5 Java ConcurrentProgramming CheatSheet](/1.CS/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
-        - [2.3.4.6 Java StyleGuide CheatSheet](/1.CS/Language/Java/Java-StyleGuide-CheatSheet.md)
-      - 2.3.5 JavaScript [5]
-        - [2.3.5.1 Dart CheatSheet](/1.CS/Language/JavaScript/Dart-CheatSheet.md)
-        - [2.3.5.2 JavaScript CheatSheet en](/1.CS/Language/JavaScript/JavaScript-CheatSheet-en.md)
-        - [2.3.5.3 JavaScript CheatSheet](/1.CS/Language/JavaScript/JavaScript-CheatSheet.md)
-        - 2.3.5.4 TypeScript [2]
-          - [2.3.5.4.1 Learn TypeScript in Y Minutes](/1.CS/Language/JavaScript/TypeScript/Learn%20TypeScript%20in%20Y%20Minutes.md)
-          - [2.3.5.4.2 TypeScript CheatSheet](/1.CS/Language/JavaScript/TypeScript/TypeScript-CheatSheet.md)
-        - [2.3.5.5 V8 CheatSheet](/1.CS/Language/JavaScript/V8-CheatSheet.md)
-      - 2.3.6 Python [1]
-        - [2.3.6.1 Python CheatSheet](/1.CS/Language/Python/Python-CheatSheet.md)
-      - 2.3.7 Ruby [1]
-        - [2.3.7.1 Ruby CheatSheet](/1.CS/Language/Ruby/Ruby-CheatSheet.md)
-      - 2.3.8 Rust [1]
-        - [2.3.8.1 Rust CheatSheet](/1.CS/Language/Rust/Rust-CheatSheet.md)
-      - 2.3.9 Swift [1]
-        - [2.3.9.1 Swift CheatSheet](/1.CS/Language/Swift/Swift-CheatSheet.md)
+      - 2.3.2 C [1]
+        - [2.3.2.1 Learn C in Y Minutes](/1.CS/Language/C/Learn%20C%20in%20Y%20Minutes.md)
+      - 2.3.3 CPP [3]
+        - [2.3.3.1 CPP CheatSheet](/1.CS/Language/CPP/CPP-CheatSheet.md)
+        - [2.3.3.2 Learn C++ in Y Minutes](/1.CS/Language/CPP/Learn%20C++%20in%20Y%20Minutes.md)
+        - [2.3.3.3 Morten CPP CheatSheet](/1.CS/Language/CPP/Morten-CPP-CheatSheet.md)
+      - 2.3.4 Go [3]
+        - [2.3.4.1 Go CheatSheet](/1.CS/Language/Go/Go-CheatSheet.md)
+        - [2.3.4.2 Go ConcurrentProgramming CheatSheet](/1.CS/Language/Go/Go-ConcurrentProgramming-CheatSheet.md)
+        - [2.3.4.3 Learn Go in Y Minutes](/1.CS/Language/Go/Learn%20Go%20in%20Y%20Minutes.md)
+      - 2.3.5 Java [6]
+        - 2.3.5.1 Clojure [1]
+          - [2.3.5.1.1 Learn Clojure in Y Minutes](/1.CS/Language/Java/Clojure/Learn%20Clojure%20in%20Y%20Minutes.md)
+        - 2.3.5.2 Gradle [1]
+          - [2.3.5.2.1 Gradle CheatSheet](/1.CS/Language/Java/Gradle/Gradle-CheatSheet.md)
+        - 2.3.5.3 JVM [1]
+          - [2.3.5.3.1 JVM Tuning CheatSheet](/1.CS/Language/Java/JVM/JVM-Tuning-CheatSheet.md)
+        - [2.3.5.4 Java CheatSheet](/1.CS/Language/Java/Java-CheatSheet.md)
+        - [2.3.5.5 Java ConcurrentProgramming CheatSheet](/1.CS/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
+        - [2.3.5.6 Java StyleGuide CheatSheet](/1.CS/Language/Java/Java-StyleGuide-CheatSheet.md)
+      - 2.3.6 JavaScript [5]
+        - [2.3.6.1 Dart CheatSheet](/1.CS/Language/JavaScript/Dart-CheatSheet.md)
+        - [2.3.6.2 JavaScript CheatSheet en](/1.CS/Language/JavaScript/JavaScript-CheatSheet-en.md)
+        - [2.3.6.3 JavaScript CheatSheet](/1.CS/Language/JavaScript/JavaScript-CheatSheet.md)
+        - 2.3.6.4 TypeScript [2]
+          - [2.3.6.4.1 Learn TypeScript in Y Minutes](/1.CS/Language/JavaScript/TypeScript/Learn%20TypeScript%20in%20Y%20Minutes.md)
+          - [2.3.6.4.2 TypeScript CheatSheet](/1.CS/Language/JavaScript/TypeScript/TypeScript-CheatSheet.md)
+        - [2.3.6.5 V8 CheatSheet](/1.CS/Language/JavaScript/V8-CheatSheet.md)
+      - 2.3.7 Python [2]
+        - [2.3.7.1 Learn Python in Y Minutes](/1.CS/Language/Python/Learn%20Python%20in%20Y%20Minutes.md)
+        - [2.3.7.2 Python CheatSheet](/1.CS/Language/Python/Python-CheatSheet.md)
+      - 2.3.8 Ruby [1]
+        - [2.3.8.1 Ruby CheatSheet](/1.CS/Language/Ruby/Ruby-CheatSheet.md)
+      - 2.3.9 Rust [2]
+        - [2.3.9.1 Learn Rust in Y Minutes](/1.CS/Language/Rust/Learn%20Rust%20in%20Y%20Minutes.md)
+        - [2.3.9.2 Rust CheatSheet](/1.CS/Language/Rust/Rust-CheatSheet.md)
+      - 2.3.10 Swift [1]
+        - [2.3.10.1 Swift CheatSheet](/1.CS/Language/Swift/Swift-CheatSheet.md)
     - 2.4 Theory [6]
       - [2.4.1 Compiler CheatSheet](/1.CS/Theory/Compiler-CheatSheet.md)
       - [2.4.2 FunctionalProgramming CheatSheet](/1.CS/Theory/FunctionalProgramming-CheatSheet.md)
