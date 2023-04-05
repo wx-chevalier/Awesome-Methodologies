@@ -130,7 +130,7 @@ _ **满二叉树**: 树中的每个节点仅包含 0 或 2 个节点。
 
 ### Graph
 
-- 图是一种数据元素间为多对多关系的数据结构,加上一组基本操作构成的抽象数据类型。 - **无向图(Undirected Graph)**: 无向图具有对称的邻接矩阵，因此如果存在某条从节点 u 到节点 v 的边，反之从 v 到 u 的边也存在。 - **有向图(Directed Graph)**: 有向图的邻接矩阵是非对称的，即如果存在从 u 到 v 的边并不意味着一定存在从 v 到 u 的边。
+- 图是一种数据元素间为多对多关系的数据结构,加上一组基本操作构成的抽象数据类型。- **无向图(Undirected Graph)**: 无向图具有对称的邻接矩阵，因此如果存在某条从节点 u 到节点 v 的边，反之从 v 到 u 的边也存在。- **有向图(Directed Graph)**: 有向图的邻接矩阵是非对称的，即如果存在从 u 到 v 的边并不意味着一定存在从 v 到 u 的边。
 
 [![Alt text](https://github.com/kdn251/interviews/raw/master/Images/graph.png?raw=true)](https://github.com/kdn251/interviews/blob/master/Images/graph.png?raw=true)
 
