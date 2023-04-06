@@ -30,14 +30,15 @@
         - [2.3.5.4 Java CheatSheet](/1.CS/Language/Java/Java-CheatSheet.md)
         - [2.3.5.5 Java ConcurrentProgramming CheatSheet](/1.CS/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
         - [2.3.5.6 Java StyleGuide CheatSheet](/1.CS/Language/Java/Java-StyleGuide-CheatSheet.md)
-      - 2.3.6 JavaScript [5]
+      - 2.3.6 JavaScript [6]
         - [2.3.6.1 Dart CheatSheet](/1.CS/Language/JavaScript/Dart-CheatSheet.md)
-        - [2.3.6.2 JavaScript CheatSheet en](/1.CS/Language/JavaScript/JavaScript-CheatSheet-en.md)
-        - [2.3.6.3 JavaScript CheatSheet](/1.CS/Language/JavaScript/JavaScript-CheatSheet.md)
-        - 2.3.6.4 TypeScript [2]
-          - [2.3.6.4.1 Learn TypeScript in Y Minutes](/1.CS/Language/JavaScript/TypeScript/Learn%20TypeScript%20in%20Y%20Minutes.md)
-          - [2.3.6.4.2 TypeScript CheatSheet](/1.CS/Language/JavaScript/TypeScript/TypeScript-CheatSheet.md)
-        - [2.3.6.5 V8 CheatSheet](/1.CS/Language/JavaScript/V8-CheatSheet.md)
+        - [2.3.6.2 ES6 CheatSheet](/1.CS/Language/JavaScript/ES6-CheatSheet.md)
+        - [2.3.6.3 JavaScript CheatSheet en](/1.CS/Language/JavaScript/JavaScript-CheatSheet-en.md)
+        - [2.3.6.4 JavaScript CheatSheet](/1.CS/Language/JavaScript/JavaScript-CheatSheet.md)
+        - 2.3.6.5 TypeScript [2]
+          - [2.3.6.5.1 Learn TypeScript in Y Minutes](/1.CS/Language/JavaScript/TypeScript/Learn%20TypeScript%20in%20Y%20Minutes.md)
+          - [2.3.6.5.2 TypeScript CheatSheet](/1.CS/Language/JavaScript/TypeScript/TypeScript-CheatSheet.md)
+        - [2.3.6.6 V8 CheatSheet](/1.CS/Language/JavaScript/V8-CheatSheet.md)
       - 2.3.7 Python [2]
         - [2.3.7.1 Learn Python in Y Minutes](/1.CS/Language/Python/Learn%20Python%20in%20Y%20Minutes.md)
         - [2.3.7.2 Python CheatSheet](/1.CS/Language/Python/Python-CheatSheet.md)
