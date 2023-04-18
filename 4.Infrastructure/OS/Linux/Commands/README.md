@@ -4,7 +4,7 @@
 
 Shell 即是用户和 Linux 内核之间的接口程序，其可以被看做命名语言解释器（Command-Language Interpreter），Bash(Bourne Again Shell) 则是 Bourne Shell(Sh) 的扩展，其优化了原本用户输入处理的不足，提供了多种便捷用户输入的方式。
 
-![Linux 常用命令](https://i.postimg.cc/K8LpW6W2/image.png)
+![Linux 常用命令](https://assets.ng-tech.icu/item/20230418155818.png)
 
 # 命令执行
 
