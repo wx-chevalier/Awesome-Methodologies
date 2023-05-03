@@ -384,7 +384,7 @@ Unix 中内置了 5 种 IO 模型，阻塞式 IO, 非阻塞式 IO，IO 复用模
 
 在传统的网络服务器的构建中，IO 模式会按照 Blocking/Non-Blocking、Synchronous/Asynchronous 这两个标准进行分类，其中 Blocking 与 Synchronous 大同小异，而 NIO 与 Async 的区别在于 NIO 强调的是 轮询（Polling），而 Async 强调的是通知（Notification）。譬如在一个典型的单进程单线程 Socket 接口中，阻塞型的接口必须在上一个 Socket 连接关闭之后才能接入下一个 Socket 连接。而对于 NIO 的 Socket 而言，服务端应用会从内核获取到一个特殊的 "Would Block" 错误信息，但是并不会阻塞到等待发起请求的 Socket 客户端停止。
 
-![](https://i.postimg.cc/wx4t0D8f/image.png)
+![](https://assets.ng-tech.icu/item/20230503195713.png)
 
 一般来说，在 Linux 系统中可以通过调用独立的 `select` 或者 `epoll` 方法来遍历所有读取好的数据，并且进行写操作。而对于异步 Socket 而言(譬如 Windows 中的 Sockets 或者 .Net 中实现的 Sockets 模型)，服务端应用会告诉 IO Framework 去读取某个 Socket 数据，在数据读取完毕之后 IO Framework 会自动地调用你的回调(也就是通知应用程序本身数据已经准备好了)。以 IO 多路复用中的 Reactor 与 Proactor 模型为例，非阻塞的模型是需要应用程序本身处理 IO 的，而异步模型则是由 Kernel 或者 Framework 将数据准备好读入缓冲区中，应用程序直接从缓冲区读取数据。
 
