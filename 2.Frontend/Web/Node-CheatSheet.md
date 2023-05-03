@@ -1,6 +1,6 @@
 ![node js banner](https://user-images.githubusercontent.com/5803001/45264152-98546180-b46a-11e8-982d-132da74f5216.png)
 
-> 本文节选自 [Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧](https://parg.co/m56)，也可以阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [现代 Web 全栈开发与工程架构](https://github.com/wx-chevalier/Web-Series) 了解更多 JavaScript/Node.js 的实际应用。
+> 本文节选自 [Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧](https://parg.co/m56)，也可以阅读 [JavaScript CheatSheet](https://parg.co/Yha) 或者 [现代 Web 全栈开发与工程架构](https://github.com/wx-chevalier/Web-Notes) 了解更多 JavaScript/Node.js 的实际应用。
 
 # Node.js CheatSheet | Node.js 语法基础、框架使用与实践技巧
 
@@ -208,10 +208,10 @@ const readFileAsync = promisify(fs.readFile); // (A)
 const filePath = process.argv[2];
 
 readFileAsync(filePath, { encoding: "utf8" })
-  .then(text => {
+  .then((text) => {
     console.log("CONTENT:", text);
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("ERROR:", err);
   });
 ```
@@ -344,7 +344,7 @@ const sql = knex
   .innerJoin("teacher AS t", "t.id", "c.teacher_id")
   .innerJoin("course_lesson AS cl", "cl.course_id", "c.id")
   .innerJoin("lesson AS l", "l.id", "cl.lesson_id");
-knexnest(sql).then(function(data) {
+knexnest(sql).then(function (data) {
   result = data;
 });
 /* result should be like:
@@ -392,9 +392,7 @@ function upsert(table, data, updateData?) {
     updateData = data;
   }
 
-  const insert = this.knex(table)
-    .insert(data)
-    .toString();
+  const insert = this.knex(table).insert(data).toString();
 
   const updateSql = this.knex(table)
     .update(updateData)
@@ -410,34 +408,34 @@ function upsert(table, data, updateData?) {
 ```js
 const knex = require("knex")({
   client: "mysql",
-  connection: process.env.MYSQL_DATABASE_CONNECTION
+  connection: process.env.MYSQL_DATABASE_CONNECTION,
 });
 const bookshelf = require("bookshelf")(knex);
 
 const User = bookshelf.Model.extend({
   tableName: "users",
-  posts: function() {
+  posts: function () {
     return this.hasMany(Posts);
-  }
+  },
 });
 
 const Posts = bookshelf.Model.extend({
   tableName: "messages",
-  tags: function() {
+  tags: function () {
     return this.belongsToMany(Tag);
-  }
+  },
 });
 
 const Tag = bookshelf.Model.extend({
-  tableName: "tags"
+  tableName: "tags",
 });
 
 User.where("id", 1)
   .fetch({ withRelated: ["posts.tags"] })
-  .then(function(user) {
+  .then(function (user) {
     console.log(user.related("posts").toJSON());
   })
-  .catch(function(err) {
+  .catch(function (err) {
     console.error(err);
   });
 ```
@@ -467,21 +465,21 @@ const logger = createLogger({
       format: format.combine(
         format.colorize(),
         format.printf(
-          info =>
+          (info) =>
             `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
         )
-      )
+      ),
     }),
     new transports.File({
       filename,
       format: format.combine(
         format.printf(
-          info =>
+          (info) =>
             `${info.timestamp} ${info.level} [${info.label}]: ${info.message}`
         )
-      )
-    })
-  ]
+      ),
+    }),
+  ],
 });
 ```
 

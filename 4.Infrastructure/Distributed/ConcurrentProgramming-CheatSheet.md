@@ -200,7 +200,7 @@ Java 内存模型对一个线程所做的变动能被其它线程可见提供了
 
 ![image](https://user-images.githubusercontent.com/5803001/52271382-6fcf8580-297e-11e9-9161-de3d9461d5f4.png)
 
-在《[Linux-Series](https://github.com/wx-chevalier/Linux-Series?q=)》一节中，我们介绍过它为每个进程提供了一个假象，即每个进程都在独占地使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。其虚拟地址空间最上面的区域是为操作系统中的代码和数据保留的，这对所有进程来说都是一样的；地址空间的底部区域存放用户进程定义的代码和数据。
+在《[Linux-Notes](https://github.com/wx-chevalier/Linux-Notes?q=)》一节中，我们介绍过它为每个进程提供了一个假象，即每个进程都在独占地使用主存。每个进程看到的是一致的存储器，称为虚拟地址空间。其虚拟地址空间最上面的区域是为操作系统中的代码和数据保留的，这对所有进程来说都是一样的；地址空间的底部区域存放用户进程定义的代码和数据。
 
 ![image](https://user-images.githubusercontent.com/5803001/52272019-52032000-2980-11e9-953c-89de286e5174.png)
 

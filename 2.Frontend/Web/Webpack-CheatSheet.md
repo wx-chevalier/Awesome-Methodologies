@@ -23,7 +23,7 @@ $ npm install webpack webpack-cli webpack-dev-server --save-dev
 const config = {
   // 定义入口
   entry: {
-    app: path.join(__dirname, "app")
+    app: path.join(__dirname, "app"),
   },
   // 定义包体文件
   output: {
@@ -31,7 +31,7 @@ const config = {
     path: path.join(__dirname, "build"),
 
     // 输出文件名
-    filename: "[name].js"
+    filename: "[name].js",
     // 使用 hash 作为文件名
     // filename: "[name].[chunkhash].js",
   },
@@ -41,12 +41,12 @@ const config = {
       {
         test: /\.js$/,
         use: "babel-loader",
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   // 添加额外插件操作
-  plugins: [new webpack.DefinePlugin()]
+  plugins: [new webpack.DefinePlugin()],
 };
 ```
 
@@ -77,8 +77,8 @@ const config = {
     ],
     modules: [
       /*...*/
-    ]
-  }
+    ],
+  },
 };
 ```
 
@@ -95,13 +95,13 @@ const config = {
 
         // **Restrictions**
         include: path.join(__dirname, "app"),
-        exclude: path => path.match(/node_modules/),
+        exclude: (path) => path.match(/node_modules/),
 
         // **Actions**
-        use: "babel-loader"
-      }
-    ]
-  }
+        use: "babel-loader",
+      },
+    ],
+  },
 };
 ```
 
@@ -177,8 +177,8 @@ module.resolve = {
     Components: path.resolve(__dirname, "..", "src", "components"),
     Ducks: path.resolve(__dirname, "..", "src", "ducks"),
     Shared: path.resolve(__dirname, "..", "src", "shared"),
-    App: path.join(__dirname, "..", "src")
-  }
+    App: path.join(__dirname, "..", "src"),
+  },
 };
 ```
 
@@ -237,12 +237,12 @@ module.exports = {
           ["babel-polyfill", "babel-polyfill/dist/polyfill.min.js"],
           ["helper", "./utils/helper"],
           ["material-ui/DatePicker", "../custom/DatePicker"],
-          ["material-ui", "material-ui-ie10"]
+          ["material-ui", "material-ui-ie10"],
         ],
-        extensions: [".ts", ".js", ".jsx", ".json"]
-      }
-    }
-  }
+        extensions: [".ts", ".js", ".jsx", ".json"],
+      },
+    },
+  },
 };
 ```
 
@@ -354,10 +354,10 @@ Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被�
 ```js
 // Webpack 3 之后支持显式指定 Chunk 名
 import(/* webpackChunkName: "optional-name" */ "./module")
-  .then(module => {
+  .then((module) => {
     /* ... */
   })
-  .catch(error => {
+  .catch((error) => {
     /* ... */
   });
 ```
@@ -375,4 +375,4 @@ webpackJsonp([0], {
 
 如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
-更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 全栈开发与工程架构/Webpack](https://github.com/wx-chevalier/Web-Series) 章节。
+更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 全栈开发与工程架构/Webpack](https://github.com/wx-chevalier/Web-Notes) 章节。

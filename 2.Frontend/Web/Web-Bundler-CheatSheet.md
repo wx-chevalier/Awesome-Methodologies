@@ -6,7 +6,7 @@
 
 ![webpack](https://user-images.githubusercontent.com/5803001/39966649-02e751a6-56e2-11e8-8af1-bbbd47aa7dbb.png)
 
-尺有所短，寸有所长，不同的构建工具有其不同的适用场景。Webpack 是非常优秀的构建与打包工具，但是其提供了基础且复杂的功能支持，使得并不适用于全部的场景。Parcel 这样的零配置打包工具适合于应用型的原型项目构建，而 Rollup 或者 Microbundle 适合于库的打包，Backpack 则能够帮我们快速构建 Node.js 项目。笔者在本文中列举讨论的仅是日常工作中会使用的工具，更多的 [Browserify](https://github.com/browserify/browserify)、[Fusebox](https://github.com/fuse-box/fuse-box) 等等构建工具查看 [Web 构建与打包工具资料索引](https://parg.co/Uss)或者[现代 Web 开发实战/进阶篇](https://github.com/wx-chevalier/Web-Series)。
+尺有所短，寸有所长，不同的构建工具有其不同的适用场景。Webpack 是非常优秀的构建与打包工具，但是其提供了基础且复杂的功能支持，使得并不适用于全部的场景。Parcel 这样的零配置打包工具适合于应用型的原型项目构建，而 Rollup 或者 Microbundle 适合于库的打包，Backpack 则能够帮我们快速构建 Node.js 项目。笔者在本文中列举讨论的仅是日常工作中会使用的工具，更多的 [Browserify](https://github.com/browserify/browserify)、[Fusebox](https://github.com/fuse-box/fuse-box) 等等构建工具查看 [Web 构建与打包工具资料索引](https://parg.co/Uss)或者[现代 Web 开发实战/进阶篇](https://github.com/wx-chevalier/Web-Notes)。
 
 # NPM & Yarn
 
@@ -87,9 +87,9 @@ if (module.hot) {
 // someModule.js
 console.log("someModule.js loaded");
 module.exports = {
-  render: function(element) {
+  render: function (element) {
     element.innerHTML = "You clicked a button";
-  }
+  },
 };
 ```
 
@@ -97,10 +97,10 @@ module.exports = {
 
 ```js
 console.log("index.js loaded");
-window.onload = function() {
-  document.querySelector("#bt").addEventListener("click", function(evt) {
+window.onload = function () {
+  document.querySelector("#bt").addEventListener("click", function (evt) {
     console.log("Button Clicked");
-    import("./someModule").then(function(page) {
+    import("./someModule").then(function (page) {
       page.render(document.querySelector(".holder"));
     });
   });
@@ -149,7 +149,7 @@ export default {
   // 指定文件格式
   format: "iife",
   // 指定 SourceMap 格式
-  sourceMap: "inline"
+  sourceMap: "inline",
 };
 ```
 
@@ -193,7 +193,7 @@ import typescript from "rollup-plugin-typescript";
 export default {
   entry: "./main.ts",
 
-  plugins: [typescript()]
+  plugins: [typescript()],
 };
 ```
 
@@ -238,7 +238,7 @@ $ npm install webpack webpack-cli webpack-dev-server --save-dev
 const config = {
   // 定义入口
   entry: {
-    app: path.join(__dirname, "app")
+    app: path.join(__dirname, "app"),
   },
   // 定义包体文件
   output: {
@@ -246,7 +246,7 @@ const config = {
     path: path.join(__dirname, "build"),
 
     // 输出文件名
-    filename: "[name].js"
+    filename: "[name].js",
     // 使用 hash 作为文件名
     // filename: "[name].[chunkhash].js",
   },
@@ -256,12 +256,12 @@ const config = {
       {
         test: /\.js$/,
         use: "babel-loader",
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   // 添加额外插件操作
-  plugins: [new webpack.DefinePlugin()]
+  plugins: [new webpack.DefinePlugin()],
 };
 ```
 
@@ -292,8 +292,8 @@ const config = {
     ],
     modules: [
       /*...*/
-    ]
-  }
+    ],
+  },
 };
 ```
 
@@ -310,13 +310,13 @@ const config = {
 
         // **Restrictions**
         include: path.join(__dirname, "app"),
-        exclude: path => path.match(/node_modules/),
+        exclude: (path) => path.match(/node_modules/),
 
         // **Actions**
-        use: "babel-loader"
-      }
-    ]
-  }
+        use: "babel-loader",
+      },
+    ],
+  },
 };
 ```
 
@@ -432,10 +432,10 @@ Webpack 的 optimization 还包含了 runtimeChunk 属性，当该属性值被�
 ```js
 // Webpack 3 之后支持显式指定 Chunk 名
 import(/* webpackChunkName: "optional-name" */ "./module")
-  .then(module => {
+  .then((module) => {
     /* ... */
   })
-  .catch(error => {
+  .catch((error) => {
     /* ... */
   });
 ```
@@ -453,7 +453,7 @@ webpackJsonp([0], {
 
 如果是使用 React 进行项目开发，推荐使用 [react-loadable](https://www.npmjs.com/package/react-loadable) 进行组件的按需加载，他能够优雅地处理组件加载、服务端渲染等场景。Webpack 还内建支持基于 ES6 Module 规范的 Tree Shaking 优化，即仅从导入文件中提取出所需要的代码。
 
-更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 全栈开发与工程架构/Webpack](https://github.com/wx-chevalier/Web-Series) 章节。
+更多关于 Webpack 的使用技巧可以参阅 [Webpack CheatSheet](https://parg.co/Yuq) 或者[现代 Web 全栈开发与工程架构/Webpack](https://github.com/wx-chevalier/Web-Notes) 章节。
 
 # Backpack
 
@@ -483,7 +483,7 @@ module.exports = {
     // Perform customizations to config
     // Important: return the modified config
     return config;
-  }
+  },
 };
 ```
 
@@ -547,21 +547,21 @@ const SystemJS = require("systemjs");
 SystemJS.config({
   map: {
     traceur: "node_modules/traceur/bin/traceur.js",
-    moment: "node_modules/moment/src"
+    moment: "node_modules/moment/src",
   },
   packages: {
     moment: {
-      main: "moment.js"
-    }
-  }
+      main: "moment.js",
+    },
+  },
 });
 
 SystemJS.import("./test.js")
-  .then(function(test) {
+  .then(function (test) {
     var t = test.test();
     console.log(t);
   })
-  .catch(function(e) {
+  .catch(function (e) {
     console.error(e);
   });
 ```
