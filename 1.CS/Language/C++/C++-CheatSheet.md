@@ -1,4 +1,4 @@
-# CPP CheatSheet
+# C++ CheatSheet
 
 # Links
 
