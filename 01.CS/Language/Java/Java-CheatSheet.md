@@ -262,10 +262,6 @@ doublecos=Math.cos(45);
     doubletan=Math.tan(45);
 ```
 
-####formatterformatcalls:
-
-[![EkranResmi2017-03-0411.21.45.png](https://s24.postimg.org/6st8e3epx/Ekran_Resmi_2017_03_04_11_21_45.png)](https://postimg.org/image/qanvu1bnl/)
-
 #### 读取二进制数据:
 
 InputStreamis=newFileInputStream(fileName);
