@@ -1,4 +1,4 @@
-> 本文节选自 [Live CheatSheet | 直播技术理论基础与实践概论](https://github.com/wx-chevalier/Awesome-CheatSheets/blob/master/IndustrialApplication/IM/Live-CheatSheet.md)，**很多内容非作者原创**，而是对 [Live Links](https://github.com/wx-chevalier/Awesome-Lists/blob/master/IndustrialApplication/IM/Live-List.md) 中列举出的多篇文章的盘点总结，更多直播相关内容可以前往 [xCompass](https://ng-tech.icu/books/home/#/search?query=%E7%9B%B4%E6%92%AD) 交互式检索或 [MushiChat](https://github.com/wx-chevalier/MushiChat) 查看代码。
+> 本文节选自 [Live CheatSheet | 直播技术理论基础与实践概论](https://github.com/wx-chevalier/Awesome-CheatSheets/blob/master/IndustrialApplication/IM/Live-CheatSheet.md)，**很多内容非作者原创**，而是对 [Live Links](https://github.com/wx-chevalier/Awesome-Lists/blob/master/IndustrialApplication/IM/Live-List.md) 中列举出的多篇文章的盘点总结，更多直播相关内容可以前往 [NGTE Website](https://ng-tech.icu/books/home/#/search?query=%E7%9B%B4%E6%92%AD) 交互式检索或 [MushiChat](https://github.com/wx-chevalier/MushiChat) 查看代码。
 
 # Live CheatSheet | 直播技术理论基础与实践概论
 
