@@ -64,7 +64,7 @@
       - [2.5.4 MemoryManagement CheatSheet](/01.CS/Theory/MemoryManagement-CheatSheet.md)
       - [2.5.5 PLT CheatSheet](/01.CS/Theory/PLT-CheatSheet.md)
       - [2.5.6 ReactiveProgramming CheatSheet](/01.CS/Theory/ReactiveProgramming-CheatSheet.md)
-  - 3 02.Frontend [3]
+  - [3 02.Frontend [3]](/02.Frontend/README.md)
     - 3.1 CG [3]
       - [3.1.1 FFmpeg CheatSheet](/02.Frontend/CG/FFmpeg-CheatSheet.md)
       - 3.1.2 OpenGL [1]
@@ -83,7 +83,7 @@
       - [3.3.8 Web Tuning CheatSheet](/02.Frontend/Web/Web-Tuning-CheatSheet.md)
       - [3.3.9 WebAssembly CheatSheet](/02.Frontend/Web/WebAssembly-CheatSheet.md)
       - [3.3.10 Webpack CheatSheet](/02.Frontend/Web/Webpack-CheatSheet.md)
-  - 4 03.System [10]
+  - [4 03.System [8]](/03.System/README.md)
     - [4.1 Cache CheatSheet](/03.System/Cache-CheatSheet.md)
     - 4.2 Database [4]
       - [4.2.1 MongoDB CheatSheet](/03.System/Database/MongoDB-CheatSheet.md)
@@ -94,73 +94,80 @@
       - [4.3.1 Backend Ops CheatSheet](/03.System/DevOps/Backend-Ops-CheatSheet.md)
     - [4.4 Kara SystemDesign CheatSheet](/03.System/Kara-SystemDesign-CheatSheet.md)
     - [4.5 Live CheatSheet](/03.System/Live-CheatSheet.md)
-    - 4.6 MicroCN [5]
+    - 4.6 MicroCN [6]
       - [4.6.1 Auth CheatSheet](/03.System/MicroCN/Auth-CheatSheet.md)
       - [4.6.2 GraphQL CheatSheet](/03.System/MicroCN/GraphQL-CheatSheet.md)
-      - [4.6.3 HA CheatSheet](/03.System/MicroCN/HA-CheatSheet.md)
+      - 4.6.3 HA [1]
+        - [4.6.3.1 HA CheatSheet](/03.System/MicroCN/HA/HA-CheatSheet.md)
       - [4.6.4 MicroService CheatSheet](/03.System/MicroCN/MicroService-CheatSheet.md)
       - [4.6.5 Nginx CheatSheet](/03.System/MicroCN/Nginx-CheatSheet.md)
+      - 4.6.6 Spring [2]
+        - [4.6.6.1 Spring CheatSheet](/03.System/MicroCN/Spring/Spring-CheatSheet.md)
+        - [4.6.6.2 SpringBoot CheatSheet](/03.System/MicroCN/Spring/SpringBoot-CheatSheet.md)
     - [4.7 Redis CheatSheet](/03.System/Redis-CheatSheet.md)
     - [4.8 SoftwareTest CheatSheet](/03.System/SoftwareTest-CheatSheet.md)
-    - [4.9 Spring CheatSheet](/03.System/Spring-CheatSheet.md)
-    - [4.10 SpringBoot CheatSheet](/03.System/SpringBoot-CheatSheet.md)
-  - 5 04.Infrastructure [7]
+  - [5 04.Infrastructure [8]](/04.Infrastructure/README.md)
     - 5.1 Cloud [2]
       - [5.1.1 Docker Cheatsheet](/04.Infrastructure/Cloud/Docker-Cheatsheet.md)
       - 5.1.2 K8s [1]
         - [5.1.2.1 Kubectl CheatSheet](/04.Infrastructure/Cloud/K8s/Kubectl-CheatSheet.md)
     - 5.2 DataEngineering [1]
       - [5.2.1 DataVis CheatSheet](/04.Infrastructure/DataEngineering/DataVis-CheatSheet.md)
-    - 5.3 Distributed [3]
-      - [5.3.1 Blockchain CheatSheet](/04.Infrastructure/Distributed/Blockchain-CheatSheet.md)
-      - [5.3.2 ConcurrentProgramming CheatSheet](/04.Infrastructure/Distributed/ConcurrentProgramming-CheatSheet.md)
-      - [5.3.3 DistributedSystem CheatSheet](/04.Infrastructure/Distributed/DistributedSystem-CheatSheet.md)
-    - 5.4 InfoSecurity [2]
-      - [5.4.1 Codec CheatSheet](/04.Infrastructure/InfoSecurity/Codec-CheatSheet.md)
-      - [5.4.2 WebSecurity CheatSheet](/04.Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
-    - 5.5 MessageQueue [4]
-      - 5.5.1 Kafka [1]
-        - [5.5.1.1 Kafka CheatSheet](/04.Infrastructure/MessageQueue/Kafka/Kafka-CheatSheet.md)
-      - [5.5.2 Pulsar CheatSheet](/04.Infrastructure/MessageQueue/Pulsar-CheatSheet.md)
-      - [5.5.3 RabbitMQ CheatSheet](/04.Infrastructure/MessageQueue/RabbitMQ-CheatSheet.md)
-      - [5.5.4 RocketMQ CheatSheet](/04.Infrastructure/MessageQueue/RocketMQ-CheatSheet.md)
-    - 5.6 Network [1]
-      - [5.6.1 Network CheatSheet](/04.Infrastructure/Network/Network-CheatSheet.md)
-    - 5.7 OS [2]
-      - 5.7.1 Linux [3]
-        - [5.7.1.1 Commands [3]](/04.Infrastructure/OS/Linux/Commands/README.md)
-          - [5.7.1.1.1 Bash Pitfalls](/04.Infrastructure/OS/Linux/Commands/Bash%20Pitfalls.md)
-          - [5.7.1.1.2 Heibaiying Linux Commands CheatSheet](/04.Infrastructure/OS/Linux/Commands/Heibaiying-Linux-Commands-CheatSheet.md)
-          - [5.7.1.1.3 Trinib Linux Commands CheatSheet](/04.Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
-        - [5.7.1.2 Linux CheatSheet](/04.Infrastructure/OS/Linux/Linux-CheatSheet.md)
-        - 5.7.1.3 Shell [1]
-          - [5.7.1.3.1 Linux Shell CheatSheet](/04.Infrastructure/OS/Linux/Shell/Linux-Shell-CheatSheet.md)
-      - [5.7.2 Raspberry CheatSheet](/04.Infrastructure/OS/Raspberry-CheatSheet.md)
-  - 6 10.AI [17]
+    - 5.3 Database [1]
+      - [5.3.1 MySQL](/04.Infrastructure/Database/MySQL.md)
+    - 5.4 Distributed [3]
+      - [5.4.1 Blockchain CheatSheet](/04.Infrastructure/Distributed/Blockchain-CheatSheet.md)
+      - [5.4.2 ConcurrentProgramming CheatSheet](/04.Infrastructure/Distributed/ConcurrentProgramming-CheatSheet.md)
+      - [5.4.3 DistributedSystem CheatSheet](/04.Infrastructure/Distributed/DistributedSystem-CheatSheet.md)
+    - 5.5 InfoSecurity [2]
+      - [5.5.1 Codec CheatSheet](/04.Infrastructure/InfoSecurity/Codec-CheatSheet.md)
+      - [5.5.2 WebSecurity CheatSheet](/04.Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
+    - 5.6 MessageQueue [4]
+      - 5.6.1 Kafka [1]
+        - [5.6.1.1 Kafka CheatSheet](/04.Infrastructure/MessageQueue/Kafka/Kafka-CheatSheet.md)
+      - [5.6.2 Pulsar CheatSheet](/04.Infrastructure/MessageQueue/Pulsar-CheatSheet.md)
+      - [5.6.3 RabbitMQ CheatSheet](/04.Infrastructure/MessageQueue/RabbitMQ-CheatSheet.md)
+      - [5.6.4 RocketMQ CheatSheet](/04.Infrastructure/MessageQueue/RocketMQ-CheatSheet.md)
+    - 5.7 Network [1]
+      - [5.7.1 Network CheatSheet](/04.Infrastructure/Network/Network-CheatSheet.md)
+    - 5.8 OS [2]
+      - 5.8.1 Linux [3]
+        - [5.8.1.1 Commands [3]](/04.Infrastructure/OS/Linux/Commands/README.md)
+          - [5.8.1.1.1 Bash Pitfalls](/04.Infrastructure/OS/Linux/Commands/Bash%20Pitfalls.md)
+          - [5.8.1.1.2 Heibaiying Linux Commands CheatSheet](/04.Infrastructure/OS/Linux/Commands/Heibaiying-Linux-Commands-CheatSheet.md)
+          - [5.8.1.1.3 Trinib Linux Commands CheatSheet](/04.Infrastructure/OS/Linux/Commands/Trinib-Linux-Commands-CheatSheet.md)
+        - [5.8.1.2 Linux CheatSheet](/04.Infrastructure/OS/Linux/Linux-CheatSheet.md)
+        - 5.8.1.3 Shell [1]
+          - [5.8.1.3.1 Linux Shell CheatSheet](/04.Infrastructure/OS/Linux/Shell/Linux-Shell-CheatSheet.md)
+      - [5.8.2 Raspberry CheatSheet](/04.Infrastructure/OS/Raspberry-CheatSheet.md)
+  - [6 10.AI [18]](/10.AI/README.md)
     - [6.1 AI CheatSheet](/10.AI/AI-CheatSheet.md)
     - [6.2 CommunityDetection CheatSheet](/10.AI/CommunityDetection-CheatSheet.md)
     - [6.3 DeepLearning Application CheatSheet](/10.AI/DeepLearning-Application-CheatSheet.md)
     - [6.4 DeepLearning CheatSheet](/10.AI/DeepLearning-CheatSheet.md)
     - [6.5 EnsembleLearning CheatCheatSheet](/10.AI/EnsembleLearning-CheatCheatSheet.md)
     - [6.6 FeatureEngineering CheatSheet](/10.AI/FeatureEngineering-CheatSheet.md)
-    - [6.7 MachineLearning CheatSheet](/10.AI/MachineLearning-CheatSheet.md)
-    - [6.8 NLP CheatSheet](/10.AI/NLP-CheatSheet.md)
-    - [6.9 Numpy CheatSheet](/10.AI/Numpy-CheatSheet.md)
-    - [6.10 Personas CheatSheet](/10.AI/Personas-CheatSheet.md)
-    - [6.11 PyTorch CheatSheet](/10.AI/PyTorch-CheatSheet.md)
-    - [6.12 R CheatSheet](/10.AI/R-CheatSheet.md)
-    - [6.13 RecommendSystem CheatSheet](/10.AI/RecommendSystem-CheatSheet.md)
-    - [6.14 Scikit CheatSheet](/10.AI/Scikit-CheatSheet.md)
-    - [6.15 Statistics CheatSheet](/10.AI/Statistics-CheatSheet.md)
-    - [6.16 Symbol CheatSheet](/10.AI/Symbol-CheatSheet.md)
-    - [6.17 Tensorflow CheatSheet](/10.AI/Tensorflow-CheatSheet.md)
-  - 7 30.Business [2]
-    - 7.1 Industry [1]
-      - [7.1.1 3DPrinting CheatSheet](/30.Business/Industry/3DPrinting-CheatSheet.md)
-    - 7.2 Product [4]
-      - [7.2.1 LaTex CheatSheet](/30.Business/Product/LaTex-CheatSheet.md)
-      - [7.2.2 Laws of UX](/30.Business/Product/Laws-of-UX.md)
-      - [7.2.3 Product CheatSheet](/30.Business/Product/Product-CheatSheet.md)
-      - [7.2.4 UI CheatSheet](/30.Business/Product/UI-CheatSheet.md)
-  - [8 INTRODUCTION](/INTRODUCTION.md)
-  - [9 README en](/README-en.md)
+    - [6.7 MachineLearning [1]](/10.AI/MachineLearning/README.md)
+      - 6.7.1 99.参考资料 [1]
+        - [6.7.1.1 ZOE 统计学与机器学习思维脑图](/10.AI/MachineLearning/99.参考资料/2018-ZOE-统计学与机器学习思维脑图.md)
+    - [6.8 MachineLearning CheatSheet](/10.AI/MachineLearning-CheatSheet.md)
+    - [6.9 NLP CheatSheet](/10.AI/NLP-CheatSheet.md)
+    - [6.10 Numpy CheatSheet](/10.AI/Numpy-CheatSheet.md)
+    - [6.11 Personas CheatSheet](/10.AI/Personas-CheatSheet.md)
+    - [6.12 PyTorch CheatSheet](/10.AI/PyTorch-CheatSheet.md)
+    - [6.13 R CheatSheet](/10.AI/R-CheatSheet.md)
+    - [6.14 RecommendSystem CheatSheet](/10.AI/RecommendSystem-CheatSheet.md)
+    - [6.15 Scikit CheatSheet](/10.AI/Scikit-CheatSheet.md)
+    - [6.16 Statistics CheatSheet](/10.AI/Statistics-CheatSheet.md)
+    - [6.17 Symbol CheatSheet](/10.AI/Symbol-CheatSheet.md)
+    - [6.18 Tensorflow CheatSheet](/10.AI/Tensorflow-CheatSheet.md)
+  - 7 20.Product [4]
+    - [7.1 LaTex CheatSheet](/20.Product/LaTex-CheatSheet.md)
+    - [7.2 Laws of UX](/20.Product/Laws-of-UX.md)
+    - [7.3 Product CheatSheet](/20.Product/Product-CheatSheet.md)
+    - [7.4 UI CheatSheet](/20.Product/UI-CheatSheet.md)
+  - 8 30.Business [1]
+    - 8.1 Industry [1]
+      - [8.1.1 3DPrinting CheatSheet](/30.Business/Industry/3DPrinting-CheatSheet.md)
+  - [9 INTRODUCTION](/INTRODUCTION.md)
+  - [10 README en](/README-en.md)
