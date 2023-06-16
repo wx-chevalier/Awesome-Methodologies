@@ -83,7 +83,7 @@
       - [3.3.8 Web Tuning CheatSheet](/02.Frontend/Web/Web-Tuning-CheatSheet.md)
       - [3.3.9 WebAssembly CheatSheet](/02.Frontend/Web/WebAssembly-CheatSheet.md)
       - [3.3.10 Webpack CheatSheet](/02.Frontend/Web/Webpack-CheatSheet.md)
-  - [4 03.System [8]](/03.System/README.md)
+  - 4 03.System [8]
     - [4.1 Cache CheatSheet](/03.System/Cache-CheatSheet.md)
     - 4.2 Database [4]
       - [4.2.1 MongoDB CheatSheet](/03.System/Database/MongoDB-CheatSheet.md)
@@ -106,7 +106,7 @@
         - [4.6.6.2 SpringBoot CheatSheet](/03.System/MicroCN/Spring/SpringBoot-CheatSheet.md)
     - [4.7 Redis CheatSheet](/03.System/Redis-CheatSheet.md)
     - [4.8 SoftwareTest CheatSheet](/03.System/SoftwareTest-CheatSheet.md)
-  - [5 04.Infrastructure [8]](/04.Infrastructure/README.md)
+  - 5 04.Infrastructure [8]
     - 5.1 Cloud [2]
       - [5.1.1 Docker Cheatsheet](/04.Infrastructure/Cloud/Docker-Cheatsheet.md)
       - 5.1.2 K8s [1]

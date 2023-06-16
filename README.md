@@ -28,13 +28,7 @@
 
 [Awesome CheatSheet](https://github.com/wx-chevalier/Awesome-CheatSheets) 是对某项技术/领域的语法速览与实践备忘清单集锦。它包含了 JavaScript，Java，Go，Python，Rust 等常见的编程语言，Web，数据库，信息安全等 [ITCS 知识图谱与技术路线](https://ng-tech.icu/books/home/#/perspective)中归档的知识技能点，其致力于提升学习速度与研发效能，即可以将其当做速查手册，也可以作为轻量级的入门学习资料。
 
-- 知识脉络
-
 ![知识脉络](https://assets.ng-tech.icu/item/20230416202635.png)
-
-- 知识要点
-
-![知识要点](https://i.postimg.cc/FKNBH7GC/image.png)
 
 需要注意的是，Awesome CheatSheets 中很多的文章仅有目录而无内容，这并不意味着这些文章是空白的，而是作者尚未将[具体的文档仓库](https://github.com/topics/wx-doc)中的相关主题下内容整合进来，您可以前往[感兴趣的分类仓库](https://github.com/topics/wx-doc)再行浏览。
 
