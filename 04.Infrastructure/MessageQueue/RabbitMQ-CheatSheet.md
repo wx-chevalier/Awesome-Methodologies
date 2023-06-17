@@ -44,7 +44,7 @@ RabbitMQ 与 AMQP 遵循相同的模型架构，其架构示例图如下：
 
 ### 2. Message（消息）
 
-消息由消息头和消息体组成。消息头用于存储与消息相关的元数据：如目标交换器的名字 (exchange_name) 、路由键 (RountingKey) 和其他可选配置 (properties) 信息。消息体为实际需要传递的数据。
+消息由消息头和消息体组成。消息头用于存储与消息相关的元数据：如目标交换器的名字 (exchange_name)、路由键 (RountingKey) 和其他可选配置 (properties) 信息。消息体为实际需要传递的数据。
 
 ### 3. Exchange（交换器）
 
@@ -168,4 +168,4 @@ args.put("x-dead-letter-routing-key", "some-routing-key");
 ## 参考资料
 
 1. 朱忠华 . RabbitMQ 实战指南 . 电子工业出版社 . 2017-11-1
-2. 官方文档：[RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html) 、[Documentation: Table of Contents](https://www.rabbitmq.com/documentation.html)
+2. 官方文档：[RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)、[Documentation: Table of Contents](https://www.rabbitmq.com/documentation.html)
