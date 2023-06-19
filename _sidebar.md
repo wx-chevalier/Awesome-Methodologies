@@ -74,7 +74,8 @@
       - [3.2.1 Flutter CheatSheet](/02.Frontend/Mobile/Flutter-CheatSheet.md)
     - 3.3 Web [10]
       - [3.3.1 CSS CheatSheet](/02.Frontend/Web/CSS-CheatSheet.md)
-      - [3.3.2 DOM CheatSheet](/02.Frontend/Web/DOM-CheatSheet.md)
+      - 3.3.2 DOM [1]
+        - [3.3.2.1 DOM CheatSheet](/02.Frontend/Web/DOM/DOM-CheatSheet.md)
       - [3.3.3 Node CheatSheet](/02.Frontend/Web/Node-CheatSheet.md)
       - [3.3.4 React CheatSheet](/02.Frontend/Web/React-CheatSheet.md)
       - [3.3.5 Redux CheatSheet](/02.Frontend/Web/Redux-CheatSheet.md)
