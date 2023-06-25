@@ -6,7 +6,7 @@
 
 ### 1.1 简介
 
-Nginx（engine x）是一个免费的，开源的，高性能的 HTTP 服务器， IMAP/POP3 代理服务器 和 TCP/UDP 代理服务器，通常可以用于进行反向代理和实现基于软件的负载均衡，除此之外，它还具备以下特性：
+Nginx（engine x）是一个免费的，开源的，高性能的 HTTP 服务器，IMAP/POP3 代理服务器 和 TCP/UDP 代理服务器，通常可以用于进行反向代理和实现基于软件的负载均衡，除此之外，它还具备以下特性：
 
 - Nginx 在设计时遵循模块化的设计方案，可以通过组合模块来扩展实现不同的功能，具备很高的扩展性。
 - Nginx 遵循 matser \ worker 架构，主进程负责管理一个或者多个 worker 进程，每个 worker 进程负责处理实际的连接，当某个 worker 进程出错时，主进程会迅速创建一个新的 worker 来继续处理连接请求，从而保证高可用。
@@ -39,7 +39,7 @@ nginx [-?hvVtTq] [-s signal] [-c filename] [-p prefix] [-g directives]
 - **-q**：静默模式，在检测配置期间除了错误提示外，不输出其他消息；
 - **-s signal**：向 Master 进程发送信号，支持以下信号类型：stop ( 立即停止 )，quit ( 优雅停止 )，reload ( 重新加载配置文件 )，reopen (打开一个新的日志文件来继续记录日志) ；
 - **-p prefix** ：指定路径的前缀，默认为安装目录，如 `/usr/app/nginx-1.16.1/` ；
-- **-c filename** ：指定配置文件的位置， 默认值为 `conf/nginx.conf`，其实际指向的路径为 `prefix + filename`；
+- **-c filename** ：指定配置文件的位置，默认值为 `conf/nginx.conf`，其实际指向的路径为 `prefix + filename`；
 - **-g directives**：从指定的配置文件中设置全局指令。
 
 ## 三、配置格式

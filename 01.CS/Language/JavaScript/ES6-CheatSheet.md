@@ -42,7 +42,7 @@ console.log(window.RegExp); // Hello!
 console.log(window.RegExp === RegExp); // true
 ```
 
-为了改变这一影响， ES6 引入了 `let` 关键字。
+为了改变这一影响，ES6 引入了 `let` 关键字。
 
 ### 1.2 let
 
@@ -109,7 +109,7 @@ author = {
 })();
 ```
 
-在 value 所在的块级作用域中，如果还没有到达 value 声明行，此时的 value 会被存放在称为 “暂时性死区” 的区域中，只有在 value 声明行之后，该值才会被移出 “暂时性死区”。注意，这里强调的是在 value 所在的块级作用域中， 如果不是在 value 所在的块级作用域中，是不会存在暂时性死区：
+在 value 所在的块级作用域中，如果还没有到达 value 声明行，此时的 value 会被存放在称为 “暂时性死区” 的区域中，只有在 value 声明行之后，该值才会被移出 “暂时性死区”。注意，这里强调的是在 value 所在的块级作用域中，如果不是在 value 所在的块级作用域中，是不会存在暂时性死区：
 
 ```javascript
 console.log(typeof value); // undefined
@@ -800,7 +800,7 @@ let symbol04 = Symbol("name");
 console.log(symbol03 === symbol04); // false
 ```
 
-如果你想要创建一个全局共享的 Symbol，可以使用 `Symbol.for()`， 该方法首先会搜索全局符号注册表，看是否存在一个指定 key 的符号值。若存在，该方法会返回这个已存在的符号值；否则，会创建一个新的符号值，并使用该 key 将其记录到全局符号注册表中，然后再返回这个新的符号值：
+如果你想要创建一个全局共享的 Symbol，可以使用 `Symbol.for()`，该方法首先会搜索全局符号注册表，看是否存在一个指定 key 的符号值。若存在，该方法会返回这个已存在的符号值；否则，会创建一个新的符号值，并使用该 key 将其记录到全局符号注册表中，然后再返回这个新的符号值：
 
 ```javascript
 let symbol05 = Symbol.for("age");
@@ -874,7 +874,7 @@ set03.forEach(function (value, key, ownerSet) {
 // true
 ```
 
-如果想要在 forEach 循环中使用当前作用域的 `this` ， 可以通过为 forEach 传递第二个参数或使用箭头函数来进行实现：
+如果想要在 forEach 循环中使用当前作用域的 `this` ，可以通过为 forEach 传递第二个参数或使用箭头函数来进行实现：
 
 ```javascript
 let Set04 = new Set([1, 2]);
@@ -1102,7 +1102,7 @@ for (let entry of map.entries()) {
 
 **2. NodeList 的迭代器**
 
-随着默认迭代器被附加到 ES6 ， DOM 关于 NodeList 的规定也包含了一个默认迭代器（此规定在 HTML 规范而非 ES6 规范中），其表现方式与数组的默认迭代器一致：
+随着默认迭代器被附加到 ES6 ，DOM 关于 NodeList 的规定也包含了一个默认迭代器（此规定在 HTML 规范而非 ES6 规范中），其表现方式与数组的默认迭代器一致：
 
 ```javascript
 var divs = document.getElementsByTagName("div");
@@ -1326,7 +1326,7 @@ console.log(example.multiply(1, 2));
 
 ### 12.3 导入路径
 
-导入模块的路径必须以 `/` ， `./` ， `../` 开头，它们的含义分别如下：
+导入模块的路径必须以 `/` ，`./` ，`../` 开头，它们的含义分别如下：
 
 - 以 `/` 为起始，表示从根目录开始解析；
 - 以 `./` 为起始，表示从当前目录开始解析；
