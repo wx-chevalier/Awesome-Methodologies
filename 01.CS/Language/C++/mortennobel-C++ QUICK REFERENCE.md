@@ -86,7 +86,7 @@ auto& s = singleton::instance();
                             // Declares it to a reference of the result
 ```
 
-## Storage Classes
+## STORAGE Classes
 
 ```cpp
 int x;                      // Auto (memory exists only while in scope)

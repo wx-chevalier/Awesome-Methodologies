@@ -124,9 +124,9 @@ System.out.println(timeElapsed);
 
 ```java
 // 数组复制
-int[]myArray=newint[10];
+int[] myArray = new int[10];
 
-int[]tmp=newint[myArray.length+10];
+int[] tmp = new int[myArray.length+10];
 System.arraycopy(myArray,0,tmp,0,myArray.length);
 myArray=tmp;
 

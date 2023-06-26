@@ -20,15 +20,16 @@
       - [2.4.1 Awesome HelloWorlds](/01.CS/Language/Awesome-HelloWorlds.md)
       - 2.4.2 C [1]
         - [2.4.2.1 Learn C in Y Minutes](/01.CS/Language/C/Learn%20C%20in%20Y%20Minutes.md)
-      - 2.4.3 C++ [3]
+      - 2.4.3 C++ [4]
         - [2.4.3.1 C++ CheatSheet](/01.CS/Language/C++/C++%20CheatSheet.md)
         - [2.4.3.2 Learn C++ in Y Minutes](/01.CS/Language/C++/Learn%20C++%20in%20Y%20Minutes.md)
         - [2.4.3.3 Modern C++ CheatSheet](/01.CS/Language/C++/Modern%20C++%20CheatSheet.md)
+        - [2.4.3.4 mortennobel C++ QUICK REFERENCE](/01.CS/Language/C++/mortennobel-C++%20QUICK%20REFERENCE.md)
       - 2.4.4 Go [3]
         - [2.4.4.1 Go CheatSheet](/01.CS/Language/Go/Go-CheatSheet.md)
         - [2.4.4.2 Go ConcurrentProgramming CheatSheet](/01.CS/Language/Go/Go-ConcurrentProgramming-CheatSheet.md)
         - [2.4.4.3 Learn Go in Y Minutes](/01.CS/Language/Go/Learn%20Go%20in%20Y%20Minutes.md)
-      - 2.4.5 Java [6]
+      - 2.4.5 Java [7]
         - 2.4.5.1 Clojure [1]
           - [2.4.5.1.1 Learn Clojure in Y Minutes](/01.CS/Language/Java/Clojure/Learn%20Clojure%20in%20Y%20Minutes.md)
         - 2.4.5.2 Gradle [1]
@@ -38,6 +39,7 @@
         - [2.4.5.4 Java CheatSheet](/01.CS/Language/Java/Java-CheatSheet.md)
         - [2.4.5.5 Java ConcurrentProgramming CheatSheet](/01.CS/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
         - [2.4.5.6 Java StyleGuide CheatSheet](/01.CS/Language/Java/Java-StyleGuide-CheatSheet.md)
+        - [2.4.5.7 Princeton Java Programming CheatSheet](/01.CS/Language/Java/Princeton-Java-Programming-CheatSheet.md)
       - 2.4.6 JavaScript [6]
         - [2.4.6.1 Dart CheatSheet](/01.CS/Language/JavaScript/Dart-CheatSheet.md)
         - [2.4.6.2 ES6 CheatSheet](/01.CS/Language/JavaScript/ES6-CheatSheet.md)

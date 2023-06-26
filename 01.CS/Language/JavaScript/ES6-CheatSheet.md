@@ -330,7 +330,7 @@ ES6 支持和 Java 8 类似的箭头函数，它具有以下特性：
 - 箭头函数不允许拥有重复的具名参数；
 - 没有 `arguments` 对象，你必须使用具名参数或剩余参数来进行定义。但它能访问包含它的函数的 `arguments` 对
   象，此后无论箭头函数在何处执行，该对象都是不变的；
-- 没有 `this`、`super`、`arguments` 等属性，也没有 `new.target` 绑定； `this`、`super`、`arguments`以及函数内部的 `new.target` 由所在的，最近的非箭头函数来决定；
+- 没有 `this`、`super`、`arguments` 等属性，也没有 `new.target` 绑定；`this`、`super`、`arguments`以及函数内部的 `new.target` 由所在的，最近的非箭头函数来决定；
 - 如果箭头函数被包含在一个非箭头函数内，那么箭头函数的 `this` 值就等于该非箭头函数的 `this` 值；否则，`this` 就表示全局对象（在浏览器中是 window ，在 Node.js 中是 global ）。`this` 的值在函数内部不能被修改，在函数的整个生命周期会保持不变。
 
 ```javascript
