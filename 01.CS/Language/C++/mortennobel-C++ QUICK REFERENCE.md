@@ -276,10 +276,7 @@ class X: public virtual T {};
                             // Classes derived from X have base T directly
 ```
 
-All classes have a default copy constructor, assignment operator, and destructor, which perform the
-corresponding operations on each data member and each base class as shown above. There is also a default no-argument
-constructor (required to create arrays) if the class has no constructors. Constructors, assignment, and
-destructors do not inherit.
+All classes have a default copy constructor, assignment operator, and destructor, which perform the corresponding operations on each data member and each base class as shown above. There is also a default no-argument constructor (required to create arrays) if the class has no constructors. Constructors, assignment, and destructors do not inherit.
 
 ## Templates
 
