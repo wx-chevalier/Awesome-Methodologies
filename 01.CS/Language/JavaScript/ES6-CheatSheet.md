@@ -995,7 +995,7 @@ while (iterator.hasNext()) {
 
 ### 9.2 生成器
 
-在 ES6 之后提供了新的方式来快速创建迭代器，这就是生成器。生成器（generator）是能返回一个迭代器的函数，它由放在 `function` 关键字后的一个星号（ \* ）来表示 。下面使用生成器对上面的迭代器进行改写：
+在 ES6 之后提供了新的方式来快速创建迭代器，这就是生成器。生成器（generator）是能返回一个迭代器的函数，它由放在 `function` 关键字后的一个星号（\* ）来表示 。下面使用生成器对上面的迭代器进行改写：
 
 ```javascript
 function* createIterator(items) {
