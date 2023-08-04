@@ -122,9 +122,11 @@
       - [5.4.1 Blockchain CheatSheet](/04.Infrastructure/Distributed/Blockchain-CheatSheet.md)
       - [5.4.2 ConcurrentProgramming CheatSheet](/04.Infrastructure/Distributed/ConcurrentProgramming-CheatSheet.md)
       - [5.4.3 DistributedSystem CheatSheet](/04.Infrastructure/Distributed/DistributedSystem-CheatSheet.md)
-    - 5.5 InfoSecurity [2]
+    - 5.5 InfoSecurity [3]
       - [5.5.1 Codec CheatSheet](/04.Infrastructure/InfoSecurity/Codec-CheatSheet.md)
-      - [5.5.2 WebSecurity CheatSheet](/04.Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
+      - 5.5.2 One Liners [1]
+        - [5.5.2.1 0xPugazh One Liners](/04.Infrastructure/InfoSecurity/One-Liners/0xPugazh-One%20Liners.md)
+      - [5.5.3 WebSecurity CheatSheet](/04.Infrastructure/InfoSecurity/WebSecurity-CheatSheet.md)
     - 5.6 MessageQueue [4]
       - 5.6.1 Kafka [1]
         - [5.6.1.1 Kafka CheatSheet](/04.Infrastructure/MessageQueue/Kafka/Kafka-CheatSheet.md)
