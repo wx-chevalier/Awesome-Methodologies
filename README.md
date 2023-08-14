@@ -54,7 +54,7 @@
 
 - [Apply best practices via CheatSheets](https://github.com/dennyzhang/cheatsheet.dennyzhang.com): See more cheatsheets from Denny: #denny-cheatsheets
 
-- [2022-Reference ![code](https://ng-tech.icu/assets/code.svg)](https://github.com/jaywcjlove/reference): 为开发人员分享快速参考备忘清单【速查表】。
+- [2022~Reference ![code](https://ng-tech.icu/assets/code.svg)](https://github.com/jaywcjlove/reference): 为开发人员分享快速参考备忘清单【速查表】。
 
 ## 版权
 
