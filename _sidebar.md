@@ -1,7 +1,7 @@
   - 1 00~Specials [4]
     - 1.1 Commands [2]
-      - 1.1.1 99.参考资料 [1]
-        - [1.1.1.1 The Book of Secret Knowledge](/00~Specials/Commands/99.参考资料/The%20Book%20of%20Secret%20Knowledge.md)
+      - 1.1.1 99~参考资料 [1]
+        - [1.1.1.1 The Book of Secret Knowledge](/00~Specials/Commands/99~参考资料/The%20Book%20of%20Secret%20Knowledge.md)
       - [1.1.2 awk](/00~Specials/Commands/awk.md)
     - 1.2 LaTeX [1]
       - [1.2.1 Mathjax CheatSheet](/00~Specials/LaTeX/Mathjax-CheatSheet.md)
@@ -153,8 +153,8 @@
     - [6.5 EnsembleLearning CheatCheatSheet](/10~AI/EnsembleLearning-CheatCheatSheet.md)
     - [6.6 FeatureEngineering CheatSheet](/10~AI/FeatureEngineering-CheatSheet.md)
     - [6.7 MachineLearning [1]](/10~AI/MachineLearning/README.md)
-      - 6.7.1 99.参考资料 [1]
-        - [6.7.1.1 ZOE 统计学与机器学习思维脑图](/10~AI/MachineLearning/99.参考资料/2018-ZOE-统计学与机器学习思维脑图.md)
+      - 6.7.1 99~参考资料 [1]
+        - [6.7.1.1 ZOE 统计学与机器学习思维脑图](/10~AI/MachineLearning/99~参考资料/2018-ZOE-统计学与机器学习思维脑图.md)
     - [6.8 MachineLearning CheatSheet](/10~AI/MachineLearning-CheatSheet.md)
     - [6.9 NLP CheatSheet](/10~AI/NLP-CheatSheet.md)
     - [6.10 Numpy CheatSheet](/10~AI/Numpy-CheatSheet.md)
