@@ -7,65 +7,65 @@
       - [1.2.1 Mathjax CheatSheet](/00~Specials/LaTeX/Mathjax-CheatSheet.md)
     - [1.3 概念术语](/00~Specials/概念术语.md)
     - [1.4 编程笑话](/00~Specials/编程笑话.md)
-  - 2 01~CS.CS [5]
+  - 2 01~CS [5]
     - 2.1 AlgoDS [1]
-      - [2.1.1 AlgoDS CheatSheet](/01~CS.CS/AlgoDS/AlgoDS-CheatSheet.md)
+      - [2.1.1 AlgoDS CheatSheet](/01~CS/AlgoDS/AlgoDS-CheatSheet.md)
     - 2.2 DesignPattern [3]
-      - [2.2.1 DesignPattern CheatSheet](/01~CS.CS/DesignPattern/DesignPattern-CheatSheet.md)
-      - [2.2.2 DesignPrincipe CheatSheet](/01~CS.CS/DesignPattern/DesignPrincipe-CheatSheet.md)
-      - [2.2.3 Refactor CheatSheet](/01~CS.CS/DesignPattern/Refactor-CheatSheet.md)
+      - [2.2.1 DesignPattern CheatSheet](/01~CS/DesignPattern/DesignPattern-CheatSheet.md)
+      - [2.2.2 DesignPrincipe CheatSheet](/01~CS/DesignPattern/DesignPrincipe-CheatSheet.md)
+      - [2.2.3 Refactor CheatSheet](/01~CS/DesignPattern/Refactor-CheatSheet.md)
     - 2.3 DevFlow [1]
-      - [2.3.1 Git Cheatsheet](/01~CS.CS/DevFlow/Git-Cheatsheet.md)
+      - [2.3.1 Git Cheatsheet](/01~CS/DevFlow/Git-Cheatsheet.md)
     - 2.4 Language [10]
-      - [2.4.1 Awesome HelloWorlds](/01~CS.CS/Language/Awesome-HelloWorlds.md)
+      - [2.4.1 Awesome HelloWorlds](/01~CS/Language/Awesome-HelloWorlds.md)
       - 2.4.2 C [1]
-        - [2.4.2.1 Learn C in Y Minutes](/01~CS.CS/Language/C/Learn%20C%20in%20Y%20Minutes.md)
+        - [2.4.2.1 Learn C in Y Minutes](/01~CS/Language/C/Learn%20C%20in%20Y%20Minutes.md)
       - 2.4.3 C++ [4]
-        - [2.4.3.1 C++ CheatSheet](/01~CS.CS/Language/C++/C++%20CheatSheet.md)
-        - [2.4.3.2 CMakeLists CheatSheet](/01~CS.CS/Language/C++/CMakeLists-CheatSheet.md)
-        - [2.4.3.3 Learn C++ in Y Minutes](/01~CS.CS/Language/C++/Learn%20C++%20in%20Y%20Minutes.md)
-        - [2.4.3.4 mortennobel C++ QUICK REFERENCE](/01~CS.CS/Language/C++/mortennobel-C++%20QUICK%20REFERENCE.md)
+        - [2.4.3.1 C++ CheatSheet](/01~CS/Language/C++/C++%20CheatSheet.md)
+        - [2.4.3.2 CMakeLists CheatSheet](/01~CS/Language/C++/CMakeLists-CheatSheet.md)
+        - [2.4.3.3 Learn C++ in Y Minutes](/01~CS/Language/C++/Learn%20C++%20in%20Y%20Minutes.md)
+        - [2.4.3.4 mortennobel C++ QUICK REFERENCE](/01~CS/Language/C++/mortennobel-C++%20QUICK%20REFERENCE.md)
       - 2.4.4 Go [3]
-        - [2.4.4.1 Go CheatSheet](/01~CS.CS/Language/Go/Go-CheatSheet.md)
-        - [2.4.4.2 Go ConcurrentProgramming CheatSheet](/01~CS.CS/Language/Go/Go-ConcurrentProgramming-CheatSheet.md)
-        - [2.4.4.3 Learn Go in Y Minutes](/01~CS.CS/Language/Go/Learn%20Go%20in%20Y%20Minutes.md)
+        - [2.4.4.1 Go CheatSheet](/01~CS/Language/Go/Go-CheatSheet.md)
+        - [2.4.4.2 Go ConcurrentProgramming CheatSheet](/01~CS/Language/Go/Go-ConcurrentProgramming-CheatSheet.md)
+        - [2.4.4.3 Learn Go in Y Minutes](/01~CS/Language/Go/Learn%20Go%20in%20Y%20Minutes.md)
       - 2.4.5 Java [7]
         - 2.4.5.1 Clojure [1]
-          - [2.4.5.1.1 Learn Clojure in Y Minutes](/01~CS.CS/Language/Java/Clojure/Learn%20Clojure%20in%20Y%20Minutes.md)
+          - [2.4.5.1.1 Learn Clojure in Y Minutes](/01~CS/Language/Java/Clojure/Learn%20Clojure%20in%20Y%20Minutes.md)
         - 2.4.5.2 Gradle [1]
-          - [2.4.5.2.1 Gradle CheatSheet](/01~CS.CS/Language/Java/Gradle/Gradle-CheatSheet.md)
+          - [2.4.5.2.1 Gradle CheatSheet](/01~CS/Language/Java/Gradle/Gradle-CheatSheet.md)
         - 2.4.5.3 JVM [1]
-          - [2.4.5.3.1 JVM Tuning CheatSheet](/01~CS.CS/Language/Java/JVM/JVM-Tuning-CheatSheet.md)
-        - [2.4.5.4 Java CheatSheet](/01~CS.CS/Language/Java/Java-CheatSheet.md)
-        - [2.4.5.5 Java ConcurrentProgramming CheatSheet](/01~CS.CS/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
-        - [2.4.5.6 Java StyleGuide CheatSheet](/01~CS.CS/Language/Java/Java-StyleGuide-CheatSheet.md)
-        - [2.4.5.7 Princeton Java Programming CheatSheet](/01~CS.CS/Language/Java/Princeton-Java-Programming-CheatSheet.md)
+          - [2.4.5.3.1 JVM Tuning CheatSheet](/01~CS/Language/Java/JVM/JVM-Tuning-CheatSheet.md)
+        - [2.4.5.4 Java CheatSheet](/01~CS/Language/Java/Java-CheatSheet.md)
+        - [2.4.5.5 Java ConcurrentProgramming CheatSheet](/01~CS/Language/Java/Java-ConcurrentProgramming-CheatSheet.md)
+        - [2.4.5.6 Java StyleGuide CheatSheet](/01~CS/Language/Java/Java-StyleGuide-CheatSheet.md)
+        - [2.4.5.7 Princeton Java Programming CheatSheet](/01~CS/Language/Java/Princeton-Java-Programming-CheatSheet.md)
       - 2.4.6 JavaScript [6]
-        - [2.4.6.1 Dart CheatSheet](/01~CS.CS/Language/JavaScript/Dart-CheatSheet.md)
-        - [2.4.6.2 ES6 CheatSheet](/01~CS.CS/Language/JavaScript/ES6-CheatSheet.md)
-        - [2.4.6.3 JavaScript CheatSheet en](/01~CS.CS/Language/JavaScript/JavaScript-CheatSheet-en.md)
-        - [2.4.6.4 JavaScript CheatSheet](/01~CS.CS/Language/JavaScript/JavaScript-CheatSheet.md)
+        - [2.4.6.1 Dart CheatSheet](/01~CS/Language/JavaScript/Dart-CheatSheet.md)
+        - [2.4.6.2 ES6 CheatSheet](/01~CS/Language/JavaScript/ES6-CheatSheet.md)
+        - [2.4.6.3 JavaScript CheatSheet en](/01~CS/Language/JavaScript/JavaScript-CheatSheet-en.md)
+        - [2.4.6.4 JavaScript CheatSheet](/01~CS/Language/JavaScript/JavaScript-CheatSheet.md)
         - 2.4.6.5 TypeScript [2]
-          - [2.4.6.5.1 Learn TypeScript in Y Minutes](/01~CS.CS/Language/JavaScript/TypeScript/Learn%20TypeScript%20in%20Y%20Minutes.md)
-          - [2.4.6.5.2 TypeScript CheatSheet](/01~CS.CS/Language/JavaScript/TypeScript/TypeScript-CheatSheet.md)
-        - [2.4.6.6 V8 CheatSheet](/01~CS.CS/Language/JavaScript/V8-CheatSheet.md)
+          - [2.4.6.5.1 Learn TypeScript in Y Minutes](/01~CS/Language/JavaScript/TypeScript/Learn%20TypeScript%20in%20Y%20Minutes.md)
+          - [2.4.6.5.2 TypeScript CheatSheet](/01~CS/Language/JavaScript/TypeScript/TypeScript-CheatSheet.md)
+        - [2.4.6.6 V8 CheatSheet](/01~CS/Language/JavaScript/V8-CheatSheet.md)
       - 2.4.7 Python [2]
-        - [2.4.7.1 Learn Python in Y Minutes](/01~CS.CS/Language/Python/Learn%20Python%20in%20Y%20Minutes.md)
-        - [2.4.7.2 Python CheatSheet](/01~CS.CS/Language/Python/Python-CheatSheet.md)
+        - [2.4.7.1 Learn Python in Y Minutes](/01~CS/Language/Python/Learn%20Python%20in%20Y%20Minutes.md)
+        - [2.4.7.2 Python CheatSheet](/01~CS/Language/Python/Python-CheatSheet.md)
       - 2.4.8 Ruby [1]
-        - [2.4.8.1 Ruby CheatSheet](/01~CS.CS/Language/Ruby/Ruby-CheatSheet.md)
+        - [2.4.8.1 Ruby CheatSheet](/01~CS/Language/Ruby/Ruby-CheatSheet.md)
       - 2.4.9 Rust [2]
-        - [2.4.9.1 Learn Rust in Y Minutes](/01~CS.CS/Language/Rust/Learn%20Rust%20in%20Y%20Minutes.md)
-        - [2.4.9.2 Rust CheatSheet](/01~CS.CS/Language/Rust/Rust-CheatSheet.md)
+        - [2.4.9.1 Learn Rust in Y Minutes](/01~CS/Language/Rust/Learn%20Rust%20in%20Y%20Minutes.md)
+        - [2.4.9.2 Rust CheatSheet](/01~CS/Language/Rust/Rust-CheatSheet.md)
       - 2.4.10 Swift [1]
-        - [2.4.10.1 Swift CheatSheet](/01~CS.CS/Language/Swift/Swift-CheatSheet.md)
+        - [2.4.10.1 Swift CheatSheet](/01~CS/Language/Swift/Swift-CheatSheet.md)
     - 2.5 Theory [6]
-      - [2.5.1 Compiler CheatSheet](/01~CS.CS/Theory/Compiler-CheatSheet.md)
-      - [2.5.2 FunctionalProgramming CheatSheet](/01~CS.CS/Theory/FunctionalProgramming-CheatSheet.md)
-      - [2.5.3 GC CheatSheet](/01~CS.CS/Theory/GC-CheatSheet.md)
-      - [2.5.4 MemoryManagement CheatSheet](/01~CS.CS/Theory/MemoryManagement-CheatSheet.md)
-      - [2.5.5 PLT CheatSheet](/01~CS.CS/Theory/PLT-CheatSheet.md)
-      - [2.5.6 ReactiveProgramming CheatSheet](/01~CS.CS/Theory/ReactiveProgramming-CheatSheet.md)
+      - [2.5.1 Compiler CheatSheet](/01~CS/Theory/Compiler-CheatSheet.md)
+      - [2.5.2 FunctionalProgramming CheatSheet](/01~CS/Theory/FunctionalProgramming-CheatSheet.md)
+      - [2.5.3 GC CheatSheet](/01~CS/Theory/GC-CheatSheet.md)
+      - [2.5.4 MemoryManagement CheatSheet](/01~CS/Theory/MemoryManagement-CheatSheet.md)
+      - [2.5.5 PLT CheatSheet](/01~CS/Theory/PLT-CheatSheet.md)
+      - [2.5.6 ReactiveProgramming CheatSheet](/01~CS/Theory/ReactiveProgramming-CheatSheet.md)
   - [3 02~Frontend [3]](/02~Frontend/README.md)
     - 3.1 CG [3]
       - [3.1.1 FFmpeg CheatSheet](/02~Frontend/CG/FFmpeg-CheatSheet.md)
