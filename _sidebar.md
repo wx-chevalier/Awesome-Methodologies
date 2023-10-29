@@ -5,8 +5,8 @@
       - [1.1.2 awk](/00~Specials/Commands/awk.md)
     - 1.2 LaTeX [1]
       - [1.2.1 Mathjax CheatSheet](/00~Specials/LaTeX/Mathjax-CheatSheet.md)
-    - [1.3 常用脚本](/00~Specials/常用脚本/README.md)
-      
+    - [1.3 常用脚本 [1]](/00~Specials/常用脚本/README.md)
+      - [1.3.1 Semrush](/00~Specials/常用脚本/Semrush.md)
     - [1.4 概念术语](/00~Specials/概念术语.md)
     - [1.5 编程笑话](/00~Specials/编程笑话.md)
   - 2 01~CS [5]
