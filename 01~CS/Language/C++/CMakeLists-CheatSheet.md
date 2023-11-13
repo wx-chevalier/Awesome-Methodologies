@@ -214,8 +214,8 @@ add_library(add STATIC add.h add.cpp)
 add_library(add STATIC ${ADD_SRC} ${ADD_HDR})
 
 # 编译动态库
-add_library(add  SHARED add.h add.cpp)
-add_library(add SHARED  ${ADD_SRC} ${ADD_HDR})
+add_library(add SHARED add.h add.cpp)
+add_library(add SHARED ${ADD_SRC} ${ADD_HDR})
 
 # 编译可执行程序
 add_executable(main add.h add.cpp mai.cpp)
