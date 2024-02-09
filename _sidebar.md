@@ -120,10 +120,12 @@
       - [5.2.1 DataVis CheatSheet](/04~Infrastructure/DataEngineering/DataVis-CheatSheet.md)
     - 5.3 Database [1]
       - [5.3.1 MySQL](/04~Infrastructure/Database/MySQL.md)
-    - 5.4 Distributed [3]
-      - [5.4.1 Blockchain CheatSheet](/04~Infrastructure/Distributed/Blockchain-CheatSheet.md)
-      - [5.4.2 ConcurrentProgramming CheatSheet](/04~Infrastructure/Distributed/ConcurrentProgramming-CheatSheet.md)
-      - [5.4.3 DistributedSystem CheatSheet](/04~Infrastructure/Distributed/DistributedSystem-CheatSheet.md)
+    - 5.4 DistributedSystem [4]
+      - 5.4.1 99~参考资料 [1]
+        - [5.4.1.1 2024~A Distributed Systems Reading List](/04~Infrastructure/DistributedSystem/99~参考资料/2024~A%20Distributed%20Systems%20Reading%20List.md)
+      - [5.4.2 Blockchain CheatSheet](/04~Infrastructure/DistributedSystem/Blockchain-CheatSheet.md)
+      - [5.4.3 ConcurrentProgramming CheatSheet](/04~Infrastructure/DistributedSystem/ConcurrentProgramming-CheatSheet.md)
+      - [5.4.4 DistributedSystem CheatSheet](/04~Infrastructure/DistributedSystem/DistributedSystem-CheatSheet.md)
     - 5.5 InfoSecurity [3]
       - [5.5.1 Codec CheatSheet](/04~Infrastructure/InfoSecurity/Codec-CheatSheet.md)
       - 5.5.2 One Liners [1]
