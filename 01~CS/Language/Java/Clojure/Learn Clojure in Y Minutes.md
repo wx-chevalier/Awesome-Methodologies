@@ -72,7 +72,7 @@
 (range) ; => (0 1 2 3 4 ...) (一个无穷序列)
 (take 4 (range)) ;  (0 1 2 3)
 
-; 使用cons 来追加一个元素到列表或者向量的头部
+; 使用 cons 来追加一个元素到列表或者向量的头部
 (cons 4 [1 2 3]) ; => (4 1 2 3)
 (cons 4 '(1 2 3)) ; => (4 1 2 3)
 
@@ -114,7 +114,7 @@ x ; => 1
 (def hello-world (fn [] "Hello World"))
 (hello-world) ; => "Hello World"
 
-; 你可以使用defn来简化定义过程
+; 你可以使用 defn 来简化定义过程
 (defn hello-world [] "Hello World")
 
 ;[] 是函数的参数列表
@@ -173,16 +173,16 @@ keymap ; => {:a 1, :c 3, :b 2} (不保证顺序)
 ;("a" stringmap)
 ; => Exception: java.lang.String cannot be cast to clojure.lang.IFn
 
-; 检索一个不存在的值会返回nil
+; 检索一个不存在的值会返回 nil
 (stringmap "d") ; => nil
 
-; 使用assoc 向一个map中添加新的键值对。
+; 使用 assoc 向一个 map 中添加新的键值对。
 (assoc keymap :d 4) ; => {:a 1, :b 2, :c 3, :d 4}
 
 ; 请记住, clojure 类型是不可变的!
 keymap ; => {:a 1, :b 2, :c 3}
 
-; 使用dissoc 来删除key（可以删除多个）
+; 使用 dissoc 来删除 key（可以删除多个）
 (dissoc keymap :a :b) ; => {:c 3}
 
 ; 集合
@@ -191,10 +191,10 @@ keymap ; => {:a 1, :b 2, :c 3}
 (class #{1 2 3}) ; => clojure.lang.PersistentHashSet
 (set [1 2 3 1 2 3 3 2 1 3 2 1]) ; => #{1 2 3}
 
-; 使用con来添加新值
+; 使用 conj 来添加新值
 (conj #{1 2 3} 4) ; => #{1 2 3 4}
 
-; 使用disj删除原有值
+; 使用 disj 删除原有值
 (disj #{1 2 3} 1) ; => #{2 3}
 
 ; 直接将set当做函数来测试是否包含某个值（NB）
