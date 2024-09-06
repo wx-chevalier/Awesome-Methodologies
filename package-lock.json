@@ -1,0 +1,173 @@
+{
+  "name": "Awesome-Methodologies",
+  "lockfileVersion": 3,
+  "requires": true,
+  "packages": {
+    "": {
+      "dependencies": {
+        "docsify-server-renderer": "^4.12.2"
+      }
+    },
+    "node_modules/debug": {
+      "version": "4.3.4",
+      "resolved": "https://registry.npmmirror.com/debug/-/debug-4.3.4.tgz",
+      "integrity": "sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==",
+      "dependencies": {
+        "ms": "2.1.2"
+      },
+      "engines": {
+        "node": ">=6.0"
+      },
+      "peerDependenciesMeta": {
+        "supports-color": {
+          "optional": true
+        }
+      }
+    },
+    "node_modules/docsify": {
+      "version": "4.12.2",
+      "resolved": "https://registry.npmmirror.com/docsify/-/docsify-4.12.2.tgz",
+      "integrity": "sha512-hpRez5upcvkYigT2zD8P5kH5t9HpSWL8yn/ZU/g04/WfAfxVNW6CPUVOOF1EsQUDxTRuyNTFOb6uUv+tPij3tg==",
+      "hasInstallScript": true,
+      "dependencies": {
+        "dompurify": "^2.3.1",
+        "marked": "^1.2.9",
+        "medium-zoom": "^1.0.6",
+        "opencollective-postinstall": "^2.0.2",
+        "prismjs": "^1.23.0",
+        "strip-indent": "^3.0.0",
+        "tinydate": "^1.3.0",
+        "tweezer.js": "^1.4.0"
+      }
+    },
+    "node_modules/docsify-server-renderer": {
+      "version": "4.12.2",
+      "resolved": "https://registry.npmmirror.com/docsify-server-renderer/-/docsify-server-renderer-4.12.2.tgz",
+      "integrity": "sha512-/sCq0U0iGvc8mNN6VC5SeodiHUsA98rMsMFYXtQbWsS/jWArkSee8ATlH5KzGDJ/zjf9QOFrkjoanHCNaFWiPQ==",
+      "dependencies": {
+        "debug": "^4.3.3",
+        "docsify": "^4.12.1",
+        "dompurify": "^2.3.2",
+        "node-fetch": "^2.6.6",
+        "resolve-pathname": "^3.0.0"
+      }
+    },
+    "node_modules/dompurify": {
+      "version": "2.3.8",
+      "resolved": "https://registry.npmmirror.com/dompurify/-/dompurify-2.3.8.tgz",
+      "integrity": "sha512-eVhaWoVibIzqdGYjwsBWodIQIaXFSB+cKDf4cfxLMsK0xiud6SE+/WCVx/Xw/UwQsa4cS3T2eITcdtmTg2UKcw=="
+    },
+    "node_modules/marked": {
+      "version": "1.2.9",
+      "resolved": "https://registry.npmmirror.com/marked/-/marked-1.2.9.tgz",
+      "integrity": "sha512-H8lIX2SvyitGX+TRdtS06m1jHMijKN/XjfH6Ooii9fvxMlh8QdqBfBDkGUpMWH2kQNrtixjzYUa3SH8ROTgRRw==",
+      "bin": {
+        "marked": "bin/marked"
+      },
+      "engines": {
+        "node": ">= 8.16.2"
+      }
+    },
+    "node_modules/medium-zoom": {
+      "version": "1.0.6",
+      "resolved": "https://registry.npmmirror.com/medium-zoom/-/medium-zoom-1.0.6.tgz",
+      "integrity": "sha512-UdiUWfvz9fZMg1pzf4dcuqA0W079o0mpqbTnOz5ip4VGYX96QjmbM+OgOU/0uOzAytxC0Ny4z+VcYQnhdifimg=="
+    },
+    "node_modules/min-indent": {
+      "version": "1.0.1",
+      "resolved": "https://registry.npmmirror.com/min-indent/-/min-indent-1.0.1.tgz",
+      "integrity": "sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==",
+      "engines": {
+        "node": ">=4"
+      }
+    },
+    "node_modules/ms": {
+      "version": "2.1.2",
+      "resolved": "https://registry.npmmirror.com/ms/-/ms-2.1.2.tgz",
+      "integrity": "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
+    },
+    "node_modules/node-fetch": {
+      "version": "2.6.7",
+      "resolved": "https://registry.npmmirror.com/node-fetch/-/node-fetch-2.6.7.tgz",
+      "integrity": "sha512-ZjMPFEfVx5j+y2yF35Kzx5sF7kDzxuDj6ziH4FFbOp87zKDZNx8yExJIb05OGF4Nlt9IHFIMBkRl41VdvcNdbQ==",
+      "dependencies": {
+        "whatwg-url": "^5.0.0"
+      },
+      "engines": {
+        "node": "4.x || >=6.0.0"
+      },
+      "peerDependencies": {
+        "encoding": "^0.1.0"
+      },
+      "peerDependenciesMeta": {
+        "encoding": {
+          "optional": true
+        }
+      }
+    },
+    "node_modules/opencollective-postinstall": {
+      "version": "2.0.3",
+      "resolved": "https://registry.npmmirror.com/opencollective-postinstall/-/opencollective-postinstall-2.0.3.tgz",
+      "integrity": "sha512-8AV/sCtuzUeTo8gQK5qDZzARrulB3egtLzFgteqB2tcT4Mw7B8Kt7JcDHmltjz6FOAHsvTevk70gZEbhM4ZS9Q==",
+      "bin": {
+        "opencollective-postinstall": "index.js"
+      }
+    },
+    "node_modules/prismjs": {
+      "version": "1.28.0",
+      "resolved": "https://registry.npmmirror.com/prismjs/-/prismjs-1.28.0.tgz",
+      "integrity": "sha512-8aaXdYvl1F7iC7Xm1spqSaY/OJBpYW3v+KJ+F17iYxvdc8sfjW194COK5wVhMZX45tGteiBQgdvD/nhxcRwylw==",
+      "engines": {
+        "node": ">=6"
+      }
+    },
+    "node_modules/resolve-pathname": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmmirror.com/resolve-pathname/-/resolve-pathname-3.0.0.tgz",
+      "integrity": "sha512-C7rARubxI8bXFNB/hqcp/4iUeIXJhJZvFPFPiSPRnhU5UPxzMFIl+2E6yY6c4k9giDJAhtV+enfA+G89N6Csng=="
+    },
+    "node_modules/strip-indent": {
+      "version": "3.0.0",
+      "resolved": "https://registry.npmmirror.com/strip-indent/-/strip-indent-3.0.0.tgz",
+      "integrity": "sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==",
+      "dependencies": {
+        "min-indent": "^1.0.0"
+      },
+      "engines": {
+        "node": ">=8"
+      }
+    },
+    "node_modules/tinydate": {
+      "version": "1.3.0",
+      "resolved": "https://registry.npmmirror.com/tinydate/-/tinydate-1.3.0.tgz",
+      "integrity": "sha512-7cR8rLy2QhYHpsBDBVYnnWXm8uRTr38RoZakFSW7Bs7PzfMPNZthuMLkwqZv7MTu8lhQ91cOFYS5a7iFj2oR3w==",
+      "engines": {
+        "node": ">=4"
+      }
+    },
+    "node_modules/tr46": {
+      "version": "0.0.3",
+      "resolved": "https://registry.npmmirror.com/tr46/-/tr46-0.0.3.tgz",
+      "integrity": "sha1-gYT9NH2snNwYWZLzpmIuFLnZq2o= sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw=="
+    },
+    "node_modules/tweezer.js": {
+      "version": "1.5.0",
+      "resolved": "https://registry.npmmirror.com/tweezer.js/-/tweezer.js-1.5.0.tgz",
+      "integrity": "sha512-aSiJz7rGWNAQq7hjMK9ZYDuEawXupcCWgl3woQQSoDP2Oh8O4srWb/uO1PzzHIsrPEOqrjJ2sUb9FERfzuBabQ=="
+    },
+    "node_modules/webidl-conversions": {
+      "version": "3.0.1",
+      "resolved": "https://registry.npmmirror.com/webidl-conversions/-/webidl-conversions-3.0.1.tgz",
+      "integrity": "sha1-JFNCdeKnvGvnvIZhHMFq4KVlSHE= sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ=="
+    },
+    "node_modules/whatwg-url": {
+      "version": "5.0.0",
+      "resolved": "https://registry.npmmirror.com/whatwg-url/-/whatwg-url-5.0.0.tgz",
+      "integrity": "sha1-lmRU6HZUYuN2RNNib2dCzotwll0= sha512-saE57nupxk6v3HY35+jzBwYa0rKSy0XR8JSxZPwgLr7ys0IBzhGviA1/TUGJLmSVqs8pb9AnvICXEuOHLprYTw==",
+      "dependencies": {
+        "tr46": "~0.0.3",
+        "webidl-conversions": "^3.0.0"
+      }
+    }
+  }
+}
